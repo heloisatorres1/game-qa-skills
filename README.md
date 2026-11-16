@@ -20,6 +20,8 @@ Run on my own game, [Pixel Swarm](https://github.com/heloisatorres1/pixel-swarm)
 | [BUG-008](FOUND-BUGS.md#bug-008-player-xp-never-grows-the-player-stays-level-1-forever) | Player XP never grows: after 102 wins the player is still level 1, so level-gated content stays locked (found by the full playthrough) | Major | 2/2 |
 | [BUG-004](FOUND-BUGS.md#bug-004-add-slot-from-out-of-slots-has-no-limit) | Add Slot from Out of Slots has no limit: 10 squeezed slots (the booster stops at 7) | Minor | 5/5 |
 
+All of them are open (reported, not fixed yet). The [examples index](examples/README.md) lists every run and all 8 bugs, including the minor ones.
+
 ![BUG-001 storyboard](docs/bugs/BUG-001.png)
 
 ## Why I built this
@@ -65,7 +67,7 @@ Each skill also works on its own. Start with `text-review`: it's the quickest to
 
 ## Example: full playthrough of Pixel Swarm (102/102 levels)
 
-`full-playthrough` finished every level of Pixel Swarm from a fresh install: 5 themes × 3 difficulties × 6 levels, plus 12 Halloween event levels. Results are in [`examples/pixel-swarm-playthrough`](examples/pixel-swarm-playthrough), with the [completion report](examples/pixel-swarm-playthrough/completion-report.html) (download it and open it in a browser) and the [inventory](examples/pixel-swarm-playthrough/inventory.md):
+`full-playthrough` finished every level of Pixel Swarm from a fresh install: 5 themes × 3 difficulties × 6 levels, plus 12 Halloween event levels. Results are in [`examples/pixel-swarm-playthrough`](examples/pixel-swarm-playthrough) (its [README](examples/pixel-swarm-playthrough/README.md) has every number), with the [completion report](examples/pixel-swarm-playthrough/completion-report.html) (download it and open it in a browser) and the [inventory](examples/pixel-swarm-playthrough/inventory.md):
 
 - **102/102 levels completed** in **1 h 34 min** (1 h 12 min of actual play), every one on the first attempt with 3 stars, and the Level Complete screen of each level as proof.
 - Played with **real taps** in the solution order, read from the screen. No auto-solve, skip or win cheat. The only aid was 500 debug gems spent on the game's 8× speed, and it is logged.
@@ -148,8 +150,12 @@ These skills make an agent a disciplined tester. They do not replace one. An age
 ```
 .claude-plugin/        plugin + marketplace manifests
 skills/<name>/         SKILL.md, references/, scripts/
-examples/              real runs with evidence and reports
-docs/                  images for this README
+examples/              real runs with evidence and reports (index: examples/README.md)
+  pixel-swarm-playthrough/   full-playthrough: 102/102 levels, completion report
+  pixel-swarm-full/          test-game-full: 80 checks, merged report, summary
+  pixel-swarm-text-review/   text-review: 861 strings, term sheet
+FOUND-BUGS.md          the bugs found, with storyboards, causes and fixes
+docs/                  report preview and bug storyboards (docs/bugs/)
 ```
 
 ## About

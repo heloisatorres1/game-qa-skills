@@ -2,13 +2,15 @@
 
 Real bugs that `test-game-full` and `full-playthrough` found in my game [Pixel Swarm](https://github.com/heloisatorres1/pixel-swarm) (v1.0.0, commit `db96df5`). Every one was reproduced at least twice from a clean state, and each has a video, screenshots, before/after save data and the line of code involved.
 
-| ID | Severity | Bug | Reproduced | Video |
-|---|---|---|---|---|
-| [BUG-001](#bug-001-level-complete-closes-on-a-tap-outside-it-the-reward-is-lost) | Major | Level Complete closes on a tap outside it: the reward is lost | 12/12 | [tap](examples/pixel-swarm-full/test-progression/evidence/PR-W2-run1-tap.webm) · [Escape](examples/pixel-swarm-full/test-progression/evidence/PR-W2-run3-escape.webm) |
-| [BUG-002](#bug-002-settings-and-close-pushed-off-screen-on-360-px-phones) | Major | Settings and Close pushed off screen on 360 px phones | 3/3 (+30 measured cases) | [store session](examples/pixel-swarm-full/test-ui/evidence/UI-21-gear-pushed-off.webm) |
-| [BUG-003](#bug-003-the-store-sells-no-ads-again-to-players-who-own-it) | Major | The store sells No Ads again to players who own it | 4/4 | [purchase](examples/pixel-swarm-full/test-store/evidence/ST-08-run1.webm) |
-| [BUG-008](#bug-008-player-xp-never-grows-the-player-stays-level-1-forever) | Major | Player XP never grows: the player stays level 1 forever (found by the 102-level playthrough) | 2/2 | [after 102 wins](examples/pixel-swarm-playthrough/evidence/BUG-008-after-102-wins.webm) |
-| [BUG-004](#bug-004-add-slot-from-out-of-slots-has-no-limit) | Minor | Add Slot from Out of Slots has no limit | 5/5 | [6 x Add Slot](examples/pixel-swarm-full/test-puzzles/evidence/PZ-35-run1-add-slot.webm) |
+| ID | Severity | Bug | Reproduced | Video | Status |
+|---|---|---|---|---|---|
+| [BUG-001](#bug-001-level-complete-closes-on-a-tap-outside-it-the-reward-is-lost) | Major | Level Complete closes on a tap outside it: the reward is lost | 12/12 | [tap](examples/pixel-swarm-full/test-progression/evidence/PR-W2-run1-tap.webm) · [Escape](examples/pixel-swarm-full/test-progression/evidence/PR-W2-run3-escape.webm) | Open |
+| [BUG-002](#bug-002-settings-and-close-pushed-off-screen-on-360-px-phones) | Major | Settings and Close pushed off screen on 360 px phones | 3/3 (+30 measured cases) | [store session](examples/pixel-swarm-full/test-ui/evidence/UI-21-gear-pushed-off.webm) | Open |
+| [BUG-003](#bug-003-the-store-sells-no-ads-again-to-players-who-own-it) | Major | The store sells No Ads again to players who own it | 4/4 | [purchase](examples/pixel-swarm-full/test-store/evidence/ST-08-run1.webm) | Open |
+| [BUG-008](#bug-008-player-xp-never-grows-the-player-stays-level-1-forever) | Major | Player XP never grows: the player stays level 1 forever (found by the 102-level playthrough) | 2/2 | [after 102 wins](examples/pixel-swarm-playthrough/evidence/BUG-008-after-102-wins.webm) | Open |
+| [BUG-004](#bug-004-add-slot-from-out-of-slots-has-no-limit) | Minor | Add Slot from Out of Slots has no limit | 5/5 | [6 x Add Slot](examples/pixel-swarm-full/test-puzzles/evidence/PZ-35-run1-add-slot.webm) | Open |
+
+All bugs are **open**: they are reported, not fixed in the game yet. Three smaller ones (BUG-005 to BUG-007) are in the [examples index](examples/README.md#bugs-found).
 
 The full test pass (80 checks, text review, queries and everything that passed) is in the [merged report](examples/pixel-swarm-full/report.md). The playthrough of all 102 levels is in its [completion report](examples/pixel-swarm-playthrough/completion-report.html) and [inventory](examples/pixel-swarm-playthrough/inventory.md). Videos are WebM: GitHub shows them as files, so open "View raw" or download to play them. The HTML report (`report.html`) plays them inline.
 
