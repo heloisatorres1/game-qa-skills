@@ -1,0 +1,14 @@
+{
+  "before": {
+    "gems": 20,
+    "coins": 100,
+    "noAds": true
+  },
+  "after": {
+    "gems": 1220,
+    "coins": 10100,
+    "noAds": true
+  },
+  "offer_card_text": "Special Offer\n+\n+\n$4.99\n1,200 gems · 10,000 coins · No Ads",
+  "toast": "Test purchase: +1,200 gems, +10K coins, No Ads"
+}

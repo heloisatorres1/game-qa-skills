@@ -1,0 +1,83 @@
+{
+  "run": {
+    "skill": "catalog",
+    "game": "Pixel Swarm",
+    "build": "v1.0.0 debug build (commit db96df5)",
+    "platform": "Web, Microsoft Edge (Chromium, headless), 390x844 @2x touch",
+    "access_mode": "Playwright (scripts/catalog.mjs) + save reads; the 2nd win for the ad check was triggered with the debug 'Win level' (assisted)",
+    "date": "2026-11-16",
+    "tester": "Claude (AI-assisted QA)",
+    "scope": "Feature-catalog checklists without a dedicated skill: tutorial, ads, lifecycle, accessibility (touch targets), notifications",
+    "summary": "Tutorial, simulated ads and save-on-close all work. Several buttons are smaller than the 44 px touch-target guideline (top-bar currency buttons, store Buy buttons, in-level Pause and Speed)."
+  },
+  "coverage": [
+    {
+      "area": "Tutorial",
+      "status": "PASS",
+      "checks_total": 2,
+      "checks_passed": 2,
+      "notes": "All 6 steps completed, including the 'tap this block' step; not shown again afterwards.",
+      "evidence": [
+        { "type": "screenshot", "path": "evidence/CT-TUT-1-step3.jpg", "caption": "Step 3: tap this block" },
+        { "type": "screenshot", "path": "evidence/CT-TUT-1-step6.jpg", "caption": "Step 6" }
+      ]
+    },
+    {
+      "area": "Ads (simulated)",
+      "status": "PASS",
+      "checks_total": 3,
+      "checks_passed": 3,
+      "notes": "Video ad after every 2nd win without No Ads, none with No Ads; rewarded AD slot gives +1 slot only after the ad.",
+      "evidence": [
+        { "type": "screenshot", "path": "evidence/CT-ADS-1-after-continue.jpg", "caption": "Interstitial after the 2nd win" },
+        { "type": "screenshot", "path": "evidence/CT-ADS-3-after.jpg", "caption": "AD slot opened" }
+      ]
+    },
+    {
+      "area": "Lifecycle",
+      "status": "PASS",
+      "notes": "A purchase is still there after closing the tab immediately (saved at once).",
+      "evidence": [
+        { "type": "state", "path": "evidence/CT-LIFE-1-state.json", "caption": "Gems in a new tab after closing mid-session" },
+        { "type": "screenshot", "path": "evidence/CT-LIFE-1-new-tab.jpg", "caption": "New tab: 120 gems" }
+      ]
+    },
+    {
+      "area": "Accessibility: touch targets",
+      "status": "FAIL",
+      "findings": ["BUG-006"]
+    },
+    {
+      "area": "Notifications",
+      "status": "NOT_TESTED",
+      "notes": "Android-only (Capacitor Local Notifications); needs a device."
+    },
+    {
+      "area": "Colour and contrast",
+      "status": "NOT_TESTED",
+      "notes": "Not measured in this run. The game already enforces a minimum colour distance between puzzle colours in data.js (MIN_DE)."
+    }
+  ],
+  "findings": [
+    {
+      "id": "BUG-006",
+      "title": "Several buttons are below the 44 px touch-target guideline on phones (top-bar currency buttons, store Buy, in-level Pause and Speed)",
+      "type": "bug",
+      "severity": "minor",
+      "area": "Accessibility: touch targets",
+      "status": "confirmed",
+      "repro_rate": "2/2",
+      "environment": "390x844 touch",
+      "steps": ["Measure the on-screen size of every visible button on the menu, store, settings and a level"],
+      "expected": "At least 44x44 CSS px (Apple HIG; Android recommends 48 dp)",
+      "actual": "Gems/coins top-bar buttons 76x34 and 79x34; store Buy buttons 95x38 (x6); Copy player ID 77x38; in-level Pause 40x40; Speed 67x36",
+      "evidence": [
+        { "type": "state", "path": "evidence/CT-A11Y-1-run1-small-targets.json", "caption": "Run 1 measurements" },
+        { "type": "state", "path": "evidence/CT-A11Y-1-run2-small-targets.json", "caption": "Run 2: identical" },
+        { "type": "screenshot", "path": "evidence/CT-A11Y-1-run1-game.jpg", "caption": "Level: Pause (top left) and Speed (top right)" },
+        { "type": "screenshot", "path": "evidence/CT-A11Y-1-run1-store.jpg", "caption": "Store Buy buttons" }
+      ],
+      "suggested_fix": "Grow the hit area to 44 px without changing the art, e.g. padding or an ::after hit box on these buttons."
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+UI run 1 (844x390 phone landscape, main menu): clicking the Events button
+       - <div class="actions">…</div> intercepts pointer events
+      - <div class="actions">…</div> intercepts pointer events
+    - locator resolved to <button class="side-btn" data-action="events">…</button>
+locator.click: Timeout 30000ms exceeded.

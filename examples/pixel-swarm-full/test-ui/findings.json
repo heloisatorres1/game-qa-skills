@@ -1,0 +1,94 @@
+{
+  "run": {
+    "skill": "test-ui",
+    "game": "Pixel Swarm",
+    "build": "v1.0.0 debug build (commit db96df5)",
+    "platform": "Web, Microsoft Edge (Chromium, headless): 360x640, 390x844, 844x390, 820x1180 (touch) and 1280x720, 1920x1080 (desktop)",
+    "access_mode": "Playwright (scripts/ui.mjs): 10 screens x 6 sizes with an automatic layout probe (sideways scroll, elements off screen, clipped text, covered buttons) + manual review of every flag",
+    "date": "2026-11-16",
+    "tester": "Claude (AI-assisted QA)",
+    "scope": "Screen map, layout at 6 sizes, top bar with growing balances, popup dismiss rules",
+    "summary": "Tablet and desktop layouts are clean. On phones the top bar is too wide: at 360 px the Settings gear and the store's close X are cut or pushed off screen, completely from 9,999 coins. In phone landscape (web only; the Android app is portrait-locked) the Levels/Play block covers the Activities and Events buttons."
+  },
+  "coverage": [
+    {
+      "area": "Screen map (10 screens x 6 sizes)",
+      "status": "PASS",
+      "notes": "Contact sheets per size in evidence.",
+      "evidence": [
+        { "type": "screenshot", "path": "evidence/UI-sheet-phone.jpg", "caption": "390x844: all screens" },
+        { "type": "screenshot", "path": "evidence/UI-sheet-tablet.jpg", "caption": "820x1180: all screens" },
+        { "type": "screenshot", "path": "evidence/UI-sheet-laptop.jpg", "caption": "1280x720: all screens" }
+      ]
+    },
+    {
+      "area": "Phone portrait (360, 390, 412 px)",
+      "status": "FAIL",
+      "findings": ["BUG-002"]
+    },
+    {
+      "area": "Phone landscape (web)",
+      "status": "FAIL",
+      "findings": ["BUG-005"]
+    },
+    {
+      "area": "Tablet and desktop",
+      "status": "PASS",
+      "notes": "Probe flags reviewed by hand and rejected as expected behaviour: lower queue blocks sit behind the booster bar by design (only the front row is tappable); skin and store buttons scrolled under the bottom navigation are inside a scroll area.",
+      "evidence": [{ "type": "state", "path": "evidence/UI-layout-probe.json", "caption": "Raw probe output, all sizes" }]
+    },
+    {
+      "area": "Popup dismiss rules",
+      "status": "FAIL",
+      "findings": ["BUG-001"],
+      "notes": "Locked: age gate, Out of Slots, welcome. Dismissible by tap outside/Escape: 12 others, including Level Complete (BUG-001, filed by test-progression)."
+    }
+  ],
+  "findings": [
+    {
+      "id": "BUG-002",
+      "title": "Top bar overflows on 360-390 px phones: the Settings gear (menu) and the Close X (store) are cut or pushed off screen, completely from 9,999 coins",
+      "type": "bug",
+      "severity": "major",
+      "area": "Phone portrait (360, 390, 412 px)",
+      "status": "confirmed",
+      "repro_rate": "2/2",
+      "environment": "Web, touch, widths 360 / 390 / 412 px, 15 balance combinations per run",
+      "steps": [
+        "Open the game on a 360 px wide phone (a very common Android width) with 9,999 coins",
+        "Look at the top-right corner of the main menu, then open the Store"
+      ],
+      "expected": "Level, gems, coins and the Settings gear (menu) / Close X (store) all fit on screen at any balance",
+      "actual": "360 px: gear 29 of 42 px visible at the starting balance, 0 px (fully off screen) at 9,999 and 98.8K/123.5K coins; the store has no visible Close X. 390 px: gear cut from 9,999 coins. 412 px: only the store X slightly cut at 98.8K/123.5K.",
+      "evidence": [
+        { "type": "screenshot", "path": "evidence/UI-20-run1-360-98_8K_123_5K-store-top.png", "caption": "360 px store, 123.5K coins: no Close X" },
+        { "type": "screenshot", "path": "evidence/UI-20-run1-360-98_8K_123_5K-hud.png", "caption": "360 px menu: no Settings gear" },
+        { "type": "screenshot", "path": "evidence/UI-20-run1-360-default-hud.png", "caption": "360 px, starting balance: gear already cut" },
+        { "type": "screenshot", "path": "evidence/UI-20-run1-412-default-hud.png", "caption": "Control: 412 px fits" },
+        { "type": "state", "path": "evidence/UI-20-run1-top-bar.json", "caption": "Visible px of gear and X for 15 cases" },
+        { "type": "state", "path": "evidence/UI-20-run2-top-bar.json", "caption": "Run 2: identical" }
+      ],
+      "suspected_cause": "The top-bar pills have fixed minimum widths and the row does not shrink or wrap below ~400 px; numbers from 1,000 to 9,999 are shown in full (formatNumber only abbreviates from 10,000), so they are the widest case.",
+      "suggested_fix": "Let the currency pills shrink (min-width: 0, smaller font under 400 px) and abbreviate from 1,000 (1.2K); keep the gear/X outside the flexible area so it can never be pushed out."
+    },
+    {
+      "id": "BUG-005",
+      "title": "Phone landscape (web): the Levels / Play block covers the Activities and Events buttons on the main menu",
+      "type": "bug",
+      "severity": "minor",
+      "area": "Phone landscape (web)",
+      "status": "confirmed",
+      "repro_rate": "2/2",
+      "environment": "Web, 844x390 touch. The Android app is locked to portrait (AndroidManifest.xml:18), so this affects the browser build only",
+      "steps": ["Open the web build on a phone held in landscape", "Tap Events (right side) or Activities (left side)"],
+      "expected": "Side buttons are tappable, or the game asks to rotate to portrait",
+      "actual": "The .actions block (Levels and Play) lies on top of both buttons; a tap on their centre hits Play/Levels instead. The logo is also covered.",
+      "evidence": [
+        { "type": "screenshot", "path": "evidence/UI-phone-landscape-menu.jpg", "caption": "844x390 main menu" },
+        { "type": "log", "path": "evidence/UI-11-run1-click-blocked.log", "caption": "Run 1: the Events click is intercepted by .actions" },
+        { "type": "state", "path": "evidence/UI-layout-probe.json", "caption": "Run 2: probe reports both buttons covered by .actions" }
+      ],
+      "suggested_fix": "Show a 'rotate your phone' screen in landscape on touch devices (matching the portrait-only app), or give landscape its own menu layout."
+    }
+  ]
+}

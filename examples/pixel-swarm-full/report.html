@@ -1,0 +1,1943 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QA Report: Pixel Swarm</title>
+<style>
+:root{--bg:#f7f7f5;--card:#fff;--fg:#1d1d1f;--muted:#6b6b70;--line:#e3e3e0;--ok:#1f7a3f;--warn:#9a6700;--bad:#b42318;--blk:#7a0d0d;--accent:#3b5bdb}
+@media (prefers-color-scheme:dark){:root{--bg:#141416;--card:#1d1d20;--fg:#ececef;--muted:#9a9aa2;--line:#2e2e33;--ok:#5cc98a;--warn:#e3b341;--bad:#ff7b72;--blk:#ff9b9b;--accent:#8ea2ff}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:1000px;margin:0 auto;padding:24px 16px 64px}h1{margin:0 0 4px;font-size:26px}h2{margin:36px 0 12px;font-size:19px}h3{margin:6px 0 10px;font-size:17px}
+.verdict{display:inline-block;padding:4px 12px;border-radius:6px;font-weight:700;letter-spacing:.03em;margin:8px 0}
+.v-pass{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}.v-pass_with_issues{background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--warn)}
+.v-fail{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}.v-blocked{background:color-mix(in srgb,var(--blk) 22%,transparent);color:var(--blk)}
+.meta{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px;margin:12px 0;color:var(--muted)}.meta b{color:var(--fg);font-weight:600}
+.tiles{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 14px;min-width:92px}.tile .n{font-size:22px;font-weight:700}.tile .l{font-size:12px;color:var(--muted);text-transform:uppercase}
+.table-wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;background:var(--card);border:1px solid var(--line);border-radius:8px}th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:12px;text-transform:uppercase;color:var(--muted)}
+.st{font-weight:700;font-size:12px}.st-PASS{color:var(--ok)}.st-FAIL{color:var(--bad)}.st-PARTIAL,.st-NOT_TESTED{color:var(--warn)}.st-BLOCKED{color:var(--blk)}
+.finding{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:14px 0}.finding header{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.id{font-weight:700;font-family:ui-monospace,Consolas,monospace}.tag,.sev{font-size:12px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.tag.ok{color:var(--ok)}.tag.warn{color:var(--warn)}.sev{color:#fff;border:0;font-weight:600}.sev-blocker{background:var(--blk)}.sev-critical{background:var(--bad)}.sev-major{background:#c2410c}.sev-minor{background:#a16207}.sev-trivial{background:#6b7280}
+.ea{display:grid;grid-template-columns:1fr 1fr;gap:12px}.ea p{margin:4px 0 12px}@media (max-width:640px){.ea{grid-template-columns:1fr}}
+.evidence{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:8px 0 12px}figure{margin:0}figure img,figure video{width:100%;border:1px solid var(--line);border-radius:6px;display:block}
+figcaption{font-size:13px;color:var(--muted);margin-top:4px}figure.log,figure.ref,figure.frames{grid-column:1/-1}
+.strip{display:flex;gap:6px;overflow-x:auto}.strip img{width:140px;flex:none}pre{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:10px;overflow:auto;max-height:280px;font-size:12px;margin:4px 0}
+.logname{font-size:12px}.small{font-size:14px;color:var(--muted)}.small b{color:var(--fg)}a{color:var(--accent)}code{font-family:ui-monospace,Consolas,monospace}
+</style></head><body><main>
+<h1>QA Report: Pixel Swarm</h1>
+<div class="verdict v-fail">FAIL</div>
+<p>smoke: Gate passed: a clean install reaches the age gate in 3.5 s, the first launch flow (age gate, story, welcome, tutorial level) works, and all 10 main-menu buttons open something. One trivial issue: no favicon, so every load logs a 404. text-review: The copy is clean: no spelling or grammar errors in 861 strings, and the numbers in the text match the game data. The issues are consistency (&#39;bees&#39; vs &#39;bugs&#39;, &#39;in line&#39; vs &#39;in the line&#39;) and two in-context layout problems seen only in the running game: tutorial dots drawn over the ad banner text and a cramped No Ads subtitle. Three queries ask whether demo wording and placeholder legal links are intended for the public build. test-ui: Tablet and desktop layouts are clean. On phones the top bar is too wide: at 360 px the Settings gear and the store&#39;s close X are cut or pushed off screen, completely from 9,999 coins. In phone landscape (web only; the Android app is portrait-locked) the Levels/Play block covers the Activities and Events buttons. test-settings: All 7 checks pass. The switches apply at once, survive a reload and the UI always matches the saved value. &#39;Sounds off&#39; is proven by the audio engine: 0 effects played while tapping blocks, against 4 with sounds on. test-puzzles: All 102 levels are solvable and every mechanic was won in the real game by playing its solution. The fail flow works. One minor bug: Add Slot from the Out of Slots popup has no maximum, so repeated fails grow the board to 10+ squeezed slots, past the 7 the Add Slot booster allows. test-store: Prices, deltas, refusals and limits are correct in 13 of 15 checks. One major bug: once No Ads is owned, the store keeps selling the $4.99 Special Offer that includes No Ads. A double tap buys two coin packs (query). test-progression: Progression and daily systems are solid: rewards, unlock boundaries, the 7-day calendar, tasks and backup-save recovery all pass. One major bug: the Level Complete popup can be dismissed by tapping outside it or pressing Escape, which skips the coin reward and leaves the player on an empty board. catalog: Tutorial, simulated ads and save-on-close all work. Several buttons are smaller than the 44 px touch-target guideline (top-bar currency buttons, store Buy buttons, in-level Pause and Speed). test-performance: All budgets met on the test machine: boot 3.1 s (2.5 s of it is the designed loading screen), 1% low 90-119 fps, 58 fps at 4x CPU throttle, 1-3 hitches per minute, heap growth 0.95 MB/min (just under the 1 MB/min budget; worth a 10-minute run on a phone).</p>
+<div class="meta"><b>Skill</b><span>test-game-full</span><b>Build</b><span>v1.0.0 debug build (commit db96df5)</span><b>Platform</b><span>Web, Microsoft Edge (Chromium, headless), 390x844 @2x touch | Web, Microsoft Edge (Chromium), mobile viewport 390x844 @2x, plus 360x740 | Web, Microsoft Edge (Chromium, headless): 360x640, 390x844, 844x390, 820x1180 (touch) and 1280x720, 1920x1080 (desktop) | Web, Microsoft Edge (Chromium, headless, not capped at 60 Hz), 390x844 @2x, WebGL 2, test machine only</span><b>Access</b><span>Playwright (scripts/smoke.mjs), clean browser profile | Source scan (extract-strings.mjs, 861 strings) + Playwright session against the local build (scripts/session.mjs) | Playwright (scripts/ui.mjs): 10 screens x 6 sizes with an automatic layout probe (sideways scroll, elements off screen, clipped text, covered buttons) + manual review of every flag | Playwright (scripts/settings.mjs) + save reads + the audio engine&#39;s own counters (PSAudio.debug) | Playwright (scripts/puzzles.mjs, verify.mjs) + level tables read from the page + the game&#39;s solution verifier and solution bot (assisted) | Playwright (scripts/store.mjs) + save reads from localStorage. Real-money items use the build&#39;s test purchases; no real payment exists. | Playwright (scripts/progression.mjs) + save reads from localStorage; levels won by the game&#39;s auto-solve bot at 5x (assisted) | Playwright (scripts/catalog.mjs) + save reads; the 2nd win for the ad check was triggered with the debug &#39;Win level&#39; (assisted) | Playwright (scripts/perf.mjs) running the game&#39;s own autoplay benchmark (#perfbench_N), with no other browsers running</span><b>Date</b><span>2026-11-16</span><b>Tester</b><span>Claude (AI-assisted QA)</span><b>Scope</b><span>smoke, text-review, test-ui, test-settings, test-puzzles, test-store, test-progression, catalog, test-performance</span></div>
+<div class="tiles"><div class="tile"><div class="n">0</div><div class="l">blocker</div></div><div class="tile"><div class="n">0</div><div class="l">critical</div></div><div class="tile"><div class="n">3</div><div class="l">major</div></div><div class="tile"><div class="n">6</div><div class="l">minor</div></div><div class="tile"><div class="n">5</div><div class="l">trivial</div></div>
+<div class="tile"><div class="n">4</div><div class="l">queries / unconfirmed</div></div></div>
+<h2>Coverage</h2>
+<div class="table-wrap"><table><thead><tr><th>Area</th><th>Status</th><th>Checks</th><th>Findings</th><th>Notes</th></tr></thead><tbody>
+<tr><td>smoke / Smoke gate</td><td class="st st-PASS">PASS</td><td>5/5</td><td></td><td>SM-01 boot 3548 ms; SM-02 first launch; SM-03 0 script errors; SM-04 Play / Pause &gt; Exit; SM-05 10 menu buttons.</td></tr>
+<tr><td>text-review / Spelling and grammar (all sources)</td><td class="st st-PASS">PASS</td><td>861/861</td><td></td><td>861 candidate strings reviewed; 0 spelling or grammar errors. US spelling used consistently (color, armor, honorable).</td></tr>
+<tr><td>text-review / Terminology and consistency</td><td class="st st-FAIL">FAIL</td><td></td><td><a href="#TXT-001">TXT-001</a>, <a href="#TXT-004">TXT-004</a>, <a href="#TXT-005">TXT-005</a>, <a href="#TXT-006">TXT-006</a>, <a href="#QRY-001">QRY-001</a></td><td></td></tr>
+<tr><td>text-review / Numbers in text vs game data</td><td class="st st-PASS">PASS</td><td>4/4</td><td></td><td>&#39;Collect all 102 pictures&#39; = 5 themes x 3 difficulties x 6 + 12 event levels; &#39;12 spooky pictures&#39; = 12; &#39;6 bugs, 7 looks each&#39; matches the skin table; &#39;7 days in a row&#39; matches DAILY_REWARDS (7 entries).</td></tr>
+<tr><td>text-review / First launch (age gate, story, welcome)</td><td class="st st-PASS">PASS</td><td></td><td></td><td></td></tr>
+<tr><td>text-review / Text in context (layout, overlap, truncation)</td><td class="st st-FAIL">FAIL</td><td></td><td><a href="#TXT-002">TXT-002</a>, <a href="#TXT-003">TXT-003</a></td><td></td></tr>
+<tr><td>text-review / Store and monetisation copy</td><td class="st st-PARTIAL">PARTIAL</td><td></td><td><a href="#QRY-002">QRY-002</a>, <a href="#QRY-003">QRY-003</a></td><td>Copy is correct; two queries about demo wording and placeholder legal links. Store screens checked at 390 and 360 px only.</td></tr>
+<tr><td>text-review / Text inside images</td><td class="st st-NOT_TESTED">NOT_TESTED</td><td></td><td></td><td>Sprite and background art were not inspected for baked-in text.</td></tr>
+<tr><td>text-review / Android notification delivery</td><td class="st st-NOT_TESTED">NOT_TESTED</td><td></td><td></td><td>Notification strings were reviewed in source (js/native.js); seeing them on a device needs the Android build.</td></tr>
+<tr><td>test-ui / Screen map (10 screens x 6 sizes)</td><td class="st st-PASS">PASS</td><td></td><td></td><td>Contact sheets per size in evidence.</td></tr>
+<tr><td>test-ui / Phone portrait (360, 390, 412 px)</td><td class="st st-FAIL">FAIL</td><td></td><td><a href="#BUG-002">BUG-002</a></td><td></td></tr>
+<tr><td>test-ui / Phone landscape (web)</td><td class="st st-FAIL">FAIL</td><td></td><td><a href="#BUG-005">BUG-005</a></td><td></td></tr>
+<tr><td>test-ui / Tablet and desktop</td><td class="st st-PASS">PASS</td><td></td><td></td><td>Probe flags reviewed by hand and rejected as expected behaviour: lower queue blocks sit behind the booster bar by design (only the front row is tappable); skin and store buttons scrolled under the bottom navigation are inside a scroll area.</td></tr>
+<tr><td>test-ui / Popup dismiss rules</td><td class="st st-FAIL">FAIL</td><td></td><td><a href="#BUG-001">BUG-001</a></td><td>Locked: age gate, Out of Slots, welcome. Dismissible by tap outside/Escape: 12 others, including Level Complete (BUG-001, filed by test-progression).</td></tr>
+<tr><td>test-settings / Switches (music, sounds, haptics, notifications)</td><td class="st st-PASS">PASS</td><td>3/3</td><td></td><td>Defaults on; each switch turns off in UI and save; still off after reload.</td></tr>
+<tr><td>test-settings / Audio effect of the switches</td><td class="st st-PASS">PASS</td><td>2/2</td><td></td><td>Measured through the audio engine, not by ear: sounds off = 0 effects, on = 4 effects for the same taps. Mix and loudness need a human ear.</td></tr>
+<tr><td>test-settings / Player ID, version, Copy</td><td class="st st-PASS">PASS</td><td>2/2</td><td></td><td></td></tr>
+<tr><td>test-settings / Haptics and notifications on a device</td><td class="st st-NOT_TESTED">NOT_TESTED</td><td></td><td></td><td>The switches were tested; vibration and real notifications need the Android build on a phone.</td></tr>
+<tr><td>test-puzzles / Level data</td><td class="st st-PASS">PASS</td><td>2/2</td><td></td><td>15 tables of 6 + 12 event levels; every picture exists; no picture used twice.</td></tr>
+<tr><td>test-puzzles / Solvability (all levels)</td><td class="st st-PASS">PASS</td><td></td><td></td><td>LEVEL CHECK 102/102 from the game&#39;s own solution verifier (#verify_all, 334 s), no unsolvable forced-puzzle variants. Assisted: relies on the game&#39;s verifier.</td></tr>
+<tr><td>test-puzzles / Puzzle mechanics in the real game</td><td class="st st-PASS">PASS</td><td>10/10</td><td></td><td>mystery, frozen, hidden, linked, big, pipe, key, wood, cookie, mystery links: each level won by the solution bot at 8x (36-58 s), no script errors. Assisted.</td></tr>
+<tr><td>test-puzzles / Fail flow</td><td class="st st-PASS">PASS</td><td>3/3</td><td></td><td>Out of Slots cannot be dismissed by Escape/tap outside; Try Again restarts; Give Up returns without reward. The fail popup was opened with the debug &#39;Lose level&#39; (assisted).</td></tr>
+<tr><td>test-puzzles / Slot limits</td><td class="st st-FAIL">FAIL</td><td></td><td><a href="#BUG-004">BUG-004</a></td><td></td></tr>
+<tr><td>test-store / Catalogue purchases and balances</td><td class="st st-PASS">PASS</td><td>5/5</td><td></td><td>Gem packs S/L, coin pack S (enough and exact balance), coin pack L refused with 100/250 gems. Balances re-read after reload.</td></tr>
+<tr><td>test-store / Ownership (No Ads, Special Offer)</td><td class="st st-FAIL">FAIL</td><td>1/3</td><td><a href="#BUG-003">BUG-003</a></td><td>No Ads itself works (Owned, no banner in levels, survives reload).</td></tr>
+<tr><td>test-store / Edge cases</td><td class="st st-PARTIAL">PARTIAL</td><td></td><td><a href="#QRY-101">QRY-101</a>, <a href="#TXT-101">TXT-101</a></td><td>Double tap on a coin pack buys two packs (query, by design?).</td></tr>
+<tr><td>test-store / Free Coins (rewarded ads)</td><td class="st st-PASS">PASS</td><td></td><td></td><td>5 ads per day at +100; the button is disabled after the 5th; &#39;0 left today&#39; shown.</td></tr>
+<tr><td>test-store / Bug skins</td><td class="st st-PASS">PASS</td><td>3/3</td><td></td><td>Ladybug bought and equipped (200 -&gt; 50 gems); Beetle refused with 100 gems; Firefly locked below player level 5.</td></tr>
+<tr><td>test-store / Speed Store</td><td class="st st-PASS">PASS</td><td>2/2</td><td></td><td>+5 min for 250 coins and 3x for 100 gems; 30 min refused with 50 coins.</td></tr>
+<tr><td>test-store / Real in-app purchases and ad SDK</td><td class="st st-NOT_TESTED">NOT_TESTED</td><td></td><td></td><td>The build has test purchases and simulated ads only; store sandbox testing needs the Android build and a test account.</td></tr>
+<tr><td>test-progression / Win flow and rewards</td><td class="st st-FAIL">FAIL</td><td>1/5</td><td><a href="#BUG-001">BUG-001</a></td><td>PR-W1 (Continue pays +30 and opens Level 2) passes; PR-W2 runs 1-4 reproduce BUG-001.</td></tr>
+<tr><td>test-progression / Persistence</td><td class="st st-PASS">PASS</td><td></td><td></td><td>Stars and coins survive reload (PR-W1); purchases survive closing the tab (catalog CT-LIFE-1).</td></tr>
+<tr><td>test-progression / Difficulty unlocks</td><td class="st st-PASS">PASS</td><td>2/2</td><td></td><td>Medium locked at 5/6 Easy, unlocked at 6/6.</td></tr>
+<tr><td>test-progression / Daily rewards</td><td class="st st-PASS">PASS</td><td>5/5</td><td></td><td>Day 1 +500 coins; same-day claim refused after reload; streak continues; missed days reset; Day 7 chest then back to Day 1.</td></tr>
+<tr><td>test-progression / Daily tasks</td><td class="st st-PASS">PASS</td><td></td><td></td><td>Unfinished task disabled; finished task pays +150 once even when double-tapped.</td></tr>
+<tr><td>test-progression / Corrupted saves</td><td class="st st-PASS">PASS</td><td>2/2</td><td></td><td>Broken main slot: backup loaded (4,321 coins). Both slots broken: fresh start at the age gate, no errors.</td></tr>
+<tr><td>test-progression / Time handling</td><td class="st st-PARTIAL">PARTIAL</td><td></td><td></td><td>Day changes were simulated by moving the last-claim date in the save. Changing the device clock or time zone was not tested (a frozen browser clock stalls the loading screen, which is a test-tool limit, not a game bug).</td></tr>
+<tr><td>catalog / Tutorial</td><td class="st st-PASS">PASS</td><td>2/2</td><td></td><td>All 6 steps completed, including the &#39;tap this block&#39; step; not shown again afterwards.</td></tr>
+<tr><td>catalog / Ads (simulated)</td><td class="st st-PASS">PASS</td><td>3/3</td><td></td><td>Video ad after every 2nd win without No Ads, none with No Ads; rewarded AD slot gives +1 slot only after the ad.</td></tr>
+<tr><td>catalog / Lifecycle</td><td class="st st-PASS">PASS</td><td></td><td></td><td>A purchase is still there after closing the tab immediately (saved at once).</td></tr>
+<tr><td>catalog / Accessibility: touch targets</td><td class="st st-FAIL">FAIL</td><td></td><td><a href="#BUG-006">BUG-006</a></td><td></td></tr>
+<tr><td>catalog / Notifications</td><td class="st st-NOT_TESTED">NOT_TESTED</td><td></td><td></td><td>Android-only (Capacitor Local Notifications); needs a device.</td></tr>
+<tr><td>catalog / Colour and contrast</td><td class="st st-NOT_TESTED">NOT_TESTED</td><td></td><td></td><td>Not measured in this run. The game already enforces a minimum colour distance between puzzle colours in data.js (MIN_DE).</td></tr>
+<tr><td>test-performance / Boot</td><td class="st st-PASS">PASS</td><td></td><td></td><td>3096 / 3096 / 3101 ms to the main menu; the loading screen has a ~2.5 s minimum by design.</td></tr>
+<tr><td>test-performance / Frame rate during play</td><td class="st st-PASS">PASS</td><td>2/3</td><td></td><td>Budget: 1% low &gt;= 45 fps, &lt;= 2 hitches/min, in at least 2 of 3 runs. Run 1 had 3 hitches/min (2 long tasks), runs 2-3 had 1/min. Averages of ~143 fps reflect the uncapped headless browser.</td></tr>
+<tr><td>test-performance / Slow device (4x CPU throttle)</td><td class="st st-PASS">PASS</td><td></td><td></td><td>1% low 58.2 fps, 2 hitches/min.</td></tr>
+<tr><td>test-performance / Memory over a long session</td><td class="st st-PASS">PASS</td><td></td><td></td><td>Heap 8.3 -&gt; 13.2 MB in 200 s (0.95 MB/min, budget 1); DOM stable (-0.4 nodes/min); scene objects +30/min. Close to the budget: repeat with the game&#39;s 10-minute benchmark on a real phone.</td></tr>
+<tr><td>test-performance / Target devices</td><td class="st st-NOT_TESTED">NOT_TESTED</td><td></td><td></td><td>Real phones (low-end Android, iPhone) need a manual run; numbers here come from a desktop machine.</td></tr>
+</tbody></table></div>
+<h2>Findings (18)</h2>
+<div class="table-wrap"><table><thead><tr><th>ID</th><th>Severity</th><th>Type</th><th>Status</th><th>Title</th></tr></thead><tbody>
+<tr><td><a href="#BUG-001">BUG-001</a></td><td>major</td><td>bug</td><td>confirmed</td><td>Level Complete popup closes on a tap outside it or Escape: the coin reward is never paid and the player is left on an empty board</td></tr>
+<tr><td><a href="#BUG-002">BUG-002</a></td><td>major</td><td>bug</td><td>confirmed</td><td>Top bar overflows on 360-390 px phones: the Settings gear (menu) and the Close X (store) are cut or pushed off screen, completely from 9,999 coins</td></tr>
+<tr><td><a href="#BUG-003">BUG-003</a></td><td>major</td><td>bug</td><td>confirmed</td><td>Store keeps selling the $4.99 Special Offer, which includes No Ads, to players who already own No Ads</td></tr>
+<tr><td><a href="#BUG-004">BUG-004</a></td><td>minor</td><td>bug</td><td>confirmed</td><td>Add Slot from the Out of Slots popup has no maximum: repeated fails grow the board to 10 squeezed slots (the booster stops at 7)</td></tr>
+<tr><td><a href="#BUG-005">BUG-005</a></td><td>minor</td><td>bug</td><td>confirmed</td><td>Phone landscape (web): the Levels / Play block covers the Activities and Events buttons on the main menu</td></tr>
+<tr><td><a href="#BUG-006">BUG-006</a></td><td>minor</td><td>bug</td><td>confirmed</td><td>Several buttons are below the 44 px touch-target guideline on phones (top-bar currency buttons, store Buy, in-level Pause and Speed)</td></tr>
+<tr><td><a href="#BUG-007">BUG-007</a></td><td>trivial</td><td>bug</td><td>confirmed</td><td>No favicon: every page load logs a 404 error in the console</td></tr>
+<tr><td><a href="#TXT-001">TXT-001</a></td><td>minor</td><td>text</td><td>confirmed</td><td>The swarm is called &#39;bees&#39; in some texts and &#39;bugs&#39; in others, even in two consecutive How to Play cards</td></tr>
+<tr><td><a href="#TXT-002">TXT-002</a></td><td>minor</td><td>text</td><td>confirmed</td><td>Tutorial step dots are drawn on top of the ad banner text at the bottom of the game screen</td></tr>
+<tr><td><a href="#TXT-003">TXT-003</a></td><td>minor</td><td>text</td><td>confirmed</td><td>Store: the No Ads subtitle is cramped and leaves &#39;ads&#39; alone on a second line on phone widths</td></tr>
+<tr><td><a href="#TXT-004">TXT-004</a></td><td>trivial</td><td>text</td><td>confirmed</td><td>Booster descriptions say &#39;in line&#39; where How to Play says &#39;in the line&#39;, and describe Shuffle differently</td></tr>
+<tr><td><a href="#TXT-005">TXT-005</a></td><td>trivial</td><td>text</td><td>confirmed</td><td>&#39;Out of Slots&#39; is capitalised mid-sentence in How to Play but lowercase in the tutorial</td></tr>
+<tr><td><a href="#TXT-006">TXT-006</a></td><td>trivial</td><td>text</td><td>confirmed</td><td>Two ellipsis styles: &#39;Loading...&#39; (three dots) vs &#39;Sending…&#39; and &#39;Taking a screenshot…&#39;</td></tr>
+<tr><td><a href="#TXT-101">TXT-101</a></td><td>trivial</td><td>text</td><td>confirmed</td><td>Special Offer toast says &#39;+10K coins&#39; while the card and other toasts use full numbers (&#39;10,000 coins&#39;, &#39;+1,000 coins&#39;)</td></tr>
+<tr><td><a href="#QRY-001">QRY-001</a></td><td>-</td><td>query</td><td>confirmed</td><td>New Feature card titles mix plural and singular names</td></tr>
+<tr><td><a href="#QRY-002">QRY-002</a></td><td>-</td><td>query</td><td>confirmed</td><td>Purchase toasts say &#39;Test purchase&#39; and the banner says &#39;Demo ad&#39; in the public build</td></tr>
+<tr><td><a href="#QRY-003">QRY-003</a></td><td>-</td><td>query</td><td>confirmed</td><td>Terms of Service and Privacy Policy links on the age gate only show &#39;coming soon&#39;</td></tr>
+<tr><td><a href="#QRY-101">QRY-101</a></td><td>-</td><td>query</td><td>confirmed</td><td>A double tap on a coin pack buys two packs (no confirmation, no debounce)</td></tr>
+</tbody></table></div>
+
+<article class="finding" id="BUG-001">
+  <header>
+    <span class="id">BUG-001</span>
+    <span class="sev sev-major">major</span>
+    <span class="tag">bug</span>
+    <span class="tag ok">confirmed · 4/4</span>
+    <span class="tag">Win flow and rewards</span>
+  </header>
+  <h3>Level Complete popup closes on a tap outside it or Escape: the coin reward is never paid and the player is left on an empty board</h3>
+  <p class="small"><b>Environment:</b> Web, 390x844 touch. Runs 1-2: tap outside; runs 3-4: Escape key</p>
+  <p><b>Preconditions:</b> Returning player with 100 coins</p>
+  <b>Steps</b><ol><li>Win Flowers Easy level 1 (Level Complete shows &#39;+30&#39;)</li><li>Tap anywhere outside the popup card (or press Escape on a keyboard)</li></ol>
+  <div class="ea">
+    <div><b>Expected</b><p>The popup stays open until Continue or Claim x2 is chosen (like the Out of Slots popup, which is locked), or closing it pays the reward and moves on</p></div>
+    <div><b>Actual</b><p>The popup closes, coins stay at 100 (the +30 is lost), the board is empty and there is no Continue button. The win itself is saved (3 stars), so the player can only leave through Pause.</p></div>
+  </div>
+  <b>Evidence</b>
+  <div class="evidence"><figure><video controls src="test-progression/evidence/PR-W2-run1-tap.webm"></video><figcaption>Run 1: tap outside the popup</figcaption></figure><figure class="frames"><div class="strip"><img src="test-progression/evidence/PR-W2-run1-frames/frame-1.jpg" alt="frame-1.jpg" loading="lazy"><img src="test-progression/evidence/PR-W2-run1-frames/frame-2.jpg" alt="frame-2.jpg" loading="lazy"><img src="test-progression/evidence/PR-W2-run1-frames/frame-3.jpg" alt="frame-3.jpg" loading="lazy"><img src="test-progression/evidence/PR-W2-run1-frames/frame-4.jpg" alt="frame-4.jpg" loading="lazy"><img src="test-progression/evidence/PR-W2-run1-frames/frame-5.jpg" alt="frame-5.jpg" loading="lazy"><img src="test-progression/evidence/PR-W2-run1-frames/frame-6.jpg" alt="frame-6.jpg" loading="lazy"></div><figcaption>Run 1 as stills: popup, tap, empty board</figcaption></figure><figure><a href="test-progression/evidence/PR-W2-run1-1-popup.jpg"><img src="test-progression/evidence/PR-W2-run1-1-popup.jpg" alt="Before: Level Complete, +30" loading="lazy"></a><figcaption>Before: Level Complete, +30</figcaption></figure><figure><a href="test-progression/evidence/PR-W2-run1-2-after-tap.jpg"><img src="test-progression/evidence/PR-W2-run1-2-after-tap.jpg" alt="After the tap: empty board, coins still 100" loading="lazy"></a><figcaption>After the tap: empty board, coins still 100</figcaption></figure><figure class="log"><div class="logname"><a href="test-progression/evidence/PR-W2-run1-state.json">test-progression/evidence/PR-W2-run1-state.json</a></div><pre>{
+  &quot;how&quot;: &quot;tap&quot;,
+  &quot;reward_shown&quot;: 30,
+  &quot;before&quot;: {
+    &quot;coins&quot;: 100,
+    &quot;gems&quot;: 20,
+    &quot;progress&quot;: {
+      &quot;flowers-easy&quot;: [
+        3
+      ]
+    },
+    &quot;stats.levels&quot;: 1,
+    &quot;daily&quot;: {
+      &quot;streak&quot;: 0,
+      &quot;last&quot;: &quot;&quot;
+    },
+    &quot;boosters&quot;: {
+      &quot;add_slot&quot;: 1
+    }
+  },
+  &quot;after&quot;: {
+    &quot;coins&quot;: 100,
+    &quot;gems&quot;: 20,
+    &quot;progress&quot;: {
+      &quot;flowers-easy&quot;: [
+        3
+      ]
+    },
+    &quot;stats.levels&quot;: 1,
+    &quot;daily&quot;: {
+      &quot;streak&quot;: 0,
+      &quot;last&quot;: &quot;&quot;
+    },
+    &quot;boosters&quot;: {
+      &quot;add_slot&quot;: 1
+    }
+  },
+  &quot;popups_after&quot;: [],
+  &quot;continue_button_visible&quot;: false
+}</pre><figcaption>coins 100 before and after, progress saved</figcaption></figure><figure><video controls src="test-progression/evidence/PR-W2-run3-escape.webm"></video><figcaption>Run 3: Escape key</figcaption></figure><figure class="log"><div class="logname"><a href="test-progression/evidence/PR-W2-run3-state.json">test-progression/evidence/PR-W2-run3-state.json</a></div><pre>{
+  &quot;how&quot;: &quot;escape&quot;,
+  &quot;reward_shown&quot;: 30,
+  &quot;before&quot;: {
+    &quot;coins&quot;: 100,
+    &quot;gems&quot;: 20,
+    &quot;progress&quot;: {
+      &quot;flowers-easy&quot;: [
+        3
+      ]
+    },
+    &quot;stats.levels&quot;: 1,
+    &quot;daily&quot;: {
+      &quot;streak&quot;: 0,
+      &quot;last&quot;: &quot;&quot;
+    },
+    &quot;boosters&quot;: {
+      &quot;add_slot&quot;: 1
+    }
+  },
+  &quot;after&quot;: {
+    &quot;coins&quot;: 100,
+    &quot;gems&quot;: 20,
+    &quot;progress&quot;: {
+      &quot;flowers-easy&quot;: [
+        3
+      ]
+    },
+    &quot;stats.levels&quot;: 1,
+    &quot;daily&quot;: {
+      &quot;streak&quot;: 0,
+      &quot;last&quot;: &quot;&quot;
+    },
+    &quot;boosters&quot;: {
+      &quot;add_slot&quot;: 1
+    }
+  },
+  &quot;popups_after&quot;: [],
+  &quot;continue_button_visible&quot;: false
+}</pre><figcaption>Same result with Escape</figcaption></figure><figure class="log"><div class="logname"><a href="test-progression/evidence/PR-W1-state.json">test-progression/evidence/PR-W1-state.json</a></div><pre>{
+  &quot;reward_shown&quot;: 30,
+  &quot;before_continue&quot;: {
+    &quot;coins&quot;: 100,
+    &quot;gems&quot;: 20,
+    &quot;progress&quot;: {
+      &quot;flowers-easy&quot;: [
+        3
+      ]
+    },
+    &quot;stats.levels&quot;: 1,
+    &quot;daily&quot;: {
+      &quot;streak&quot;: 0,
+      &quot;last&quot;: &quot;&quot;
+    },
+    &quot;boosters&quot;: {
+      &quot;add_slot&quot;: 1
+    }
+  },
+  &quot;after_continue&quot;: {
+    &quot;coins&quot;: 130,
+    &quot;gems&quot;: 20,
+    &quot;progress&quot;: {
+      &quot;flowers-easy&quot;: [
+        3
+      ]
+    },
+    &quot;stats.levels&quot;: 1,
+    &quot;daily&quot;: {
+      &quot;streak&quot;: 0,
+      &quot;last&quot;: &quot;&quot;
+    },
+    &quot;boosters&quot;: {
+      &quot;add_slot&quot;: 1
+    }
+  },
+  &quot;after_reload&quot;: {
+    &quot;coins&quot;: 130,
+    &quot;gems&quot;: 20,
+    &quot;progress&quot;: {
+      &quot;flowers-easy&quot;: [
+        3
+      ]
+    },
+    &quot;stats.levels&quot;: 1,
+    &quot;daily&quot;: {
+      &quot;streak&quot;: 0,
+      &quot;last&quot;: &quot;&quot;
+    },
+    &quot;boosters&quot;: {
+      &quot;add_slot&quot;: 1
+    }
+  }
+}</pre><figcaption>Control: Continue pays 100 -&gt; 130</figcaption></figure><figure class="ref"><code>index.html:423</code><figcaption>&lt;div class=&quot;overlay rays&quot; id=&quot;popup-complete&quot; hidden&gt; (no data-locked; popup-fail at index.html:458 has it)</figcaption></figure><figure class="ref"><code>js/app.js:3028</code><figcaption>if (openPopupEl &amp;&amp; e.target === openPopupEl) return closePopup();</figcaption></figure></div>
+  <p class="small"><b>Suspected cause (hypothesis):</b> popup-complete lacks the data-locked attribute, so the generic outside-tap and Escape handlers (app.js:237, 3028) close it without calling finishWin().</p>
+  <p class="small"><b>Suggested fix:</b> Add data-locked to #popup-complete (index.html:423), as #popup-fail already has.</p>
+  
+</article>
+
+<article class="finding" id="BUG-002">
+  <header>
+    <span class="id">BUG-002</span>
+    <span class="sev sev-major">major</span>
+    <span class="tag">bug</span>
+    <span class="tag ok">confirmed · 2/2</span>
+    <span class="tag">Phone portrait (360, 390, 412 px)</span>
+  </header>
+  <h3>Top bar overflows on 360-390 px phones: the Settings gear (menu) and the Close X (store) are cut or pushed off screen, completely from 9,999 coins</h3>
+  <p class="small"><b>Environment:</b> Web, touch, widths 360 / 390 / 412 px, 15 balance combinations per run</p>
+  
+  <b>Steps</b><ol><li>Open the game on a 360 px wide phone (a very common Android width) with 9,999 coins</li><li>Look at the top-right corner of the main menu, then open the Store</li></ol>
+  <div class="ea">
+    <div><b>Expected</b><p>Level, gems, coins and the Settings gear (menu) / Close X (store) all fit on screen at any balance</p></div>
+    <div><b>Actual</b><p>360 px: gear 29 of 42 px visible at the starting balance, 0 px (fully off screen) at 9,999 and 98.8K/123.5K coins; the store has no visible Close X. 390 px: gear cut from 9,999 coins. 412 px: only the store X slightly cut at 98.8K/123.5K.</p></div>
+  </div>
+  <b>Evidence</b>
+  <div class="evidence"><figure><a href="test-ui/evidence/UI-20-run1-360-98_8K_123_5K-store-top.png"><img src="test-ui/evidence/UI-20-run1-360-98_8K_123_5K-store-top.png" alt="360 px store, 123.5K coins: no Close X" loading="lazy"></a><figcaption>360 px store, 123.5K coins: no Close X</figcaption></figure><figure><a href="test-ui/evidence/UI-20-run1-360-98_8K_123_5K-hud.png"><img src="test-ui/evidence/UI-20-run1-360-98_8K_123_5K-hud.png" alt="360 px menu: no Settings gear" loading="lazy"></a><figcaption>360 px menu: no Settings gear</figcaption></figure><figure><a href="test-ui/evidence/UI-20-run1-360-default-hud.png"><img src="test-ui/evidence/UI-20-run1-360-default-hud.png" alt="360 px, starting balance: gear already cut" loading="lazy"></a><figcaption>360 px, starting balance: gear already cut</figcaption></figure><figure><a href="test-ui/evidence/UI-20-run1-412-default-hud.png"><img src="test-ui/evidence/UI-20-run1-412-default-hud.png" alt="Control: 412 px fits" loading="lazy"></a><figcaption>Control: 412 px fits</figcaption></figure><figure class="log"><div class="logname"><a href="test-ui/evidence/UI-20-run1-top-bar.json">test-ui/evidence/UI-20-run1-top-bar.json</a></div><pre>[
+  {
+    &quot;width&quot;: 360,
+    &quot;balances&quot;: &quot;default&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 373,
+      &quot;visible_px&quot;: 29,
+      &quot;width&quot;: 42
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 381,
+      &quot;visible_px&quot;: 29,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: true,
+    &quot;close_hidden&quot;: true
+  },
+  {
+    &quot;width&quot;: 360,
+    &quot;balances&quot;: &quot;9,999&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 404,
+      &quot;visible_px&quot;: 0,
+      &quot;width&quot;: 42
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 412,
+      &quot;visible_px&quot;: 0,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: true,
+    &quot;close_hidden&quot;: true
+  },
+  {
+    &quot;width&quot;: 360,
+    &quot;balances&quot;: &quot;12.3K&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 396,
+      &quot;visible_px&quot;: 6,
+      &quot;width&quot;: 42
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 404,
+      &quot;visible_px&quot;: 6,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: true,
+    &quot;close_hidden&quot;: true
+  },
+  {
+    &quot;width&quot;: 360,
+    &quot;balances&quot;: &quot;98.8K / 123.5K&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 408,
+      &quot;visible_px&quot;: 0,
+      &quot;width&quot;: 42
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 416,
+      &quot;visible_px&quot;: 0,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: true,
+    &quot;close_hidden&quot;: true
+  },
+  {
+    &quot;width&quot;: 360,
+    &quot;balances&quot;: &quot;1.2M / 1.5M&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 388,
+      &quot;visible_px&quot;: 14,
+      &quot;width&quot;: 42
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 396,
+      &quot;visible_px&quot;: 14,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: true,
+    &quot;close_hidden&quot;: true
+  },
+  {
+    &quot;width&quot;: 390,
+    &quot;balances&quot;: &quot;default&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 378,
+      &quot;visible_px&quot;: 47,
+      &quot;width&quot;: 47
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 381,
+      &quot;visible_px&quot;: 50,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: false,
+    &quot;close_hidden&quot;: false
+  },
+  {
+    &quot;width&quot;: 390,
+    &quot;balances&quot;: &quot;9,999&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 404,
+      &quot;visible_px&quot;: 28,
+      &quot;width&quot;: 42
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 412,
+      &quot;visible_px&quot;: 28,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: true,
+    &quot;close_hidden&quot;: true
+  },
+  {
+    &quot;width&quot;: 390,
+    &quot;balances&quot;: &quot;12.3K&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 396,
+      &quot;visible_px&quot;: 36,
+      &quot;width&quot;: 42
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 404,
+      &quot;visible_px&quot;: 36,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: true,
+    &quot;close_hidden&quot;: true
+  },
+  {
+    &quot;width&quot;: 390,
+    &quot;balances&quot;: &quot;98.8K / 123.5K&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 408,
+      &quot;visible_px&quot;: 24,
+      &quot;width&quot;: 42
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 416,
+      &quot;visible_px&quot;: 24,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: true,
+    &quot;close_hidden&quot;: true
+  },
+  {
+    &quot;width&quot;: 390,
+    &quot;balances&quot;: &quot;1.2M / 1.5M&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 388,
+      &quot;visible_px&quot;: 42,
+      &quot;width&quot;: 42
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 396,
+      &quot;visible_px&quot;: 44,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: false,
+    &quot;close_hidden&quot;: true
+  },
+  {
+    &quot;width&quot;: 412,
+    &quot;balances&quot;: &quot;default&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 400,
+      &quot;visible_px&quot;: 50,
+      &quot;width&quot;: 50
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 400,
+      &quot;visible_px&quot;: 50,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: false,
+    &quot;close_hidden&quot;: false
+  },
+  {
+    &quot;width&quot;: 412,
+    &quot;balances&quot;: &quot;9,999&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 404,
+      &quot;visible_px&quot;: 42,
+      &quot;width&quot;: 42
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 412,
+      &quot;visible_px&quot;: 50,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: false,
+    &quot;close_hidden&quot;: false
+  },
+  {
+    &quot;width&quot;: 412,
+    &quot;balances&quot;: &quot;12.3K&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 400,
+      &quot;visible_px&quot;: 46,
+      &quot;width&quot;: 46
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 404,
+      &quot;visible_px&quot;: 50,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: false,
+    &quot;close_hidden&quot;: false
+  },
+  {
+    &quot;width&quot;: 412,
+    &quot;balances&quot;: &quot;98.8K / 123.5K&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 408,
+      &quot;visible_px&quot;: 42,
+      &quot;width&quot;: 42
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 416,
+      &quot;visible_px&quot;: 46,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: false,
+    &quot;close_hidden&quot;: true
+  },
+  {
+    &quot;width&quot;: 412,
+    &quot;balances&quot;: &quot;1.2M / 1.5M&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 400,
+      &quot;visible_px&quot;: 50,
+      &quot;width&quot;: 50
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 400,
+      &quot;visible_px&quot;: 50,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: false,
+    &quot;close_hidden&quot;: false
+  }
+]</pre><figcaption>Visible px of gear and X for 15 cases</figcaption></figure><figure class="log"><div class="logname"><a href="test-ui/evidence/UI-20-run2-top-bar.json">test-ui/evidence/UI-20-run2-top-bar.json</a></div><pre>[
+  {
+    &quot;width&quot;: 360,
+    &quot;balances&quot;: &quot;default&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 373,
+      &quot;visible_px&quot;: 29,
+      &quot;width&quot;: 42
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 381,
+      &quot;visible_px&quot;: 29,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: true,
+    &quot;close_hidden&quot;: true
+  },
+  {
+    &quot;width&quot;: 360,
+    &quot;balances&quot;: &quot;9,999&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 404,
+      &quot;visible_px&quot;: 0,
+      &quot;width&quot;: 42
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 412,
+      &quot;visible_px&quot;: 0,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: true,
+    &quot;close_hidden&quot;: true
+  },
+  {
+    &quot;width&quot;: 360,
+    &quot;balances&quot;: &quot;12.3K&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 396,
+      &quot;visible_px&quot;: 6,
+      &quot;width&quot;: 42
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 404,
+      &quot;visible_px&quot;: 6,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: true,
+    &quot;close_hidden&quot;: true
+  },
+  {
+    &quot;width&quot;: 360,
+    &quot;balances&quot;: &quot;98.8K / 123.5K&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 408,
+      &quot;visible_px&quot;: 0,
+      &quot;width&quot;: 42
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 416,
+      &quot;visible_px&quot;: 0,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: true,
+    &quot;close_hidden&quot;: true
+  },
+  {
+    &quot;width&quot;: 360,
+    &quot;balances&quot;: &quot;1.2M / 1.5M&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 388,
+      &quot;visible_px&quot;: 14,
+      &quot;width&quot;: 42
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 396,
+      &quot;visible_px&quot;: 14,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: true,
+    &quot;close_hidden&quot;: true
+  },
+  {
+    &quot;width&quot;: 390,
+    &quot;balances&quot;: &quot;default&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 378,
+      &quot;visible_px&quot;: 47,
+      &quot;width&quot;: 47
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 381,
+      &quot;visible_px&quot;: 50,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: false,
+    &quot;close_hidden&quot;: false
+  },
+  {
+    &quot;width&quot;: 390,
+    &quot;balances&quot;: &quot;9,999&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 404,
+      &quot;visible_px&quot;: 28,
+      &quot;width&quot;: 42
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 412,
+      &quot;visible_px&quot;: 28,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: true,
+    &quot;close_hidden&quot;: true
+  },
+  {
+    &quot;width&quot;: 390,
+    &quot;balances&quot;: &quot;12.3K&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 396,
+      &quot;visible_px&quot;: 36,
+      &quot;width&quot;: 42
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 404,
+      &quot;visible_px&quot;: 36,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: true,
+    &quot;close_hidden&quot;: true
+  },
+  {
+    &quot;width&quot;: 390,
+    &quot;balances&quot;: &quot;98.8K / 123.5K&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 408,
+      &quot;visible_px&quot;: 24,
+      &quot;width&quot;: 42
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 416,
+      &quot;visible_px&quot;: 24,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: true,
+    &quot;close_hidden&quot;: true
+  },
+  {
+    &quot;width&quot;: 390,
+    &quot;balances&quot;: &quot;1.2M / 1.5M&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 388,
+      &quot;visible_px&quot;: 42,
+      &quot;width&quot;: 42
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 396,
+      &quot;visible_px&quot;: 44,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: false,
+    &quot;close_hidden&quot;: true
+  },
+  {
+    &quot;width&quot;: 412,
+    &quot;balances&quot;: &quot;default&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 400,
+      &quot;visible_px&quot;: 50,
+      &quot;width&quot;: 50
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 400,
+      &quot;visible_px&quot;: 50,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: false,
+    &quot;close_hidden&quot;: false
+  },
+  {
+    &quot;width&quot;: 412,
+    &quot;balances&quot;: &quot;9,999&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 404,
+      &quot;visible_px&quot;: 42,
+      &quot;width&quot;: 42
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 412,
+      &quot;visible_px&quot;: 50,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: false,
+    &quot;close_hidden&quot;: false
+  },
+  {
+    &quot;width&quot;: 412,
+    &quot;balances&quot;: &quot;12.3K&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 400,
+      &quot;visible_px&quot;: 46,
+      &quot;width&quot;: 46
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 404,
+      &quot;visible_px&quot;: 50,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: false,
+    &quot;close_hidden&quot;: false
+  },
+  {
+    &quot;width&quot;: 412,
+    &quot;balances&quot;: &quot;98.8K / 123.5K&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 408,
+      &quot;visible_px&quot;: 42,
+      &quot;width&quot;: 42
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 416,
+      &quot;visible_px&quot;: 46,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: false,
+    &quot;close_hidden&quot;: true
+  },
+  {
+    &quot;width&quot;: 412,
+    &quot;balances&quot;: &quot;1.2M / 1.5M&quot;,
+    &quot;settings_gear&quot;: {
+      &quot;right&quot;: 400,
+      &quot;visible_px&quot;: 50,
+      &quot;width&quot;: 50
+    },
+    &quot;store_close&quot;: {
+      &quot;right&quot;: 400,
+      &quot;visible_px&quot;: 50,
+      &quot;width&quot;: 50
+    },
+    &quot;gear_hidden&quot;: false,
+    &quot;close_hidden&quot;: false
+  }
+]</pre><figcaption>Run 2: identical</figcaption></figure></div>
+  <p class="small"><b>Suspected cause (hypothesis):</b> The top-bar pills have fixed minimum widths and the row does not shrink or wrap below ~400 px; numbers from 1,000 to 9,999 are shown in full (formatNumber only abbreviates from 10,000), so they are the widest case.</p>
+  <p class="small"><b>Suggested fix:</b> Let the currency pills shrink (min-width: 0, smaller font under 400 px) and abbreviate from 1,000 (1.2K); keep the gear/X outside the flexible area so it can never be pushed out.</p>
+  
+</article>
+
+<article class="finding" id="BUG-003">
+  <header>
+    <span class="id">BUG-003</span>
+    <span class="sev sev-major">major</span>
+    <span class="tag">bug</span>
+    <span class="tag ok">confirmed · 2/2</span>
+    <span class="tag">Ownership (No Ads, Special Offer)</span>
+  </header>
+  <h3>Store keeps selling the $4.99 Special Offer, which includes No Ads, to players who already own No Ads</h3>
+  
+  <p><b>Preconditions:</b> No Ads owned (bought alone for $2.99 or in an earlier offer)</p>
+  <b>Steps</b><ol><li>Open the Store</li><li>Look at the Special Offer card</li><li>Tap $4.99</li></ol>
+  <div class="ea">
+    <div><b>Expected</b><p>The offer is hidden once No Ads is owned, or shown without No Ads at a new price (the No Ads card already shows &#39;Owned&#39;)</p></div>
+    <div><b>Actual</b><p>The card still lists &#39;1,200 gems · 10,000 coins · No Ads&#39; for $4.99 and can be bought again; the toast says &#39;No Ads&#39; was granted again. With real payments this charges for a non-consumable the player owns.</p></div>
+  </div>
+  <b>Evidence</b>
+  <div class="evidence"><figure><a href="test-store/evidence/ST-08-run1-crop.png"><img src="test-store/evidence/ST-08-run1-crop.png" alt="Offer card with &#39;No Ads&#39; while No Ads is owned" loading="lazy"></a><figcaption>Offer card with &#39;No Ads&#39; while No Ads is owned</figcaption></figure><figure><video controls src="test-store/evidence/ST-08-run1.webm"></video><figcaption>Run 1: buying the offer again</figcaption></figure><figure><a href="test-store/evidence/ST-08-run1-2-bought-again.jpg"><img src="test-store/evidence/ST-08-run1-2-bought-again.jpg" alt="Toast: &#39;+1,200 gems, +10K coins, No Ads&#39;" loading="lazy"></a><figcaption>Toast: &#39;+1,200 gems, +10K coins, No Ads&#39;</figcaption></figure><figure class="log"><div class="logname"><a href="test-store/evidence/ST-08-run1-state.json">test-store/evidence/ST-08-run1-state.json</a></div><pre>{
+  &quot;before&quot;: {
+    &quot;gems&quot;: 20,
+    &quot;coins&quot;: 100,
+    &quot;noAds&quot;: true
+  },
+  &quot;after&quot;: {
+    &quot;gems&quot;: 1220,
+    &quot;coins&quot;: 10100,
+    &quot;noAds&quot;: true
+  },
+  &quot;offer_card_text&quot;: &quot;Special Offer\n+\n+\n$4.99\n1,200 gems · 10,000 coins · No Ads&quot;,
+  &quot;toast&quot;: &quot;Test purchase: +1,200 gems, +10K coins, No Ads&quot;
+}</pre><figcaption>noAds true before; gems 20 -&gt; 1,220</figcaption></figure><figure class="log"><div class="logname"><a href="test-store/evidence/ST-08-run2-state.json">test-store/evidence/ST-08-run2-state.json</a></div><pre>{
+  &quot;before&quot;: {
+    &quot;gems&quot;: 20,
+    &quot;coins&quot;: 100,
+    &quot;noAds&quot;: true
+  },
+  &quot;after&quot;: {
+    &quot;gems&quot;: 1220,
+    &quot;coins&quot;: 10100,
+    &quot;noAds&quot;: true
+  },
+  &quot;offer_card_text&quot;: &quot;Special Offer\n+\n+\n$4.99\n1,200 gems · 10,000 coins · No Ads&quot;,
+  &quot;toast&quot;: &quot;Test purchase: +1,200 gems, +10K coins, No Ads&quot;
+}</pre><figcaption>Run 2: same result</figcaption></figure><figure class="ref"><code>js/app.js:313</code><figcaption>The offer card is always rendered in renderStore (no state.noAds check)</figcaption></figure><figure class="ref"><code>js/app.js:698</code><figcaption>The offer popup already skips No Ads owners: if (... !state.noAds ...) openOffer()</figcaption></figure></div>
+  <p class="small"><b>Suspected cause (hypothesis):</b> renderStore() builds the offer card unconditionally, while maybeShowOffer() already checks state.noAds.</p>
+  <p class="small"><b>Suggested fix:</b> Hide the offer card when state.noAds is true (same rule as the popup), or show a variant without No Ads.</p>
+  
+</article>
+
+<article class="finding" id="BUG-004">
+  <header>
+    <span class="id">BUG-004</span>
+    <span class="sev sev-minor">minor</span>
+    <span class="tag">bug</span>
+    <span class="tag ok">confirmed · 3/3</span>
+    <span class="tag">Slot limits</span>
+  </header>
+  <h3>Add Slot from the Out of Slots popup has no maximum: repeated fails grow the board to 10 squeezed slots (the booster stops at 7)</h3>
+  <p class="small"><b>Environment:</b> Web, 390x844 touch. Fails triggered with the debug &#39;Lose level&#39; (assisted); Add Slot and the ad are the real flow</p>
+  
+  <b>Steps</b><ol><li>Start Flowers Easy level 1 (4 slots)</li><li>Run out of slots, tap &#39;Add Slot&#39; on the Out of Slots popup and watch the 3 s ad</li><li>Run out of slots again and repeat 6 times</li></ol>
+  <div class="ea">
+    <div><b>Expected</b><p>Same limit as the Add Slot booster: &#39;Maximum slots reached&#39; at 7 slots</p></div>
+    <div><b>Actual</b><p>Slots go 4, 5, 6, 7, 8, 9, 10. At 10 they shrink to thin pills across the full width and the first slot&#39;s block is wider than its neighbours.</p></div>
+  </div>
+  <b>Evidence</b>
+  <div class="evidence"><figure><a href="test-puzzles/evidence/PZ-35-run1-crop.png"><img src="test-puzzles/evidence/PZ-35-run1-crop.png" alt="10 slots after 6 ads" loading="lazy"></a><figcaption>10 slots after 6 ads</figcaption></figure><figure><video controls src="test-puzzles/evidence/PZ-35-run1-add-slot.webm"></video><figcaption>Run 1: the last Add Slot rounds</figcaption></figure><figure><a href="test-puzzles/evidence/PZ-35-run1-after-6-ads.jpg"><img src="test-puzzles/evidence/PZ-35-run1-after-6-ads.jpg" alt="Full screen" loading="lazy"></a><figcaption>Full screen</figcaption></figure><figure class="log"><div class="logname"><a href="test-puzzles/evidence/PZ-35-run1-state.json">test-puzzles/evidence/PZ-35-run1-state.json</a></div><pre>{
+  &quot;slot_counts_after_each_ad&quot;: [
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  &quot;layout&quot;: {
+    &quot;row_left&quot;: 0,
+    &quot;row_right&quot;: 390,
+    &quot;viewport&quot;: 390,
+    &quot;outside&quot;: 0,
+    &quot;rows&quot;: 1
+  },
+  &quot;booster_limit&quot;: &quot;useBooster add_slot refuses at 7 (app.js \&quot;Maximum slots reached\&quot;)&quot;
+}</pre><figcaption>Slot count after each ad</figcaption></figure><figure class="log"><div class="logname"><a href="test-puzzles/evidence/PZ-35-run2-state.json">test-puzzles/evidence/PZ-35-run2-state.json</a></div><pre>{
+  &quot;slot_counts_after_each_ad&quot;: [
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  &quot;layout&quot;: {
+    &quot;row_left&quot;: 0,
+    &quot;row_right&quot;: 390,
+    &quot;viewport&quot;: 390,
+    &quot;outside&quot;: 0,
+    &quot;rows&quot;: 1
+  },
+  &quot;booster_limit&quot;: &quot;useBooster add_slot refuses at 7 (app.js \&quot;Maximum slots reached\&quot;)&quot;
+}</pre><figcaption>Run 2: same counts</figcaption></figure><figure class="ref"><code>js/app.js:2681</code><figcaption>&#39;fail-addslot&#39;: () =&gt; showAd(() =&gt; { ... game.slots.push(null) ... }) (no limit)</figcaption></figure><figure class="ref"><code>js/app.js:2122</code><figcaption>Booster: if (g.slots.length &gt;= 7) return toast(&#39;Maximum slots reached&#39;)</figcaption></figure></div>
+  <p class="small"><b>Suspected cause (hypothesis):</b> The fail-popup handler pushes a slot without the 7-slot check that useBooster(&#39;add_slot&#39;) has.</p>
+  <p class="small"><b>Suggested fix:</b> Apply the same limit in &#39;fail-addslot&#39; and hide or disable the Add Slot button on the fail popup at 7 slots.</p>
+  
+</article>
+
+<article class="finding" id="BUG-005">
+  <header>
+    <span class="id">BUG-005</span>
+    <span class="sev sev-minor">minor</span>
+    <span class="tag">bug</span>
+    <span class="tag ok">confirmed · 2/2</span>
+    <span class="tag">Phone landscape (web)</span>
+  </header>
+  <h3>Phone landscape (web): the Levels / Play block covers the Activities and Events buttons on the main menu</h3>
+  <p class="small"><b>Environment:</b> Web, 844x390 touch. The Android app is locked to portrait (AndroidManifest.xml:18), so this affects the browser build only</p>
+  
+  <b>Steps</b><ol><li>Open the web build on a phone held in landscape</li><li>Tap Events (right side) or Activities (left side)</li></ol>
+  <div class="ea">
+    <div><b>Expected</b><p>Side buttons are tappable, or the game asks to rotate to portrait</p></div>
+    <div><b>Actual</b><p>The .actions block (Levels and Play) lies on top of both buttons; a tap on their centre hits Play/Levels instead. The logo is also covered.</p></div>
+  </div>
+  <b>Evidence</b>
+  <div class="evidence"><figure><a href="test-ui/evidence/UI-phone-landscape-menu.jpg"><img src="test-ui/evidence/UI-phone-landscape-menu.jpg" alt="844x390 main menu" loading="lazy"></a><figcaption>844x390 main menu</figcaption></figure><figure class="log"><div class="logname"><a href="test-ui/evidence/UI-11-run1-click-blocked.log">test-ui/evidence/UI-11-run1-click-blocked.log</a></div><pre>UI run 1 (844x390 phone landscape, main menu): clicking the Events button
+       - &lt;div class=&quot;actions&quot;&gt;…&lt;/div&gt; intercepts pointer events
+      - &lt;div class=&quot;actions&quot;&gt;…&lt;/div&gt; intercepts pointer events
+    - locator resolved to &lt;button class=&quot;side-btn&quot; data-action=&quot;events&quot;&gt;…&lt;/button&gt;
+locator.click: Timeout 30000ms exceeded.
+</pre><figcaption>Run 1: the Events click is intercepted by .actions</figcaption></figure><figure class="log"><div class="logname"><a href="test-ui/evidence/UI-layout-probe.json">test-ui/evidence/UI-layout-probe.json</a></div><pre>{
+  &quot;phone-small&quot;: {
+    &quot;menu&quot;: {
+      &quot;issues&quot;: [
+        {
+          &quot;type&quot;: &quot;outside viewport&quot;,
+          &quot;el&quot;: &quot;IMG.plus&quot;,
+          &quot;text&quot;: &quot;&quot;,
+          &quot;x&quot;: 337,
+          &quot;right&quot;: 367
+        },
+        {
+          &quot;type&quot;: &quot;outside viewport&quot;,
+          &quot;el&quot;: &quot;BUTTON.wood-round&quot;,
+          &quot;text&quot;: &quot;&quot;,
+          &quot;x&quot;: 366,
+          &quot;right&quot;: 408
+        },
+        {
+          &quot;type&quot;: &quot;outside viewport&quot;,
+          &quot;el&quot;: &quot;IMG.&quot;,
+          &quot;text&quot;: &quot;&quot;,
+          &quot;x&quot;: 370,
+          &quot;right&quot;: 404
+        }
+      ],
+      &quot;screenshot&quot;: &quot;UI-phone-small-menu.jpg&quot;
+    },
+    &quot;store&quot;: {
+      &quot;issues&quot;: [
+        {
+          &quot;type&quot;: &quot;outside viewport&quot;,
+          &quot;el&quot;: &quot;BUTTON.close-btn static&quot;,
+          &quot;text&quot;: &quot;X&quot;,
+          &quot;x&quot;: 366,
+          &quot;right&quot;: 416
+        }
+      ],
+      &quot;screenshot&quot;: &quot;UI-phone-small-store.jpg&quot;
+    },
+    &quot;skins&quot;: {
+      &quot;issues&quot;: [
+        {
+          &quot;type&quot;: &quot;outside viewport&quot;,
+          &quot;el&quot;: &quot;BUTTON.wd-tab &quot;,
+          &quot;text&quot;: &quot;Firefly&quot;,
+          &quot;x&quot;: 310,
+          &quot;right&quot;: 364
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;look-buy&quot;,
+          &quot;by&quot;: &quot;nav-btn&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;look-buy&quot;,
+          &quot;by&quot;: &quot;nav-btn active&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;look-buy&quot;,
+          &quot;by&quot;: &quot;scene blurred&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;look-buy&quot;,
+          &quot;by&quot;: &quot;scene blurred&quot;
+        }
+      ],
+      &quot;screenshot&quot;: &quot;UI-phone-small-skins.jpg&quot;
+    },
+    &quot;levels&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-phone-small-levels.jpg&quot;
+    },
+    &quot;collections&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-phone-small-collections.jpg&quot;
+    },
+    &quot;events&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-phone-small-events.jpg&quot;
+    },
+    &quot;activities&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-phone-small-activities.jpg&quot;
+    },
+    &quot;settings&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-phone-small-settings.jpg&quot;
+    },
+    &quot;noads&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-phone-small-noads.jpg&quot;
+    },
+    &quot;game&quot;: {
+      &quot;issues&quot;: [
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;8&quot;,
+          &quot;by&quot;: &quot;qcol&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;15&quot;,
+          &quot;by&quot;: &quot;booster-bar&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;11&quot;,
+          &quot;by&quot;: &quot;qcol&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;12&quot;,
+          &quot;by&quot;: &quot;booster-bar&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;9&quot;,
+          &quot;by&quot;: &quot;qcol&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;11&quot;,
+          &quot;by&quot;: &quot;booster-bar&quot;
+        }
+      ],
+      &quot;screenshot&quot;: &quot;UI-phone-small-game.jpg&quot;
+    }
+  },
+  &quot;phone&quot;: {
+    &quot;menu&quot;: {
+      &quot;issues&quot;: [
+        {
+          &quot;type&quot;: &quot;outside viewport&quot;,
+          &quot;el&quot;: &quot;BUTTON.wood-round&quot;,
+          &quot;text&quot;: &quot;&quot;,
+          &quot;x&quot;: 366,
+          &quot;right&quot;: 408
+        },
+        {
+          &quot;type&quot;: &quot;outside viewport&quot;,
+          &quot;el&quot;: &quot;IMG.&quot;,
+          &quot;text&quot;: &quot;&quot;,
+          &quot;x&quot;: 370,
+          &quot;right&quot;: 404
+        }
+      ],
+      &quot;screenshot&quot;: &quot;UI-phone-menu.jpg&quot;
+    },
+    &quot;store&quot;: {
+      &quot;issues&quot;: [
+        {
+          &quot;type&quot;: &quot;outside viewport&quot;,
+          &quot;el&quot;: &quot;BUTTON.close-btn static&quot;,
+          &quot;text&quot;: &quot;X&quot;,
+          &quot;x&quot;: 366,
+          &quot;right&quot;: 416
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;speed-store&quot;,
+          &quot;by&quot;: &quot;scene blurred&quot;
+        }
+      ],
+      &quot;screenshot&quot;: &quot;UI-phone-store.jpg&quot;
+    },
+    &quot;skins&quot;: {
+      &quot;issues&quot;: [
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;look-buy&quot;,
+          &quot;by&quot;: &quot;scene blurred&quot;
+        }
+      ],
+      &quot;screenshot&quot;: &quot;UI-phone-skins.jpg&quot;
+    },
+    &quot;levels&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-phone-levels.jpg&quot;
+    },
+    &quot;collections&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-phone-collections.jpg&quot;
+    },
+    &quot;events&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-phone-events.jpg&quot;
+    },
+    &quot;activities&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-phone-activities.jpg&quot;
+    },
+    &quot;settings&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-phone-settings.jpg&quot;
+    },
+    &quot;noads&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-phone-noads.jpg&quot;
+    },
+    &quot;game&quot;: {
+      &quot;issues&quot;: [
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;8&quot;,
+          &quot;by&quot;: &quot;qcol&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;15&quot;,
+          &quot;by&quot;: &quot;booster-bar&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;11&quot;,
+          &quot;by&quot;: &quot;qcol&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;12&quot;,
+          &quot;by&quot;: &quot;booster-bar&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;9&quot;,
+          &quot;by&quot;: &quot;qcol&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;11&quot;,
+          &quot;by&quot;: &quot;booster-bar&quot;
+        }
+      ],
+      &quot;screenshot&quot;: &quot;UI-phone-game.jpg&quot;
+    }
+  },
+  &quot;phone-landscape&quot;: {
+    &quot;menu&quot;: {
+      &quot;issues&quot;: [
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;activities&quot;,
+          &quot;by&quot;: &quot;actions&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;events&quot;,
+          &quot;by&quot;: &quot;actions&quot;
+        }
+      ],
+      &quot;screenshot&quot;: &quot;UI-phone-landscape-menu.jpg&quot;
+    },
+    &quot;store&quot;: {
+      &quot;issues&quot;: [
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;buy&quot;,
+          &quot;by&quot;: &quot;nav-btn&quot;
+        }
+      ],
+      &quot;screenshot&quot;: &quot;UI-phone-landscape-store.jpg&quot;
+    },
+    &quot;skins&quot;: {
+      &quot;issues&quot;: [
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;In Use&quot;,
+          &quot;by&quot;: &quot;nav-btn active&quot;
+        }
+      ],
+      &quot;screenshot&quot;: &quot;UI-phone-landscape-skins.jpg&quot;
+    },
+    &quot;levels&quot;: {
+      &quot;issues&quot;: [
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;play-level&quot;,
+          &quot;by&quot;: &quot;nav-btn&quot;
+        }
+      ],
+      &quot;screenshot&quot;: &quot;UI-phone-landscape-levels.jpg&quot;
+    },
+    &quot;collections&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-phone-landscape-collections.jpg&quot;
+    },
+    &quot;events&quot;: {
+      &quot;issues&quot;: [
+        {
+          &quot;type&quot;: &quot;cannot open screen: its button is covered&quot;,
+          &quot;button&quot;: &quot;[data-action=\&quot;events\&quot;]&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;activities&quot;,
+          &quot;by&quot;: &quot;actions&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;events&quot;,
+          &quot;by&quot;: &quot;actions&quot;
+        }
+      ],
+      &quot;screenshot&quot;: &quot;UI-phone-landscape-events.jpg&quot;
+    },
+    &quot;activities&quot;: {
+      &quot;issues&quot;: [
+        {
+          &quot;type&quot;: &quot;cannot open screen: its button is covered&quot;,
+          &quot;button&quot;: &quot;.side-btn[data-action=\&quot;activities\&quot;]&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;activities&quot;,
+          &quot;by&quot;: &quot;actions&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;events&quot;,
+          &quot;by&quot;: &quot;actions&quot;
+        }
+      ],
+      &quot;screenshot&quot;: &quot;UI-phone-landscape-activities.jpg&quot;
+    },
+    &quot;settings&quot;: {
+      &quot;issues&quot;: [
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;report&quot;,
+          &quot;by&quot;: &quot;overlay&quot;
+        }
+      ],
+      &quot;screenshot&quot;: &quot;UI-phone-landscape-settings.jpg&quot;
+    },
+    &quot;noads&quot;: {
+      &quot;issues&quot;: [
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;buy&quot;,
+          &quot;by&quot;: &quot;overlay&quot;
+        }
+      ],
+      &quot;screenshot&quot;: &quot;UI-phone-landscape-noads.jpg&quot;
+    },
+    &quot;game&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-phone-landscape-game.jpg&quot;
+    }
+  },
+  &quot;tablet&quot;: {
+    &quot;menu&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-tablet-menu.jpg&quot;
+    },
+    &quot;store&quot;: {
+      &quot;issues&quot;: [
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;speed-store&quot;,
+          &quot;by&quot;: &quot;scene blurred&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;free-coins&quot;,
+          &quot;by&quot;: &quot;pixi-on&quot;
+        }
+      ],
+      &quot;screenshot&quot;: &quot;UI-tablet-store.jpg&quot;
+    },
+    &quot;skins&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-tablet-skins.jpg&quot;
+    },
+    &quot;levels&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-tablet-levels.jpg&quot;
+    },
+    &quot;collections&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-tablet-collections.jpg&quot;
+    },
+    &quot;events&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-tablet-events.jpg&quot;
+    },
+    &quot;activities&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-tablet-activities.jpg&quot;
+    },
+    &quot;settings&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-tablet-settings.jpg&quot;
+    },
+    &quot;noads&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-tablet-noads.jpg&quot;
+    },
+    &quot;game&quot;: {
+      &quot;issues&quot;: [
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;8&quot;,
+          &quot;by&quot;: &quot;qcol&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;15&quot;,
+          &quot;by&quot;: &quot;booster-bar&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;11&quot;,
+          &quot;by&quot;: &quot;qcol&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;12&quot;,
+          &quot;by&quot;: &quot;booster-bar&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;9&quot;,
+          &quot;by&quot;: &quot;qcol&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;11&quot;,
+          &quot;by&quot;: &quot;booster-bar&quot;
+        }
+      ],
+      &quot;screenshot&quot;: &quot;UI-tablet-game.jpg&quot;
+    }
+  },
+  &quot;laptop&quot;: {
+    &quot;menu&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-laptop-menu.jpg&quot;
+    },
+    &quot;store&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-laptop-store.jpg&quot;
+    },
+    &quot;skins&quot;: {
+      &quot;issues&quot;: [
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;look-buy&quot;,
+          &quot;by&quot;: &quot;nav-btn&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;look-buy&quot;,
+          &quot;by&quot;: &quot;nav-btn active&quot;
+        }
+      ],
+      &quot;screenshot&quot;: &quot;UI-laptop-skins.jpg&quot;
+    },
+    &quot;levels&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-laptop-levels.jpg&quot;
+    },
+    &quot;collections&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-laptop-collections.jpg&quot;
+    },
+    &quot;events&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-laptop-events.jpg&quot;
+    },
+    &quot;activities&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-laptop-activities.jpg&quot;
+    },
+    &quot;settings&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-laptop-settings.jpg&quot;
+    },
+    &quot;noads&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-laptop-noads.jpg&quot;
+    },
+    &quot;game&quot;: {
+      &quot;issues&quot;: [
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;8&quot;,
+          &quot;by&quot;: &quot;qcol&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;15&quot;,
+          &quot;by&quot;: &quot;booster-bar&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;11&quot;,
+          &quot;by&quot;: &quot;qcol&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;12&quot;,
+          &quot;by&quot;: &quot;booster-bar&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;9&quot;,
+          &quot;by&quot;: &quot;qcol&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;11&quot;,
+          &quot;by&quot;: &quot;booster-bar&quot;
+        }
+      ],
+      &quot;screenshot&quot;: &quot;UI-laptop-game.jpg&quot;
+    }
+  },
+  &quot;full-hd&quot;: {
+    &quot;menu&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-full-hd-menu.jpg&quot;
+    },
+    &quot;store&quot;: {
+      &quot;issues&quot;: [
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;speed-store&quot;,
+          &quot;by&quot;: &quot;scene blurred&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;free-coins&quot;,
+          &quot;by&quot;: &quot;pixi-on&quot;
+        }
+      ],
+      &quot;screenshot&quot;: &quot;UI-full-hd-store.jpg&quot;
+    },
+    &quot;skins&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-full-hd-skins.jpg&quot;
+    },
+    &quot;levels&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-full-hd-levels.jpg&quot;
+    },
+    &quot;collections&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-full-hd-collections.jpg&quot;
+    },
+    &quot;events&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-full-hd-events.jpg&quot;
+    },
+    &quot;activities&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-full-hd-activities.jpg&quot;
+    },
+    &quot;settings&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-full-hd-settings.jpg&quot;
+    },
+    &quot;noads&quot;: {
+      &quot;issues&quot;: [],
+      &quot;screenshot&quot;: &quot;UI-full-hd-noads.jpg&quot;
+    },
+    &quot;game&quot;: {
+      &quot;issues&quot;: [
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;8&quot;,
+          &quot;by&quot;: &quot;qcol&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;15&quot;,
+          &quot;by&quot;: &quot;booster-bar&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;11&quot;,
+          &quot;by&quot;: &quot;qcol&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;12&quot;,
+          &quot;by&quot;: &quot;booster-bar&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;9&quot;,
+          &quot;by&quot;: &quot;qcol&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button covered&quot;,
+          &quot;el&quot;: &quot;11&quot;,
+          &quot;by&quot;: &quot;booster-bar&quot;
+        }
+      ],
+      &quot;screenshot&quot;: &quot;UI-full-hd-game.jpg&quot;
+    }
+  }
+}</pre><figcaption>Run 2: probe reports both buttons covered by .actions</figcaption></figure></div>
+  
+  <p class="small"><b>Suggested fix:</b> Show a &#39;rotate your phone&#39; screen in landscape on touch devices (matching the portrait-only app), or give landscape its own menu layout.</p>
+  
+</article>
+
+<article class="finding" id="BUG-006">
+  <header>
+    <span class="id">BUG-006</span>
+    <span class="sev sev-minor">minor</span>
+    <span class="tag">bug</span>
+    <span class="tag ok">confirmed · 2/2</span>
+    <span class="tag">Accessibility: touch targets</span>
+  </header>
+  <h3>Several buttons are below the 44 px touch-target guideline on phones (top-bar currency buttons, store Buy, in-level Pause and Speed)</h3>
+  <p class="small"><b>Environment:</b> 390x844 touch</p>
+  
+  <b>Steps</b><ol><li>Measure the on-screen size of every visible button on the menu, store, settings and a level</li></ol>
+  <div class="ea">
+    <div><b>Expected</b><p>At least 44x44 CSS px (Apple HIG; Android recommends 48 dp)</p></div>
+    <div><b>Actual</b><p>Gems/coins top-bar buttons 76x34 and 79x34; store Buy buttons 95x38 (x6); Copy player ID 77x38; in-level Pause 40x40; Speed 67x36</p></div>
+  </div>
+  <b>Evidence</b>
+  <div class="evidence"><figure class="log"><div class="logname"><a href="catalog/evidence/CT-A11Y-1-run1-small-targets.json">catalog/evidence/CT-A11Y-1-run1-small-targets.json</a></div><pre>{
+  &quot;menu&quot;: [
+    {
+      &quot;el&quot;: &quot;store&quot;,
+      &quot;w&quot;: 76,
+      &quot;h&quot;: 34
+    },
+    {
+      &quot;el&quot;: &quot;store&quot;,
+      &quot;w&quot;: 79,
+      &quot;h&quot;: 34
+    }
+  ],
+  &quot;store&quot;: [
+    {
+      &quot;el&quot;: &quot;buy&quot;,
+      &quot;w&quot;: 95,
+      &quot;h&quot;: 38
+    },
+    {
+      &quot;el&quot;: &quot;buy&quot;,
+      &quot;w&quot;: 95,
+      &quot;h&quot;: 38
+    },
+    {
+      &quot;el&quot;: &quot;buy&quot;,
+      &quot;w&quot;: 95,
+      &quot;h&quot;: 38
+    },
+    {
+      &quot;el&quot;: &quot;buy&quot;,
+      &quot;w&quot;: 95,
+      &quot;h&quot;: 38
+    },
+    {
+      &quot;el&quot;: &quot;buy&quot;,
+      &quot;w&quot;: 95,
+      &quot;h&quot;: 38
+    },
+    {
+      &quot;el&quot;: &quot;buy&quot;,
+      &quot;w&quot;: 95,
+      &quot;h&quot;: 38
+    }
+  ],
+  &quot;settings&quot;: [
+    {
+      &quot;el&quot;: &quot;copy-id&quot;,
+      &quot;w&quot;: 77,
+      &quot;h&quot;: 38
+    }
+  ],
+  &quot;game&quot;: [
+    {
+      &quot;el&quot;: &quot;pause&quot;,
+      &quot;w&quot;: 40,
+      &quot;h&quot;: 40
+    },
+    {
+      &quot;el&quot;: &quot;speed&quot;,
+      &quot;w&quot;: 67,
+      &quot;h&quot;: 36
+    }
+  ]
+}</pre><figcaption>Run 1 measurements</figcaption></figure><figure class="log"><div class="logname"><a href="catalog/evidence/CT-A11Y-1-run2-small-targets.json">catalog/evidence/CT-A11Y-1-run2-small-targets.json</a></div><pre>{
+  &quot;menu&quot;: [
+    {
+      &quot;el&quot;: &quot;store&quot;,
+      &quot;w&quot;: 76,
+      &quot;h&quot;: 34
+    },
+    {
+      &quot;el&quot;: &quot;store&quot;,
+      &quot;w&quot;: 79,
+      &quot;h&quot;: 34
+    }
+  ],
+  &quot;store&quot;: [
+    {
+      &quot;el&quot;: &quot;buy&quot;,
+      &quot;w&quot;: 95,
+      &quot;h&quot;: 38
+    },
+    {
+      &quot;el&quot;: &quot;buy&quot;,
+      &quot;w&quot;: 95,
+      &quot;h&quot;: 38
+    },
+    {
+      &quot;el&quot;: &quot;buy&quot;,
+      &quot;w&quot;: 95,
+      &quot;h&quot;: 38
+    },
+    {
+      &quot;el&quot;: &quot;buy&quot;,
+      &quot;w&quot;: 95,
+      &quot;h&quot;: 38
+    },
+    {
+      &quot;el&quot;: &quot;buy&quot;,
+      &quot;w&quot;: 95,
+      &quot;h&quot;: 38
+    },
+    {
+      &quot;el&quot;: &quot;buy&quot;,
+      &quot;w&quot;: 95,
+      &quot;h&quot;: 38
+    }
+  ],
+  &quot;settings&quot;: [
+    {
+      &quot;el&quot;: &quot;copy-id&quot;,
+      &quot;w&quot;: 77,
+      &quot;h&quot;: 38
+    }
+  ],
+  &quot;game&quot;: [
+    {
+      &quot;el&quot;: &quot;pause&quot;,
+      &quot;w&quot;: 40,
+      &quot;h&quot;: 40
+    },
+    {
+      &quot;el&quot;: &quot;speed&quot;,
+      &quot;w&quot;: 67,
+      &quot;h&quot;: 36
+    }
+  ]
+}</pre><figcaption>Run 2: identical</figcaption></figure><figure><a href="catalog/evidence/CT-A11Y-1-run1-game.jpg"><img src="catalog/evidence/CT-A11Y-1-run1-game.jpg" alt="Level: Pause (top left) and Speed (top right)" loading="lazy"></a><figcaption>Level: Pause (top left) and Speed (top right)</figcaption></figure><figure><a href="catalog/evidence/CT-A11Y-1-run1-store.jpg"><img src="catalog/evidence/CT-A11Y-1-run1-store.jpg" alt="Store Buy buttons" loading="lazy"></a><figcaption>Store Buy buttons</figcaption></figure></div>
+  
+  <p class="small"><b>Suggested fix:</b> Grow the hit area to 44 px without changing the art, e.g. padding or an ::after hit box on these buttons.</p>
+  
+</article>
+
+<article class="finding" id="BUG-007">
+  <header>
+    <span class="id">BUG-007</span>
+    <span class="sev sev-trivial">trivial</span>
+    <span class="tag">bug</span>
+    <span class="tag ok">confirmed · static</span>
+    <span class="tag">Smoke gate</span>
+  </header>
+  <h3>No favicon: every page load logs a 404 error in the console</h3>
+  
+  
+  <b>Steps</b><ol><li>Open the game in a browser with the developer console open</li></ol>
+  <div class="ea">
+    <div><b>Expected</b><p>The page declares an icon and the console stays clean</p></div>
+    <div><b>Actual</b><p>index.html has no &lt;link rel=&quot;icon&quot;&gt;; the browser requests /favicon.ico, gets 404 and logs &#39;Failed to load resource&#39;. Seen on every boot in this run.</p></div>
+  </div>
+  <b>Evidence</b>
+  <div class="evidence"><figure class="log"><div class="logname"><a href="smoke/evidence/SM-06-favicon-check.txt">smoke/evidence/SM-06-favicon-check.txt</a></div><pre>$ curl -s -o /dev/null -w &#39;%{http_code}&#39; http://localhost:5199/favicon.ico
+404
+
+$ grep -c &#39;rel=&quot;icon&quot;&#39; index.html
+0
+
+Console during every boot (SM-03-boot-log.json):
+[error] Failed to load resource: the server responded with a status of 404 (Not Found)
+</pre><figcaption>404 on /favicon.ico and no icon link in index.html</figcaption></figure><figure class="log"><div class="logname"><a href="smoke/evidence/SM-03-boot-log.json">smoke/evidence/SM-03-boot-log.json</a></div><pre>{
+  &quot;console&quot;: [
+    &quot;[SM-01] [error] Failed to load resource: the server responded with a status of 404 (Not Found)&quot;,
+    &quot;[SM-01] [error] Failed to load resource: the server responded with a status of 404 (Not Found)&quot;
+  ],
+  &quot;http_errors&quot;: []
+}</pre><figcaption>Console during the first launch</figcaption></figure></div>
+  
+  <p class="small"><b>Suggested fix:</b> Add &lt;link rel=&quot;icon&quot; href=&quot;assets/sprites/bee.png&quot;&gt; (or a favicon.ico) to index.html. It also gives the browser tab an icon.</p>
+  
+</article>
+
+<article class="finding" id="TXT-001">
+  <header>
+    <span class="id">TXT-001</span>
+    <span class="sev sev-minor">minor</span>
+    <span class="tag">text</span>
+    <span class="tag ok">confirmed · static</span>
+    <span class="tag">Terminology and consistency</span>
+  </header>
+  <h3>The swarm is called &#39;bees&#39; in some texts and &#39;bugs&#39; in others, even in two consecutive How to Play cards</h3>
+  
+  
+  
+  <div class="ea">
+    <div><b>Expected</b><p>One term for the creatures the player sends out. The game has 6 bug types (Bee, Ladybug, Beetle, Butterfly, Ant, Firefly) and a &#39;Bugs&#39; collection tab, so &#39;bugs&#39; is the general term; &#39;bees&#39; is only right when the Bee is equipped.</p></div>
+    <div><b>Actual</b><p>How to Play card 2 says &#39;bees fly out of the tree&#39;, card 3 says &#39;bugs enter the picture&#39;. The tutorial and three toasts say &#39;bees&#39;; the lock toast and a notification say &#39;bugs&#39;.</p></div>
+  </div>
+  <b>Evidence</b>
+  <div class="evidence"><figure><a href="../pixel-swarm-text-review/evidence/TXT-howto.jpg"><img src="../pixel-swarm-text-review/evidence/TXT-howto.jpg" alt="Card 2 &#39;bees fly out&#39;, card 3 &#39;bugs enter the picture&#39;" loading="lazy"></a><figcaption>Card 2 &#39;bees fly out&#39;, card 3 &#39;bugs enter the picture&#39;</figcaption></figure><figure class="ref"><code>index.html:510</code><figcaption>...bees fly out of the tree to eat pixels of its color.</figcaption></figure><figure class="ref"><code>index.html:511</code><figcaption>From the bottom up: bugs enter the picture from the bottom...</figcaption></figure><figure class="ref"><code>js/app.js:2251</code><figcaption>Tutorial: ...bees fly out of the tree to eat its color.</figcaption></figure><figure class="ref"><code>js/app.js:2252</code><figcaption>Tutorial: Bees eat from the bottom up...</figcaption></figure><figure class="ref"><code>js/app.js:2253</code><figcaption>Tutorial: ...no bee can reach its color...</figcaption></figure><figure class="ref"><code>js/app.js:1725</code><figcaption>Toast: The bees are eating {color} pixels</figcaption></figure><figure class="ref"><code>js/app.js:1728</code><figcaption>Toast: This {color} block is waiting for the bees</figcaption></figure><figure class="ref"><code>js/app.js:1880</code><figcaption>Toast: No free slot — wait for the bees!</figcaption></figure><figure class="ref"><code>js/app.js:1900</code><figcaption>Toast: Locked! The bugs must collect its key</figcaption></figure><figure class="ref"><code>js/native.js:72</code><figcaption>Notification: Your bugs miss you!</figcaption></figure></div>
+  
+  <p class="small"><b>Suggested fix:</b> Use &#39;bugs&#39; in all general texts (e.g. &#39;bugs fly out of the tree&#39;, &#39;Bugs eat from the bottom up&#39;, &#39;wait for the bugs&#39;). Optionally insert the equipped bug&#39;s name where the sentence is about the current swarm.</p>
+  
+</article>
+
+<article class="finding" id="TXT-002">
+  <header>
+    <span class="id">TXT-002</span>
+    <span class="sev sev-minor">minor</span>
+    <span class="tag">text</span>
+    <span class="tag ok">confirmed · 3/3</span>
+    <span class="tag">Text in context (layout, overlap, truncation)</span>
+  </header>
+  <h3>Tutorial step dots are drawn on top of the ad banner text at the bottom of the game screen</h3>
+  <p class="small"><b>Environment:</b> Mobile viewport 390x844 @2x, fresh tutorial (#tutorial)</p>
+  <p><b>Preconditions:</b> Tutorial not seen yet (new player)</p>
+  <b>Steps</b><ol><li>Start the first level as a new player (or open the build with #tutorial)</li><li>Look at the bottom of the screen while the first tutorial bubble is shown</li></ol>
+  <div class="ea">
+    <div><b>Expected</b><p>The six tutorial step dots sit in free space and the banner text stays readable</p></div>
+    <div><b>Actual</b><p>The dots are painted over the middle of the banner text on every run, whichever banner slide is showing (Halloween Event on run 1, Hard Mode on run 2, Gallery on run 3)</p></div>
+  </div>
+  <b>Evidence</b>
+  <div class="evidence"><figure><a href="../pixel-swarm-text-review/evidence/TXT-tutorial-dots-crop.png"><img src="../pixel-swarm-text-review/evidence/TXT-tutorial-dots-crop.png" alt="Close-up, run 3: dots over &#39;Collect all 102 pictures and share them&#39;" loading="lazy"></a><figcaption>Close-up, run 3: dots over &#39;Collect all 102 pictures and share them&#39;</figcaption></figure><figure><a href="../pixel-swarm-text-review/evidence/TXT-tutorial-1.jpg"><img src="../pixel-swarm-text-review/evidence/TXT-tutorial-1.jpg" alt="Full screen, run 3" loading="lazy"></a><figcaption>Full screen, run 3</figcaption></figure><figure><a href="../pixel-swarm-text-review/evidence/TXT-tutorial-1-run1.jpg"><img src="../pixel-swarm-text-review/evidence/TXT-tutorial-1-run1.jpg" alt="Full screen, run 1: dots over the &#39;Halloween Event&#39; banner text" loading="lazy"></a><figcaption>Full screen, run 1: dots over the &#39;Halloween Event&#39; banner text</figcaption></figure><figure class="ref"><code>css/style.css:879</code><figcaption>.tut-dots { position: absolute; ... bottom: calc(14px + var(--sa-bottom)); }</figcaption></figure></div>
+  <p class="small"><b>Suspected cause (hypothesis):</b> Likely the dots are positioned a fixed 14px from the bottom of the screen, which is inside the 50px ad banner (.ad-banner, css/style.css:761).</p>
+  <p class="small"><b>Suggested fix:</b> Place the dots inside the tutorial bubble, or offset them above the banner (bottom: banner height + 14px); hide the banner during the tutorial if that is acceptable.</p>
+  
+</article>
+
+<article class="finding" id="TXT-003">
+  <header>
+    <span class="id">TXT-003</span>
+    <span class="sev sev-minor">minor</span>
+    <span class="tag">text</span>
+    <span class="tag ok">confirmed · 3/3</span>
+    <span class="tag">Text in context (layout, overlap, truncation)</span>
+  </header>
+  <h3>Store: the No Ads subtitle is cramped and leaves &#39;ads&#39; alone on a second line on phone widths</h3>
+  <p class="small"><b>Environment:</b> Mobile viewport 390x844 and 360x740</p>
+  
+  <b>Steps</b><ol><li>Open the Store from the bottom navigation</li><li>Look at the No Ads card under the Special Offer</li></ol>
+  <div class="ea">
+    <div><b>Expected</b><p>&#39;Remove banner and video ads&#39; readable, letters not touching, no single-word orphan line</p></div>
+    <div><b>Actual</b><p>At 390px the outline makes letters touch and &#39;ads&#39; wraps alone; at 360px it wraps after &#39;and&#39; and stays cramped</p></div>
+  </div>
+  <b>Evidence</b>
+  <div class="evidence"><figure><a href="../pixel-swarm-text-review/evidence/TXT-store-noads-360.png"><img src="../pixel-swarm-text-review/evidence/TXT-store-noads-360.png" alt="Close-up at 360px: cramped letters" loading="lazy"></a><figcaption>Close-up at 360px: cramped letters</figcaption></figure><figure><a href="../pixel-swarm-text-review/evidence/TXT-store.jpg"><img src="../pixel-swarm-text-review/evidence/TXT-store.jpg" alt="Full store at 390px (run 3): &#39;ads&#39; alone on line 2" loading="lazy"></a><figcaption>Full store at 390px (run 3): &#39;ads&#39; alone on line 2</figcaption></figure><figure><a href="../pixel-swarm-text-review/evidence/TXT-store-run1.jpg"><img src="../pixel-swarm-text-review/evidence/TXT-store-run1.jpg" alt="Run 1, 390px: same result" loading="lazy"></a><figcaption>Run 1, 390px: same result</figcaption></figure><figure class="ref"><code>css/style.css:964</code><figcaption>.card-title small { font-size: 13px; -webkit-text-stroke: 3px var(--ink); }</figcaption></figure></div>
+  <p class="small"><b>Suspected cause (hypothesis):</b> A 3px text stroke on 13px text eats the space between letters; the card title area is narrow next to the price button.</p>
+  <p class="small"><b>Suggested fix:</b> Reduce the stroke for the small subtitle (1.5 to 2px) or drop it, and shorten the copy to &#39;No banner or video ads&#39;.</p>
+  
+</article>
+
+<article class="finding" id="TXT-004">
+  <header>
+    <span class="id">TXT-004</span>
+    <span class="sev sev-trivial">trivial</span>
+    <span class="tag">text</span>
+    <span class="tag ok">confirmed · static</span>
+    <span class="tag">Terminology and consistency</span>
+  </header>
+  <h3>Booster descriptions say &#39;in line&#39; where How to Play says &#39;in the line&#39;, and describe Shuffle differently</h3>
+  
+  
+  
+  <div class="ea">
+    <div><b>Expected</b><p>Shuffle: &#39;Mixes the colors of the blocks in the line.&#39; Free Pick: &#39;Pick any block in the line and send it to a free slot.&#39;</p></div>
+    <div><b>Actual</b><p>&#39;Changes the colors of the blocks in line.&#39; and &#39;Pick any block in line...&#39; (missing &#39;the&#39;; &#39;changes&#39; vs &#39;mixes&#39; in How to Play)</p></div>
+  </div>
+  <b>Evidence</b>
+  <div class="evidence"><figure><a href="../pixel-swarm-text-review/evidence/TXT-booster-shuffle.jpg"><img src="../pixel-swarm-text-review/evidence/TXT-booster-shuffle.jpg" alt="New Booster popup: &#39;Changes the colors of the blocks in line.&#39;" loading="lazy"></a><figcaption>New Booster popup: &#39;Changes the colors of the blocks in line.&#39;</figcaption></figure><figure class="ref"><code>js/app.js:1127</code><figcaption>desc: &#39;Changes the colors of the blocks in line.&#39;</figcaption></figure><figure class="ref"><code>index.html:450</code><figcaption>Same text in the static popup markup</figcaption></figure><figure class="ref"><code>js/app.js:1129</code><figcaption>desc: &#39;Pick any block in line and send it to a free slot.&#39;</figcaption></figure><figure class="ref"><code>index.html:514</code><figcaption>How to Play: &#39;Shuffle mixes the colors in the line ... any block in the line&#39;</figcaption></figure></div>
+  
+  <p class="small"><b>Suggested fix:</b> Mixes the colors of the blocks in the line. / Pick any block in the line and send it to a free slot.</p>
+  
+</article>
+
+<article class="finding" id="TXT-005">
+  <header>
+    <span class="id">TXT-005</span>
+    <span class="sev sev-trivial">trivial</span>
+    <span class="tag">text</span>
+    <span class="tag ok">confirmed · static</span>
+    <span class="tag">Terminology and consistency</span>
+  </header>
+  <h3>&#39;Out of Slots&#39; is capitalised mid-sentence in How to Play but lowercase in the tutorial</h3>
+  
+  
+  
+  <div class="ea">
+    <div><b>Expected</b><p>The same casing for the same term in running text (the popup title &#39;Out of Slots!&#39; can stay Title Case)</p></div>
+    <div><b>Actual</b><p>How to Play: &#39;you&#39;re Out of Slots.&#39;; tutorial: &#39;you&#39;re out of slots and you lose.&#39;</p></div>
+  </div>
+  <b>Evidence</b>
+  <div class="evidence"><figure><a href="../pixel-swarm-text-review/evidence/TXT-howto.jpg"><img src="../pixel-swarm-text-review/evidence/TXT-howto.jpg" alt="Card 4: &#39;you&#39;re Out of Slots.&#39;" loading="lazy"></a><figcaption>Card 4: &#39;you&#39;re Out of Slots.&#39;</figcaption></figure><figure class="ref"><code>index.html:512</code><figcaption>you&#39;re &lt;b&gt;Out of Slots&lt;/b&gt;.</figcaption></figure><figure class="ref"><code>js/app.js:2253</code><figcaption>you&#39;re out of slots and you lose.</figcaption></figure></div>
+  
+  <p class="small"><b>Suggested fix:</b> Pick one: keep the highlighted &#39;Out of Slots&#39; as a named state in both places, or lowercase it in How to Play.</p>
+  
+</article>
+
+<article class="finding" id="TXT-006">
+  <header>
+    <span class="id">TXT-006</span>
+    <span class="sev sev-trivial">trivial</span>
+    <span class="tag">text</span>
+    <span class="tag ok">confirmed · static</span>
+    <span class="tag">Terminology and consistency</span>
+  </header>
+  <h3>Two ellipsis styles: &#39;Loading...&#39; (three dots) vs &#39;Sending…&#39; and &#39;Taking a screenshot…&#39;</h3>
+  
+  
+  
+  <div class="ea">
+    <div><b>Expected</b><p>One ellipsis style across the game</p></div>
+    <div><b>Actual</b><p>The loading screen uses &#39;...&#39;; the Report popup (Settings &gt; Report) uses the &#39;…&#39; character</p></div>
+  </div>
+  <b>Evidence</b>
+  <div class="evidence"><figure><a href="../pixel-swarm-text-review/evidence/TXT-loading.jpg"><img src="../pixel-swarm-text-review/evidence/TXT-loading.jpg" alt="Loading screen" loading="lazy"></a><figcaption>Loading screen</figcaption></figure><figure class="ref"><code>index.html:38</code><figcaption>&lt;div class=&quot;ld-text&quot;&gt;Loading...&lt;/div&gt;</figcaption></figure><figure class="ref"><code>js/report.js:199</code><figcaption>&#39;Sending…&#39;</figcaption></figure><figure class="ref"><code>js/report.js:123</code><figcaption>&#39;Taking a screenshot…&#39;</figcaption></figure></div>
+  
+  <p class="small"><b>Suggested fix:</b> Loading…</p>
+  
+</article>
+
+<article class="finding" id="TXT-101">
+  <header>
+    <span class="id">TXT-101</span>
+    <span class="sev sev-trivial">trivial</span>
+    <span class="tag">text</span>
+    <span class="tag ok">confirmed · static</span>
+    <span class="tag">Edge cases</span>
+  </header>
+  <h3>Special Offer toast says &#39;+10K coins&#39; while the card and other toasts use full numbers (&#39;10,000 coins&#39;, &#39;+1,000 coins&#39;)</h3>
+  
+  
+  
+  <div class="ea">
+    <div><b>Expected</b><p>Test purchase: +1,200 gems, +10,000 coins, No Ads</p></div>
+    <div><b>Actual</b><p>Test purchase: +1,200 gems, +10K coins, No Ads</p></div>
+  </div>
+  <b>Evidence</b>
+  <div class="evidence"><figure><a href="test-store/evidence/ST-08-run1-2-bought-again.jpg"><img src="test-store/evidence/ST-08-run1-2-bought-again.jpg" alt="Toast with &#39;10K&#39;" loading="lazy"></a><figcaption>Toast with &#39;10K&#39;</figcaption></figure><figure class="ref"><code>js/app.js:378</code><figcaption>uses the HUD formatNumber (K/M); renderStore uses a full-number formatter (app.js:311)</figcaption></figure></div>
+  
+  <p class="small"><b>Suggested fix:</b> Use the store&#39;s full-number format in purchase toasts.</p>
+  
+</article>
+
+<article class="finding" id="QRY-001">
+  <header>
+    <span class="id">QRY-001</span>
+    
+    <span class="tag">query</span>
+    <span class="tag ok">confirmed</span>
+    <span class="tag">Terminology and consistency</span>
+  </header>
+  <h3>New Feature card titles mix plural and singular names</h3>
+  
+  
+  
+  <div class="ea">
+    
+    <div><b>Actual</b><p>Plural: Mystery Blocks, Frozen Blocks, Hidden Pixels, Linked Blocks, Mystery Links. Singular: Big Pixel, Pipe, Key &amp; Lock, Wood Block, Cookie Blocker (5 vs 5, no majority style).</p></div>
+  </div>
+  <b>Evidence</b>
+  <div class="evidence"><figure class="ref"><code>js/app.js:2214</code><figcaption>FEATURES titles, lines 2214 to 2227</figcaption></figure></div>
+  
+  <p class="small"><b>Suggested fix:</b> If a rule is wanted: plural for all (Big Pixels, Pipes, Keys &amp; Locks, Wood Blocks, Cookie Blockers). Design decision, not a defect.</p>
+  
+</article>
+
+<article class="finding" id="QRY-002">
+  <header>
+    <span class="id">QRY-002</span>
+    
+    <span class="tag">query</span>
+    <span class="tag ok">confirmed</span>
+    <span class="tag">Store and monetisation copy</span>
+  </header>
+  <h3>Purchase toasts say &#39;Test purchase&#39; and the banner says &#39;Demo ad&#39; in the public build</h3>
+  
+  
+  <b>Steps</b><ol><li>Open the Store</li><li>Tap the $0.99 gems pack</li></ol>
+  <div class="ea">
+    
+    <div><b>Actual</b><p>Toast &#39;Test purchase: +100 gems&#39;; gems go from 20 to 120 with no payment. The bottom banner is labelled &#39;Demo ad&#39;.</p></div>
+  </div>
+  <b>Evidence</b>
+  <div class="evidence"><figure><a href="../pixel-swarm-text-review/evidence/TXT-store-test-purchase.jpg"><img src="../pixel-swarm-text-review/evidence/TXT-store-test-purchase.jpg" alt="&#39;Test purchase: +100 gems&#39; toast" loading="lazy"></a><figcaption>&#39;Test purchase: +100 gems&#39; toast</figcaption></figure><figure class="ref"><code>js/app.js:388</code><figcaption>toast(`Test purchase: +${formatNumber(g.amount)} gems`)</figcaption></figure><figure class="ref"><code>index.html:529</code><figcaption>Demo ad</figcaption></figure></div>
+  
+  <p class="small"><b>Suggested fix:</b> Fine for a portfolio demo. Before a store release, confirm these strings are replaced together with the real purchase and ad SDKs.</p>
+  
+</article>
+
+<article class="finding" id="QRY-003">
+  <header>
+    <span class="id">QRY-003</span>
+    
+    <span class="tag">query</span>
+    <span class="tag ok">confirmed</span>
+    <span class="tag">Store and monetisation copy</span>
+  </header>
+  <h3>Terms of Service and Privacy Policy links on the age gate only show &#39;coming soon&#39;</h3>
+  
+  
+  <b>Steps</b><ol><li>Launch the game on a fresh profile</li><li>On the age gate, tap Privacy Policy</li></ol>
+  <div class="ea">
+    
+    <div><b>Actual</b><p>Toast &#39;Privacy Policy — coming soon&#39;; same for Terms of Service and the Settings links</p></div>
+  </div>
+  <b>Evidence</b>
+  <div class="evidence"><figure><a href="../pixel-swarm-text-review/evidence/TXT-privacy-toast.jpg"><img src="../pixel-swarm-text-review/evidence/TXT-privacy-toast.jpg" alt="Toast on the age gate" loading="lazy"></a><figcaption>Toast on the age gate</figcaption></figure><figure class="ref"><code>js/app.js:262</code><figcaption>toast({ privacy: &#39;Privacy Policy&#39;, terms: &#39;Terms of Service&#39; }[key] + &#39; — coming soon&#39;)</figcaption></figure></div>
+  
+  <p class="small"><b>Suggested fix:</b> Expected for a prototype. App stores require a reachable privacy policy for games that ask for age and show ads, so plan real pages before submission.</p>
+  
+</article>
+
+<article class="finding" id="QRY-101">
+  <header>
+    <span class="id">QRY-101</span>
+    
+    <span class="tag">query</span>
+    <span class="tag ok">confirmed</span>
+    <span class="tag">Edge cases</span>
+  </header>
+  <h3>A double tap on a coin pack buys two packs (no confirmation, no debounce)</h3>
+  
+  
+  <b>Steps</b><ol><li>Store with 120 gems</li><li>Double-tap the 1,000 coins pack (30 gems)</li></ol>
+  <div class="ea">
+    
+    <div><b>Actual</b><p>Two packs bought: 120 -&gt; 60 gems, 100 -&gt; 2,100 coins</p></div>
+  </div>
+  <b>Evidence</b>
+  <div class="evidence"><figure><a href="test-store/evidence/ST-06-double-tap.jpg"><img src="test-store/evidence/ST-06-double-tap.jpg" alt="After the double tap" loading="lazy"></a><figcaption>After the double tap</figcaption></figure></div>
+  
+  <p class="small"><b>Suggested fix:</b> If accidental purchases matter, ignore a second tap on the same item for ~500 ms, or add a confirm step for premium currency.</p>
+  
+</article>
+</main></body></html>

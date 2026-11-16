@@ -1,0 +1,9 @@
+{
+  "steps": [
+    "seed 20 gems",
+    "buy gems pack S (+100)",
+    "close the tab 300 ms later",
+    "open the game in a new tab"
+  ],
+  "gems_in_new_tab": 120
+}

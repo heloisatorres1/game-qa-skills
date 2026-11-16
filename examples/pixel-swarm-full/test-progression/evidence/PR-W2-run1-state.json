@@ -1,0 +1,40 @@
+{
+  "how": "tap",
+  "reward_shown": 30,
+  "before": {
+    "coins": 100,
+    "gems": 20,
+    "progress": {
+      "flowers-easy": [
+        3
+      ]
+    },
+    "stats.levels": 1,
+    "daily": {
+      "streak": 0,
+      "last": ""
+    },
+    "boosters": {
+      "add_slot": 1
+    }
+  },
+  "after": {
+    "coins": 100,
+    "gems": 20,
+    "progress": {
+      "flowers-easy": [
+        3
+      ]
+    },
+    "stats.levels": 1,
+    "daily": {
+      "streak": 0,
+      "last": ""
+    },
+    "boosters": {
+      "add_slot": 1
+    }
+  },
+  "popups_after": [],
+  "continue_button_visible": false
+}

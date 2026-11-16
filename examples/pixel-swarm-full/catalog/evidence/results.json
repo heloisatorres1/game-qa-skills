@@ -1,0 +1,157 @@
+[
+  {
+    "id": "CT-A11Y-1-1",
+    "name": "Touch targets on menu, store, settings and level are at least 44x44 px",
+    "pass": false,
+    "expected": "0 smaller targets",
+    "actual": {
+      "smaller_targets": {
+        "menu": [
+          "store 76x34",
+          "store 79x34"
+        ],
+        "store": [
+          "buy 95x38",
+          "buy 95x38",
+          "buy 95x38",
+          "buy 95x38",
+          "buy 95x38",
+          "buy 95x38"
+        ],
+        "settings": [
+          "copy-id 77x38"
+        ],
+        "game": [
+          "pause 40x40",
+          "speed 67x36"
+        ]
+      }
+    },
+    "evidence": [
+      "CT-A11Y-1-run1-small-targets.json"
+    ]
+  },
+  {
+    "id": "CT-A11Y-1-2",
+    "name": "Touch targets on menu, store, settings and level are at least 44x44 px",
+    "pass": false,
+    "expected": "0 smaller targets",
+    "actual": {
+      "smaller_targets": {
+        "menu": [
+          "store 76x34",
+          "store 79x34"
+        ],
+        "store": [
+          "buy 95x38",
+          "buy 95x38",
+          "buy 95x38",
+          "buy 95x38",
+          "buy 95x38",
+          "buy 95x38"
+        ],
+        "settings": [
+          "copy-id 77x38"
+        ],
+        "game": [
+          "pause 40x40",
+          "speed 67x36"
+        ]
+      }
+    },
+    "evidence": [
+      "CT-A11Y-1-run2-small-targets.json"
+    ]
+  },
+  {
+    "id": "CT-ADS-1",
+    "name": "Without No Ads, a video ad plays after the 2nd win, then the next level opens",
+    "pass": true,
+    "expected": "ad shown = true, then next level",
+    "actual": {
+      "ad_shown": true,
+      "screen": "screen-game",
+      "ad_visible": false
+    },
+    "evidence": [
+      "CT-ADS-1-after-continue.jpg"
+    ]
+  },
+  {
+    "id": "CT-ADS-2",
+    "name": "With No Ads, no interstitial after the 2nd win",
+    "pass": true,
+    "expected": "ad shown = false, then next level",
+    "actual": {
+      "ad_shown": false,
+      "screen": "screen-game",
+      "ad_visible": false
+    },
+    "evidence": [
+      "CT-ADS-2-after-continue.jpg"
+    ]
+  },
+  {
+    "id": "CT-ADS-3",
+    "name": "Rewarded AD slot: +1 slot only after the ad ends",
+    "pass": true,
+    "expected": "4 -> 5 after the ad",
+    "actual": {
+      "before": 4,
+      "during_ad": 4,
+      "after": 5
+    },
+    "evidence": [
+      "CT-ADS-3-after.jpg"
+    ]
+  },
+  {
+    "id": "CT-LIFE-1",
+    "name": "Closing the tab right after a purchase keeps it (saved immediately)",
+    "pass": true,
+    "expected": "gems 120 in a new tab",
+    "actual": {
+      "gems": 120
+    },
+    "evidence": [
+      "CT-LIFE-1-state.json",
+      "CT-LIFE-1-new-tab.jpg"
+    ]
+  },
+  {
+    "id": "CT-TUT-1",
+    "name": "Tutorial: all 6 steps can be completed (including the \"tap this block\" step)",
+    "pass": true,
+    "expected": "6 steps, tutorialSeen saved",
+    "actual": {
+      "steps": 6,
+      "tutorialSeen": true,
+      "texts": [
+        "This is the picture. Your goal: clear AL",
+        "These are color blocks. The number is ho",
+        "Tap this block! It goes to a slot and be",
+        "Bees eat from the bottom up: a pixel can",
+        "Slots are limited! If all slots are full",
+        "Stuck? Boosters and AD slots give you ex"
+      ]
+    },
+    "evidence": [
+      "CT-TUT-1-step1.jpg",
+      "CT-TUT-1-step2.jpg",
+      "CT-TUT-1-step3.jpg",
+      "CT-TUT-1-step4.jpg",
+      "CT-TUT-1-step5.jpg",
+      "CT-TUT-1-step6.jpg"
+    ]
+  },
+  {
+    "id": "CT-TUT-2",
+    "name": "Tutorial is not shown again after it was completed",
+    "pass": true,
+    "expected": "no tutorial on the next level start",
+    "actual": {
+      "tutorial_visible": false
+    },
+    "evidence": []
+  }
+]

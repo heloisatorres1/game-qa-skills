@@ -1,0 +1,18 @@
+{
+  "themes": [
+    "flowers",
+    "fruits",
+    "animals",
+    "sweets",
+    "ocean"
+  ],
+  "difficulties": [
+    "easy",
+    "medium",
+    "hard"
+  ],
+  "levels_per_difficulty": 6,
+  "event_levels": 12,
+  "gallery_total": 102,
+  "halloween_pictures": 12
+}

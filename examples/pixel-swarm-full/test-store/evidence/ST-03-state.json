@@ -1,0 +1,16 @@
+{
+  "item": "coins-s",
+  "before": {
+    "gems": 120,
+    "coins": 100
+  },
+  "expected": {
+    "gems": 90,
+    "coins": 1100
+  },
+  "after_reload": {
+    "gems": 90,
+    "coins": 1100
+  },
+  "toast": "+1,000 coins"
+}

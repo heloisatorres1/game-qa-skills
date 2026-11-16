@@ -1,0 +1,103 @@
+{
+  "run": {
+    "skill": "test-progression",
+    "game": "Pixel Swarm",
+    "build": "v1.0.0 debug build (commit db96df5)",
+    "platform": "Web, Microsoft Edge (Chromium, headless), 390x844 @2x touch",
+    "access_mode": "Playwright (scripts/progression.mjs) + save reads from localStorage; levels won by the game's auto-solve bot at 5x (assisted)",
+    "date": "2026-11-16",
+    "tester": "Claude (AI-assisted QA)",
+    "scope": "Win flow and rewards, persistence, difficulty unlocks, daily rewards (7-day cycle), daily tasks, corrupted saves",
+    "summary": "Progression and daily systems are solid: rewards, unlock boundaries, the 7-day calendar, tasks and backup-save recovery all pass. One major bug: the Level Complete popup can be dismissed by tapping outside it or pressing Escape, which skips the coin reward and leaves the player on an empty board."
+  },
+  "coverage": [
+    {
+      "area": "Win flow and rewards",
+      "status": "FAIL",
+      "checks_total": 5,
+      "checks_passed": 1,
+      "findings": ["BUG-001"],
+      "notes": "PR-W1 (Continue pays +30 and opens Level 2) passes; PR-W2 runs 1-4 reproduce BUG-001."
+    },
+    {
+      "area": "Persistence",
+      "status": "PASS",
+      "notes": "Stars and coins survive reload (PR-W1); purchases survive closing the tab (catalog CT-LIFE-1).",
+      "evidence": [{ "type": "state", "path": "evidence/PR-W1-state.json", "caption": "Before/after Continue and after reload" }]
+    },
+    {
+      "area": "Difficulty unlocks",
+      "status": "PASS",
+      "checks_total": 2,
+      "checks_passed": 2,
+      "notes": "Medium locked at 5/6 Easy, unlocked at 6/6.",
+      "evidence": [
+        { "type": "screenshot", "path": "evidence/PR-U1-levels-5-easy-done.jpg", "caption": "5/6 Easy: Medium locked" },
+        { "type": "screenshot", "path": "evidence/PR-U2-levels-6-easy-done.jpg", "caption": "6/6 Easy: Medium open" }
+      ]
+    },
+    {
+      "area": "Daily rewards",
+      "status": "PASS",
+      "checks_total": 5,
+      "checks_passed": 5,
+      "notes": "Day 1 +500 coins; same-day claim refused after reload; streak continues; missed days reset; Day 7 chest then back to Day 1.",
+      "evidence": [
+        { "type": "screenshot", "path": "evidence/PR-D1-claimed.jpg", "caption": "Day 1 claimed" },
+        { "type": "screenshot", "path": "evidence/PR-D5-day7.jpg", "caption": "Day 7 chest" }
+      ]
+    },
+    {
+      "area": "Daily tasks",
+      "status": "PASS",
+      "notes": "Unfinished task disabled; finished task pays +150 once even when double-tapped.",
+      "evidence": [{ "type": "screenshot", "path": "evidence/PR-T1-tasks.jpg", "caption": "Tasks tab" }]
+    },
+    {
+      "area": "Corrupted saves",
+      "status": "PASS",
+      "checks_total": 2,
+      "checks_passed": 2,
+      "notes": "Broken main slot: backup loaded (4,321 coins). Both slots broken: fresh start at the age gate, no errors.",
+      "evidence": [{ "type": "screenshot", "path": "evidence/PR-S1-backup-used.jpg", "caption": "Backup slot used" }]
+    },
+    {
+      "area": "Time handling",
+      "status": "PARTIAL",
+      "notes": "Day changes were simulated by moving the last-claim date in the save. Changing the device clock or time zone was not tested (a frozen browser clock stalls the loading screen, which is a test-tool limit, not a game bug)."
+    }
+  ],
+  "findings": [
+    {
+      "id": "BUG-001",
+      "title": "Level Complete popup closes on a tap outside it or Escape: the coin reward is never paid and the player is left on an empty board",
+      "type": "bug",
+      "severity": "major",
+      "area": "Win flow and rewards",
+      "status": "confirmed",
+      "repro_rate": "4/4",
+      "environment": "Web, 390x844 touch. Runs 1-2: tap outside; runs 3-4: Escape key",
+      "preconditions": "Returning player with 100 coins",
+      "steps": [
+        "Win Flowers Easy level 1 (Level Complete shows '+30')",
+        "Tap anywhere outside the popup card (or press Escape on a keyboard)"
+      ],
+      "expected": "The popup stays open until Continue or Claim x2 is chosen (like the Out of Slots popup, which is locked), or closing it pays the reward and moves on",
+      "actual": "The popup closes, coins stay at 100 (the +30 is lost), the board is empty and there is no Continue button. The win itself is saved (3 stars), so the player can only leave through Pause.",
+      "evidence": [
+        { "type": "video", "path": "evidence/PR-W2-run1-tap.webm", "caption": "Run 1: tap outside the popup" },
+        { "type": "frames", "path": "evidence/PR-W2-run1-frames", "caption": "Run 1 as stills: popup, tap, empty board" },
+        { "type": "screenshot", "path": "evidence/PR-W2-run1-1-popup.jpg", "caption": "Before: Level Complete, +30" },
+        { "type": "screenshot", "path": "evidence/PR-W2-run1-2-after-tap.jpg", "caption": "After the tap: empty board, coins still 100" },
+        { "type": "state", "path": "evidence/PR-W2-run1-state.json", "caption": "coins 100 before and after, progress saved" },
+        { "type": "video", "path": "evidence/PR-W2-run3-escape.webm", "caption": "Run 3: Escape key" },
+        { "type": "state", "path": "evidence/PR-W2-run3-state.json", "caption": "Same result with Escape" },
+        { "type": "state", "path": "evidence/PR-W1-state.json", "caption": "Control: Continue pays 100 -> 130" },
+        { "type": "file_ref", "ref": "index.html:423", "caption": "<div class=\"overlay rays\" id=\"popup-complete\" hidden> (no data-locked; popup-fail at index.html:458 has it)" },
+        { "type": "file_ref", "ref": "js/app.js:3028", "caption": "if (openPopupEl && e.target === openPopupEl) return closePopup();" }
+      ],
+      "suspected_cause": "popup-complete lacks the data-locked attribute, so the generic outside-tap and Escape handlers (app.js:237, 3028) close it without calling finishWin().",
+      "suggested_fix": "Add data-locked to #popup-complete (index.html:423), as #popup-fail already has."
+    }
+  ]
+}

@@ -1,0 +1,307 @@
+[
+  {
+    "id": "PR-D1",
+    "name": "First daily claim gives Day 1 (+500 coins)",
+    "pass": true,
+    "expected": "coins +500, streak 1",
+    "actual": {
+      "before": 100,
+      "after": 600,
+      "daily": {
+        "streak": 1,
+        "last": "2026-11-16"
+      }
+    },
+    "evidence": [
+      "PR-D1-claimed.jpg"
+    ]
+  },
+  {
+    "id": "PR-D2",
+    "name": "Second claim on the same day is refused (also after reload)",
+    "pass": true,
+    "expected": "button disabled, coins unchanged",
+    "actual": {
+      "disabled": true,
+      "coins": 600
+    },
+    "evidence": [
+      "PR-D2-same-day.jpg"
+    ]
+  },
+  {
+    "id": "PR-D3",
+    "name": "Streak continues: claimed yesterday -> Day 2 (+50 gems)",
+    "pass": true,
+    "expected": "gems 20 -> 70, streak 2",
+    "actual": {
+      "gems": 70,
+      "daily": {
+        "streak": 2,
+        "last": "2026-11-16"
+      }
+    },
+    "evidence": [
+      "PR-D3-day2.jpg"
+    ]
+  },
+  {
+    "id": "PR-D4",
+    "name": "Missed days restart the streak at Day 1 (+500 coins)",
+    "pass": true,
+    "expected": "coins 100 -> 600, streak 1",
+    "actual": {
+      "coins": 600,
+      "daily": {
+        "streak": 1,
+        "last": "2026-11-16"
+      }
+    },
+    "evidence": []
+  },
+  {
+    "id": "PR-D5",
+    "name": "Day 7 gives the chest (+300 gems, +5,000 coins); the next day starts again at Day 1",
+    "pass": true,
+    "expected": "day 7: gems 320 / coins 5100; next day: coins 5600",
+    "actual": {
+      "day7": {
+        "gems": 320,
+        "coins": 5100
+      },
+      "day8": {
+        "coins": 5600,
+        "daily": {
+          "streak": 8,
+          "last": "2026-11-16"
+        }
+      }
+    },
+    "evidence": [
+      "PR-D5-day7.jpg"
+    ]
+  },
+  {
+    "id": "PR-S1",
+    "name": "Broken main save: game loads the backup slot",
+    "pass": true,
+    "expected": "coins 4321 from backup, no errors",
+    "actual": {
+      "coins_shown": "4,321",
+      "errors": []
+    },
+    "evidence": [
+      "PR-S1-backup-used.jpg"
+    ]
+  },
+  {
+    "id": "PR-S2",
+    "name": "Both save slots broken: game starts fresh without crashing",
+    "pass": true,
+    "expected": "fresh start (age gate), no errors",
+    "actual": {
+      "popups": [
+        "popup-age"
+      ],
+      "errors": []
+    },
+    "evidence": [
+      "PR-S2-both-broken.jpg"
+    ]
+  },
+  {
+    "id": "PR-T1",
+    "name": "Unfinished task (2/3) is disabled; finished task pays once even when double-tapped",
+    "pass": true,
+    "expected": "play3 disabled; coins 100 -> 250 (+150 once)",
+    "actual": {
+      "buttons": [
+        {
+          "task": "play3",
+          "disabled": true
+        },
+        {
+          "task": "boosters2",
+          "disabled": false
+        },
+        {
+          "task": "hard1",
+          "disabled": true
+        },
+        {
+          "task": "video1",
+          "disabled": true
+        }
+      ],
+      "coins": 250,
+      "claimed": {
+        "boosters2": true
+      }
+    },
+    "evidence": [
+      "PR-T1-tasks.jpg"
+    ]
+  },
+  {
+    "id": "PR-U1",
+    "name": "Medium is locked with 5/6 Easy levels done",
+    "pass": true,
+    "expected": "medium locked = true",
+    "actual": {
+      "pills": [
+        {
+          "diff": "easy",
+          "locked": false,
+          "playable_tiles": 6
+        },
+        {
+          "diff": "medium",
+          "locked": true,
+          "playable_tiles": 0
+        },
+        {
+          "diff": "hard",
+          "locked": true,
+          "playable_tiles": 0
+        }
+      ]
+    },
+    "evidence": [
+      "PR-U1-levels-5-easy-done.jpg"
+    ]
+  },
+  {
+    "id": "PR-U2",
+    "name": "Medium is unlocked with 6/6 Easy levels done",
+    "pass": true,
+    "expected": "medium locked = false",
+    "actual": {
+      "pills": [
+        {
+          "diff": "easy",
+          "locked": false,
+          "playable_tiles": 6
+        },
+        {
+          "diff": "medium",
+          "locked": false,
+          "playable_tiles": 1
+        },
+        {
+          "diff": "hard",
+          "locked": true,
+          "playable_tiles": 0
+        }
+      ]
+    },
+    "evidence": [
+      "PR-U2-levels-6-easy-done.jpg"
+    ]
+  },
+  {
+    "id": "PR-W1",
+    "name": "Win + Continue pays the shown reward, saves the stars and opens the next level",
+    "pass": true,
+    "expected": "coins 100 -> 130, progress kept after reload, Level 2 opens",
+    "actual": {
+      "coins_after": 130,
+      "progress_after_reload": {
+        "flowers-easy": [
+          3
+        ]
+      },
+      "header": "Level 2 Flowers • Easy 130 2x"
+    },
+    "evidence": [
+      "PR-W1-1-level-complete.jpg",
+      "PR-W1-2-next-level.jpg",
+      "PR-W1-state.json"
+    ]
+  },
+  {
+    "id": "PR-W2-1",
+    "name": "Level Complete cannot be dismissed without paying the reward (tap)",
+    "pass": false,
+    "expected": "popup stays open (or reward paid): coins 130",
+    "actual": {
+      "popups_after": [],
+      "coins_after": 100,
+      "progress": {
+        "flowers-easy": [
+          3
+        ]
+      },
+      "continue_visible": false
+    },
+    "evidence": [
+      "PR-W2-run1-1-popup.jpg",
+      "PR-W2-run1-2-after-tap.jpg",
+      "PR-W2-run1-state.json",
+      "PR-W2-run1-tap.webm"
+    ]
+  },
+  {
+    "id": "PR-W2-2",
+    "name": "Level Complete cannot be dismissed without paying the reward (tap)",
+    "pass": false,
+    "expected": "popup stays open (or reward paid): coins 130",
+    "actual": {
+      "popups_after": [],
+      "coins_after": 100,
+      "progress": {
+        "flowers-easy": [
+          3
+        ]
+      },
+      "continue_visible": false
+    },
+    "evidence": [
+      "PR-W2-run2-1-popup.jpg",
+      "PR-W2-run2-2-after-tap.jpg",
+      "PR-W2-run2-state.json"
+    ]
+  },
+  {
+    "id": "PR-W2-3",
+    "name": "Level Complete cannot be dismissed without paying the reward (escape)",
+    "pass": false,
+    "expected": "popup stays open (or reward paid): coins 130",
+    "actual": {
+      "popups_after": [],
+      "coins_after": 100,
+      "progress": {
+        "flowers-easy": [
+          3
+        ]
+      },
+      "continue_visible": false
+    },
+    "evidence": [
+      "PR-W2-run3-1-popup.jpg",
+      "PR-W2-run3-2-after-escape.jpg",
+      "PR-W2-run3-state.json",
+      "PR-W2-run3-escape.webm"
+    ]
+  },
+  {
+    "id": "PR-W2-4",
+    "name": "Level Complete cannot be dismissed without paying the reward (escape)",
+    "pass": false,
+    "expected": "popup stays open (or reward paid): coins 130",
+    "actual": {
+      "popups_after": [],
+      "coins_after": 100,
+      "progress": {
+        "flowers-easy": [
+          3
+        ]
+      },
+      "continue_visible": false
+    },
+    "evidence": [
+      "PR-W2-run4-1-popup.jpg",
+      "PR-W2-run4-2-after-escape.jpg",
+      "PR-W2-run4-state.json"
+    ]
+  }
+]

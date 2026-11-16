@@ -1,0 +1,120 @@
+{
+  "run": {
+    "skill": "test-store",
+    "game": "Pixel Swarm",
+    "build": "v1.0.0 debug build (commit db96df5)",
+    "platform": "Web, Microsoft Edge (Chromium, headless), 390x844 @2x touch",
+    "access_mode": "Playwright (scripts/store.mjs) + save reads from localStorage. Real-money items use the build's test purchases; no real payment exists.",
+    "date": "2026-11-16",
+    "tester": "Claude (AI-assisted QA)",
+    "scope": "Gem and coin packs, No Ads, Special Offer, Free Coins, bug skins, Speed Store: exact balance deltas, insufficient funds, ownership, double taps, persistence",
+    "summary": "Prices, deltas, refusals and limits are correct in 13 of 15 checks. One major bug: once No Ads is owned, the store keeps selling the $4.99 Special Offer that includes No Ads. A double tap buys two coin packs (query)."
+  },
+  "coverage": [
+    {
+      "area": "Catalogue purchases and balances",
+      "status": "PASS",
+      "checks_total": 5,
+      "checks_passed": 5,
+      "notes": "Gem packs S/L, coin pack S (enough and exact balance), coin pack L refused with 100/250 gems. Balances re-read after reload.",
+      "evidence": [
+        { "type": "state", "path": "evidence/ST-03-state.json", "caption": "120 -> 90 gems, 100 -> 1,100 coins" },
+        { "type": "screenshot", "path": "evidence/ST-05-after.jpg", "caption": "Not enough gems (need 250)" }
+      ]
+    },
+    {
+      "area": "Ownership (No Ads, Special Offer)",
+      "status": "FAIL",
+      "checks_total": 3,
+      "checks_passed": 1,
+      "findings": ["BUG-003"],
+      "notes": "No Ads itself works (Owned, no banner in levels, survives reload)."
+    },
+    {
+      "area": "Edge cases",
+      "status": "PARTIAL",
+      "findings": ["QRY-101", "TXT-101"],
+      "notes": "Double tap on a coin pack buys two packs (query, by design?)."
+    },
+    {
+      "area": "Free Coins (rewarded ads)",
+      "status": "PASS",
+      "notes": "5 ads per day at +100; the button is disabled after the 5th; '0 left today' shown.",
+      "evidence": [{ "type": "screenshot", "path": "evidence/ST-09-free-coins-limit.jpg", "caption": "After 5 ads" }]
+    },
+    {
+      "area": "Bug skins",
+      "status": "PASS",
+      "checks_total": 3,
+      "checks_passed": 3,
+      "notes": "Ladybug bought and equipped (200 -> 50 gems); Beetle refused with 100 gems; Firefly locked below player level 5.",
+      "evidence": [{ "type": "screenshot", "path": "evidence/ST-10-ladybug.jpg", "caption": "Ladybug bought" }]
+    },
+    {
+      "area": "Speed Store",
+      "status": "PASS",
+      "checks_total": 2,
+      "checks_passed": 2,
+      "notes": "+5 min for 250 coins and 3x for 100 gems; 30 min refused with 50 coins.",
+      "evidence": [{ "type": "screenshot", "path": "evidence/ST-13-speed-store.jpg", "caption": "Speed Store after both purchases" }]
+    },
+    {
+      "area": "Real in-app purchases and ad SDK",
+      "status": "NOT_TESTED",
+      "notes": "The build has test purchases and simulated ads only; store sandbox testing needs the Android build and a test account."
+    }
+  ],
+  "findings": [
+    {
+      "id": "BUG-003",
+      "title": "Store keeps selling the $4.99 Special Offer, which includes No Ads, to players who already own No Ads",
+      "type": "bug",
+      "severity": "major",
+      "area": "Ownership (No Ads, Special Offer)",
+      "status": "confirmed",
+      "repro_rate": "2/2",
+      "preconditions": "No Ads owned (bought alone for $2.99 or in an earlier offer)",
+      "steps": ["Open the Store", "Look at the Special Offer card", "Tap $4.99"],
+      "expected": "The offer is hidden once No Ads is owned, or shown without No Ads at a new price (the No Ads card already shows 'Owned')",
+      "actual": "The card still lists '1,200 gems · 10,000 coins · No Ads' for $4.99 and can be bought again; the toast says 'No Ads' was granted again. With real payments this charges for a non-consumable the player owns.",
+      "evidence": [
+        { "type": "screenshot", "path": "evidence/ST-08-run1-crop.png", "caption": "Offer card with 'No Ads' while No Ads is owned" },
+        { "type": "video", "path": "evidence/ST-08-run1.webm", "caption": "Run 1: buying the offer again" },
+        { "type": "screenshot", "path": "evidence/ST-08-run1-2-bought-again.jpg", "caption": "Toast: '+1,200 gems, +10K coins, No Ads'" },
+        { "type": "state", "path": "evidence/ST-08-run1-state.json", "caption": "noAds true before; gems 20 -> 1,220" },
+        { "type": "state", "path": "evidence/ST-08-run2-state.json", "caption": "Run 2: same result" },
+        { "type": "file_ref", "ref": "js/app.js:313", "caption": "The offer card is always rendered in renderStore (no state.noAds check)" },
+        { "type": "file_ref", "ref": "js/app.js:698", "caption": "The offer popup already skips No Ads owners: if (... !state.noAds ...) openOffer()" }
+      ],
+      "suspected_cause": "renderStore() builds the offer card unconditionally, while maybeShowOffer() already checks state.noAds.",
+      "suggested_fix": "Hide the offer card when state.noAds is true (same rule as the popup), or show a variant without No Ads."
+    },
+    {
+      "id": "QRY-101",
+      "title": "A double tap on a coin pack buys two packs (no confirmation, no debounce)",
+      "type": "query",
+      "area": "Edge cases",
+      "status": "confirmed",
+      "steps": ["Store with 120 gems", "Double-tap the 1,000 coins pack (30 gems)"],
+      "actual": "Two packs bought: 120 -> 60 gems, 100 -> 2,100 coins",
+      "evidence": [{ "type": "screenshot", "path": "evidence/ST-06-double-tap.jpg", "caption": "After the double tap" }],
+      "suggested_fix": "If accidental purchases matter, ignore a second tap on the same item for ~500 ms, or add a confirm step for premium currency."
+    },
+    {
+      "id": "TXT-101",
+      "title": "Special Offer toast says '+10K coins' while the card and other toasts use full numbers ('10,000 coins', '+1,000 coins')",
+      "type": "text",
+      "severity": "trivial",
+      "area": "Edge cases",
+      "status": "confirmed",
+      "repro_rate": "static",
+      "expected": "Test purchase: +1,200 gems, +10,000 coins, No Ads",
+      "actual": "Test purchase: +1,200 gems, +10K coins, No Ads",
+      "evidence": [
+        { "type": "screenshot", "path": "evidence/ST-08-run1-2-bought-again.jpg", "caption": "Toast with '10K'" },
+        { "type": "file_ref", "ref": "js/app.js:378", "caption": "uses the HUD formatNumber (K/M); renderStore uses a full-number formatter (app.js:311)" }
+      ],
+      "suggested_fix": "Use the store's full-number format in purchase toasts."
+    }
+  ]
+}

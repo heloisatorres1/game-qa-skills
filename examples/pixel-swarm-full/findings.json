@@ -1,0 +1,1391 @@
+{
+  "run": {
+    "skill": "test-game-full",
+    "game": "Pixel Swarm",
+    "build": "v1.0.0 debug build (commit db96df5)",
+    "platform": "Web, Microsoft Edge (Chromium, headless), 390x844 @2x touch | Web, Microsoft Edge (Chromium), mobile viewport 390x844 @2x, plus 360x740 | Web, Microsoft Edge (Chromium, headless): 360x640, 390x844, 844x390, 820x1180 (touch) and 1280x720, 1920x1080 (desktop) | Web, Microsoft Edge (Chromium, headless, not capped at 60 Hz), 390x844 @2x, WebGL 2, test machine only",
+    "access_mode": "Playwright (scripts/smoke.mjs), clean browser profile | Source scan (extract-strings.mjs, 861 strings) + Playwright session against the local build (scripts/session.mjs) | Playwright (scripts/ui.mjs): 10 screens x 6 sizes with an automatic layout probe (sideways scroll, elements off screen, clipped text, covered buttons) + manual review of every flag | Playwright (scripts/settings.mjs) + save reads + the audio engine's own counters (PSAudio.debug) | Playwright (scripts/puzzles.mjs, verify.mjs) + level tables read from the page + the game's solution verifier and solution bot (assisted) | Playwright (scripts/store.mjs) + save reads from localStorage. Real-money items use the build's test purchases; no real payment exists. | Playwright (scripts/progression.mjs) + save reads from localStorage; levels won by the game's auto-solve bot at 5x (assisted) | Playwright (scripts/catalog.mjs) + save reads; the 2nd win for the ad check was triggered with the debug 'Win level' (assisted) | Playwright (scripts/perf.mjs) running the game's own autoplay benchmark (#perfbench_N), with no other browsers running",
+    "date": "2026-11-16",
+    "tester": "Claude (AI-assisted QA)",
+    "scope": "smoke, text-review, test-ui, test-settings, test-puzzles, test-store, test-progression, catalog, test-performance",
+    "summary": "smoke: Gate passed: a clean install reaches the age gate in 3.5 s, the first launch flow (age gate, story, welcome, tutorial level) works, and all 10 main-menu buttons open something. One trivial issue: no favicon, so every load logs a 404. text-review: The copy is clean: no spelling or grammar errors in 861 strings, and the numbers in the text match the game data. The issues are consistency ('bees' vs 'bugs', 'in line' vs 'in the line') and two in-context layout problems seen only in the running game: tutorial dots drawn over the ad banner text and a cramped No Ads subtitle. Three queries ask whether demo wording and placeholder legal links are intended for the public build. test-ui: Tablet and desktop layouts are clean. On phones the top bar is too wide: at 360 px the Settings gear and the store's close X are cut or pushed off screen, completely from 9,999 coins. In phone landscape (web only; the Android app is portrait-locked) the Levels/Play block covers the Activities and Events buttons. test-settings: All 7 checks pass. The switches apply at once, survive a reload and the UI always matches the saved value. 'Sounds off' is proven by the audio engine: 0 effects played while tapping blocks, against 4 with sounds on. test-puzzles: All 102 levels are solvable and every mechanic was won in the real game by playing its solution. The fail flow works. One minor bug: Add Slot from the Out of Slots popup has no maximum, so repeated fails grow the board to 10+ squeezed slots, past the 7 the Add Slot booster allows. test-store: Prices, deltas, refusals and limits are correct in 13 of 15 checks. One major bug: once No Ads is owned, the store keeps selling the $4.99 Special Offer that includes No Ads. A double tap buys two coin packs (query). test-progression: Progression and daily systems are solid: rewards, unlock boundaries, the 7-day calendar, tasks and backup-save recovery all pass. One major bug: the Level Complete popup can be dismissed by tapping outside it or pressing Escape, which skips the coin reward and leaves the player on an empty board. catalog: Tutorial, simulated ads and save-on-close all work. Several buttons are smaller than the 44 px touch-target guideline (top-bar currency buttons, store Buy buttons, in-level Pause and Speed). test-performance: All budgets met on the test machine: boot 3.1 s (2.5 s of it is the designed loading screen), 1% low 90-119 fps, 58 fps at 4x CPU throttle, 1-3 hitches per minute, heap growth 0.95 MB/min (just under the 1 MB/min budget; worth a 10-minute run on a phone)."
+  },
+  "coverage": [
+    {
+      "area": "smoke / Smoke gate",
+      "status": "PASS",
+      "checks_total": 5,
+      "checks_passed": 5,
+      "notes": "SM-01 boot 3548 ms; SM-02 first launch; SM-03 0 script errors; SM-04 Play / Pause > Exit; SM-05 10 menu buttons.",
+      "evidence": [
+        {
+          "type": "video",
+          "path": "smoke/evidence/SM-02-first-launch.webm",
+          "caption": "First launch on a clean profile"
+        },
+        {
+          "type": "screenshot",
+          "path": "smoke/evidence/SM-02-3-first-level.jpg",
+          "caption": "First level with the tutorial"
+        },
+        {
+          "type": "state",
+          "path": "smoke/evidence/SM-05-buttons.json",
+          "caption": "What each menu button opened"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "text-review / Spelling and grammar (all sources)",
+      "status": "PASS",
+      "checks_total": 861,
+      "checks_passed": 861,
+      "notes": "861 candidate strings reviewed; 0 spelling or grammar errors. US spelling used consistently (color, armor, honorable).",
+      "evidence": [
+        {
+          "type": "log",
+          "path": "../pixel-swarm-text-review/strings/strings.txt",
+          "caption": "Every extracted string with file:line"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "text-review / Terminology and consistency",
+      "status": "FAIL",
+      "findings": [
+        "TXT-001",
+        "TXT-004",
+        "TXT-005",
+        "TXT-006",
+        "QRY-001"
+      ],
+      "evidence": []
+    },
+    {
+      "area": "text-review / Numbers in text vs game data",
+      "status": "PASS",
+      "checks_total": 4,
+      "checks_passed": 4,
+      "notes": "'Collect all 102 pictures' = 5 themes x 3 difficulties x 6 + 12 event levels; '12 spooky pictures' = 12; '6 bugs, 7 looks each' matches the skin table; '7 days in a row' matches DAILY_REWARDS (7 entries).",
+      "evidence": [
+        {
+          "type": "state",
+          "path": "../pixel-swarm-text-review/evidence/TXT-data-facts.json",
+          "caption": "Values read from the running game"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "text-review / First launch (age gate, story, welcome)",
+      "status": "PASS",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "../pixel-swarm-text-review/evidence/TXT-age-gate.jpg",
+          "caption": "Age gate"
+        },
+        {
+          "type": "screenshot",
+          "path": "../pixel-swarm-text-review/evidence/TXT-story-1.jpg",
+          "caption": "Story, slide 1"
+        },
+        {
+          "type": "screenshot",
+          "path": "../pixel-swarm-text-review/evidence/TXT-welcome.jpg",
+          "caption": "Welcome popup"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "text-review / Text in context (layout, overlap, truncation)",
+      "status": "FAIL",
+      "findings": [
+        "TXT-002",
+        "TXT-003"
+      ],
+      "evidence": []
+    },
+    {
+      "area": "text-review / Store and monetisation copy",
+      "status": "PARTIAL",
+      "findings": [
+        "QRY-002",
+        "QRY-003"
+      ],
+      "notes": "Copy is correct; two queries about demo wording and placeholder legal links. Store screens checked at 390 and 360 px only.",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "../pixel-swarm-text-review/evidence/TXT-store.jpg",
+          "caption": "Store at 390x844"
+        }
+      ]
+    },
+    {
+      "area": "text-review / Text inside images",
+      "status": "NOT_TESTED",
+      "notes": "Sprite and background art were not inspected for baked-in text.",
+      "evidence": [],
+      "findings": []
+    },
+    {
+      "area": "text-review / Android notification delivery",
+      "status": "NOT_TESTED",
+      "notes": "Notification strings were reviewed in source (js/native.js); seeing them on a device needs the Android build.",
+      "evidence": [],
+      "findings": []
+    },
+    {
+      "area": "test-ui / Screen map (10 screens x 6 sizes)",
+      "status": "PASS",
+      "notes": "Contact sheets per size in evidence.",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "test-ui/evidence/UI-sheet-phone.jpg",
+          "caption": "390x844: all screens"
+        },
+        {
+          "type": "screenshot",
+          "path": "test-ui/evidence/UI-sheet-tablet.jpg",
+          "caption": "820x1180: all screens"
+        },
+        {
+          "type": "screenshot",
+          "path": "test-ui/evidence/UI-sheet-laptop.jpg",
+          "caption": "1280x720: all screens"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "test-ui / Phone portrait (360, 390, 412 px)",
+      "status": "FAIL",
+      "findings": [
+        "BUG-002"
+      ],
+      "evidence": []
+    },
+    {
+      "area": "test-ui / Phone landscape (web)",
+      "status": "FAIL",
+      "findings": [
+        "BUG-005"
+      ],
+      "evidence": []
+    },
+    {
+      "area": "test-ui / Tablet and desktop",
+      "status": "PASS",
+      "notes": "Probe flags reviewed by hand and rejected as expected behaviour: lower queue blocks sit behind the booster bar by design (only the front row is tappable); skin and store buttons scrolled under the bottom navigation are inside a scroll area.",
+      "evidence": [
+        {
+          "type": "state",
+          "path": "test-ui/evidence/UI-layout-probe.json",
+          "caption": "Raw probe output, all sizes"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "test-ui / Popup dismiss rules",
+      "status": "FAIL",
+      "findings": [
+        "BUG-001"
+      ],
+      "notes": "Locked: age gate, Out of Slots, welcome. Dismissible by tap outside/Escape: 12 others, including Level Complete (BUG-001, filed by test-progression).",
+      "evidence": []
+    },
+    {
+      "area": "test-settings / Switches (music, sounds, haptics, notifications)",
+      "status": "PASS",
+      "checks_total": 3,
+      "checks_passed": 3,
+      "notes": "Defaults on; each switch turns off in UI and save; still off after reload.",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "test-settings/evidence/SE-02-all-off.jpg",
+          "caption": "All switches off"
+        },
+        {
+          "type": "screenshot",
+          "path": "test-settings/evidence/SE-03-after-reload.jpg",
+          "caption": "Still off after reload"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "test-settings / Audio effect of the switches",
+      "status": "PASS",
+      "checks_total": 2,
+      "checks_passed": 2,
+      "notes": "Measured through the audio engine, not by ear: sounds off = 0 effects, on = 4 effects for the same taps. Mix and loudness need a human ear.",
+      "evidence": [
+        {
+          "type": "state",
+          "path": "test-settings/evidence/SE-05-audio.json",
+          "caption": "Sounds off"
+        },
+        {
+          "type": "state",
+          "path": "test-settings/evidence/SE-06-audio.json",
+          "caption": "Sounds on"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "test-settings / Player ID, version, Copy",
+      "status": "PASS",
+      "checks_total": 2,
+      "checks_passed": 2,
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "test-settings/evidence/SE-07-copy-id.jpg",
+          "caption": "'Player ID copied!'"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "test-settings / Haptics and notifications on a device",
+      "status": "NOT_TESTED",
+      "notes": "The switches were tested; vibration and real notifications need the Android build on a phone.",
+      "evidence": [],
+      "findings": []
+    },
+    {
+      "area": "test-puzzles / Level data",
+      "status": "PASS",
+      "checks_total": 2,
+      "checks_passed": 2,
+      "notes": "15 tables of 6 + 12 event levels; every picture exists; no picture used twice.",
+      "evidence": [
+        {
+          "type": "state",
+          "path": "test-puzzles/evidence/PZ-01-level-data.json",
+          "caption": "Counts, missing and duplicate checks"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "test-puzzles / Solvability (all levels)",
+      "status": "PASS",
+      "notes": "LEVEL CHECK 102/102 from the game's own solution verifier (#verify_all, 334 s), no unsolvable forced-puzzle variants. Assisted: relies on the game's verifier.",
+      "evidence": [
+        {
+          "type": "log",
+          "path": "test-puzzles/evidence/PZ-03-verify-all.txt",
+          "caption": "Verifier output"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "test-puzzles / Puzzle mechanics in the real game",
+      "status": "PASS",
+      "checks_total": 10,
+      "checks_passed": 10,
+      "notes": "mystery, frozen, hidden, linked, big, pipe, key, wood, cookie, mystery links: each level won by the solution bot at 8x (36-58 s), no script errors. Assisted.",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "test-puzzles/evidence/PZ-20-key-1-start.jpg",
+          "caption": "Key & lock level, start"
+        },
+        {
+          "type": "screenshot",
+          "path": "test-puzzles/evidence/PZ-20-key-2-end.jpg",
+          "caption": "Key & lock level, won"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "test-puzzles / Fail flow",
+      "status": "PASS",
+      "checks_total": 3,
+      "checks_passed": 3,
+      "notes": "Out of Slots cannot be dismissed by Escape/tap outside; Try Again restarts; Give Up returns without reward. The fail popup was opened with the debug 'Lose level' (assisted).",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "test-puzzles/evidence/PZ-30-1-out-of-slots.jpg",
+          "caption": "Out of Slots popup"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "test-puzzles / Slot limits",
+      "status": "FAIL",
+      "findings": [
+        "BUG-004"
+      ],
+      "evidence": []
+    },
+    {
+      "area": "test-store / Catalogue purchases and balances",
+      "status": "PASS",
+      "checks_total": 5,
+      "checks_passed": 5,
+      "notes": "Gem packs S/L, coin pack S (enough and exact balance), coin pack L refused with 100/250 gems. Balances re-read after reload.",
+      "evidence": [
+        {
+          "type": "state",
+          "path": "test-store/evidence/ST-03-state.json",
+          "caption": "120 -> 90 gems, 100 -> 1,100 coins"
+        },
+        {
+          "type": "screenshot",
+          "path": "test-store/evidence/ST-05-after.jpg",
+          "caption": "Not enough gems (need 250)"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "test-store / Ownership (No Ads, Special Offer)",
+      "status": "FAIL",
+      "checks_total": 3,
+      "checks_passed": 1,
+      "findings": [
+        "BUG-003"
+      ],
+      "notes": "No Ads itself works (Owned, no banner in levels, survives reload).",
+      "evidence": []
+    },
+    {
+      "area": "test-store / Edge cases",
+      "status": "PARTIAL",
+      "findings": [
+        "QRY-101",
+        "TXT-101"
+      ],
+      "notes": "Double tap on a coin pack buys two packs (query, by design?).",
+      "evidence": []
+    },
+    {
+      "area": "test-store / Free Coins (rewarded ads)",
+      "status": "PASS",
+      "notes": "5 ads per day at +100; the button is disabled after the 5th; '0 left today' shown.",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "test-store/evidence/ST-09-free-coins-limit.jpg",
+          "caption": "After 5 ads"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "test-store / Bug skins",
+      "status": "PASS",
+      "checks_total": 3,
+      "checks_passed": 3,
+      "notes": "Ladybug bought and equipped (200 -> 50 gems); Beetle refused with 100 gems; Firefly locked below player level 5.",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "test-store/evidence/ST-10-ladybug.jpg",
+          "caption": "Ladybug bought"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "test-store / Speed Store",
+      "status": "PASS",
+      "checks_total": 2,
+      "checks_passed": 2,
+      "notes": "+5 min for 250 coins and 3x for 100 gems; 30 min refused with 50 coins.",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "test-store/evidence/ST-13-speed-store.jpg",
+          "caption": "Speed Store after both purchases"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "test-store / Real in-app purchases and ad SDK",
+      "status": "NOT_TESTED",
+      "notes": "The build has test purchases and simulated ads only; store sandbox testing needs the Android build and a test account.",
+      "evidence": [],
+      "findings": []
+    },
+    {
+      "area": "test-progression / Win flow and rewards",
+      "status": "FAIL",
+      "checks_total": 5,
+      "checks_passed": 1,
+      "findings": [
+        "BUG-001"
+      ],
+      "notes": "PR-W1 (Continue pays +30 and opens Level 2) passes; PR-W2 runs 1-4 reproduce BUG-001.",
+      "evidence": []
+    },
+    {
+      "area": "test-progression / Persistence",
+      "status": "PASS",
+      "notes": "Stars and coins survive reload (PR-W1); purchases survive closing the tab (catalog CT-LIFE-1).",
+      "evidence": [
+        {
+          "type": "state",
+          "path": "test-progression/evidence/PR-W1-state.json",
+          "caption": "Before/after Continue and after reload"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "test-progression / Difficulty unlocks",
+      "status": "PASS",
+      "checks_total": 2,
+      "checks_passed": 2,
+      "notes": "Medium locked at 5/6 Easy, unlocked at 6/6.",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "test-progression/evidence/PR-U1-levels-5-easy-done.jpg",
+          "caption": "5/6 Easy: Medium locked"
+        },
+        {
+          "type": "screenshot",
+          "path": "test-progression/evidence/PR-U2-levels-6-easy-done.jpg",
+          "caption": "6/6 Easy: Medium open"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "test-progression / Daily rewards",
+      "status": "PASS",
+      "checks_total": 5,
+      "checks_passed": 5,
+      "notes": "Day 1 +500 coins; same-day claim refused after reload; streak continues; missed days reset; Day 7 chest then back to Day 1.",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "test-progression/evidence/PR-D1-claimed.jpg",
+          "caption": "Day 1 claimed"
+        },
+        {
+          "type": "screenshot",
+          "path": "test-progression/evidence/PR-D5-day7.jpg",
+          "caption": "Day 7 chest"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "test-progression / Daily tasks",
+      "status": "PASS",
+      "notes": "Unfinished task disabled; finished task pays +150 once even when double-tapped.",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "test-progression/evidence/PR-T1-tasks.jpg",
+          "caption": "Tasks tab"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "test-progression / Corrupted saves",
+      "status": "PASS",
+      "checks_total": 2,
+      "checks_passed": 2,
+      "notes": "Broken main slot: backup loaded (4,321 coins). Both slots broken: fresh start at the age gate, no errors.",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "test-progression/evidence/PR-S1-backup-used.jpg",
+          "caption": "Backup slot used"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "test-progression / Time handling",
+      "status": "PARTIAL",
+      "notes": "Day changes were simulated by moving the last-claim date in the save. Changing the device clock or time zone was not tested (a frozen browser clock stalls the loading screen, which is a test-tool limit, not a game bug).",
+      "evidence": [],
+      "findings": []
+    },
+    {
+      "area": "catalog / Tutorial",
+      "status": "PASS",
+      "checks_total": 2,
+      "checks_passed": 2,
+      "notes": "All 6 steps completed, including the 'tap this block' step; not shown again afterwards.",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "catalog/evidence/CT-TUT-1-step3.jpg",
+          "caption": "Step 3: tap this block"
+        },
+        {
+          "type": "screenshot",
+          "path": "catalog/evidence/CT-TUT-1-step6.jpg",
+          "caption": "Step 6"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "catalog / Ads (simulated)",
+      "status": "PASS",
+      "checks_total": 3,
+      "checks_passed": 3,
+      "notes": "Video ad after every 2nd win without No Ads, none with No Ads; rewarded AD slot gives +1 slot only after the ad.",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "catalog/evidence/CT-ADS-1-after-continue.jpg",
+          "caption": "Interstitial after the 2nd win"
+        },
+        {
+          "type": "screenshot",
+          "path": "catalog/evidence/CT-ADS-3-after.jpg",
+          "caption": "AD slot opened"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "catalog / Lifecycle",
+      "status": "PASS",
+      "notes": "A purchase is still there after closing the tab immediately (saved at once).",
+      "evidence": [
+        {
+          "type": "state",
+          "path": "catalog/evidence/CT-LIFE-1-state.json",
+          "caption": "Gems in a new tab after closing mid-session"
+        },
+        {
+          "type": "screenshot",
+          "path": "catalog/evidence/CT-LIFE-1-new-tab.jpg",
+          "caption": "New tab: 120 gems"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "catalog / Accessibility: touch targets",
+      "status": "FAIL",
+      "findings": [
+        "BUG-006"
+      ],
+      "evidence": []
+    },
+    {
+      "area": "catalog / Notifications",
+      "status": "NOT_TESTED",
+      "notes": "Android-only (Capacitor Local Notifications); needs a device.",
+      "evidence": [],
+      "findings": []
+    },
+    {
+      "area": "catalog / Colour and contrast",
+      "status": "NOT_TESTED",
+      "notes": "Not measured in this run. The game already enforces a minimum colour distance between puzzle colours in data.js (MIN_DE).",
+      "evidence": [],
+      "findings": []
+    },
+    {
+      "area": "test-performance / Boot",
+      "status": "PASS",
+      "notes": "3096 / 3096 / 3101 ms to the main menu; the loading screen has a ~2.5 s minimum by design.",
+      "evidence": [
+        {
+          "type": "state",
+          "path": "test-performance/evidence/PF-01-boot.json",
+          "caption": "3 runs"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "test-performance / Frame rate during play",
+      "status": "PASS",
+      "checks_total": 3,
+      "checks_passed": 2,
+      "notes": "Budget: 1% low >= 45 fps, <= 2 hitches/min, in at least 2 of 3 runs. Run 1 had 3 hitches/min (2 long tasks), runs 2-3 had 1/min. Averages of ~143 fps reflect the uncapped headless browser.",
+      "evidence": [
+        {
+          "type": "state",
+          "path": "test-performance/evidence/PF-03-summary.json",
+          "caption": "Per-run numbers"
+        },
+        {
+          "type": "screenshot",
+          "path": "test-performance/evidence/PF-03-run2-end.jpg",
+          "caption": "End of run 2"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "test-performance / Slow device (4x CPU throttle)",
+      "status": "PASS",
+      "notes": "1% low 58.2 fps, 2 hitches/min.",
+      "evidence": [
+        {
+          "type": "state",
+          "path": "test-performance/evidence/PF-05-throttle4x-report.json",
+          "caption": "Benchmark report"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "test-performance / Memory over a long session",
+      "status": "PASS",
+      "notes": "Heap 8.3 -> 13.2 MB in 200 s (0.95 MB/min, budget 1); DOM stable (-0.4 nodes/min); scene objects +30/min. Close to the budget: repeat with the game's 10-minute benchmark on a real phone.",
+      "evidence": [
+        {
+          "type": "state",
+          "path": "test-performance/evidence/PF-06-memory-report.json",
+          "caption": "Benchmark report with timeline"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "area": "test-performance / Target devices",
+      "status": "NOT_TESTED",
+      "notes": "Real phones (low-end Android, iPhone) need a manual run; numbers here come from a desktop machine.",
+      "evidence": [],
+      "findings": []
+    }
+  ],
+  "findings": [
+    {
+      "id": "BUG-007",
+      "title": "No favicon: every page load logs a 404 error in the console",
+      "type": "bug",
+      "severity": "trivial",
+      "area": "Smoke gate",
+      "status": "confirmed",
+      "repro_rate": "static",
+      "steps": [
+        "Open the game in a browser with the developer console open"
+      ],
+      "expected": "The page declares an icon and the console stays clean",
+      "actual": "index.html has no <link rel=\"icon\">; the browser requests /favicon.ico, gets 404 and logs 'Failed to load resource'. Seen on every boot in this run.",
+      "evidence": [
+        {
+          "type": "log",
+          "path": "smoke/evidence/SM-06-favicon-check.txt",
+          "caption": "404 on /favicon.ico and no icon link in index.html"
+        },
+        {
+          "type": "log",
+          "path": "smoke/evidence/SM-03-boot-log.json",
+          "caption": "Console during the first launch"
+        }
+      ],
+      "suggested_fix": "Add <link rel=\"icon\" href=\"assets/sprites/bee.png\"> (or a favicon.ico) to index.html. It also gives the browser tab an icon.",
+      "source_run": "smoke"
+    },
+    {
+      "id": "TXT-001",
+      "title": "The swarm is called 'bees' in some texts and 'bugs' in others, even in two consecutive How to Play cards",
+      "type": "text",
+      "severity": "minor",
+      "area": "Terminology and consistency",
+      "status": "confirmed",
+      "repro_rate": "static",
+      "expected": "One term for the creatures the player sends out. The game has 6 bug types (Bee, Ladybug, Beetle, Butterfly, Ant, Firefly) and a 'Bugs' collection tab, so 'bugs' is the general term; 'bees' is only right when the Bee is equipped.",
+      "actual": "How to Play card 2 says 'bees fly out of the tree', card 3 says 'bugs enter the picture'. The tutorial and three toasts say 'bees'; the lock toast and a notification say 'bugs'.",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "../pixel-swarm-text-review/evidence/TXT-howto.jpg",
+          "caption": "Card 2 'bees fly out', card 3 'bugs enter the picture'"
+        },
+        {
+          "type": "file_ref",
+          "ref": "index.html:510",
+          "caption": "...bees fly out of the tree to eat pixels of its color."
+        },
+        {
+          "type": "file_ref",
+          "ref": "index.html:511",
+          "caption": "From the bottom up: bugs enter the picture from the bottom..."
+        },
+        {
+          "type": "file_ref",
+          "ref": "js/app.js:2251",
+          "caption": "Tutorial: ...bees fly out of the tree to eat its color."
+        },
+        {
+          "type": "file_ref",
+          "ref": "js/app.js:2252",
+          "caption": "Tutorial: Bees eat from the bottom up..."
+        },
+        {
+          "type": "file_ref",
+          "ref": "js/app.js:2253",
+          "caption": "Tutorial: ...no bee can reach its color..."
+        },
+        {
+          "type": "file_ref",
+          "ref": "js/app.js:1725",
+          "caption": "Toast: The bees are eating {color} pixels"
+        },
+        {
+          "type": "file_ref",
+          "ref": "js/app.js:1728",
+          "caption": "Toast: This {color} block is waiting for the bees"
+        },
+        {
+          "type": "file_ref",
+          "ref": "js/app.js:1880",
+          "caption": "Toast: No free slot — wait for the bees!"
+        },
+        {
+          "type": "file_ref",
+          "ref": "js/app.js:1900",
+          "caption": "Toast: Locked! The bugs must collect its key"
+        },
+        {
+          "type": "file_ref",
+          "ref": "js/native.js:72",
+          "caption": "Notification: Your bugs miss you!"
+        }
+      ],
+      "suggested_fix": "Use 'bugs' in all general texts (e.g. 'bugs fly out of the tree', 'Bugs eat from the bottom up', 'wait for the bugs'). Optionally insert the equipped bug's name where the sentence is about the current swarm.",
+      "source_run": "text-review"
+    },
+    {
+      "id": "TXT-002",
+      "title": "Tutorial step dots are drawn on top of the ad banner text at the bottom of the game screen",
+      "type": "text",
+      "severity": "minor",
+      "area": "Text in context (layout, overlap, truncation)",
+      "status": "confirmed",
+      "repro_rate": "3/3",
+      "environment": "Mobile viewport 390x844 @2x, fresh tutorial (#tutorial)",
+      "preconditions": "Tutorial not seen yet (new player)",
+      "steps": [
+        "Start the first level as a new player (or open the build with #tutorial)",
+        "Look at the bottom of the screen while the first tutorial bubble is shown"
+      ],
+      "expected": "The six tutorial step dots sit in free space and the banner text stays readable",
+      "actual": "The dots are painted over the middle of the banner text on every run, whichever banner slide is showing (Halloween Event on run 1, Hard Mode on run 2, Gallery on run 3)",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "../pixel-swarm-text-review/evidence/TXT-tutorial-dots-crop.png",
+          "caption": "Close-up, run 3: dots over 'Collect all 102 pictures and share them'"
+        },
+        {
+          "type": "screenshot",
+          "path": "../pixel-swarm-text-review/evidence/TXT-tutorial-1.jpg",
+          "caption": "Full screen, run 3"
+        },
+        {
+          "type": "screenshot",
+          "path": "../pixel-swarm-text-review/evidence/TXT-tutorial-1-run1.jpg",
+          "caption": "Full screen, run 1: dots over the 'Halloween Event' banner text"
+        },
+        {
+          "type": "file_ref",
+          "ref": "css/style.css:879",
+          "caption": ".tut-dots { position: absolute; ... bottom: calc(14px + var(--sa-bottom)); }"
+        }
+      ],
+      "suspected_cause": "Likely the dots are positioned a fixed 14px from the bottom of the screen, which is inside the 50px ad banner (.ad-banner, css/style.css:761).",
+      "suggested_fix": "Place the dots inside the tutorial bubble, or offset them above the banner (bottom: banner height + 14px); hide the banner during the tutorial if that is acceptable.",
+      "source_run": "text-review"
+    },
+    {
+      "id": "TXT-003",
+      "title": "Store: the No Ads subtitle is cramped and leaves 'ads' alone on a second line on phone widths",
+      "type": "text",
+      "severity": "minor",
+      "area": "Text in context (layout, overlap, truncation)",
+      "status": "confirmed",
+      "repro_rate": "3/3",
+      "environment": "Mobile viewport 390x844 and 360x740",
+      "steps": [
+        "Open the Store from the bottom navigation",
+        "Look at the No Ads card under the Special Offer"
+      ],
+      "expected": "'Remove banner and video ads' readable, letters not touching, no single-word orphan line",
+      "actual": "At 390px the outline makes letters touch and 'ads' wraps alone; at 360px it wraps after 'and' and stays cramped",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "../pixel-swarm-text-review/evidence/TXT-store-noads-360.png",
+          "caption": "Close-up at 360px: cramped letters"
+        },
+        {
+          "type": "screenshot",
+          "path": "../pixel-swarm-text-review/evidence/TXT-store.jpg",
+          "caption": "Full store at 390px (run 3): 'ads' alone on line 2"
+        },
+        {
+          "type": "screenshot",
+          "path": "../pixel-swarm-text-review/evidence/TXT-store-run1.jpg",
+          "caption": "Run 1, 390px: same result"
+        },
+        {
+          "type": "file_ref",
+          "ref": "css/style.css:964",
+          "caption": ".card-title small { font-size: 13px; -webkit-text-stroke: 3px var(--ink); }"
+        }
+      ],
+      "suspected_cause": "A 3px text stroke on 13px text eats the space between letters; the card title area is narrow next to the price button.",
+      "suggested_fix": "Reduce the stroke for the small subtitle (1.5 to 2px) or drop it, and shorten the copy to 'No banner or video ads'.",
+      "source_run": "text-review"
+    },
+    {
+      "id": "TXT-004",
+      "title": "Booster descriptions say 'in line' where How to Play says 'in the line', and describe Shuffle differently",
+      "type": "text",
+      "severity": "trivial",
+      "area": "Terminology and consistency",
+      "status": "confirmed",
+      "repro_rate": "static",
+      "expected": "Shuffle: 'Mixes the colors of the blocks in the line.' Free Pick: 'Pick any block in the line and send it to a free slot.'",
+      "actual": "'Changes the colors of the blocks in line.' and 'Pick any block in line...' (missing 'the'; 'changes' vs 'mixes' in How to Play)",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "../pixel-swarm-text-review/evidence/TXT-booster-shuffle.jpg",
+          "caption": "New Booster popup: 'Changes the colors of the blocks in line.'"
+        },
+        {
+          "type": "file_ref",
+          "ref": "js/app.js:1127",
+          "caption": "desc: 'Changes the colors of the blocks in line.'"
+        },
+        {
+          "type": "file_ref",
+          "ref": "index.html:450",
+          "caption": "Same text in the static popup markup"
+        },
+        {
+          "type": "file_ref",
+          "ref": "js/app.js:1129",
+          "caption": "desc: 'Pick any block in line and send it to a free slot.'"
+        },
+        {
+          "type": "file_ref",
+          "ref": "index.html:514",
+          "caption": "How to Play: 'Shuffle mixes the colors in the line ... any block in the line'"
+        }
+      ],
+      "suggested_fix": "Mixes the colors of the blocks in the line. / Pick any block in the line and send it to a free slot.",
+      "source_run": "text-review"
+    },
+    {
+      "id": "TXT-005",
+      "title": "'Out of Slots' is capitalised mid-sentence in How to Play but lowercase in the tutorial",
+      "type": "text",
+      "severity": "trivial",
+      "area": "Terminology and consistency",
+      "status": "confirmed",
+      "repro_rate": "static",
+      "expected": "The same casing for the same term in running text (the popup title 'Out of Slots!' can stay Title Case)",
+      "actual": "How to Play: 'you're Out of Slots.'; tutorial: 'you're out of slots and you lose.'",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "../pixel-swarm-text-review/evidence/TXT-howto.jpg",
+          "caption": "Card 4: 'you're Out of Slots.'"
+        },
+        {
+          "type": "file_ref",
+          "ref": "index.html:512",
+          "caption": "you're <b>Out of Slots</b>."
+        },
+        {
+          "type": "file_ref",
+          "ref": "js/app.js:2253",
+          "caption": "you're out of slots and you lose."
+        }
+      ],
+      "suggested_fix": "Pick one: keep the highlighted 'Out of Slots' as a named state in both places, or lowercase it in How to Play.",
+      "source_run": "text-review"
+    },
+    {
+      "id": "TXT-006",
+      "title": "Two ellipsis styles: 'Loading...' (three dots) vs 'Sending…' and 'Taking a screenshot…'",
+      "type": "text",
+      "severity": "trivial",
+      "area": "Terminology and consistency",
+      "status": "confirmed",
+      "repro_rate": "static",
+      "expected": "One ellipsis style across the game",
+      "actual": "The loading screen uses '...'; the Report popup (Settings > Report) uses the '…' character",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "../pixel-swarm-text-review/evidence/TXT-loading.jpg",
+          "caption": "Loading screen"
+        },
+        {
+          "type": "file_ref",
+          "ref": "index.html:38",
+          "caption": "<div class=\"ld-text\">Loading...</div>"
+        },
+        {
+          "type": "file_ref",
+          "ref": "js/report.js:199",
+          "caption": "'Sending…'"
+        },
+        {
+          "type": "file_ref",
+          "ref": "js/report.js:123",
+          "caption": "'Taking a screenshot…'"
+        }
+      ],
+      "suggested_fix": "Loading…",
+      "source_run": "text-review"
+    },
+    {
+      "id": "QRY-001",
+      "title": "New Feature card titles mix plural and singular names",
+      "type": "query",
+      "area": "Terminology and consistency",
+      "status": "confirmed",
+      "actual": "Plural: Mystery Blocks, Frozen Blocks, Hidden Pixels, Linked Blocks, Mystery Links. Singular: Big Pixel, Pipe, Key & Lock, Wood Block, Cookie Blocker (5 vs 5, no majority style).",
+      "evidence": [
+        {
+          "type": "file_ref",
+          "ref": "js/app.js:2214",
+          "caption": "FEATURES titles, lines 2214 to 2227"
+        }
+      ],
+      "suggested_fix": "If a rule is wanted: plural for all (Big Pixels, Pipes, Keys & Locks, Wood Blocks, Cookie Blockers). Design decision, not a defect.",
+      "source_run": "text-review"
+    },
+    {
+      "id": "QRY-002",
+      "title": "Purchase toasts say 'Test purchase' and the banner says 'Demo ad' in the public build",
+      "type": "query",
+      "area": "Store and monetisation copy",
+      "status": "confirmed",
+      "steps": [
+        "Open the Store",
+        "Tap the $0.99 gems pack"
+      ],
+      "actual": "Toast 'Test purchase: +100 gems'; gems go from 20 to 120 with no payment. The bottom banner is labelled 'Demo ad'.",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "../pixel-swarm-text-review/evidence/TXT-store-test-purchase.jpg",
+          "caption": "'Test purchase: +100 gems' toast"
+        },
+        {
+          "type": "file_ref",
+          "ref": "js/app.js:388",
+          "caption": "toast(`Test purchase: +${formatNumber(g.amount)} gems`)"
+        },
+        {
+          "type": "file_ref",
+          "ref": "index.html:529",
+          "caption": "Demo ad"
+        }
+      ],
+      "suggested_fix": "Fine for a portfolio demo. Before a store release, confirm these strings are replaced together with the real purchase and ad SDKs.",
+      "source_run": "text-review"
+    },
+    {
+      "id": "QRY-003",
+      "title": "Terms of Service and Privacy Policy links on the age gate only show 'coming soon'",
+      "type": "query",
+      "area": "Store and monetisation copy",
+      "status": "confirmed",
+      "steps": [
+        "Launch the game on a fresh profile",
+        "On the age gate, tap Privacy Policy"
+      ],
+      "actual": "Toast 'Privacy Policy — coming soon'; same for Terms of Service and the Settings links",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "../pixel-swarm-text-review/evidence/TXT-privacy-toast.jpg",
+          "caption": "Toast on the age gate"
+        },
+        {
+          "type": "file_ref",
+          "ref": "js/app.js:262",
+          "caption": "toast({ privacy: 'Privacy Policy', terms: 'Terms of Service' }[key] + ' — coming soon')"
+        }
+      ],
+      "suggested_fix": "Expected for a prototype. App stores require a reachable privacy policy for games that ask for age and show ads, so plan real pages before submission.",
+      "source_run": "text-review"
+    },
+    {
+      "id": "BUG-002",
+      "title": "Top bar overflows on 360-390 px phones: the Settings gear (menu) and the Close X (store) are cut or pushed off screen, completely from 9,999 coins",
+      "type": "bug",
+      "severity": "major",
+      "area": "Phone portrait (360, 390, 412 px)",
+      "status": "confirmed",
+      "repro_rate": "2/2",
+      "environment": "Web, touch, widths 360 / 390 / 412 px, 15 balance combinations per run",
+      "steps": [
+        "Open the game on a 360 px wide phone (a very common Android width) with 9,999 coins",
+        "Look at the top-right corner of the main menu, then open the Store"
+      ],
+      "expected": "Level, gems, coins and the Settings gear (menu) / Close X (store) all fit on screen at any balance",
+      "actual": "360 px: gear 29 of 42 px visible at the starting balance, 0 px (fully off screen) at 9,999 and 98.8K/123.5K coins; the store has no visible Close X. 390 px: gear cut from 9,999 coins. 412 px: only the store X slightly cut at 98.8K/123.5K.",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "test-ui/evidence/UI-20-run1-360-98_8K_123_5K-store-top.png",
+          "caption": "360 px store, 123.5K coins: no Close X"
+        },
+        {
+          "type": "screenshot",
+          "path": "test-ui/evidence/UI-20-run1-360-98_8K_123_5K-hud.png",
+          "caption": "360 px menu: no Settings gear"
+        },
+        {
+          "type": "screenshot",
+          "path": "test-ui/evidence/UI-20-run1-360-default-hud.png",
+          "caption": "360 px, starting balance: gear already cut"
+        },
+        {
+          "type": "screenshot",
+          "path": "test-ui/evidence/UI-20-run1-412-default-hud.png",
+          "caption": "Control: 412 px fits"
+        },
+        {
+          "type": "state",
+          "path": "test-ui/evidence/UI-20-run1-top-bar.json",
+          "caption": "Visible px of gear and X for 15 cases"
+        },
+        {
+          "type": "state",
+          "path": "test-ui/evidence/UI-20-run2-top-bar.json",
+          "caption": "Run 2: identical"
+        }
+      ],
+      "suspected_cause": "The top-bar pills have fixed minimum widths and the row does not shrink or wrap below ~400 px; numbers from 1,000 to 9,999 are shown in full (formatNumber only abbreviates from 10,000), so they are the widest case.",
+      "suggested_fix": "Let the currency pills shrink (min-width: 0, smaller font under 400 px) and abbreviate from 1,000 (1.2K); keep the gear/X outside the flexible area so it can never be pushed out.",
+      "source_run": "test-ui"
+    },
+    {
+      "id": "BUG-005",
+      "title": "Phone landscape (web): the Levels / Play block covers the Activities and Events buttons on the main menu",
+      "type": "bug",
+      "severity": "minor",
+      "area": "Phone landscape (web)",
+      "status": "confirmed",
+      "repro_rate": "2/2",
+      "environment": "Web, 844x390 touch. The Android app is locked to portrait (AndroidManifest.xml:18), so this affects the browser build only",
+      "steps": [
+        "Open the web build on a phone held in landscape",
+        "Tap Events (right side) or Activities (left side)"
+      ],
+      "expected": "Side buttons are tappable, or the game asks to rotate to portrait",
+      "actual": "The .actions block (Levels and Play) lies on top of both buttons; a tap on their centre hits Play/Levels instead. The logo is also covered.",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "test-ui/evidence/UI-phone-landscape-menu.jpg",
+          "caption": "844x390 main menu"
+        },
+        {
+          "type": "log",
+          "path": "test-ui/evidence/UI-11-run1-click-blocked.log",
+          "caption": "Run 1: the Events click is intercepted by .actions"
+        },
+        {
+          "type": "state",
+          "path": "test-ui/evidence/UI-layout-probe.json",
+          "caption": "Run 2: probe reports both buttons covered by .actions"
+        }
+      ],
+      "suggested_fix": "Show a 'rotate your phone' screen in landscape on touch devices (matching the portrait-only app), or give landscape its own menu layout.",
+      "source_run": "test-ui"
+    },
+    {
+      "id": "BUG-004",
+      "title": "Add Slot from the Out of Slots popup has no maximum: repeated fails grow the board to 10 squeezed slots (the booster stops at 7)",
+      "type": "bug",
+      "severity": "minor",
+      "area": "Slot limits",
+      "status": "confirmed",
+      "repro_rate": "3/3",
+      "environment": "Web, 390x844 touch. Fails triggered with the debug 'Lose level' (assisted); Add Slot and the ad are the real flow",
+      "steps": [
+        "Start Flowers Easy level 1 (4 slots)",
+        "Run out of slots, tap 'Add Slot' on the Out of Slots popup and watch the 3 s ad",
+        "Run out of slots again and repeat 6 times"
+      ],
+      "expected": "Same limit as the Add Slot booster: 'Maximum slots reached' at 7 slots",
+      "actual": "Slots go 4, 5, 6, 7, 8, 9, 10. At 10 they shrink to thin pills across the full width and the first slot's block is wider than its neighbours.",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "test-puzzles/evidence/PZ-35-run1-crop.png",
+          "caption": "10 slots after 6 ads"
+        },
+        {
+          "type": "video",
+          "path": "test-puzzles/evidence/PZ-35-run1-add-slot.webm",
+          "caption": "Run 1: the last Add Slot rounds"
+        },
+        {
+          "type": "screenshot",
+          "path": "test-puzzles/evidence/PZ-35-run1-after-6-ads.jpg",
+          "caption": "Full screen"
+        },
+        {
+          "type": "state",
+          "path": "test-puzzles/evidence/PZ-35-run1-state.json",
+          "caption": "Slot count after each ad"
+        },
+        {
+          "type": "state",
+          "path": "test-puzzles/evidence/PZ-35-run2-state.json",
+          "caption": "Run 2: same counts"
+        },
+        {
+          "type": "file_ref",
+          "ref": "js/app.js:2681",
+          "caption": "'fail-addslot': () => showAd(() => { ... game.slots.push(null) ... }) (no limit)"
+        },
+        {
+          "type": "file_ref",
+          "ref": "js/app.js:2122",
+          "caption": "Booster: if (g.slots.length >= 7) return toast('Maximum slots reached')"
+        }
+      ],
+      "suspected_cause": "The fail-popup handler pushes a slot without the 7-slot check that useBooster('add_slot') has.",
+      "suggested_fix": "Apply the same limit in 'fail-addslot' and hide or disable the Add Slot button on the fail popup at 7 slots.",
+      "source_run": "test-puzzles"
+    },
+    {
+      "id": "BUG-003",
+      "title": "Store keeps selling the $4.99 Special Offer, which includes No Ads, to players who already own No Ads",
+      "type": "bug",
+      "severity": "major",
+      "area": "Ownership (No Ads, Special Offer)",
+      "status": "confirmed",
+      "repro_rate": "2/2",
+      "preconditions": "No Ads owned (bought alone for $2.99 or in an earlier offer)",
+      "steps": [
+        "Open the Store",
+        "Look at the Special Offer card",
+        "Tap $4.99"
+      ],
+      "expected": "The offer is hidden once No Ads is owned, or shown without No Ads at a new price (the No Ads card already shows 'Owned')",
+      "actual": "The card still lists '1,200 gems · 10,000 coins · No Ads' for $4.99 and can be bought again; the toast says 'No Ads' was granted again. With real payments this charges for a non-consumable the player owns.",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "test-store/evidence/ST-08-run1-crop.png",
+          "caption": "Offer card with 'No Ads' while No Ads is owned"
+        },
+        {
+          "type": "video",
+          "path": "test-store/evidence/ST-08-run1.webm",
+          "caption": "Run 1: buying the offer again"
+        },
+        {
+          "type": "screenshot",
+          "path": "test-store/evidence/ST-08-run1-2-bought-again.jpg",
+          "caption": "Toast: '+1,200 gems, +10K coins, No Ads'"
+        },
+        {
+          "type": "state",
+          "path": "test-store/evidence/ST-08-run1-state.json",
+          "caption": "noAds true before; gems 20 -> 1,220"
+        },
+        {
+          "type": "state",
+          "path": "test-store/evidence/ST-08-run2-state.json",
+          "caption": "Run 2: same result"
+        },
+        {
+          "type": "file_ref",
+          "ref": "js/app.js:313",
+          "caption": "The offer card is always rendered in renderStore (no state.noAds check)"
+        },
+        {
+          "type": "file_ref",
+          "ref": "js/app.js:698",
+          "caption": "The offer popup already skips No Ads owners: if (... !state.noAds ...) openOffer()"
+        }
+      ],
+      "suspected_cause": "renderStore() builds the offer card unconditionally, while maybeShowOffer() already checks state.noAds.",
+      "suggested_fix": "Hide the offer card when state.noAds is true (same rule as the popup), or show a variant without No Ads.",
+      "source_run": "test-store"
+    },
+    {
+      "id": "QRY-101",
+      "title": "A double tap on a coin pack buys two packs (no confirmation, no debounce)",
+      "type": "query",
+      "area": "Edge cases",
+      "status": "confirmed",
+      "steps": [
+        "Store with 120 gems",
+        "Double-tap the 1,000 coins pack (30 gems)"
+      ],
+      "actual": "Two packs bought: 120 -> 60 gems, 100 -> 2,100 coins",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "test-store/evidence/ST-06-double-tap.jpg",
+          "caption": "After the double tap"
+        }
+      ],
+      "suggested_fix": "If accidental purchases matter, ignore a second tap on the same item for ~500 ms, or add a confirm step for premium currency.",
+      "source_run": "test-store"
+    },
+    {
+      "id": "TXT-101",
+      "title": "Special Offer toast says '+10K coins' while the card and other toasts use full numbers ('10,000 coins', '+1,000 coins')",
+      "type": "text",
+      "severity": "trivial",
+      "area": "Edge cases",
+      "status": "confirmed",
+      "repro_rate": "static",
+      "expected": "Test purchase: +1,200 gems, +10,000 coins, No Ads",
+      "actual": "Test purchase: +1,200 gems, +10K coins, No Ads",
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "test-store/evidence/ST-08-run1-2-bought-again.jpg",
+          "caption": "Toast with '10K'"
+        },
+        {
+          "type": "file_ref",
+          "ref": "js/app.js:378",
+          "caption": "uses the HUD formatNumber (K/M); renderStore uses a full-number formatter (app.js:311)"
+        }
+      ],
+      "suggested_fix": "Use the store's full-number format in purchase toasts.",
+      "source_run": "test-store"
+    },
+    {
+      "id": "BUG-001",
+      "title": "Level Complete popup closes on a tap outside it or Escape: the coin reward is never paid and the player is left on an empty board",
+      "type": "bug",
+      "severity": "major",
+      "area": "Win flow and rewards",
+      "status": "confirmed",
+      "repro_rate": "4/4",
+      "environment": "Web, 390x844 touch. Runs 1-2: tap outside; runs 3-4: Escape key",
+      "preconditions": "Returning player with 100 coins",
+      "steps": [
+        "Win Flowers Easy level 1 (Level Complete shows '+30')",
+        "Tap anywhere outside the popup card (or press Escape on a keyboard)"
+      ],
+      "expected": "The popup stays open until Continue or Claim x2 is chosen (like the Out of Slots popup, which is locked), or closing it pays the reward and moves on",
+      "actual": "The popup closes, coins stay at 100 (the +30 is lost), the board is empty and there is no Continue button. The win itself is saved (3 stars), so the player can only leave through Pause.",
+      "evidence": [
+        {
+          "type": "video",
+          "path": "test-progression/evidence/PR-W2-run1-tap.webm",
+          "caption": "Run 1: tap outside the popup"
+        },
+        {
+          "type": "frames",
+          "path": "test-progression/evidence/PR-W2-run1-frames",
+          "caption": "Run 1 as stills: popup, tap, empty board"
+        },
+        {
+          "type": "screenshot",
+          "path": "test-progression/evidence/PR-W2-run1-1-popup.jpg",
+          "caption": "Before: Level Complete, +30"
+        },
+        {
+          "type": "screenshot",
+          "path": "test-progression/evidence/PR-W2-run1-2-after-tap.jpg",
+          "caption": "After the tap: empty board, coins still 100"
+        },
+        {
+          "type": "state",
+          "path": "test-progression/evidence/PR-W2-run1-state.json",
+          "caption": "coins 100 before and after, progress saved"
+        },
+        {
+          "type": "video",
+          "path": "test-progression/evidence/PR-W2-run3-escape.webm",
+          "caption": "Run 3: Escape key"
+        },
+        {
+          "type": "state",
+          "path": "test-progression/evidence/PR-W2-run3-state.json",
+          "caption": "Same result with Escape"
+        },
+        {
+          "type": "state",
+          "path": "test-progression/evidence/PR-W1-state.json",
+          "caption": "Control: Continue pays 100 -> 130"
+        },
+        {
+          "type": "file_ref",
+          "ref": "index.html:423",
+          "caption": "<div class=\"overlay rays\" id=\"popup-complete\" hidden> (no data-locked; popup-fail at index.html:458 has it)"
+        },
+        {
+          "type": "file_ref",
+          "ref": "js/app.js:3028",
+          "caption": "if (openPopupEl && e.target === openPopupEl) return closePopup();"
+        }
+      ],
+      "suspected_cause": "popup-complete lacks the data-locked attribute, so the generic outside-tap and Escape handlers (app.js:237, 3028) close it without calling finishWin().",
+      "suggested_fix": "Add data-locked to #popup-complete (index.html:423), as #popup-fail already has.",
+      "source_run": "test-progression"
+    },
+    {
+      "id": "BUG-006",
+      "title": "Several buttons are below the 44 px touch-target guideline on phones (top-bar currency buttons, store Buy, in-level Pause and Speed)",
+      "type": "bug",
+      "severity": "minor",
+      "area": "Accessibility: touch targets",
+      "status": "confirmed",
+      "repro_rate": "2/2",
+      "environment": "390x844 touch",
+      "steps": [
+        "Measure the on-screen size of every visible button on the menu, store, settings and a level"
+      ],
+      "expected": "At least 44x44 CSS px (Apple HIG; Android recommends 48 dp)",
+      "actual": "Gems/coins top-bar buttons 76x34 and 79x34; store Buy buttons 95x38 (x6); Copy player ID 77x38; in-level Pause 40x40; Speed 67x36",
+      "evidence": [
+        {
+          "type": "state",
+          "path": "catalog/evidence/CT-A11Y-1-run1-small-targets.json",
+          "caption": "Run 1 measurements"
+        },
+        {
+          "type": "state",
+          "path": "catalog/evidence/CT-A11Y-1-run2-small-targets.json",
+          "caption": "Run 2: identical"
+        },
+        {
+          "type": "screenshot",
+          "path": "catalog/evidence/CT-A11Y-1-run1-game.jpg",
+          "caption": "Level: Pause (top left) and Speed (top right)"
+        },
+        {
+          "type": "screenshot",
+          "path": "catalog/evidence/CT-A11Y-1-run1-store.jpg",
+          "caption": "Store Buy buttons"
+        }
+      ],
+      "suggested_fix": "Grow the hit area to 44 px without changing the art, e.g. padding or an ::after hit box on these buttons.",
+      "source_run": "catalog"
+    }
+  ]
+}

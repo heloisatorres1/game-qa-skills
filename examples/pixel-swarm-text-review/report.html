@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QA Report: Pixel Swarm</title>
+<style>
+:root{--bg:#f7f7f5;--card:#fff;--fg:#1d1d1f;--muted:#6b6b70;--line:#e3e3e0;--ok:#1f7a3f;--warn:#9a6700;--bad:#b42318;--blk:#7a0d0d;--accent:#3b5bdb}
+@media (prefers-color-scheme:dark){:root{--bg:#141416;--card:#1d1d20;--fg:#ececef;--muted:#9a9aa2;--line:#2e2e33;--ok:#5cc98a;--warn:#e3b341;--bad:#ff7b72;--blk:#ff9b9b;--accent:#8ea2ff}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:1000px;margin:0 auto;padding:24px 16px 64px}h1{margin:0 0 4px;font-size:26px}h2{margin:36px 0 12px;font-size:19px}h3{margin:6px 0 10px;font-size:17px}
+.verdict{display:inline-block;padding:4px 12px;border-radius:6px;font-weight:700;letter-spacing:.03em;margin:8px 0}
+.v-pass{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}.v-pass_with_issues{background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--warn)}
+.v-fail{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}.v-blocked{background:color-mix(in srgb,var(--blk) 22%,transparent);color:var(--blk)}
+.meta{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px;margin:12px 0;color:var(--muted)}.meta b{color:var(--fg);font-weight:600}
+.tiles{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 14px;min-width:92px}.tile .n{font-size:22px;font-weight:700}.tile .l{font-size:12px;color:var(--muted);text-transform:uppercase}
+.table-wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;background:var(--card);border:1px solid var(--line);border-radius:8px}th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:12px;text-transform:uppercase;color:var(--muted)}
+.st{font-weight:700;font-size:12px}.st-PASS{color:var(--ok)}.st-FAIL{color:var(--bad)}.st-PARTIAL,.st-NOT_TESTED{color:var(--warn)}.st-BLOCKED{color:var(--blk)}
+.finding{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:14px 0}.finding header{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.id{font-weight:700;font-family:ui-monospace,Consolas,monospace}.tag,.sev{font-size:12px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.tag.ok{color:var(--ok)}.tag.warn{color:var(--warn)}.sev{color:#fff;border:0;font-weight:600}.sev-blocker{background:var(--blk)}.sev-critical{background:var(--bad)}.sev-major{background:#c2410c}.sev-minor{background:#a16207}.sev-trivial{background:#6b7280}
+.ea{display:grid;grid-template-columns:1fr 1fr;gap:12px}.ea p{margin:4px 0 12px}@media (max-width:640px){.ea{grid-template-columns:1fr}}
+.evidence{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:8px 0 12px}figure{margin:0}figure img,figure video{width:100%;border:1px solid var(--line);border-radius:6px;display:block}
+figcaption{font-size:13px;color:var(--muted);margin-top:4px}figure.log,figure.ref,figure.frames{grid-column:1/-1}
+.strip{display:flex;gap:6px;overflow-x:auto}.strip img{width:140px;flex:none}pre{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:10px;overflow:auto;max-height:280px;font-size:12px;margin:4px 0}
+.logname{font-size:12px}.small{font-size:14px;color:var(--muted)}.small b{color:var(--fg)}a{color:var(--accent)}code{font-family:ui-monospace,Consolas,monospace}
+</style></head><body><main>
+<h1>QA Report: Pixel Swarm</h1>
+<div class="verdict v-pass_with_issues">PASS WITH ISSUES</div>
+<p>The copy is clean: no spelling or grammar errors in 861 strings, and the numbers in the text match the game data. The issues are consistency (&#39;bees&#39; vs &#39;bugs&#39;, &#39;in line&#39; vs &#39;in the line&#39;) and two in-context layout problems seen only in the running game: tutorial dots drawn over the ad banner text and a cramped No Ads subtitle. Three queries ask whether demo wording and placeholder legal links are intended for the public build.</p>
+<div class="meta"><b>Skill</b><span>text-review</span><b>Build</b><span>v1.0.0 debug build (commit db96df5)</span><b>Platform</b><span>Web, Microsoft Edge (Chromium), mobile viewport 390x844 @2x, plus 360x740</span><b>Access</b><span>Source scan (extract-strings.mjs, 861 strings) + Playwright session against the local build (scripts/session.mjs)</span><b>Date</b><span>2026-11-16</span><b>Tester</b><span>Claude (AI-assisted QA)</span><b>Scope</b><span>All player-facing English text: HTML screens, popups, tutorial, story, store, boosters, feature cards, toasts, notifications, skins, picture names. Out of scope: the DBG debug panel, performance overlay, level-check tools and code comments.</span></div>
+<div class="tiles"><div class="tile"><div class="n">0</div><div class="l">blocker</div></div><div class="tile"><div class="n">0</div><div class="l">critical</div></div><div class="tile"><div class="n">0</div><div class="l">major</div></div><div class="tile"><div class="n">3</div><div class="l">minor</div></div><div class="tile"><div class="n">3</div><div class="l">trivial</div></div>
+<div class="tile"><div class="n">3</div><div class="l">queries / unconfirmed</div></div></div>
+<h2>Coverage</h2>
+<div class="table-wrap"><table><thead><tr><th>Area</th><th>Status</th><th>Checks</th><th>Findings</th><th>Notes</th></tr></thead><tbody>
+<tr><td>Spelling and grammar (all sources)</td><td class="st st-PASS">PASS</td><td>861/861</td><td></td><td>861 candidate strings reviewed; 0 spelling or grammar errors. US spelling used consistently (color, armor, honorable).</td></tr>
+<tr><td>Terminology and consistency</td><td class="st st-FAIL">FAIL</td><td></td><td><a href="#TXT-001">TXT-001</a>, <a href="#TXT-004">TXT-004</a>, <a href="#TXT-005">TXT-005</a>, <a href="#TXT-006">TXT-006</a>, <a href="#QRY-001">QRY-001</a></td><td></td></tr>
+<tr><td>Numbers in text vs game data</td><td class="st st-PASS">PASS</td><td>4/4</td><td></td><td>&#39;Collect all 102 pictures&#39; = 5 themes x 3 difficulties x 6 + 12 event levels; &#39;12 spooky pictures&#39; = 12; &#39;6 bugs, 7 looks each&#39; matches the skin table; &#39;7 days in a row&#39; matches DAILY_REWARDS (7 entries).</td></tr>
+<tr><td>First launch (age gate, story, welcome)</td><td class="st st-PASS">PASS</td><td></td><td></td><td></td></tr>
+<tr><td>Text in context (layout, overlap, truncation)</td><td class="st st-FAIL">FAIL</td><td></td><td><a href="#TXT-002">TXT-002</a>, <a href="#TXT-003">TXT-003</a></td><td></td></tr>
+<tr><td>Store and monetisation copy</td><td class="st st-PARTIAL">PARTIAL</td><td></td><td><a href="#QRY-002">QRY-002</a>, <a href="#QRY-003">QRY-003</a></td><td>Copy is correct; two queries about demo wording and placeholder legal links. Store screens checked at 390 and 360 px only.</td></tr>
+<tr><td>Text inside images</td><td class="st st-NOT_TESTED">NOT_TESTED</td><td></td><td></td><td>Sprite and background art were not inspected for baked-in text.</td></tr>
+<tr><td>Android notification delivery</td><td class="st st-NOT_TESTED">NOT_TESTED</td><td></td><td></td><td>Notification strings were reviewed in source (js/native.js); seeing them on a device needs the Android build.</td></tr>
+</tbody></table></div>
+<h2>Findings (9)</h2>
+<div class="table-wrap"><table><thead><tr><th>ID</th><th>Severity</th><th>Type</th><th>Status</th><th>Title</th></tr></thead><tbody>
+<tr><td><a href="#TXT-001">TXT-001</a></td><td>minor</td><td>text</td><td>confirmed</td><td>The swarm is called &#39;bees&#39; in some texts and &#39;bugs&#39; in others, even in two consecutive How to Play cards</td></tr>
+<tr><td><a href="#TXT-002">TXT-002</a></td><td>minor</td><td>text</td><td>confirmed</td><td>Tutorial step dots are drawn on top of the ad banner text at the bottom of the game screen</td></tr>
+<tr><td><a href="#TXT-003">TXT-003</a></td><td>minor</td><td>text</td><td>confirmed</td><td>Store: the No Ads subtitle is cramped and leaves &#39;ads&#39; alone on a second line on phone widths</td></tr>
+<tr><td><a href="#TXT-004">TXT-004</a></td><td>trivial</td><td>text</td><td>confirmed</td><td>Booster descriptions say &#39;in line&#39; where How to Play says &#39;in the line&#39;, and describe Shuffle differently</td></tr>
+<tr><td><a href="#TXT-005">TXT-005</a></td><td>trivial</td><td>text</td><td>confirmed</td><td>&#39;Out of Slots&#39; is capitalised mid-sentence in How to Play but lowercase in the tutorial</td></tr>
+<tr><td><a href="#TXT-006">TXT-006</a></td><td>trivial</td><td>text</td><td>confirmed</td><td>Two ellipsis styles: &#39;Loading...&#39; (three dots) vs &#39;Sending…&#39; and &#39;Taking a screenshot…&#39;</td></tr>
+<tr><td><a href="#QRY-001">QRY-001</a></td><td>-</td><td>query</td><td>confirmed</td><td>New Feature card titles mix plural and singular names</td></tr>
+<tr><td><a href="#QRY-002">QRY-002</a></td><td>-</td><td>query</td><td>confirmed</td><td>Purchase toasts say &#39;Test purchase&#39; and the banner says &#39;Demo ad&#39; in the public build</td></tr>
+<tr><td><a href="#QRY-003">QRY-003</a></td><td>-</td><td>query</td><td>confirmed</td><td>Terms of Service and Privacy Policy links on the age gate only show &#39;coming soon&#39;</td></tr>
+</tbody></table></div>
+
+<article class="finding" id="TXT-001">
+  <header>
+    <span class="id">TXT-001</span>
+    <span class="sev sev-minor">minor</span>
+    <span class="tag">text</span>
+    <span class="tag ok">confirmed · static</span>
+    <span class="tag">Terminology and consistency</span>
+  </header>
+  <h3>The swarm is called &#39;bees&#39; in some texts and &#39;bugs&#39; in others, even in two consecutive How to Play cards</h3>
+  
+  
+  
+  <div class="ea">
+    <div><b>Expected</b><p>One term for the creatures the player sends out. The game has 6 bug types (Bee, Ladybug, Beetle, Butterfly, Ant, Firefly) and a &#39;Bugs&#39; collection tab, so &#39;bugs&#39; is the general term; &#39;bees&#39; is only right when the Bee is equipped.</p></div>
+    <div><b>Actual</b><p>How to Play card 2 says &#39;bees fly out of the tree&#39;, card 3 says &#39;bugs enter the picture&#39;. The tutorial and three toasts say &#39;bees&#39;; the lock toast and a notification say &#39;bugs&#39;.</p></div>
+  </div>
+  <b>Evidence</b>
+  <div class="evidence"><figure><a href="evidence/TXT-howto.jpg"><img src="evidence/TXT-howto.jpg" alt="Card 2 &#39;bees fly out&#39;, card 3 &#39;bugs enter the picture&#39;" loading="lazy"></a><figcaption>Card 2 &#39;bees fly out&#39;, card 3 &#39;bugs enter the picture&#39;</figcaption></figure><figure class="ref"><code>index.html:510</code><figcaption>...bees fly out of the tree to eat pixels of its color.</figcaption></figure><figure class="ref"><code>index.html:511</code><figcaption>From the bottom up: bugs enter the picture from the bottom...</figcaption></figure><figure class="ref"><code>js/app.js:2251</code><figcaption>Tutorial: ...bees fly out of the tree to eat its color.</figcaption></figure><figure class="ref"><code>js/app.js:2252</code><figcaption>Tutorial: Bees eat from the bottom up...</figcaption></figure><figure class="ref"><code>js/app.js:2253</code><figcaption>Tutorial: ...no bee can reach its color...</figcaption></figure><figure class="ref"><code>js/app.js:1725</code><figcaption>Toast: The bees are eating {color} pixels</figcaption></figure><figure class="ref"><code>js/app.js:1728</code><figcaption>Toast: This {color} block is waiting for the bees</figcaption></figure><figure class="ref"><code>js/app.js:1880</code><figcaption>Toast: No free slot — wait for the bees!</figcaption></figure><figure class="ref"><code>js/app.js:1900</code><figcaption>Toast: Locked! The bugs must collect its key</figcaption></figure><figure class="ref"><code>js/native.js:72</code><figcaption>Notification: Your bugs miss you!</figcaption></figure></div>
+  
+  <p class="small"><b>Suggested fix:</b> Use &#39;bugs&#39; in all general texts (e.g. &#39;bugs fly out of the tree&#39;, &#39;Bugs eat from the bottom up&#39;, &#39;wait for the bugs&#39;). Optionally insert the equipped bug&#39;s name where the sentence is about the current swarm.</p>
+  
+</article>
+
+<article class="finding" id="TXT-002">
+  <header>
+    <span class="id">TXT-002</span>
+    <span class="sev sev-minor">minor</span>
+    <span class="tag">text</span>
+    <span class="tag ok">confirmed · 3/3</span>
+    <span class="tag">Text in context (layout, overlap, truncation)</span>
+  </header>
+  <h3>Tutorial step dots are drawn on top of the ad banner text at the bottom of the game screen</h3>
+  <p class="small"><b>Environment:</b> Mobile viewport 390x844 @2x, fresh tutorial (#tutorial)</p>
+  <p><b>Preconditions:</b> Tutorial not seen yet (new player)</p>
+  <b>Steps</b><ol><li>Start the first level as a new player (or open the build with #tutorial)</li><li>Look at the bottom of the screen while the first tutorial bubble is shown</li></ol>
+  <div class="ea">
+    <div><b>Expected</b><p>The six tutorial step dots sit in free space and the banner text stays readable</p></div>
+    <div><b>Actual</b><p>The dots are painted over the middle of the banner text on every run, whichever banner slide is showing (Halloween Event on run 1, Hard Mode on run 2, Gallery on run 3)</p></div>
+  </div>
+  <b>Evidence</b>
+  <div class="evidence"><figure><a href="evidence/TXT-tutorial-dots-crop.png"><img src="evidence/TXT-tutorial-dots-crop.png" alt="Close-up, run 3: dots over &#39;Collect all 102 pictures and share them&#39;" loading="lazy"></a><figcaption>Close-up, run 3: dots over &#39;Collect all 102 pictures and share them&#39;</figcaption></figure><figure><a href="evidence/TXT-tutorial-1.jpg"><img src="evidence/TXT-tutorial-1.jpg" alt="Full screen, run 3" loading="lazy"></a><figcaption>Full screen, run 3</figcaption></figure><figure><a href="evidence/TXT-tutorial-1-run1.jpg"><img src="evidence/TXT-tutorial-1-run1.jpg" alt="Full screen, run 1: dots over the &#39;Halloween Event&#39; banner text" loading="lazy"></a><figcaption>Full screen, run 1: dots over the &#39;Halloween Event&#39; banner text</figcaption></figure><figure class="ref"><code>css/style.css:879</code><figcaption>.tut-dots { position: absolute; ... bottom: calc(14px + var(--sa-bottom)); }</figcaption></figure></div>
+  <p class="small"><b>Suspected cause (hypothesis):</b> Likely the dots are positioned a fixed 14px from the bottom of the screen, which is inside the 50px ad banner (.ad-banner, css/style.css:761).</p>
+  <p class="small"><b>Suggested fix:</b> Place the dots inside the tutorial bubble, or offset them above the banner (bottom: banner height + 14px); hide the banner during the tutorial if that is acceptable.</p>
+  
+</article>
+
+<article class="finding" id="TXT-003">
+  <header>
+    <span class="id">TXT-003</span>
+    <span class="sev sev-minor">minor</span>
+    <span class="tag">text</span>
+    <span class="tag ok">confirmed · 3/3</span>
+    <span class="tag">Text in context (layout, overlap, truncation)</span>
+  </header>
+  <h3>Store: the No Ads subtitle is cramped and leaves &#39;ads&#39; alone on a second line on phone widths</h3>
+  <p class="small"><b>Environment:</b> Mobile viewport 390x844 and 360x740</p>
+  
+  <b>Steps</b><ol><li>Open the Store from the bottom navigation</li><li>Look at the No Ads card under the Special Offer</li></ol>
+  <div class="ea">
+    <div><b>Expected</b><p>&#39;Remove banner and video ads&#39; readable, letters not touching, no single-word orphan line</p></div>
+    <div><b>Actual</b><p>At 390px the outline makes letters touch and &#39;ads&#39; wraps alone; at 360px it wraps after &#39;and&#39; and stays cramped</p></div>
+  </div>
+  <b>Evidence</b>
+  <div class="evidence"><figure><a href="evidence/TXT-store-noads-360.png"><img src="evidence/TXT-store-noads-360.png" alt="Close-up at 360px: cramped letters" loading="lazy"></a><figcaption>Close-up at 360px: cramped letters</figcaption></figure><figure><a href="evidence/TXT-store.jpg"><img src="evidence/TXT-store.jpg" alt="Full store at 390px (run 3): &#39;ads&#39; alone on line 2" loading="lazy"></a><figcaption>Full store at 390px (run 3): &#39;ads&#39; alone on line 2</figcaption></figure><figure><a href="evidence/TXT-store-run1.jpg"><img src="evidence/TXT-store-run1.jpg" alt="Run 1, 390px: same result" loading="lazy"></a><figcaption>Run 1, 390px: same result</figcaption></figure><figure class="ref"><code>css/style.css:964</code><figcaption>.card-title small { font-size: 13px; -webkit-text-stroke: 3px var(--ink); }</figcaption></figure></div>
+  <p class="small"><b>Suspected cause (hypothesis):</b> A 3px text stroke on 13px text eats the space between letters; the card title area is narrow next to the price button.</p>
+  <p class="small"><b>Suggested fix:</b> Reduce the stroke for the small subtitle (1.5 to 2px) or drop it, and shorten the copy to &#39;No banner or video ads&#39;.</p>
+  
+</article>
+
+<article class="finding" id="TXT-004">
+  <header>
+    <span class="id">TXT-004</span>
+    <span class="sev sev-trivial">trivial</span>
+    <span class="tag">text</span>
+    <span class="tag ok">confirmed · static</span>
+    <span class="tag">Terminology and consistency</span>
+  </header>
+  <h3>Booster descriptions say &#39;in line&#39; where How to Play says &#39;in the line&#39;, and describe Shuffle differently</h3>
+  
+  
+  
+  <div class="ea">
+    <div><b>Expected</b><p>Shuffle: &#39;Mixes the colors of the blocks in the line.&#39; Free Pick: &#39;Pick any block in the line and send it to a free slot.&#39;</p></div>
+    <div><b>Actual</b><p>&#39;Changes the colors of the blocks in line.&#39; and &#39;Pick any block in line...&#39; (missing &#39;the&#39;; &#39;changes&#39; vs &#39;mixes&#39; in How to Play)</p></div>
+  </div>
+  <b>Evidence</b>
+  <div class="evidence"><figure><a href="evidence/TXT-booster-shuffle.jpg"><img src="evidence/TXT-booster-shuffle.jpg" alt="New Booster popup: &#39;Changes the colors of the blocks in line.&#39;" loading="lazy"></a><figcaption>New Booster popup: &#39;Changes the colors of the blocks in line.&#39;</figcaption></figure><figure class="ref"><code>js/app.js:1127</code><figcaption>desc: &#39;Changes the colors of the blocks in line.&#39;</figcaption></figure><figure class="ref"><code>index.html:450</code><figcaption>Same text in the static popup markup</figcaption></figure><figure class="ref"><code>js/app.js:1129</code><figcaption>desc: &#39;Pick any block in line and send it to a free slot.&#39;</figcaption></figure><figure class="ref"><code>index.html:514</code><figcaption>How to Play: &#39;Shuffle mixes the colors in the line ... any block in the line&#39;</figcaption></figure></div>
+  
+  <p class="small"><b>Suggested fix:</b> Mixes the colors of the blocks in the line. / Pick any block in the line and send it to a free slot.</p>
+  
+</article>
+
+<article class="finding" id="TXT-005">
+  <header>
+    <span class="id">TXT-005</span>
+    <span class="sev sev-trivial">trivial</span>
+    <span class="tag">text</span>
+    <span class="tag ok">confirmed · static</span>
+    <span class="tag">Terminology and consistency</span>
+  </header>
+  <h3>&#39;Out of Slots&#39; is capitalised mid-sentence in How to Play but lowercase in the tutorial</h3>
+  
+  
+  
+  <div class="ea">
+    <div><b>Expected</b><p>The same casing for the same term in running text (the popup title &#39;Out of Slots!&#39; can stay Title Case)</p></div>
+    <div><b>Actual</b><p>How to Play: &#39;you&#39;re Out of Slots.&#39;; tutorial: &#39;you&#39;re out of slots and you lose.&#39;</p></div>
+  </div>
+  <b>Evidence</b>
+  <div class="evidence"><figure><a href="evidence/TXT-howto.jpg"><img src="evidence/TXT-howto.jpg" alt="Card 4: &#39;you&#39;re Out of Slots.&#39;" loading="lazy"></a><figcaption>Card 4: &#39;you&#39;re Out of Slots.&#39;</figcaption></figure><figure class="ref"><code>index.html:512</code><figcaption>you&#39;re &lt;b&gt;Out of Slots&lt;/b&gt;.</figcaption></figure><figure class="ref"><code>js/app.js:2253</code><figcaption>you&#39;re out of slots and you lose.</figcaption></figure></div>
+  
+  <p class="small"><b>Suggested fix:</b> Pick one: keep the highlighted &#39;Out of Slots&#39; as a named state in both places, or lowercase it in How to Play.</p>
+  
+</article>
+
+<article class="finding" id="TXT-006">
+  <header>
+    <span class="id">TXT-006</span>
+    <span class="sev sev-trivial">trivial</span>
+    <span class="tag">text</span>
+    <span class="tag ok">confirmed · static</span>
+    <span class="tag">Terminology and consistency</span>
+  </header>
+  <h3>Two ellipsis styles: &#39;Loading...&#39; (three dots) vs &#39;Sending…&#39; and &#39;Taking a screenshot…&#39;</h3>
+  
+  
+  
+  <div class="ea">
+    <div><b>Expected</b><p>One ellipsis style across the game</p></div>
+    <div><b>Actual</b><p>The loading screen uses &#39;...&#39;; the Report popup (Settings &gt; Report) uses the &#39;…&#39; character</p></div>
+  </div>
+  <b>Evidence</b>
+  <div class="evidence"><figure><a href="evidence/TXT-loading.jpg"><img src="evidence/TXT-loading.jpg" alt="Loading screen" loading="lazy"></a><figcaption>Loading screen</figcaption></figure><figure class="ref"><code>index.html:38</code><figcaption>&lt;div class=&quot;ld-text&quot;&gt;Loading...&lt;/div&gt;</figcaption></figure><figure class="ref"><code>js/report.js:199</code><figcaption>&#39;Sending…&#39;</figcaption></figure><figure class="ref"><code>js/report.js:123</code><figcaption>&#39;Taking a screenshot…&#39;</figcaption></figure></div>
+  
+  <p class="small"><b>Suggested fix:</b> Loading…</p>
+  
+</article>
+
+<article class="finding" id="QRY-001">
+  <header>
+    <span class="id">QRY-001</span>
+    
+    <span class="tag">query</span>
+    <span class="tag ok">confirmed</span>
+    <span class="tag">Terminology and consistency</span>
+  </header>
+  <h3>New Feature card titles mix plural and singular names</h3>
+  
+  
+  
+  <div class="ea">
+    
+    <div><b>Actual</b><p>Plural: Mystery Blocks, Frozen Blocks, Hidden Pixels, Linked Blocks, Mystery Links. Singular: Big Pixel, Pipe, Key &amp; Lock, Wood Block, Cookie Blocker (5 vs 5, no majority style).</p></div>
+  </div>
+  <b>Evidence</b>
+  <div class="evidence"><figure class="ref"><code>js/app.js:2214</code><figcaption>FEATURES titles, lines 2214 to 2227</figcaption></figure></div>
+  
+  <p class="small"><b>Suggested fix:</b> If a rule is wanted: plural for all (Big Pixels, Pipes, Keys &amp; Locks, Wood Blocks, Cookie Blockers). Design decision, not a defect.</p>
+  
+</article>
+
+<article class="finding" id="QRY-002">
+  <header>
+    <span class="id">QRY-002</span>
+    
+    <span class="tag">query</span>
+    <span class="tag ok">confirmed</span>
+    <span class="tag">Store and monetisation copy</span>
+  </header>
+  <h3>Purchase toasts say &#39;Test purchase&#39; and the banner says &#39;Demo ad&#39; in the public build</h3>
+  
+  
+  <b>Steps</b><ol><li>Open the Store</li><li>Tap the $0.99 gems pack</li></ol>
+  <div class="ea">
+    
+    <div><b>Actual</b><p>Toast &#39;Test purchase: +100 gems&#39;; gems go from 20 to 120 with no payment. The bottom banner is labelled &#39;Demo ad&#39;.</p></div>
+  </div>
+  <b>Evidence</b>
+  <div class="evidence"><figure><a href="evidence/TXT-store-test-purchase.jpg"><img src="evidence/TXT-store-test-purchase.jpg" alt="&#39;Test purchase: +100 gems&#39; toast" loading="lazy"></a><figcaption>&#39;Test purchase: +100 gems&#39; toast</figcaption></figure><figure class="ref"><code>js/app.js:388</code><figcaption>toast(`Test purchase: +${formatNumber(g.amount)} gems`)</figcaption></figure><figure class="ref"><code>index.html:529</code><figcaption>Demo ad</figcaption></figure></div>
+  
+  <p class="small"><b>Suggested fix:</b> Fine for a portfolio demo. Before a store release, confirm these strings are replaced together with the real purchase and ad SDKs.</p>
+  
+</article>
+
+<article class="finding" id="QRY-003">
+  <header>
+    <span class="id">QRY-003</span>
+    
+    <span class="tag">query</span>
+    <span class="tag ok">confirmed</span>
+    <span class="tag">Store and monetisation copy</span>
+  </header>
+  <h3>Terms of Service and Privacy Policy links on the age gate only show &#39;coming soon&#39;</h3>
+  
+  
+  <b>Steps</b><ol><li>Launch the game on a fresh profile</li><li>On the age gate, tap Privacy Policy</li></ol>
+  <div class="ea">
+    
+    <div><b>Actual</b><p>Toast &#39;Privacy Policy — coming soon&#39;; same for Terms of Service and the Settings links</p></div>
+  </div>
+  <b>Evidence</b>
+  <div class="evidence"><figure><a href="evidence/TXT-privacy-toast.jpg"><img src="evidence/TXT-privacy-toast.jpg" alt="Toast on the age gate" loading="lazy"></a><figcaption>Toast on the age gate</figcaption></figure><figure class="ref"><code>js/app.js:262</code><figcaption>toast({ privacy: &#39;Privacy Policy&#39;, terms: &#39;Terms of Service&#39; }[key] + &#39; — coming soon&#39;)</figcaption></figure></div>
+  
+  <p class="small"><b>Suggested fix:</b> Expected for a prototype. App stores require a reachable privacy policy for games that ask for age and show ads, so plan real pages before submission.</p>
+  
+</article>
+</main></body></html>

@@ -1,0 +1,13 @@
+{
+  "name": "game-qa-skills",
+  "version": "0.1.0",
+  "description": "Engine-agnostic game QA skills for Claude Code: text review, full playthrough, and a full test pass that runs feature modules (store, puzzles, progression, UI, settings, performance). Every finding comes with evidence and a generated HTML report.",
+  "author": {
+    "name": "Heloisa Oller Torres",
+    "url": "https://github.com/heloisatorres1"
+  },
+  "homepage": "https://github.com/heloisatorres1/game-qa-skills",
+  "repository": "https://github.com/heloisatorres1/game-qa-skills",
+  "license": "MIT",
+  "keywords": ["qa", "game-testing", "playtesting", "localization", "bug-report", "test-automation", "skills"]
+}

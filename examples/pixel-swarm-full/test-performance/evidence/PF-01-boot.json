@@ -1,0 +1,9 @@
+{
+  "runs_ms": [
+    3096,
+    3096,
+    3101
+  ],
+  "median_ms": 3096,
+  "note": "The loading screen is shown for at least ~2.5 s by design (app.js runLoading)."
+}

@@ -1,0 +1,270 @@
+[
+  {
+    "id": "ST-01",
+    "name": "Gem pack S (test purchase): +100 gems",
+    "pass": true,
+    "expected": {
+      "gems": 120,
+      "coins": 100
+    },
+    "actual": {
+      "gems": 120,
+      "coins": 100,
+      "toast": "Test purchase: +100 gems"
+    },
+    "evidence": [
+      "ST-01-after.jpg",
+      "ST-01-state.json"
+    ]
+  },
+  {
+    "id": "ST-02",
+    "name": "Gem pack L (test purchase): +1,200 gems",
+    "pass": true,
+    "expected": {
+      "gems": 1220,
+      "coins": 100
+    },
+    "actual": {
+      "gems": 1220,
+      "coins": 100,
+      "toast": "Test purchase: +1,200 gems"
+    },
+    "evidence": [
+      "ST-02-after.jpg",
+      "ST-02-state.json"
+    ]
+  },
+  {
+    "id": "ST-03",
+    "name": "Coin pack S with enough gems: -30 gems, +1,000 coins",
+    "pass": true,
+    "expected": {
+      "gems": 90,
+      "coins": 1100
+    },
+    "actual": {
+      "gems": 90,
+      "coins": 1100,
+      "toast": "+1,000 coins"
+    },
+    "evidence": [
+      "ST-03-after.jpg",
+      "ST-03-state.json"
+    ]
+  },
+  {
+    "id": "ST-04",
+    "name": "Coin pack S with exactly 30 gems: balance reaches 0",
+    "pass": true,
+    "expected": {
+      "gems": 0,
+      "coins": 1100
+    },
+    "actual": {
+      "gems": 0,
+      "coins": 1100,
+      "toast": "+1,000 coins"
+    },
+    "evidence": [
+      "ST-04-after.jpg",
+      "ST-04-state.json"
+    ]
+  },
+  {
+    "id": "ST-05",
+    "name": "Coin pack L with 100 gems (needs 250): refused, nothing changes",
+    "pass": true,
+    "expected": {
+      "gems": 100,
+      "coins": 100
+    },
+    "actual": {
+      "gems": 100,
+      "coins": 100,
+      "toast": "Not enough gems (need 250)"
+    },
+    "evidence": [
+      "ST-05-after.jpg",
+      "ST-05-state.json"
+    ]
+  },
+  {
+    "id": "ST-06",
+    "name": "Double-tap on a coin pack (no confirm step): records how many packs are bought",
+    "pass": true,
+    "expected": "documented",
+    "actual": {
+      "gems": 60,
+      "coins": 2100,
+      "packs_bought": 2
+    },
+    "evidence": [
+      "ST-06-double-tap.jpg"
+    ]
+  },
+  {
+    "id": "ST-07",
+    "name": "No Ads: card shows Owned, the level has no ad banner, survives reload",
+    "pass": true,
+    "expected": "noAds true, \"Owned\", banner hidden",
+    "actual": {
+      "noAds": true,
+      "button": "Owned",
+      "banner_visible": false
+    },
+    "evidence": [
+      "ST-07-1-noads-owned.jpg",
+      "ST-07-2-level-no-banner.jpg"
+    ]
+  },
+  {
+    "id": "ST-08-1",
+    "name": "Special Offer is not sold again for its No Ads part once No Ads is owned",
+    "pass": false,
+    "expected": "offer hidden or re-priced without No Ads",
+    "actual": {
+      "offer_visible": true,
+      "offer_text": "Special Offer + + $4.99 1,200 gems · 10,000 coins · No Ads",
+      "toast": "Test purchase: +1,200 gems, +10K coins, No Ads",
+      "before": {
+        "gems": 20,
+        "coins": 100
+      },
+      "after": {
+        "gems": 1220,
+        "coins": 10100
+      }
+    },
+    "evidence": [
+      "ST-08-run1-crop.png",
+      "ST-08-run1-1-offer-still-sold.jpg",
+      "ST-08-run1-2-bought-again.jpg",
+      "ST-08-run1-state.json",
+      "ST-08-run1.webm"
+    ]
+  },
+  {
+    "id": "ST-08-2",
+    "name": "Special Offer is not sold again for its No Ads part once No Ads is owned",
+    "pass": false,
+    "expected": "offer hidden or re-priced without No Ads",
+    "actual": {
+      "offer_visible": true,
+      "offer_text": "Special Offer + + $4.99 1,200 gems · 10,000 coins · No Ads",
+      "toast": "Test purchase: +1,200 gems, +10K coins, No Ads",
+      "before": {
+        "gems": 20,
+        "coins": 100
+      },
+      "after": {
+        "gems": 1220,
+        "coins": 10100
+      }
+    },
+    "evidence": [
+      "ST-08-run2-crop.png",
+      "ST-08-run2-1-offer-still-sold.jpg",
+      "ST-08-run2-2-bought-again.jpg",
+      "ST-08-run2-state.json"
+    ]
+  },
+  {
+    "id": "ST-09",
+    "name": "Free Coins: 5 ads per day (+100 each), the 6th is refused",
+    "pass": true,
+    "expected": "coins 100 -> 600, count 5, 6th refused",
+    "actual": {
+      "coins": 600,
+      "freeCoins": {
+        "day": "2026-11-16",
+        "count": 5
+      },
+      "toast": "true,true,true,true,true,false",
+      "card": "Free Coins +100 coins · 0 left today Watch"
+    },
+    "evidence": [
+      "ST-09-free-coins-limit.jpg"
+    ]
+  },
+  {
+    "id": "ST-10",
+    "name": "Ladybug with 200 gems (price 150): bought, equipped, 50 gems left",
+    "pass": true,
+    "expected": {
+      "gems": 50,
+      "owned": true
+    },
+    "actual": {
+      "gems": 50,
+      "owned": true,
+      "creature": "ladybug",
+      "buy_button": true
+    },
+    "evidence": [
+      "ST-10-ladybug.jpg"
+    ]
+  },
+  {
+    "id": "ST-11",
+    "name": "Beetle with 100 gems (price 200): refused",
+    "pass": true,
+    "expected": {
+      "gems": 100,
+      "owned": false
+    },
+    "actual": {
+      "gems": 100,
+      "owned": false,
+      "creature": "bee",
+      "buy_button": true
+    },
+    "evidence": [
+      "ST-11-beetle.jpg"
+    ]
+  },
+  {
+    "id": "ST-12",
+    "name": "Firefly with 1,000 gems at player level 1 (needs level 5): refused",
+    "pass": true,
+    "expected": {
+      "gems": 1000,
+      "owned": false
+    },
+    "actual": {
+      "gems": 1000,
+      "owned": false,
+      "creature": "bee",
+      "buy_button": false
+    },
+    "evidence": [
+      "ST-12-firefly.jpg"
+    ]
+  },
+  {
+    "id": "ST-13",
+    "name": "Speed Store: +5 min boost for 250 coins, 3x tier for 100 gems",
+    "pass": true,
+    "expected": "coins 300 -> 50, gems 120 -> 20, maxSpeed 3, ~5 min boost",
+    "actual": {
+      "coins": 50,
+      "gems": 20,
+      "maxSpeed": 3,
+      "boost_minutes_left": 5
+    },
+    "evidence": [
+      "ST-13-speed-store.jpg"
+    ]
+  },
+  {
+    "id": "ST-14",
+    "name": "Speed Store: 30 min boost (1,000 coins) with 50 coins is refused",
+    "pass": true,
+    "expected": "coins stay 50",
+    "actual": {
+      "coins": 50,
+      "toast": "Not enough coins (need 1,000)"
+    },
+    "evidence": []
+  }
+]

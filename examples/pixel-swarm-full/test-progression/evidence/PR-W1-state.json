@@ -1,0 +1,54 @@
+{
+  "reward_shown": 30,
+  "before_continue": {
+    "coins": 100,
+    "gems": 20,
+    "progress": {
+      "flowers-easy": [
+        3
+      ]
+    },
+    "stats.levels": 1,
+    "daily": {
+      "streak": 0,
+      "last": ""
+    },
+    "boosters": {
+      "add_slot": 1
+    }
+  },
+  "after_continue": {
+    "coins": 130,
+    "gems": 20,
+    "progress": {
+      "flowers-easy": [
+        3
+      ]
+    },
+    "stats.levels": 1,
+    "daily": {
+      "streak": 0,
+      "last": ""
+    },
+    "boosters": {
+      "add_slot": 1
+    }
+  },
+  "after_reload": {
+    "coins": 130,
+    "gems": 20,
+    "progress": {
+      "flowers-easy": [
+        3
+      ]
+    },
+    "stats.levels": 1,
+    "daily": {
+      "streak": 0,
+      "last": ""
+    },
+    "boosters": {
+      "add_slot": 1
+    }
+  }
+}

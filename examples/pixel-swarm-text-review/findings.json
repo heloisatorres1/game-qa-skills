@@ -1,0 +1,235 @@
+{
+  "run": {
+    "skill": "text-review",
+    "game": "Pixel Swarm",
+    "build": "v1.0.0 debug build (commit db96df5)",
+    "platform": "Web, Microsoft Edge (Chromium), mobile viewport 390x844 @2x, plus 360x740",
+    "access_mode": "Source scan (extract-strings.mjs, 861 strings) + Playwright session against the local build (scripts/session.mjs)",
+    "date": "2026-11-16",
+    "tester": "Claude (AI-assisted QA)",
+    "scope": "All player-facing English text: HTML screens, popups, tutorial, story, store, boosters, feature cards, toasts, notifications, skins, picture names. Out of scope: the DBG debug panel, performance overlay, level-check tools and code comments.",
+    "summary": "The copy is clean: no spelling or grammar errors in 861 strings, and the numbers in the text match the game data. The issues are consistency ('bees' vs 'bugs', 'in line' vs 'in the line') and two in-context layout problems seen only in the running game: tutorial dots drawn over the ad banner text and a cramped No Ads subtitle. Three queries ask whether demo wording and placeholder legal links are intended for the public build."
+  },
+  "coverage": [
+    {
+      "area": "Spelling and grammar (all sources)",
+      "status": "PASS",
+      "checks_total": 861,
+      "checks_passed": 861,
+      "notes": "861 candidate strings reviewed; 0 spelling or grammar errors. US spelling used consistently (color, armor, honorable).",
+      "evidence": [{ "type": "log", "path": "strings/strings.txt", "caption": "Every extracted string with file:line" }]
+    },
+    {
+      "area": "Terminology and consistency",
+      "status": "FAIL",
+      "findings": ["TXT-001", "TXT-004", "TXT-005", "TXT-006", "QRY-001"]
+    },
+    {
+      "area": "Numbers in text vs game data",
+      "status": "PASS",
+      "checks_total": 4,
+      "checks_passed": 4,
+      "notes": "'Collect all 102 pictures' = 5 themes x 3 difficulties x 6 + 12 event levels; '12 spooky pictures' = 12; '6 bugs, 7 looks each' matches the skin table; '7 days in a row' matches DAILY_REWARDS (7 entries).",
+      "evidence": [{ "type": "state", "path": "evidence/TXT-data-facts.json", "caption": "Values read from the running game" }]
+    },
+    {
+      "area": "First launch (age gate, story, welcome)",
+      "status": "PASS",
+      "evidence": [
+        { "type": "screenshot", "path": "evidence/TXT-age-gate.jpg", "caption": "Age gate" },
+        { "type": "screenshot", "path": "evidence/TXT-story-1.jpg", "caption": "Story, slide 1" },
+        { "type": "screenshot", "path": "evidence/TXT-welcome.jpg", "caption": "Welcome popup" }
+      ]
+    },
+    {
+      "area": "Text in context (layout, overlap, truncation)",
+      "status": "FAIL",
+      "findings": ["TXT-002", "TXT-003"]
+    },
+    {
+      "area": "Store and monetisation copy",
+      "status": "PARTIAL",
+      "findings": ["QRY-002", "QRY-003"],
+      "notes": "Copy is correct; two queries about demo wording and placeholder legal links. Store screens checked at 390 and 360 px only.",
+      "evidence": [{ "type": "screenshot", "path": "evidence/TXT-store.jpg", "caption": "Store at 390x844" }]
+    },
+    {
+      "area": "Text inside images",
+      "status": "NOT_TESTED",
+      "notes": "Sprite and background art were not inspected for baked-in text."
+    },
+    {
+      "area": "Android notification delivery",
+      "status": "NOT_TESTED",
+      "notes": "Notification strings were reviewed in source (js/native.js); seeing them on a device needs the Android build."
+    }
+  ],
+  "findings": [
+    {
+      "id": "TXT-001",
+      "title": "The swarm is called 'bees' in some texts and 'bugs' in others, even in two consecutive How to Play cards",
+      "type": "text",
+      "severity": "minor",
+      "area": "Terminology and consistency",
+      "status": "confirmed",
+      "repro_rate": "static",
+      "expected": "One term for the creatures the player sends out. The game has 6 bug types (Bee, Ladybug, Beetle, Butterfly, Ant, Firefly) and a 'Bugs' collection tab, so 'bugs' is the general term; 'bees' is only right when the Bee is equipped.",
+      "actual": "How to Play card 2 says 'bees fly out of the tree', card 3 says 'bugs enter the picture'. The tutorial and three toasts say 'bees'; the lock toast and a notification say 'bugs'.",
+      "evidence": [
+        { "type": "screenshot", "path": "evidence/TXT-howto.jpg", "caption": "Card 2 'bees fly out', card 3 'bugs enter the picture'" },
+        { "type": "file_ref", "ref": "index.html:510", "caption": "...bees fly out of the tree to eat pixels of its color." },
+        { "type": "file_ref", "ref": "index.html:511", "caption": "From the bottom up: bugs enter the picture from the bottom..." },
+        { "type": "file_ref", "ref": "js/app.js:2251", "caption": "Tutorial: ...bees fly out of the tree to eat its color." },
+        { "type": "file_ref", "ref": "js/app.js:2252", "caption": "Tutorial: Bees eat from the bottom up..." },
+        { "type": "file_ref", "ref": "js/app.js:2253", "caption": "Tutorial: ...no bee can reach its color..." },
+        { "type": "file_ref", "ref": "js/app.js:1725", "caption": "Toast: The bees are eating {color} pixels" },
+        { "type": "file_ref", "ref": "js/app.js:1728", "caption": "Toast: This {color} block is waiting for the bees" },
+        { "type": "file_ref", "ref": "js/app.js:1880", "caption": "Toast: No free slot — wait for the bees!" },
+        { "type": "file_ref", "ref": "js/app.js:1900", "caption": "Toast: Locked! The bugs must collect its key" },
+        { "type": "file_ref", "ref": "js/native.js:72", "caption": "Notification: Your bugs miss you!" }
+      ],
+      "suggested_fix": "Use 'bugs' in all general texts (e.g. 'bugs fly out of the tree', 'Bugs eat from the bottom up', 'wait for the bugs'). Optionally insert the equipped bug's name where the sentence is about the current swarm."
+    },
+    {
+      "id": "TXT-002",
+      "title": "Tutorial step dots are drawn on top of the ad banner text at the bottom of the game screen",
+      "type": "text",
+      "severity": "minor",
+      "area": "Text in context (layout, overlap, truncation)",
+      "status": "confirmed",
+      "repro_rate": "3/3",
+      "environment": "Mobile viewport 390x844 @2x, fresh tutorial (#tutorial)",
+      "preconditions": "Tutorial not seen yet (new player)",
+      "steps": [
+        "Start the first level as a new player (or open the build with #tutorial)",
+        "Look at the bottom of the screen while the first tutorial bubble is shown"
+      ],
+      "expected": "The six tutorial step dots sit in free space and the banner text stays readable",
+      "actual": "The dots are painted over the middle of the banner text on every run, whichever banner slide is showing (Halloween Event on run 1, Hard Mode on run 2, Gallery on run 3)",
+      "evidence": [
+        { "type": "screenshot", "path": "evidence/TXT-tutorial-dots-crop.png", "caption": "Close-up, run 3: dots over 'Collect all 102 pictures and share them'" },
+        { "type": "screenshot", "path": "evidence/TXT-tutorial-1.jpg", "caption": "Full screen, run 3" },
+        { "type": "screenshot", "path": "evidence/TXT-tutorial-1-run1.jpg", "caption": "Full screen, run 1: dots over the 'Halloween Event' banner text" },
+        { "type": "file_ref", "ref": "css/style.css:879", "caption": ".tut-dots { position: absolute; ... bottom: calc(14px + var(--sa-bottom)); }" }
+      ],
+      "suspected_cause": "Likely the dots are positioned a fixed 14px from the bottom of the screen, which is inside the 50px ad banner (.ad-banner, css/style.css:761).",
+      "suggested_fix": "Place the dots inside the tutorial bubble, or offset them above the banner (bottom: banner height + 14px); hide the banner during the tutorial if that is acceptable."
+    },
+    {
+      "id": "TXT-003",
+      "title": "Store: the No Ads subtitle is cramped and leaves 'ads' alone on a second line on phone widths",
+      "type": "text",
+      "severity": "minor",
+      "area": "Text in context (layout, overlap, truncation)",
+      "status": "confirmed",
+      "repro_rate": "3/3",
+      "environment": "Mobile viewport 390x844 and 360x740",
+      "steps": ["Open the Store from the bottom navigation", "Look at the No Ads card under the Special Offer"],
+      "expected": "'Remove banner and video ads' readable, letters not touching, no single-word orphan line",
+      "actual": "At 390px the outline makes letters touch and 'ads' wraps alone; at 360px it wraps after 'and' and stays cramped",
+      "evidence": [
+        { "type": "screenshot", "path": "evidence/TXT-store-noads-360.png", "caption": "Close-up at 360px: cramped letters" },
+        { "type": "screenshot", "path": "evidence/TXT-store.jpg", "caption": "Full store at 390px (run 3): 'ads' alone on line 2" },
+        { "type": "screenshot", "path": "evidence/TXT-store-run1.jpg", "caption": "Run 1, 390px: same result" },
+        { "type": "file_ref", "ref": "css/style.css:964", "caption": ".card-title small { font-size: 13px; -webkit-text-stroke: 3px var(--ink); }" }
+      ],
+      "suspected_cause": "A 3px text stroke on 13px text eats the space between letters; the card title area is narrow next to the price button.",
+      "suggested_fix": "Reduce the stroke for the small subtitle (1.5 to 2px) or drop it, and shorten the copy to 'No banner or video ads'."
+    },
+    {
+      "id": "TXT-004",
+      "title": "Booster descriptions say 'in line' where How to Play says 'in the line', and describe Shuffle differently",
+      "type": "text",
+      "severity": "trivial",
+      "area": "Terminology and consistency",
+      "status": "confirmed",
+      "repro_rate": "static",
+      "expected": "Shuffle: 'Mixes the colors of the blocks in the line.' Free Pick: 'Pick any block in the line and send it to a free slot.'",
+      "actual": "'Changes the colors of the blocks in line.' and 'Pick any block in line...' (missing 'the'; 'changes' vs 'mixes' in How to Play)",
+      "evidence": [
+        { "type": "screenshot", "path": "evidence/TXT-booster-shuffle.jpg", "caption": "New Booster popup: 'Changes the colors of the blocks in line.'" },
+        { "type": "file_ref", "ref": "js/app.js:1127", "caption": "desc: 'Changes the colors of the blocks in line.'" },
+        { "type": "file_ref", "ref": "index.html:450", "caption": "Same text in the static popup markup" },
+        { "type": "file_ref", "ref": "js/app.js:1129", "caption": "desc: 'Pick any block in line and send it to a free slot.'" },
+        { "type": "file_ref", "ref": "index.html:514", "caption": "How to Play: 'Shuffle mixes the colors in the line ... any block in the line'" }
+      ],
+      "suggested_fix": "Mixes the colors of the blocks in the line. / Pick any block in the line and send it to a free slot."
+    },
+    {
+      "id": "TXT-005",
+      "title": "'Out of Slots' is capitalised mid-sentence in How to Play but lowercase in the tutorial",
+      "type": "text",
+      "severity": "trivial",
+      "area": "Terminology and consistency",
+      "status": "confirmed",
+      "repro_rate": "static",
+      "expected": "The same casing for the same term in running text (the popup title 'Out of Slots!' can stay Title Case)",
+      "actual": "How to Play: 'you're Out of Slots.'; tutorial: 'you're out of slots and you lose.'",
+      "evidence": [
+        { "type": "screenshot", "path": "evidence/TXT-howto.jpg", "caption": "Card 4: 'you're Out of Slots.'" },
+        { "type": "file_ref", "ref": "index.html:512", "caption": "you're <b>Out of Slots</b>." },
+        { "type": "file_ref", "ref": "js/app.js:2253", "caption": "you're out of slots and you lose." }
+      ],
+      "suggested_fix": "Pick one: keep the highlighted 'Out of Slots' as a named state in both places, or lowercase it in How to Play."
+    },
+    {
+      "id": "TXT-006",
+      "title": "Two ellipsis styles: 'Loading...' (three dots) vs 'Sending…' and 'Taking a screenshot…'",
+      "type": "text",
+      "severity": "trivial",
+      "area": "Terminology and consistency",
+      "status": "confirmed",
+      "repro_rate": "static",
+      "expected": "One ellipsis style across the game",
+      "actual": "The loading screen uses '...'; the Report popup (Settings > Report) uses the '…' character",
+      "evidence": [
+        { "type": "screenshot", "path": "evidence/TXT-loading.jpg", "caption": "Loading screen" },
+        { "type": "file_ref", "ref": "index.html:38", "caption": "<div class=\"ld-text\">Loading...</div>" },
+        { "type": "file_ref", "ref": "js/report.js:199", "caption": "'Sending…'" },
+        { "type": "file_ref", "ref": "js/report.js:123", "caption": "'Taking a screenshot…'" }
+      ],
+      "suggested_fix": "Loading…"
+    },
+    {
+      "id": "QRY-001",
+      "title": "New Feature card titles mix plural and singular names",
+      "type": "query",
+      "area": "Terminology and consistency",
+      "status": "confirmed",
+      "actual": "Plural: Mystery Blocks, Frozen Blocks, Hidden Pixels, Linked Blocks, Mystery Links. Singular: Big Pixel, Pipe, Key & Lock, Wood Block, Cookie Blocker (5 vs 5, no majority style).",
+      "evidence": [
+        { "type": "file_ref", "ref": "js/app.js:2214", "caption": "FEATURES titles, lines 2214 to 2227" }
+      ],
+      "suggested_fix": "If a rule is wanted: plural for all (Big Pixels, Pipes, Keys & Locks, Wood Blocks, Cookie Blockers). Design decision, not a defect."
+    },
+    {
+      "id": "QRY-002",
+      "title": "Purchase toasts say 'Test purchase' and the banner says 'Demo ad' in the public build",
+      "type": "query",
+      "area": "Store and monetisation copy",
+      "status": "confirmed",
+      "steps": ["Open the Store", "Tap the $0.99 gems pack"],
+      "actual": "Toast 'Test purchase: +100 gems'; gems go from 20 to 120 with no payment. The bottom banner is labelled 'Demo ad'.",
+      "evidence": [
+        { "type": "screenshot", "path": "evidence/TXT-store-test-purchase.jpg", "caption": "'Test purchase: +100 gems' toast" },
+        { "type": "file_ref", "ref": "js/app.js:388", "caption": "toast(`Test purchase: +${formatNumber(g.amount)} gems`)" },
+        { "type": "file_ref", "ref": "index.html:529", "caption": "Demo ad" }
+      ],
+      "suggested_fix": "Fine for a portfolio demo. Before a store release, confirm these strings are replaced together with the real purchase and ad SDKs."
+    },
+    {
+      "id": "QRY-003",
+      "title": "Terms of Service and Privacy Policy links on the age gate only show 'coming soon'",
+      "type": "query",
+      "area": "Store and monetisation copy",
+      "status": "confirmed",
+      "steps": ["Launch the game on a fresh profile", "On the age gate, tap Privacy Policy"],
+      "actual": "Toast 'Privacy Policy — coming soon'; same for Terms of Service and the Settings links",
+      "evidence": [
+        { "type": "screenshot", "path": "evidence/TXT-privacy-toast.jpg", "caption": "Toast on the age gate" },
+        { "type": "file_ref", "ref": "js/app.js:262", "caption": "toast({ privacy: 'Privacy Policy', terms: 'Terms of Service' }[key] + ' — coming soon')" }
+      ],
+      "suggested_fix": "Expected for a prototype. App stores require a reachable privacy policy for games that ask for age and show ads, so plan real pages before submission."
+    }
+  ]
+}

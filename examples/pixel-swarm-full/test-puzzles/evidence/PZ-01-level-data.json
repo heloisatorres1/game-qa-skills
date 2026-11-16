@@ -1,0 +1,24 @@
+{
+  "counts": {
+    "flowers-easy": 6,
+    "flowers-medium": 6,
+    "flowers-hard": 6,
+    "fruits-easy": 6,
+    "fruits-medium": 6,
+    "fruits-hard": 6,
+    "animals-easy": 6,
+    "animals-medium": 6,
+    "animals-hard": 6,
+    "sweets-easy": 6,
+    "sweets-medium": 6,
+    "sweets-hard": 6,
+    "ocean-easy": 6,
+    "ocean-medium": 6,
+    "ocean-hard": 6
+  },
+  "missing": [],
+  "duplicates": [],
+  "event": 12,
+  "event_expected": 12,
+  "per_difficulty": 6
+}

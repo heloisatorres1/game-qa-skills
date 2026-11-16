@@ -1,0 +1,6 @@
+LEVEL CHECK: 102/102 levels can be completed
+Tiny blocks (< 4 pixels): 157 of 3509
+Careless-player win rate: easy 100% (30/30) · medium 73% (22/30) · hard 50% (15/30)  (targets: medium ≤ 85%, hard ≤ 55%)
+Puzzle forced into every level (kept): hidden 30/30 · linked 30/30 · big 30/30 · pipe 30/30 · key 30/30 · wood 30/30 · cookie 30/30 · mlinked 29/30
+Levels where a column shows two "?": 0
+Levels with each puzzle: hidden 31 · linked 17 · big 12 · key 24 · wood 11 · cookie 11 · mlinked 5 · pipe 7

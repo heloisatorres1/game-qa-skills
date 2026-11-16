@@ -1,0 +1,98 @@
+[
+  {
+    "id": "PF-01",
+    "name": "Boot to the main menu (loading screen gone) within 4 s, median of 3",
+    "pass": true,
+    "expected": "<= 4000 ms (design minimum ~2500 ms)",
+    "actual": {
+      "runs_ms": [
+        3096,
+        3096,
+        3101
+      ],
+      "median_ms": 3096
+    },
+    "evidence": [
+      "PF-01-boot.json"
+    ]
+  },
+  {
+    "id": "PF-03",
+    "name": "Autoplay gameplay frame rate (3 x 60 s): avg >= 55 fps, 1% low >= 45 fps, <= 2 hitches/min",
+    "pass": true,
+    "expected": "budget met in at least 2 of 3 runs",
+    "actual": {
+      "runs": [
+        {
+          "avg_fps": 143.3,
+          "low1_fps": 90.3,
+          "p95_ms": 7,
+          "hitches_per_min": 3,
+          "long_tasks": 2,
+          "renderer": "WebGL 2"
+        },
+        {
+          "avg_fps": 143.8,
+          "low1_fps": 118.6,
+          "p95_ms": 7,
+          "hitches_per_min": 1,
+          "long_tasks": 1,
+          "renderer": "WebGL 2"
+        },
+        {
+          "avg_fps": 143.8,
+          "low1_fps": 117.8,
+          "p95_ms": 7,
+          "hitches_per_min": 1,
+          "long_tasks": 1,
+          "renderer": "WebGL 2"
+        }
+      ],
+      "runs_over_budget": 1
+    },
+    "evidence": [
+      "PF-03-summary.json",
+      "PF-03-run1-report.json",
+      "PF-03-run2-report.json",
+      "PF-03-run3-report.json"
+    ]
+  },
+  {
+    "id": "PF-05",
+    "name": "Slow device (4x CPU throttle, 60 s): 1% low >= 30 fps",
+    "pass": true,
+    "expected": "1% low >= 30 fps",
+    "actual": {
+      "avg_fps": 142.1,
+      "low1_fps": 58.2,
+      "p95_ms": 7,
+      "hitches_per_min": 2
+    },
+    "evidence": [
+      "PF-05-throttle4x-report.json"
+    ]
+  },
+  {
+    "id": "PF-06",
+    "name": "Long session (200 s autoplay): JS heap grows <= 1 MB/min, DOM stable",
+    "pass": true,
+    "expected": "<= 1 MB/min, DOM growth <= 20 nodes/min",
+    "actual": {
+      "memory": {
+        "heapStartMB": 8.3,
+        "heapEndMB": 13.2,
+        "heapGrowthMBPerMin": 0.95,
+        "domGrowthPerMin": -0.4,
+        "objectsGrowthPerMin": 30.4
+      },
+      "verdict": [
+        "Smooth (1% low >= 50 fps)",
+        "4 hitches (1.2/min)",
+        "Memory stable (0.95 MB/min)"
+      ]
+    },
+    "evidence": [
+      "PF-06-memory-report.json"
+    ]
+  }
+]

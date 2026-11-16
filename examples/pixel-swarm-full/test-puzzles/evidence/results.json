@@ -1,0 +1,297 @@
+[
+  {
+    "id": "PZ-01",
+    "name": "Level tables: 5 themes x 3 difficulties x 6 + 12 event levels, every picture exists",
+    "pass": true,
+    "expected": "15 tables of 6, 12 event levels, 0 missing pictures",
+    "actual": {
+      "wrong_counts": [],
+      "missing": [],
+      "event": 12
+    },
+    "evidence": [
+      "PZ-01-level-data.json"
+    ]
+  },
+  {
+    "id": "PZ-02",
+    "name": "No picture is used by two levels",
+    "pass": true,
+    "expected": "0 duplicates",
+    "actual": {
+      "duplicates": []
+    },
+    "evidence": [
+      "PZ-01-level-data.json"
+    ]
+  },
+  {
+    "id": "PZ-20-big",
+    "name": "Mechanic \"big\": a level using it is won by playing the solution (assisted)",
+    "pass": true,
+    "expected": "Level Complete, no script errors",
+    "actual": {
+      "won": true,
+      "failed": false,
+      "seconds": 40,
+      "errors": []
+    },
+    "evidence": [
+      "PZ-20-big-1-start.jpg",
+      "PZ-20-big-2-end.jpg"
+    ],
+    "assisted": true
+  },
+  {
+    "id": "PZ-20-cookie",
+    "name": "Mechanic \"cookie\": a level using it is won by playing the solution (assisted)",
+    "pass": true,
+    "expected": "Level Complete, no script errors",
+    "actual": {
+      "won": true,
+      "failed": false,
+      "seconds": 57,
+      "errors": []
+    },
+    "evidence": [
+      "PZ-20-cookie-1-start.jpg",
+      "PZ-20-cookie-2-end.jpg"
+    ],
+    "assisted": true
+  },
+  {
+    "id": "PZ-20-frozen",
+    "name": "Mechanic \"frozen\": a level using it is won by playing the solution (assisted)",
+    "pass": true,
+    "expected": "Level Complete, no script errors",
+    "actual": {
+      "won": true,
+      "failed": false,
+      "seconds": 56,
+      "errors": []
+    },
+    "evidence": [
+      "PZ-20-frozen-1-start.jpg",
+      "PZ-20-frozen-2-end.jpg"
+    ],
+    "assisted": true
+  },
+  {
+    "id": "PZ-20-hidden",
+    "name": "Mechanic \"hidden\": a level using it is won by playing the solution (assisted)",
+    "pass": true,
+    "expected": "Level Complete, no script errors",
+    "actual": {
+      "won": true,
+      "failed": false,
+      "seconds": 37,
+      "errors": []
+    },
+    "evidence": [
+      "PZ-20-hidden-1-start.jpg",
+      "PZ-20-hidden-2-end.jpg"
+    ],
+    "assisted": true
+  },
+  {
+    "id": "PZ-20-key",
+    "name": "Mechanic \"key\": a level using it is won by playing the solution (assisted)",
+    "pass": true,
+    "expected": "Level Complete, no script errors",
+    "actual": {
+      "won": true,
+      "failed": false,
+      "seconds": 57,
+      "errors": []
+    },
+    "evidence": [
+      "PZ-20-key-1-start.jpg",
+      "PZ-20-key-2-end.jpg"
+    ],
+    "assisted": true
+  },
+  {
+    "id": "PZ-20-linked",
+    "name": "Mechanic \"linked\": a level using it is won by playing the solution (assisted)",
+    "pass": true,
+    "expected": "Level Complete, no script errors",
+    "actual": {
+      "won": true,
+      "failed": false,
+      "seconds": 36,
+      "errors": []
+    },
+    "evidence": [
+      "PZ-20-linked-1-start.jpg",
+      "PZ-20-linked-2-end.jpg"
+    ],
+    "assisted": true
+  },
+  {
+    "id": "PZ-20-mlinked",
+    "name": "Mechanic \"mlinked\": a level using it is won by playing the solution (assisted)",
+    "pass": true,
+    "expected": "Level Complete, no script errors",
+    "actual": {
+      "won": true,
+      "failed": false,
+      "seconds": 54,
+      "errors": []
+    },
+    "evidence": [
+      "PZ-20-mlinked-1-start.jpg",
+      "PZ-20-mlinked-2-end.jpg"
+    ],
+    "assisted": true
+  },
+  {
+    "id": "PZ-20-mystery",
+    "name": "Mechanic \"mystery\": a level using it is won by playing the solution (assisted)",
+    "pass": true,
+    "expected": "Level Complete, no script errors",
+    "actual": {
+      "won": true,
+      "failed": false,
+      "seconds": 38,
+      "errors": []
+    },
+    "evidence": [
+      "PZ-20-mystery-1-start.jpg",
+      "PZ-20-mystery-2-end.jpg"
+    ],
+    "assisted": true
+  },
+  {
+    "id": "PZ-20-pipe",
+    "name": "Mechanic \"pipe\": a level using it is won by playing the solution (assisted)",
+    "pass": true,
+    "expected": "Level Complete, no script errors",
+    "actual": {
+      "won": true,
+      "failed": false,
+      "seconds": 38,
+      "errors": []
+    },
+    "evidence": [
+      "PZ-20-pipe-1-start.jpg",
+      "PZ-20-pipe-2-end.jpg"
+    ],
+    "assisted": true
+  },
+  {
+    "id": "PZ-20-wood",
+    "name": "Mechanic \"wood\": a level using it is won by playing the solution (assisted)",
+    "pass": true,
+    "expected": "Level Complete, no script errors",
+    "actual": {
+      "won": true,
+      "failed": false,
+      "seconds": 58,
+      "errors": []
+    },
+    "evidence": [
+      "PZ-20-wood-1-start.jpg",
+      "PZ-20-wood-2-end.jpg"
+    ],
+    "assisted": true
+  },
+  {
+    "id": "PZ-30",
+    "name": "Out of Slots popup cannot be dismissed by Escape or a tap outside",
+    "pass": true,
+    "expected": "popup stays open",
+    "actual": {
+      "still_open": true
+    },
+    "evidence": [
+      "PZ-30-1-out-of-slots.jpg"
+    ]
+  },
+  {
+    "id": "PZ-31",
+    "name": "Try Again restarts the same level with empty slots",
+    "pass": true,
+    "expected": "game screen, no popup, fresh board",
+    "actual": {
+      "popups": [],
+      "screen": "screen-game",
+      "filled_slots_before": 0
+    },
+    "evidence": [
+      "PZ-31-try-again.jpg"
+    ]
+  },
+  {
+    "id": "PZ-32",
+    "name": "Give Up returns to the theme screen without a reward or progress",
+    "pass": true,
+    "expected": "theme screen, coins 100, no progress",
+    "actual": {
+      "screen": "screen-theme",
+      "coins": 100,
+      "progress": {}
+    },
+    "evidence": [
+      "PZ-32-give-up.jpg"
+    ]
+  },
+  {
+    "id": "PZ-35-1",
+    "name": "Add Slot from the fail popup respects the 7-slot maximum used by the Add Slot booster",
+    "pass": false,
+    "expected": "never more than 7 slots",
+    "actual": {
+      "slot_counts": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "layout": {
+        "row_left": 0,
+        "row_right": 390,
+        "viewport": 390,
+        "outside": 0,
+        "rows": 1
+      }
+    },
+    "evidence": [
+      "PZ-35-run1-crop.png",
+      "PZ-35-run1-after-6-ads.jpg",
+      "PZ-35-run1-add-slot.webm",
+      "PZ-35-run1-state.json"
+    ]
+  },
+  {
+    "id": "PZ-35-2",
+    "name": "Add Slot from the fail popup respects the 7-slot maximum used by the Add Slot booster",
+    "pass": false,
+    "expected": "never more than 7 slots",
+    "actual": {
+      "slot_counts": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "layout": {
+        "row_left": 0,
+        "row_right": 390,
+        "viewport": 390,
+        "outside": 0,
+        "rows": 1
+      }
+    },
+    "evidence": [
+      "PZ-35-run2-crop.png",
+      "PZ-35-run2-after-6-ads.jpg",
+      "PZ-35-run2-state.json"
+    ]
+  }
+]

@@ -1,0 +1,60 @@
+{
+  "profile": {
+    "opened": true,
+    "screen": "screen-menu",
+    "popups": [
+      "popup-profile"
+    ]
+  },
+  "store": {
+    "opened": true,
+    "screen": "screen-store",
+    "popups": []
+  },
+  "settings": {
+    "opened": true,
+    "screen": "screen-menu",
+    "popups": [
+      "popup-settings"
+    ]
+  },
+  "collections": {
+    "opened": true,
+    "screen": "screen-collections",
+    "popups": []
+  },
+  "activities": {
+    "opened": true,
+    "screen": "screen-menu",
+    "popups": [
+      "popup-activities"
+    ]
+  },
+  "noads": {
+    "opened": true,
+    "screen": "screen-menu",
+    "popups": [
+      "popup-noads"
+    ]
+  },
+  "events": {
+    "opened": true,
+    "screen": "screen-events",
+    "popups": []
+  },
+  "levels": {
+    "opened": true,
+    "screen": "screen-theme",
+    "popups": []
+  },
+  "home": {
+    "opened": false,
+    "screen": "screen-menu",
+    "popups": []
+  },
+  "skins": {
+    "opened": true,
+    "screen": "screen-skins",
+    "popups": []
+  }
+}

@@ -1,0 +1,183 @@
+{
+  "date": "2026-11-16T15:07:13.714Z",
+  "label": "Autoplay",
+  "seconds": 200,
+  "plannedSeconds": 200,
+  "frames": 28623,
+  "verdict": [
+    "Smooth (1% low >= 50 fps)",
+    "4 hitches (1.2/min)",
+    "Memory stable (0.95 MB/min)"
+  ],
+  "fps": {
+    "avg": 143.1,
+    "low1": 86.5
+  },
+  "frameMs": {
+    "avg": 7,
+    "p50": 6.9,
+    "p95": 7,
+    "p99": 7.1,
+    "max": 694.4
+  },
+  "hitches": 4,
+  "worstHitches": [
+    {
+      "at": "1:03",
+      "ms": 694.4,
+      "screen": "game",
+      "level": "flowers-hard-0"
+    },
+    {
+      "at": "3:08",
+      "ms": 375,
+      "screen": "game",
+      "level": "fruits-hard-0"
+    },
+    {
+      "at": "0:20",
+      "ms": 97.2,
+      "screen": "game",
+      "level": "flowers-medium-0"
+    },
+    {
+      "at": "2:26",
+      "ms": 97.2,
+      "screen": "game",
+      "level": "fruits-medium-0"
+    }
+  ],
+  "longTasks": 4,
+  "gameTickMs": {
+    "avg": 0.45,
+    "p95": 1.9,
+    "max": 7.3
+  },
+  "renderMs": {
+    "avg": 0.05,
+    "p95": 0.1,
+    "max": 0.7
+  },
+  "memory": {
+    "heapStartMB": 8.3,
+    "heapEndMB": 13.2,
+    "heapGrowthMBPerMin": 0.95,
+    "domGrowthPerMin": -0.4,
+    "objectsGrowthPerMin": 30.4
+  },
+  "run": {
+    "mode": "autoplay",
+    "speed": 8,
+    "extraBugs": 0,
+    "levelsStarted": 6,
+    "wins": 5,
+    "losses": 0,
+    "timeouts": 0
+  },
+  "timeline": [
+    {
+      "t": "0:00-0:33",
+      "fps": 143.6,
+      "low1": 103.9,
+      "p95Ms": 7.1,
+      "hitches": 1,
+      "heapMB": 6.4,
+      "objects": 581,
+      "dom": 781,
+      "levels": 2,
+      "level": "flowers-medium-0"
+    },
+    {
+      "t": "0:33-1:06",
+      "fps": 140.9,
+      "low1": 46,
+      "p95Ms": 7,
+      "hitches": 1,
+      "heapMB": 7.8,
+      "objects": 1323,
+      "dom": 783,
+      "levels": 3,
+      "level": "flowers-hard-0"
+    },
+    {
+      "t": "1:06-1:39",
+      "fps": 144,
+      "low1": 140.6,
+      "p95Ms": 7,
+      "hitches": 0,
+      "heapMB": 10,
+      "objects": 1352,
+      "dom": 781,
+      "levels": 3,
+      "level": "flowers-hard-0"
+    },
+    {
+      "t": "1:39-2:12",
+      "fps": 143.9,
+      "low1": 137.5,
+      "p95Ms": 7,
+      "hitches": 0,
+      "heapMB": 9.4,
+      "objects": 158,
+      "dom": 782,
+      "levels": 4,
+      "level": "fruits-easy-0"
+    },
+    {
+      "t": "2:12-2:45",
+      "fps": 143.5,
+      "low1": 110.5,
+      "p95Ms": 7,
+      "hitches": 1,
+      "heapMB": 9.5,
+      "objects": 617,
+      "dom": 782,
+      "levels": 5,
+      "level": "fruits-medium-0"
+    },
+    {
+      "t": "2:45-3:18",
+      "fps": 142.4,
+      "low1": 66.8,
+      "p95Ms": 7,
+      "hitches": 1,
+      "heapMB": 9.7,
+      "objects": 1346,
+      "dom": 782,
+      "levels": 6,
+      "level": "fruits-hard-0"
+    },
+    {
+      "t": "3:18-3:20",
+      "fps": 143.3,
+      "low1": 140.8,
+      "p95Ms": 7,
+      "hitches": 0,
+      "heapMB": 11.6,
+      "objects": 1352,
+      "dom": 781,
+      "levels": 6,
+      "level": "fruits-hard-0"
+    }
+  ],
+  "scene": {
+    "renderer": "WebGL 2",
+    "size": "390×844",
+    "resolution": 2,
+    "objects": 1352,
+    "stressBugs": 0,
+    "domNodes": 781,
+    "screen": "game",
+    "level": "fruits-hard-0",
+    "bugs": 17,
+    "menuBugs": 6
+  },
+  "device": {
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36 Edg/157.0.0.0",
+    "pixelRatio": 2,
+    "cores": 20,
+    "memoryGB": 32,
+    "viewport": "390×844",
+    "screen": "390×844"
+  }
+}

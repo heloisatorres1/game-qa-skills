@@ -1,0 +1,127 @@
+[
+  {
+    "id": "SE-01",
+    "name": "Defaults: all four switches on, UI matches the save",
+    "pass": true,
+    "expected": "all true",
+    "actual": {
+      "ui": {
+        "music": "true",
+        "sounds": "true",
+        "haptics": "true",
+        "notifications": "true"
+      },
+      "state": {
+        "music": true,
+        "sounds": true,
+        "haptics": true,
+        "notifications": true
+      }
+    },
+    "evidence": [
+      "SE-01-defaults.jpg"
+    ]
+  },
+  {
+    "id": "SE-02",
+    "name": "Each switch turns off immediately (UI and save)",
+    "pass": true,
+    "expected": "all false",
+    "actual": {
+      "ui": {
+        "music": "false",
+        "sounds": "false",
+        "haptics": "false",
+        "notifications": "false"
+      },
+      "state": {
+        "music": false,
+        "sounds": false,
+        "haptics": false,
+        "notifications": false
+      }
+    },
+    "evidence": [
+      "SE-02-all-off.jpg"
+    ]
+  },
+  {
+    "id": "SE-03",
+    "name": "Switches stay off after reload, UI shows the stored value",
+    "pass": true,
+    "expected": "all false after reload",
+    "actual": {
+      "ui": {
+        "music": "false",
+        "sounds": "false",
+        "haptics": "false",
+        "notifications": "false"
+      },
+      "state": {
+        "music": false,
+        "sounds": false,
+        "haptics": false,
+        "notifications": false
+      }
+    },
+    "evidence": [
+      "SE-03-after-reload.jpg"
+    ]
+  },
+  {
+    "id": "SE-04",
+    "name": "Player ID and version shown match the save and the build",
+    "pass": true,
+    "expected": "TEST-0001 / 1.0.0",
+    "actual": {
+      "id": "TEST-0001",
+      "ver": "1.0.0"
+    },
+    "evidence": [
+      "SE-03-after-reload.jpg"
+    ]
+  },
+  {
+    "id": "SE-05",
+    "name": "Sounds off: tapping blocks plays no effects",
+    "pass": true,
+    "expected": "effect counter unchanged",
+    "actual": {
+      "audio_state": "running",
+      "effects_before": 0,
+      "effects_after": 0,
+      "music": "game"
+    },
+    "evidence": [
+      "SE-05-audio.json"
+    ]
+  },
+  {
+    "id": "SE-06",
+    "name": "Sounds on: tapping blocks plays effects",
+    "pass": true,
+    "expected": "effect counter increases",
+    "actual": {
+      "audio_state": "running",
+      "effects_before": 0,
+      "effects_after": 4,
+      "music": "game"
+    },
+    "evidence": [
+      "SE-06-audio.json"
+    ]
+  },
+  {
+    "id": "SE-07",
+    "name": "Copy puts the player ID on the clipboard and confirms",
+    "pass": true,
+    "expected": "clipboard = TEST-0001, \"Copied!\"",
+    "actual": {
+      "clip": "TEST-0001",
+      "toast": "Player ID copied!"
+    },
+    "evidence": [
+      "SE-07-copy-id.jpg"
+    ]
+  }
+]

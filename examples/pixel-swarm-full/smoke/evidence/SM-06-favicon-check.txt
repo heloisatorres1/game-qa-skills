@@ -1,0 +1,8 @@
+$ curl -s -o /dev/null -w '%{http_code}' http://localhost:5199/favicon.ico
+404
+
+$ grep -c 'rel="icon"' index.html
+0
+
+Console during every boot (SM-03-boot-log.json):
+[error] Failed to load resource: the server responded with a status of 404 (Not Found)

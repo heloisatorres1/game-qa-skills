@@ -1,0 +1,46 @@
+{
+  "run": {
+    "skill": "smoke",
+    "game": "Pixel Swarm",
+    "build": "v1.0.0 debug build (commit db96df5)",
+    "platform": "Web, Microsoft Edge (Chromium, headless), 390x844 @2x touch",
+    "access_mode": "Playwright (scripts/smoke.mjs), clean browser profile",
+    "date": "2026-11-16",
+    "tester": "Claude (AI-assisted QA)",
+    "scope": "Smoke gate: clean install, first launch flow, core loop in/out, every main-menu button, console errors",
+    "summary": "Gate passed: a clean install reaches the age gate in 3.5 s, the first launch flow (age gate, story, welcome, tutorial level) works, and all 10 main-menu buttons open something. One trivial issue: no favicon, so every load logs a 404."
+  },
+  "coverage": [
+    {
+      "area": "Smoke gate",
+      "status": "PASS",
+      "checks_total": 5,
+      "checks_passed": 5,
+      "notes": "SM-01 boot 3548 ms; SM-02 first launch; SM-03 0 script errors; SM-04 Play / Pause > Exit; SM-05 10 menu buttons.",
+      "evidence": [
+        { "type": "video", "path": "evidence/SM-02-first-launch.webm", "caption": "First launch on a clean profile" },
+        { "type": "screenshot", "path": "evidence/SM-02-3-first-level.jpg", "caption": "First level with the tutorial" },
+        { "type": "state", "path": "evidence/SM-05-buttons.json", "caption": "What each menu button opened" }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "BUG-007",
+      "title": "No favicon: every page load logs a 404 error in the console",
+      "type": "bug",
+      "severity": "trivial",
+      "area": "Smoke gate",
+      "status": "confirmed",
+      "repro_rate": "static",
+      "steps": ["Open the game in a browser with the developer console open"],
+      "expected": "The page declares an icon and the console stays clean",
+      "actual": "index.html has no <link rel=\"icon\">; the browser requests /favicon.ico, gets 404 and logs 'Failed to load resource'. Seen on every boot in this run.",
+      "evidence": [
+        { "type": "log", "path": "evidence/SM-06-favicon-check.txt", "caption": "404 on /favicon.ico and no icon link in index.html" },
+        { "type": "log", "path": "evidence/SM-03-boot-log.json", "caption": "Console during the first launch" }
+      ],
+      "suggested_fix": "Add <link rel=\"icon\" href=\"assets/sprites/bee.png\"> (or a favicon.ico) to index.html. It also gives the browser tab an icon."
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "sounds_setting": true,
+  "before": {
+    "state": "running",
+    "music": "game",
+    "played": {
+      "musicSteps": 2
+    }
+  },
+  "after": {
+    "state": "running",
+    "music": "game",
+    "played": {
+      "musicSteps": 10,
+      "pick": 3,
+      "eat": 1
+    }
+  }
+}

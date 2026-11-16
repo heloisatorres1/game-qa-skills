@@ -1,0 +1,861 @@
+S0001	capacitor.config.json:3	data [appName]	Pixel Swarm
+S0002	index.html:1	markup	!doctype html>
+S0003	index.html:7	markup	Pixel Swarm
+S0004	index.html:16	markup	Skip ›
+S0005	index.html:22	markup	Next ›
+S0006	index.html:38	markup	Loading...
+S0007	index.html:87	markup	Collections
+S0008	index.html:90	markup	Activities
+S0009	index.html:98	markup	No Ads
+S0010	index.html:101	markup	Events
+S0011	index.html:109	markup	Levels
+S0012	index.html:110	markup	Easy
+S0013	index.html:110	markup	Flowers
+S0014	index.html:113	markup	Level 1
+S0015	index.html:138	markup	Store
+S0016	index.html:147	markup	Activities
+S0017	index.html:153	markup	Daily Rewards
+S0018	index.html:154	markup	Tasks
+S0019	index.html:160	markup	Claim
+S0020	index.html:161	markup	Next reward in --:--:--
+S0021	index.html:167	markup	Resets in --:--:--
+S0022	index.html:176	markup	Profile
+S0023	index.html:184	markup	Player
+S0024	index.html:188	markup	Level 1
+S0025	index.html:190	markup	Next reward: [icon]
+S0026	index.html:193	markup	Choose your picture
+S0027	index.html:202	markup	Welcome!
+S0028	index.html:206	markup	How old are you?
+S0029	index.html:212	markup	Confirm
+S0030	index.html:214	markup	Terms of Service
+S0031	index.html:215	markup	Privacy Policy
+S0032	index.html:224	markup	Special Offer
+S0033	index.html:245	markup	No Ads
+S0034	index.html:251	markup	Remove all banner and video ads for a smoother experience!
+S0035	index.html:254	markup	No Ads$2.99
+S0036	index.html:257	markup	No Ads Bundle$5.99
+S0037	index.html:257	markup	(+500 gems)
+S0038	index.html:259	markup	Restore Purchases
+S0039	index.html:277	markup	Skins
+S0040	index.html:286	markup	Bee
+S0041	index.html:287	markup	Classic
+S0042	index.html:293	markup	Bee skins
+S0043	index.html:293	markup	1 / 7 owned
+S0044	index.html:301	markup	Collections
+S0045	index.html:305	markup	Gallery
+S0046	index.html:306	markup	Achievements
+S0047	index.html:307	markup	Bugs
+S0048	index.html:309	markup	Completed 0/10
+S0049	index.html:322	markup	Events
+S0050	index.html:328	markup	Collect pumpkins. Unlock rewards!
+S0051	index.html:331	markup	Event Rewards
+S0052	index.html:345	markup	Level Themes
+S0053	index.html:348	markup	Choose a theme and a difficulty to start playing!
+S0054	index.html:356	markup	Levels
+S0055	index.html:368	markup	Flowers
+S0056	index.html:383	markup	Level 1
+S0057	index.html:383	markup	Flowers • Easy
+S0058	index.html:408	markup	Paused
+S0059	index.html:412	markup	Resume
+S0060	index.html:413	markup	Restart
+S0061	index.html:414	markup	How to Play
+S0062	index.html:415	markup	Speed Store
+S0063	index.html:416	markup	Exit to Menu
+S0064	index.html:426	markup	Level Complete!
+S0065	index.html:430	markup	Fruits • Cherries
+S0066	index.html:436	markup	Claim x2
+S0067	index.html:437	markup	Continue
+S0068	index.html:445	markup	New Booster!
+S0069	index.html:449	markup	Shuffle
+S0070	index.html:450	markup	Changes the colors of the blocks in line.
+S0071	index.html:451	markup	Claim
+S0072	index.html:452	markup	You got 2 for free
+S0073	index.html:460	markup	Out of Slots!
+S0074	index.html:464	markup	No more free slots.
+S0075	index.html:465	markup	All your slots were full and none of their colors could be reached from below.
+S0076	index.html:466	markup	Add Slot
+S0077	index.html:467	markup	Try Again
+S0078	index.html:468	markup	Give Up
+S0079	index.html:479	markup	Tap anywhere to continue
+S0080	index.html:487	markup	Hello!
+S0081	index.html:491	markup	Welcome to Pixel Swarm!
+S0082	index.html:493	markup	Pick a theme in Levels: Flowers, Fruits, Animals, Sweets or Ocean.
+S0083	index.html:494	markup	Every theme starts on Easy. Finish it to unlock Medium, then Hard.
+S0084	index.html:495	markup	Let's learn how to play with your first level!
+S0085	index.html:497	markup	Let's play!
+S0086	index.html:505	markup	How to Play
+S0087	index.html:509	markup	Goal: clear every pixel of the picture to win.
+S0088	index.html:510	markup	Play: tap a block at the front of a line. It goes to a free slot and bees fly out of the tree to eat pixels of its color. The number is how many pixels it eats.
+S0089	index.html:511	markup	From the bottom up: bugs enter the picture from the bottom, so a pixel can only be eaten once the pixels in the way are cleared. Choose your colors in the right order!
+S0090	index.html:512	markup	You lose when all slots are full and none of their colors can be reached: you're Out of Slots.
+S0091	index.html:513	markup	Puzzles: Medium and Hard levels add surprises like mystery and frozen blocks, linked blocks, pipes, keys and locks, wood blocks, cookies, big and hidden pixels. A New Feature card explains each one the first time you meet it.
+S0092	index.html:514	markup	Boosters (they unlock as you play): Add Slot gives an extra slot, Shuffle mixes the colors in the line, Wind blows away every pixel of one color, Free Pick lets you take any block in the line. Stuck? Open an AD slot.
+S0093	index.html:522	markup	Store
+S0094	index.html:523	markup	Home
+S0095	index.html:524	markup	Skins
+S0096	index.html:529	markup	Demo ad
+S0097	index.html:529	markup	Reward in 3
+S0098	index.html:532	markup	Ads are simulated in this demo build
+S0099	index.html:538	markup	Settings
+S0100	index.html:546	markup	Music
+S0101	index.html:550	markup	Sounds
+S0102	index.html:554	markup	Haptics
+S0103	index.html:558	markup	Notifications
+S0104	index.html:563	markup	Privacy Policy
+S0105	index.html:564	markup	Terms of Service
+S0106	index.html:565	markup	Report
+S0107	index.html:570	markup	Player ID: ----
+S0108	index.html:571	markup	Copy
+S0109	index.html:573	markup	Version 1.0.0
+S0110	index.html:582	markup	Speed Store
+S0111	index.html:589	markup	Speed up your progress!
+S0112	index.html:589	markup	Choose a time boost or a higher speed!
+S0113	index.html:593	markup	Speed Boost (Time)
+S0114	index.html:594	markup	Play at 2x speed for a limited time!
+S0115	index.html:598	markup	[icon] Higher Speed (Permanent)
+S0116	index.html:599	markup	Unlock a higher game speed and keep it forever!
+S0117	index.html:611	markup	Report
+S0118	index.html:614	markup	What kind of problem?
+S0119	index.html:616	markup	How bad is it?
+S0120	index.html:618	markup	Title
+S0121	index.html:620	markup	What happened?
+S0122	index.html:622	markup	What did you expect?
+S0123	index.html:624	markup	Steps to reproduce (filled in from your last actions, edit as needed)
+S0124	index.html:626	markup	Screenshot (draw on it to point at the problem)
+S0125	index.html:629	markup	Include screenshot
+S0126	index.html:630	markup	Clear marks
+S0127	index.html:632	markup	Include my progress (helps reproduce it)
+S0128	index.html:633	markup	Added automatically
+S0129	index.html:635	markup	Send
+S0130	index.html:644	markup	Debug
+S0131	index.html:648	markup	Tools
+S0132	index.html:649	markup	Logs
+S0133	index.html:653	markup	Level (while playing)
+S0134	index.html:655	markup	Win level
+S0135	index.html:656	markup	Lose level
+S0136	index.html:658	markup	Speed 5x
+S0137	index.html:660	markup	Currencies & items
+S0138	index.html:662	markup	+1,000 coins
+S0139	index.html:663	markup	+100 gems
+S0140	index.html:664	markup	Coins/gems = 0
+S0141	index.html:665	markup	Unlock boosters +5
+S0142	index.html:666	markup	Unlock all skins
+S0143	index.html:667	markup	Toggle No Ads
+S0144	index.html:668	markup	+30 min speed boost
+S0145	index.html:669	markup	Unlock 8x speed
+S0146	index.html:671	markup	Progress
+S0147	index.html:673	markup	Unlock all levels
+S0148	index.html:674	markup	Finish this theme's Easy
+S0149	index.html:675	markup	Player level +1
+S0150	index.html:676	markup	Player level 20
+S0151	index.html:677	markup	Reset level progress
+S0152	index.html:678	markup	Copy save code
+S0153	index.html:679	markup	Load a save code
+S0154	index.html:681	markup	Activities & events
+S0155	index.html:683	markup	New daily reward
+S0156	index.html:684	markup	Complete daily tasks
+S0157	index.html:685	markup	Win 3 event levels
+S0158	index.html:686	markup	+20 pumpkins
+S0159	index.html:688	markup	Show pop-ups
+S0160	index.html:690	markup	Age gate
+S0161	index.html:691	markup	Special offer
+S0162	index.html:692	markup	New booster
+S0163	index.html:693	markup	New feature
+S0164	index.html:694	markup	Tutorial
+S0165	index.html:695	markup	Story cutscene
+S0166	index.html:696	markup	Video ad
+S0167	index.html:697	markup	Test notification (10 s)
+S0168	index.html:699	markup	Test a puzzle (new level with it)
+S0169	index.html:701	markup	Mystery blocks
+S0170	index.html:702	markup	Frozen blocks
+S0171	index.html:703	markup	Hidden pixels
+S0172	index.html:704	markup	Linked blocks
+S0173	index.html:705	markup	Big pixels
+S0174	index.html:706	markup	Pipe
+S0175	index.html:707	markup	Key & lock
+S0176	index.html:708	markup	Wood + hammer
+S0177	index.html:709	markup	Cookie blocker
+S0178	index.html:710	markup	Mystery links
+S0179	index.html:712	markup	Screen
+S0180	index.html:714	markup	Simulate notch
+S0181	index.html:716	markup	Performance
+S0182	index.html:718	markup	Performance overlay
+S0183	index.html:719	markup	Benchmark: autoplay 10 min
+S0184	index.html:720	markup	Stress: +300 bugs
+S0185	index.html:721	markup	Report a bug (F8)
+S0186	index.html:723	markup	Danger
+S0187	index.html:725	markup	Reset ALL data
+S0188	index.html:734	markup	Copy
+S0189	index.html:735	markup	Share
+S0190	index.html:736	markup	Download
+S0191	index.html:737	markup	Clear
+S0192	index.html:29	markup-attr	Pixel Swarm
+S0193	index.html:39	markup-attr	Loading
+S0194	index.html:52	markup-attr	Bee
+S0195	index.html:58	markup-attr	Profile
+S0196	index.html:67	markup-attr	Gems
+S0197	index.html:70	markup-attr	Coins
+S0198	index.html:75	markup-attr	Settings
+S0199	index.html:81	markup-attr	Pixel Swarm
+S0200	index.html:120	markup-attr	Store
+S0201	index.html:124	markup-attr	Profile
+S0202	index.html:132	markup-attr	Gems
+S0203	index.html:133	markup-attr	Coins
+S0204	index.html:135	markup-attr	Close
+S0205	index.html:148	markup-attr	Close
+S0206	index.html:177	markup-attr	Close
+S0207	index.html:185	markup-attr	Player name
+S0208	index.html:186	markup-attr	Edit name
+S0209	index.html:225	markup-attr	Close
+S0210	index.html:246	markup-attr	Close
+S0211	index.html:265	markup-attr	Skins
+S0212	index.html:268	markup-attr	Profile
+S0213	index.html:273	markup-attr	Gems
+S0214	index.html:275	markup-attr	Close
+S0215	index.html:299	markup-attr	Collections
+S0216	index.html:302	markup-attr	Close
+S0217	index.html:312	markup-attr	Previous page
+S0218	index.html:314	markup-attr	Next page
+S0219	index.html:320	markup-attr	Events
+S0220	index.html:323	markup-attr	Close
+S0221	index.html:343	markup-attr	Level Themes
+S0222	index.html:346	markup-attr	Close
+S0223	index.html:354	markup-attr	Levels
+S0224	index.html:357	markup-attr	Close
+S0225	index.html:361	markup-attr	Previous theme
+S0226	index.html:363	markup-attr	Next theme
+S0227	index.html:376	markup-attr	Level
+S0228	index.html:380	markup-attr	Settings
+S0229	index.html:381	markup-attr	Menu
+S0230	index.html:385	markup-attr	Coins
+S0231	index.html:386	markup-attr	Game speed
+S0232	index.html:400	markup-attr	Demo ad
+S0233	index.html:409	markup-attr	Close
+S0234	index.html:506	markup-attr	Close
+S0235	index.html:539	markup-attr	Close
+S0236	index.html:583	markup-attr	Close
+S0237	index.html:612	markup-attr	Close
+S0238	index.html:621	markup-attr	Describe what you saw
+S0239	index.html:623	markup-attr	What should have happened instead
+S0240	index.html:627	markup-attr	Screenshot of the game
+S0241	index.html:645	markup-attr	Close
+S0242	js/app.js:16	code-literal	Flowers
+S0243	js/app.js:36	code-literal	Player
+S0244	js/app.js:52	code-literal	Play 3 levels
+S0245	js/app.js:52	code-literal	Play any 3 levels.
+S0246	js/app.js:53	code-literal	Use 2 boosters
+S0247	js/app.js:53	code-literal	Use any 2 boosters in levels.
+S0248	js/app.js:54	code-literal	Complete a Hard level
+S0249	js/app.js:54	code-literal	Finish 1 level on Hard difficulty.
+S0250	js/app.js:55	code-literal	Watch 1 video
+S0251	js/app.js:55	code-literal	Watch 1 video to get a reward.
+S0252	js/app.js:164	code-literal	Level
+S0253	js/app.js:164	code-literal	Completed!
+S0254	js/app.js:184	code-literal	{…}d {…}h
+S0255	js/app.js:184	code-literal	{…}h {…}m
+S0256	js/app.js:202	code-literal	Player Profile
+S0257	js/app.js:202	code-literal	Settings
+S0258	js/app.js:202	code-literal	Store
+S0259	js/app.js:202	code-literal	Collections
+S0260	js/app.js:203	code-literal	Activities
+S0261	js/app.js:203	code-literal	No Ads offer
+S0262	js/app.js:203	code-literal	Events
+S0263	js/app.js:203	code-literal	Level Themes
+S0264	js/app.js:204	code-literal	Gameplay
+S0265	js/app.js:204	code-literal	Skins
+S0266	js/app.js:251	code-literal	Music
+S0267	js/app.js:251	code-literal	Sounds
+S0268	js/app.js:251	code-literal	Haptics
+S0269	js/app.js:251	code-literal	Notifications
+S0270	js/app.js:262	code-literal	Privacy Policy
+S0271	js/app.js:262	code-literal	Terms of Service
+S0272	js/app.js:262	code-literal	— coming soon
+S0273	js/app.js:264	code-literal	Copied!
+S0274	js/app.js:270	code-literal	Could not copy
+S0275	js/app.js:313	code-markup	Special Offer
+S0276	js/app.js:313	code-markup	{…} gems · {…} coins · No Ads
+S0277	js/app.js:313	code-markup	No Ads
+S0278	js/app.js:313	code-markup	Remove banner and video ads
+S0279	js/app.js:313	code-markup	Gems
+S0280	js/app.js:313	code-markup	Coins
+S0281	js/app.js:313	code-markup	Speed Store
+S0282	js/app.js:313	code-markup	2x boosts or up to 8x forever
+S0283	js/app.js:313	code-markup	Open
+S0284	js/app.js:313	code-markup	Free Coins
+S0285	js/app.js:313	code-markup	+{…} coins · {…} left today
+S0286	js/app.js:313	code-markup	Watch
+S0287	js/app.js:325	code-markup	Owned
+S0288	js/app.js:378	code-literal	Test purchase: +{…} gems, +{…} coins, No Ads
+S0289	js/app.js:381	code-literal	Test purchase: No Ads activated
+S0290	js/app.js:384	code-literal	Test purchase: No Ads + {…} gems
+S0291	js/app.js:388	code-literal	Test purchase: +{…} gems
+S0292	js/app.js:391	code-literal	Not enough gems (need {…})
+S0293	js/app.js:395	code-literal	+{…} coins
+S0294	js/app.js:408	code-literal	Halloween Event
+S0295	js/app.js:408	code-literal	12 spooky pictures and a pumpkin reward track
+S0296	js/app.js:409	code-literal	New Skins
+S0297	js/app.js:409	code-literal	Dress your swarm: 6 bugs, 7 looks each
+S0298	js/app.js:410	code-literal	Daily Rewards
+S0299	js/app.js:410	code-literal	Come back 7 days in a row for the big chest
+S0300	js/app.js:411	code-literal	Hard Mode
+S0301	js/app.js:411	code-literal	Detailed 18×18 scenes with keys, ice and pipes
+S0302	js/app.js:412	code-literal	Gallery
+S0303	js/app.js:412	code-literal	Collect all 102 pictures and share them
+S0304	js/app.js:438	code-markup	Demo ad
+S0305	js/app.js:442	code-literal	Come back tomorrow for more free coins
+S0306	js/app.js:448	code-literal	+{…} coins
+S0307	js/app.js:465	code-literal	{…} coins
+S0308	js/app.js:465	code-literal	{…} gems
+S0309	js/app.js:473	code-markup	Day 7
+S0310	js/app.js:478	code-markup	Day {…}
+S0311	js/app.js:495	code-literal	Day {…}: +{…}
+S0312	js/app.js:517	code-markup	Done
+S0313	js/app.js:518	code-markup	Claim
+S0314	js/app.js:532	code-literal	{…}: +{…} coins
+S0315	js/app.js:610	code-literal	The Enchanted Art-Tree
+S0316	js/app.js:611	code-literal	Deep within an enchanted forest stands the Art-Tree, a magical living canvas where breathtaking pixel-art masterpieces blossom.
+S0317	js/app.js:612	code-literal	The Magic of the Pixels
+S0318	js/app.js:613	code-literal	Its colorful pixel blocks are full of magic, and the little bugs soon discover amazing powers of their own!
+S0319	js/app.js:614	code-literal	A Living Canvas
+S0320	js/app.js:615	code-literal	Working together, the colony brings every pixel masterpiece to life, one color at a time.
+S0321	js/app.js:616	code-literal	The Bugs' Discovery
+S0322	js/app.js:617	code-literal	Curious and brave, the bugs explore the forest, collecting magical resources along the way.
+S0323	js/app.js:619	code-literal	The Nectar Harvest
+S0324	js/app.js:628	code-literal	Now it's your turn: guide the colony as it harvests magical nectar to grow and thrive!
+S0325	js/app.js:634	code-markup	[icon] {…}
+S0326	js/app.js:649	code-literal	Let's go!
+S0327	js/app.js:649	code-literal	Next ›
+S0328	js/app.js:679	code-markup	{…}{…} gems
+S0329	js/app.js:679	code-markup	{…}{…} coins
+S0330	js/app.js:679	code-markup	{…}No Ads
+S0331	js/app.js:711	code-literal	Bee
+S0332	js/app.js:711	code-literal	The classic Pixel Swarm explorer!
+S0333	js/app.js:712	code-literal	Ladybug
+S0334	js/app.js:712	code-literal	Lucky spots and a big smile. Loves red pixels!
+S0335	js/app.js:713	code-literal	Beetle
+S0336	js/app.js:713	code-literal	Strong and steady. Nothing stops this horn!
+S0337	js/app.js:714	code-literal	Butterfly
+S0338	js/app.js:714	code-literal	Light as a feather and fast as the wind.
+S0339	js/app.js:715	code-literal	Ant
+S0340	js/app.js:715	code-literal	A hard worker who never gives up.
+S0341	js/app.js:716	code-literal	Firefly
+S0342	js/app.js:716	code-literal	Glows in the dark. Perfect for night levels!
+S0343	js/app.js:724	code-literal	Classic
+S0344	js/app.js:724	code-literal	Astronaut
+S0345	js/app.js:724	code-literal	Explorer
+S0346	js/app.js:724	code-literal	Flower
+S0347	js/app.js:724	code-literal	Royal
+S0348	js/app.js:724	code-literal	Winter
+S0349	js/app.js:724	code-literal	Zee
+S0350	js/app.js:725	code-literal	Classic
+S0351	js/app.js:725	code-literal	Leafy
+S0352	js/app.js:725	code-literal	Pirate
+S0353	js/app.js:725	code-literal	Rainbow
+S0354	js/app.js:725	code-literal	Samurai
+S0355	js/app.js:725	code-literal	Pink Spots
+S0356	js/app.js:725	code-literal	Starry
+S0357	js/app.js:726	code-literal	Classic
+S0358	js/app.js:726	code-literal	Crystal
+S0359	js/app.js:726	code-literal	Forest
+S0360	js/app.js:726	code-literal	Golden
+S0361	js/app.js:726	code-literal	Lava
+S0362	js/app.js:726	code-literal	Rocky
+S0363	js/app.js:726	code-literal	Tundra
+S0364	js/app.js:727	code-literal	Classic
+S0365	js/app.js:727	code-literal	Celestial
+S0366	js/app.js:727	code-literal	Cherry Blossom
+S0367	js/app.js:727	code-literal	Fairy
+S0368	js/app.js:727	code-literal	Flaming
+S0369	js/app.js:727	code-literal	Icewing
+S0370	js/app.js:727	code-literal	Lunar
+S0371	js/app.js:728	code-literal	Classic
+S0372	js/app.js:728	code-literal	Builder
+S0373	js/app.js:728	code-literal	Chef
+S0374	js/app.js:728	code-literal	Explorer
+S0375	js/app.js:728	code-literal	Knight
+S0376	js/app.js:728	code-literal	Miner
+S0377	js/app.js:728	code-literal	Wizard
+S0378	js/app.js:729	code-literal	Classic
+S0379	js/app.js:729	code-literal	Celestial
+S0380	js/app.js:729	code-literal	Ember
+S0381	js/app.js:729	code-literal	Fairy
+S0382	js/app.js:729	code-literal	Lantern
+S0383	js/app.js:729	code-literal	Neon
+S0384	js/app.js:729	code-literal	Winter
+S0385	js/app.js:733	code-literal	Ready for a cosmic adventure!
+S0386	js/app.js:733	code-literal	Map, binoculars and a big hat.
+S0387	js/app.js:733	code-literal	Blooming with spring colors.
+S0388	js/app.js:734	code-literal	Long live the queen of the hive!
+S0389	js/app.js:734	code-literal	Cozy scarf, warm wings.
+S0390	js/app.js:734	code-literal	Black and white, extra cool.
+S0391	js/app.js:735	code-literal	Hides perfectly in the garden.
+S0392	js/app.js:735	code-literal	Arr! Treasure hunting time.
+S0393	js/app.js:735	code-literal	Every color, all at once!
+S0394	js/app.js:736	code-literal	Brave, calm and very honorable.
+S0395	js/app.js:736	code-literal	Pretty in pink spots.
+S0396	js/app.js:736	code-literal	A night sky on its back.
+S0397	js/app.js:737	code-literal	Sparkles in the sunlight.
+S0398	js/app.js:737	code-literal	Moss, flowers and a gentle heart.
+S0399	js/app.js:737	code-literal	Shiny, precious and proud.
+S0400	js/app.js:738	code-literal	Hot stuff from the volcano!
+S0401	js/app.js:738	code-literal	Solid as a mountain.
+S0402	js/app.js:738	code-literal	Cool as ice, tough as frost.
+S0403	js/app.js:739	code-literal	Wings full of moons and stars.
+S0404	js/app.js:739	code-literal	Soft petals on every wing.
+S0405	js/app.js:739	code-literal	A sprinkle of forest magic.
+S0406	js/app.js:740	code-literal	Wings that blaze like fire!
+S0407	js/app.js:740	code-literal	Snowflakes on every flutter.
+S0408	js/app.js:740	code-literal	Glows softly under the moon.
+S0409	js/app.js:741	code-literal	Hard hat on, ready to build!
+S0410	js/app.js:741	code-literal	Cooking up something tasty.
+S0411	js/app.js:741	code-literal	Off to find new trails.
+S0412	js/app.js:742	code-literal	Shining armor, brave heart.
+S0413	js/app.js:742	code-literal	Digs deep for treasure.
+S0414	js/app.js:742	code-literal	A little ant with big magic.
+S0415	js/app.js:743	code-literal	Shines like a little star.
+S0416	js/app.js:743	code-literal	Glowing warm like a campfire.
+S0417	js/app.js:743	code-literal	Lights the way for the fairies.
+S0418	js/app.js:744	code-literal	A golden lantern in the dark.
+S0419	js/app.js:744	code-literal	Bright neon glow!
+S0420	js/app.js:744	code-literal	Warm light on snowy nights.
+S0421	js/app.js:761	code-markup	Level {…}
+S0422	js/app.js:762	code-markup	Locked
+S0423	js/app.js:763	code-markup	Unlock {…}{…}
+S0424	js/app.js:765	code-markup	In Use
+S0425	js/app.js:766	code-markup	Equip
+S0426	js/app.js:781	code-literal	IN USE
+S0427	js/app.js:786	code-literal	{…} skins
+S0428	js/app.js:787	code-literal	{…} / {…} owned
+S0429	js/app.js:803	code-literal	{…} {…} equipped!
+S0430	js/app.js:807	code-literal	Unlock the {…} first
+S0431	js/app.js:808	code-literal	Not enough gems (need {…})
+S0432	js/app.js:816	code-literal	Unlocks at player level {…}
+S0433	js/app.js:829	code-literal	Unlocks at player level {…}
+S0434	js/app.js:830	code-literal	Not enough gems (need {…})
+S0435	js/app.js:834	code-literal	{…} unlocked!
+S0436	js/app.js:880	code-literal	Complete pixel-art {…} and unlock new challenges!
+S0437	js/app.js:888	code-markup	[icon] {…}
+S0438	js/app.js:899	code-literal	Finish {…} to unlock {…}
+S0439	js/app.js:947	code-literal	Levels Won
+S0440	js/app.js:948	code-literal	First-Try Wins
+S0441	js/app.js:949	code-literal	Perfect Wins
+S0442	js/app.js:950	code-literal	Hard Wins
+S0443	js/app.js:951	code-literal	Pixels Eaten
+S0444	js/app.js:952	code-literal	Boosters Used
+S0445	js/app.js:953	code-literal	Coins Earned
+S0446	js/app.js:954	code-literal	Daily Rewards
+S0447	js/app.js:955	code-literal	Bugs Collected
+S0448	js/app.js:956	code-literal	Event Wins
+S0449	js/app.js:957	code-literal	Pictures Done
+S0450	js/app.js:979	code-literal	Completed {…}/{…}
+S0451	js/app.js:983	code-markup	Share
+S0452	js/app.js:990	code-literal	Levels won: {…}
+S0453	js/app.js:999	code-literal	Collected {…}/{…}
+S0454	js/app.js:1024	code-literal	{…}px "Lilita One", sans-serif
+S0455	js/app.js:1025	code-literal	Pixel Swarm
+S0456	js/app.js:1026	code-literal	I completed {…}!
+S0457	js/app.js:1027	code-literal	· play free: heloisatorres1.github.io/pixel-swarm
+S0458	js/app.js:1033	code-literal	I completed "{…}" ({…}) in Pixel Swarm! 🐝 Can you clear it?
+S0459	js/app.js:1034	code-literal	Pixel Swarm
+S0460	js/app.js:1039	code-literal	Image saved and link copied: paste it anywhere to share!
+S0461	js/app.js:1065	code-literal	Big Prize
+S0462	js/app.js:1087	code-markup	YOU ARE HERE
+S0463	js/app.js:1094	code-literal	inset(0 {…}% 0 0 round 999px)
+S0464	js/app.js:1099	code-markup	Reward at {…} pumpkins
+S0465	js/app.js:1107	code-literal	Win the previous event level first
+S0466	js/app.js:1112	code-literal	Already claimed
+S0467	js/app.js:1113	code-literal	Collect {…} pumpkins to claim
+S0468	js/app.js:1116	code-literal	Event reward: +{…}
+S0469	js/app.js:1126	code-literal	Add Slot
+S0470	js/app.js:1126	code-literal	Adds one more slot for this level.
+S0471	js/app.js:1127	code-literal	Shuffle
+S0472	js/app.js:1127	code-literal	Changes the colors of the blocks in line.
+S0473	js/app.js:1128	code-literal	Wind
+S0474	js/app.js:1128	code-literal	Tap a color in the picture and the wind blows away all of its pixels.
+S0475	js/app.js:1129	code-literal	Free Pick
+S0476	js/app.js:1129	code-literal	Pick any block in line and send it to a free slot.
+S0477	js/app.js:1521	code-literal	started level {…} ({…}{…})
+S0478	js/app.js:1521	code-literal	, test puzzles:
+S0479	js/app.js:1543	code-literal	Event {…}
+S0480	js/app.js:1543	code-literal	Level {…}
+S0481	js/app.js:1637	code-literal	{…}px "Lilita One", sans-serif
+S0482	js/app.js:1649	code-markup	Watch an ad to unlock a slot
+S0483	js/app.js:1663	code-literal	data-action="tap-block" data-col="{…}" data-i="{…}"
+S0484	js/app.js:1724	code-literal	Empty slot: tap a bright (not faded) block to fill it
+S0485	js/app.js:1725	code-literal	The bees are eating {…} pixels
+S0486	js/app.js:1727	code-literal	This {…} block is waiting: eat the {…} pixels below it first
+S0487	js/app.js:1728	code-literal	This {…} block is waiting for the bees
+S0488	js/app.js:1736	code-markup	Lv {…}
+S0489	js/app.js:1736	code-markup	{…} (locked)
+S0490	js/app.js:1744	code-markup	Lock
+S0491	js/app.js:1745	code-markup	Hammer
+S0492	js/app.js:1747	code-markup	Pipe
+S0493	js/app.js:1749	code-literal	style="background:linear-gradient({…}, {…})"
+S0494	js/app.js:1795	code-literal	2x boost active: {…} left
+S0495	js/app.js:1795	code-literal	Your max speed: {…}x
+S0496	js/app.js:1796	code-markup	+{…} min {…}
+S0497	js/app.js:1797	code-markup	Watch Ad
+S0498	js/app.js:1801	code-markup	{…}x {…}
+S0499	js/app.js:1802	code-markup	Owned
+S0500	js/app.js:1809	code-literal	+{…} min of 2x speed!
+S0501	js/app.js:1814	code-literal	Not enough coins (need {…})
+S0502	js/app.js:1820	code-literal	Not enough gems (need {…})
+S0503	js/app.js:1822	code-literal	{…}x speed unlocked forever!
+S0504	js/app.js:1832	code-markup	Wind: tap any color in the picture to blow away all pixels of that color!
+S0505	js/app.js:1833	code-markup	Free Pick: tap any block in the line
+S0506	js/app.js:1853	code-literal	Pipes push their blocks up when the space above them is free
+S0507	js/app.js:1854	code-literal	Locks open only with their key 🔑
+S0508	js/app.js:1862	code-literal	🔓 The lock opened!
+S0509	js/app.js:1873	code-literal	🔨 Crack! The wood broke
+S0510	js/app.js:1873	code-literal	🔨 Bonk! {…} more hammer{…} to break the wood
+S0511	js/app.js:1880	code-literal	Linked blocks need 2 free slots!
+S0512	js/app.js:1880	code-literal	No free slot — wait for the bees!
+S0513	js/app.js:1900	code-literal	Locked! The bugs must collect its key 🔑 in the picture
+S0514	js/app.js:1901	code-literal	Pipes push their blocks up when the space above them is free
+S0515	js/app.js:1903	code-literal	Frozen! Use {…} more block{…} from the other columns to break the ice
+S0516	js/app.js:1904	code-literal	Linked! Its partner must reach the front row too
+S0517	js/app.js:2038	code-literal	🍪 Crunch! The cookie broke
+S0518	js/app.js:2082	code-literal	🔓 Unlocked!
+S0519	js/app.js:2088	code-literal	lost the level (out of slots)
+S0520	js/app.js:2120	code-literal	No {…} left
+S0521	js/app.js:2122	code-literal	Maximum slots reached
+S0522	js/app.js:2123	code-literal	+1 slot
+S0523	js/app.js:2126	code-literal	Shuffled!
+S0524	js/app.js:2140	code-literal	Tap a colored pixel
+S0525	js/app.js:2151	code-literal	Whoosh! {…} pixels blown away
+S0526	js/app.js:2197	code-literal	+{…} coins
+S0527	js/app.js:2204	code-literal	{…} completed!
+S0528	js/app.js:2214	code-literal	Mystery Blocks
+S0529	js/app.js:2214	code-literal	You can't see the color and amount until it reaches the front.
+S0530	js/app.js:2215	code-literal	Frozen Blocks
+S0531	js/app.js:2215	code-literal	Use blocks from the other columns to break the ice. The number shows how many.
+S0532	js/app.js:2216	code-literal	Hidden Pixels
+S0533	js/app.js:2216	code-literal	Hidden pixels reveal their color when the path to them is cleared.
+S0534	js/app.js:2219	code-literal	Linked Blocks
+S0535	js/app.js:2219	code-literal	Linked blocks go to the slots together, only when BOTH are in the front row. They leave when both are done.
+S0536	js/app.js:2220	code-literal	Big Pixel
+S0537	js/app.js:2220	code-literal	Big pixels need more bugs to be fully cleared. The number shows how many.
+S0538	js/app.js:2221	code-literal	Pipe
+S0539	js/app.js:2221	code-literal	Pipes hold blocks waiting to move upward. The number shows how many are inside.
+S0540	js/app.js:2222	code-literal	Key & Lock
+S0541	js/app.js:2222	code-literal	Collect the keys in the picture to unlock the locks in the line.
+S0542	js/app.js:2223	code-literal	Wood Block
+S0543	js/app.js:2223	code-literal	Find the hammers in the line to break the wood block. The number shows how many it needs.
+S0544	js/app.js:2224	code-literal	Cookie Blocker
+S0545	js/app.js:2224	code-literal	Clear pixels to break the cookie blocker. The number shows how many.
+S0546	js/app.js:2227	code-literal	Mystery Links
+S0547	js/app.js:2227	code-literal	A mystery block linked to another block: you see its color only when it lands in a slot.
+S0548	js/app.js:2232	code-literal	New Booster!
+S0549	js/app.js:2232	code-literal	New Feature!
+S0550	js/app.js:2239	code-literal	Claim
+S0551	js/app.js:2239	code-literal	Continue
+S0552	js/app.js:2240	code-literal	You got 2 for free
+S0553	js/app.js:2249	code-markup	This is the picture. Your goal: clear ALL of its pixels!
+S0554	js/app.js:2250	code-markup	These are color blocks. The number is how many pixels of that color the block eats.
+S0555	js/app.js:2251	code-markup	Tap this block! It goes to a slot and bees fly out of the tree to eat its color.
+S0556	js/app.js:2252	code-markup	Bees eat from the bottom up: a pixel can only be eaten when nothing is left below it in its column.
+S0557	js/app.js:2253	code-markup	Slots are limited! If all slots are full and no bee can reach its color, you're out of slots and you lose.
+S0558	js/app.js:2254	code-markup	Stuck? Boosters and AD slots give you extra help. Now finish the picture. Good luck!
+S0559	js/app.js:2315	code-literal	lock reached before its key (column {…})
+S0560	js/app.js:2317	code-literal	frozen block blocks the solution (column {…})
+S0561	js/app.js:2322	code-literal	linked partner isn't at the front (column {…})
+S0562	js/app.js:2337	code-literal	stuck: a "{…}" block can't reach its pixels
+S0563	js/app.js:2341	code-literal	{…} pixel(s) left at the end
+S0564	js/app.js:2408	code-literal	{…} {…} level {…}: {…}
+S0565	js/app.js:2413	code-literal	Event level {…}: {…}
+S0566	js/app.js:2434	code-literal	{…} {…}/{…}{…}
+S0567	js/app.js:2434	code-literal	({…} unsolvable!)
+S0568	js/app.js:2454	code-literal	LEVEL CHECK: {…}/{…} levels can be completed⏎Tiny blocks (< 4 pixels): {…} of {…}	⚑ check plural with variable
+S0569	js/app.js:2455	code-literal	Careless-player win rate: {…}  (targets: medium ≤ 85%, hard ≤ 55%)	⚑ double-space
+S0570	js/app.js:2456	code-literal	Puzzle forced into every level (kept): {…}
+S0571	js/app.js:2457	code-literal	Levels where a column shows two "?": {…}
+S0572	js/app.js:2458	code-literal	Levels with each puzzle: {…}
+S0573	js/app.js:2507	code-literal	A benchmark is already running
+S0574	js/app.js:2542	code-literal	Benchmark: the game plays itself for {…} min (Stop in the overlay)
+S0575	js/app.js:2544	code-literal	Autoplay + {…} bugs
+S0576	js/app.js:2544	code-literal	Autoplay
+S0577	js/app.js:2545	code-literal	level {…} · won {…}{…}
+S0578	js/app.js:2545	code-literal	· lost
+S0579	js/app.js:2560	code-literal	Benchmark finished: tap Copy in the overlay for the report
+S0580	js/app.js:2574	code-literal	Start a level first
+S0581	js/app.js:2577	code-literal	Performance overlay ON
+S0582	js/app.js:2577	code-literal	Performance overlay OFF
+S0583	js/app.js:2582	code-literal	Save code copied
+S0584	js/app.js:2584	code-literal	Paste a save code (it starts with PSW1-). The current progress will be replaced.
+S0585	js/app.js:2586	code-literal	Save loaded!
+S0586	js/app.js:2587	code-literal	That save code is not valid
+S0587	js/app.js:2590	code-literal	+300 bugs on screen
+S0588	js/app.js:2590	code-literal	Stress test needs WebGL
+S0589	js/app.js:2593	code-literal	Auto-solving…
+S0590	js/app.js:2594	code-literal	Speed 5x (until next level)
+S0591	js/app.js:2595	code-literal	+30 min of 2x speed
+S0592	js/app.js:2596	code-literal	Permanent 8x speed unlocked
+S0593	js/app.js:2597	code-literal	+1,000 coins
+S0594	js/app.js:2598	code-literal	+100 gems
+S0595	js/app.js:2599	code-literal	Coins and gems set to 0
+S0596	js/app.js:2600	code-literal	All boosters unlocked, +5 each
+S0597	js/app.js:2601	code-literal	All skins unlocked
+S0598	js/app.js:2608	code-literal	All levels completed with 3 stars
+S0599	js/app.js:2610	code-literal	{…}: Easy done — Medium unlocked
+S0600	js/app.js:2611	code-literal	Player level {…}
+S0601	js/app.js:2612	code-literal	Player level 20 (all pictures/skins level locks open)
+S0602	js/app.js:2613	code-literal	Level progress reset
+S0603	js/app.js:2614	code-literal	Daily reward can be claimed again
+S0604	js/app.js:2615	code-literal	Daily tasks completed — claim them in Activities
+S0605	js/app.js:2619	code-literal	3 event levels won ({…}/{…}) — pumpkins: {…}
+S0606	js/app.js:2621	code-literal	Pumpkins: {…}
+S0607	js/app.js:2630	code-literal	Ad finished
+S0608	js/app.js:2634	code-literal	Test notification in 10 s: close or background the app
+S0609	js/app.js:2634	code-literal	Test notification in 10 s (keep this page open)
+S0610	js/app.js:2635	code-literal	Notifications are not allowed: enable them in the phone/browser settings
+S0611	js/app.js:2635	code-literal	This browser has no notifications
+S0612	js/app.js:2635	code-literal	Could not schedule the test
+S0613	js/app.js:2638	code-literal	Delete ALL saved data (currencies, progress, skins, settings)?
+S0614	js/app.js:2661	code-literal	+1 slot unlocked!
+S0615	js/app.js:2671	code-literal	Speed {…}x
+S0616	js/app.js:2671	code-literal	Normal speed
+S0617	js/app.js:2681	code-literal	+1 slot
+S0618	js/app.js:2710	code-literal	Test report
+S0619	js/app.js:2710	code-literal	Something odd
+S0620	js/app.js:2715	code-literal	Blocker
+S0621	js/app.js:2715	code-literal	Major
+S0622	js/app.js:2715	code-literal	Minor
+S0623	js/app.js:2715	code-literal	Trivial
+S0624	js/app.js:2723	code-literal	Test report
+S0625	js/app.js:2723	code-literal	attached (PNG)
+S0626	js/app.js:2740	code-literal	Story finished
+S0627	js/app.js:2771	code-literal	slots: {…} (+{…} ad)
+S0628	js/app.js:2772	code-literal	columns (front first):
+S0629	js/app.js:2802	code-literal	#g-queue .block[data-col="0"][data-i="0"]
+S0630	js/app.js:2802	code-literal	FAIL slots=
+S0631	js/app.js:2806	code-literal	#g-queue .block.hammer[data-i="0"]
+S0632	js/app.js:2806	code-literal	FAIL wood=
+S0633	js/app.js:2810	code-literal	#g-queue .block[data-col="0"][data-i="0"]
+S0634	js/app.js:2812	code-literal	#g-queue .block[data-col="1"][data-i="0"]
+S0635	js/app.js:2812	code-literal	#g-queue .block[data-col="2"][data-i="0"]
+S0636	js/app.js:2816	code-literal	#g-queue .block.lock[data-i="0"]
+S0637	js/app.js:2820	code-literal	#g-queue .block[data-col="0"][data-i="0"]
+S0638	js/app.js:2826	code-literal	#g-queue .block[data-col="1"][data-i="0"]
+S0639	js/app.js:2826	code-literal	FAIL q={…} slots={…}
+S0640	js/app.js:2830	code-literal	FAIL no key
+S0641	js/app.js:2837	code-literal	FAIL got=
+S0642	js/app.js:2843	code-literal	#wd-grid .wd-card[data-look="pirate"] .wd-btn
+S0643	js/app.js:2845	code-literal	#wd-grid .wd-card[data-look="classic"] .wd-btn
+S0644	js/app.js:2847	code-literal	FAIL unlocked={…} bought={…} equip={…}
+S0645	js/app.js:2917	code-literal	Pixel Swarm
+S0646	js/app.js:2943	code-literal	Pixel Swarm
+S0647	js/app.js:2958	code-literal	3px dashed red
+S0648	js/app.js:3003	code-literal	No Ads is already active
+S0649	js/app.js:3003	code-literal	No purchases to restore (test mode)
+S0650	js/app.js:3014	code-literal	Player ID copied!
+S0651	js/app.js:3029	code-literal	[data-close], [data-toggle], [data-link], [data-action]
+S0652	js/app.js:3039	code-literal	{…} — coming soon
+S0653	js/app.js:3050	code-literal	tapped "{…}"{…}
+S0654	js/app.js:3210	code-literal	Android app
+S0655	js/app.js:3216	code-literal	game ready · v{…} ({…}, {…})
+S0656	js/app.js:3216	code-literal	Android app
+S0657	js/app.js:3221	code-literal	(prefers-reduced-motion: reduce)
+S0658	js/data.js:78	code-literal	Pink Flower
+S0659	js/data.js:81	code-literal	Red Tulip
+S0660	js/data.js:84	code-literal	Cherries
+S0661	js/data.js:87	code-literal	Apple
+S0662	js/data.js:90	code-literal	Kitty
+S0663	js/data.js:93	code-literal	Chick
+S0664	js/data.js:96	code-literal	Cupcake
+S0665	js/data.js:99	code-literal	Donut
+S0666	js/data.js:102	code-literal	Blue Fish
+S0667	js/data.js:105	code-literal	Starfish
+S0668	js/data.js:108	code-literal	Little Ghost
+S0669	js/data.js:111	code-literal	Bat
+S0670	js/data.js:114	code-literal	Candy Corn
+S0671	js/data.js:117	code-literal	Witch Hat
+S0672	js/data.js:120	code-literal	Pumpkin
+S0673	js/data.js:129	code-literal	Flowers
+S0674	js/data.js:130	code-literal	Fruits
+S0675	js/data.js:131	code-literal	Animals
+S0676	js/data.js:132	code-literal	Sweets
+S0677	js/data.js:133	code-literal	Ocean
+S0678	js/data.js:136	code-literal	Halloween
+S0679	js/data.js:136	code-literal	Halloween Hunt
+S0680	js/native.js:22	code-literal	Haptics
+S0681	js/native.js:43	code-literal	Reminders
+S0682	js/native.js:43	code-literal	Daily reward and event reminders
+S0683	js/native.js:71	code-literal	Your daily reward is ready! 🎁
+S0684	js/native.js:71	code-literal	Come back to claim it and keep your streak going.
+S0685	js/native.js:72	code-literal	Your bugs miss you! 🐝
+S0686	js/native.js:72	code-literal	New pictures are waiting to be eaten in the Art-Tree.
+S0687	js/native.js:73	code-literal	{…} ends tomorrow! 🎃
+S0688	js/native.js:73	code-literal	The event
+S0689	js/native.js:73	code-literal	Collect your last pumpkins and claim the event rewards.
+S0690	js/native.js:86	code-literal	Test notification 🐝
+S0691	js/native.js:86	code-literal	Notifications work! Tap to open Pixel Swarm.
+S0692	js/native.js:92	code-literal	Notification
+S0693	js/native.js:95	code-literal	Test notification 🐝
+S0694	js/native.js:95	code-literal	Notifications work!
+S0695	js/native.js:102	code-literal	Share
+S0696	js/native.js:122	code-literal	Preferences
+S0697	js/native.js:123	code-literal	Preferences
+S0698	js/perf.js:84	code-markup	-- fps
+S0699	js/perf.js:84	code-markup	Stress
+S0700	js/perf.js:84	code-markup	Bench
+S0701	js/perf.js:84	code-markup	Copy
+S0702	js/perf.js:84	code-markup	Move
+S0703	js/perf.js:84	code-markup	Tap to collapse
+S0704	js/perf.js:116	code-literal	1% low {…} fps  hitches {…}	⚑ double-space
+S0705	js/perf.js:155	code-literal	Stress test needs the WebGL renderer
+S0706	js/perf.js:156	code-literal	Stress: {…} extra bugs
+S0707	js/perf.js:156	code-literal	Stress off
+S0708	js/perf.js:177	code-literal	{…} {…} / {…}{…}
+S0709	js/perf.js:177	code-literal	Benchmark
+S0710	js/perf.js:201	code-literal	Done: {…} fps avg, {…} 1% low⏎{…}⏎Copy = full report
+S0711	js/perf.js:223	code-literal	Smooth (1% low >= 50 fps)
+S0712	js/perf.js:223	code-literal	Some stutter (1% low 30-50 fps)
+S0713	js/perf.js:223	code-literal	Stutters (1% low < 30 fps)
+S0714	js/perf.js:224	code-literal	{…} hitches ({…}/min)
+S0715	js/perf.js:225	code-literal	Memory trend: needs a run of 3+ minutes
+S0716	js/perf.js:225	code-literal	Memory trend: n/a (heap is only readable in Chromium)
+S0717	js/perf.js:226	code-literal	Possible leak: heap +{…} MB/min
+S0718	js/perf.js:226	code-literal	Memory stable ({…} MB/min)
+S0719	js/perf.js:228	code-literal	DOM keeps growing: +{…} nodes/min
+S0720	js/perf.js:229	code-literal	Scene keeps growing: +{…} objects/min
+S0721	js/perf.js:231	code-literal	Benchmark
+S0722	js/perf.js:245	code-literal	Run Bench first
+S0723	js/perf.js:247	code-literal	Report copied
+S0724	js/perf.js:253	code-literal	Copy failed
+S0725	js/perf.js:261	code-literal	not measured (overlay off)
+S0726	js/perf.js:264	code-literal	{…} fps avg, {…} 1% low, {…} hitches ({…})
+S0727	js/pictures.js:9	code-literal	Sunflower
+S0728	js/pictures.js:12	code-literal	Daisy
+S0729	js/pictures.js:15	code-literal	Cactus Flower
+S0730	js/pictures.js:18	code-literal	Violet
+S0731	js/pictures.js:21	code-literal	Rose
+S0732	js/pictures.js:24	code-literal	Lotus
+S0733	js/pictures.js:27	code-literal	Lavender
+S0734	js/pictures.js:30	code-literal	Potted Flower
+S0735	js/pictures.js:33	code-literal	Poppy
+S0736	js/pictures.js:36	code-literal	Cherry Blossom
+S0737	js/pictures.js:39	code-literal	Bouquet
+S0738	js/pictures.js:44	code-literal	Tulip Box
+S0739	js/pictures.js:49	code-literal	Orchid
+S0740	js/pictures.js:54	code-literal	Dandelions
+S0741	js/pictures.js:59	code-literal	Flower Wreath
+S0742	js/pictures.js:64	code-literal	Butterfly Garden
+S0743	js/pictures.js:70	code-literal	Banana
+S0744	js/pictures.js:73	code-literal	Pear
+S0745	js/pictures.js:76	code-literal	Strawberry
+S0746	js/pictures.js:79	code-literal	Lemon
+S0747	js/pictures.js:82	code-literal	Orange Slice
+S0748	js/pictures.js:85	code-literal	Grapes
+S0749	js/pictures.js:88	code-literal	Watermelon
+S0750	js/pictures.js:91	code-literal	Pineapple
+S0751	js/pictures.js:94	code-literal	Peach
+S0752	js/pictures.js:97	code-literal	Kiwi
+S0753	js/pictures.js:100	code-literal	Fruit Basket
+S0754	js/pictures.js:105	code-literal	Avocado
+S0755	js/pictures.js:110	code-literal	Apple Tree
+S0756	js/pictures.js:115	code-literal	Blueberry Bowl
+S0757	js/pictures.js:120	code-literal	Dragon Fruit
+S0758	js/pictures.js:125	code-literal	Coconut Palm
+S0759	js/pictures.js:131	code-literal	Puppy
+S0760	js/pictures.js:135	code-literal	Bunny
+S0761	js/pictures.js:139	code-literal	Frog
+S0762	js/pictures.js:143	code-literal	Piglet
+S0763	js/pictures.js:147	code-literal	Fox
+S0764	js/pictures.js:151	code-literal	Panda
+S0765	js/pictures.js:155	code-literal	Owl
+S0766	js/pictures.js:159	code-literal	Mouse
+S0767	js/pictures.js:163	code-literal	Bear
+S0768	js/pictures.js:167	code-literal	Cow
+S0769	js/pictures.js:171	code-literal	Lion
+S0770	js/pictures.js:176	code-literal	Penguin
+S0771	js/pictures.js:181	code-literal	Elephant
+S0772	js/pictures.js:186	code-literal	Koala
+S0773	js/pictures.js:191	code-literal	Sheep
+S0774	js/pictures.js:196	code-literal	Giraffe
+S0775	js/pictures.js:202	code-literal	Lollipop
+S0776	js/pictures.js:206	code-literal	Ice Cream
+S0777	js/pictures.js:210	code-literal	Wrapped Candy
+S0778	js/pictures.js:214	code-literal	Cookie
+S0779	js/pictures.js:218	code-literal	Cake Slice
+S0780	js/pictures.js:222	code-literal	Macarons
+S0781	js/pictures.js:226	code-literal	Popsicle
+S0782	js/pictures.js:230	code-literal	Chocolate Bar
+S0783	js/pictures.js:234	code-literal	Gummy Bear
+S0784	js/pictures.js:238	code-literal	Candy Cane
+S0785	js/pictures.js:242	code-literal	Birthday Cake
+S0786	js/pictures.js:247	code-literal	Sundae
+S0787	js/pictures.js:252	code-literal	Gingerbread
+S0788	js/pictures.js:257	code-literal	Cotton Candy
+S0789	js/pictures.js:262	code-literal	Cherry Pie
+S0790	js/pictures.js:267	code-literal	Milkshake
+S0791	js/pictures.js:273	code-literal	Crab
+S0792	js/pictures.js:277	code-literal	Seashell
+S0793	js/pictures.js:281	code-literal	Whale
+S0794	js/pictures.js:285	code-literal	Octopus
+S0795	js/pictures.js:289	code-literal	Sea Turtle
+S0796	js/pictures.js:293	code-literal	Jellyfish
+S0797	js/pictures.js:297	code-literal	Seahorse
+S0798	js/pictures.js:301	code-literal	Dolphin
+S0799	js/pictures.js:305	code-literal	Pufferfish
+S0800	js/pictures.js:309	code-literal	Clownfish
+S0801	js/pictures.js:313	code-literal	Shark
+S0802	js/pictures.js:318	code-literal	Coral Reef
+S0803	js/pictures.js:323	code-literal	Sailboat
+S0804	js/pictures.js:328	code-literal	Treasure Chest
+S0805	js/pictures.js:333	code-literal	Lighthouse
+S0806	js/pictures.js:338	code-literal	Submarine
+S0807	js/pictures.js:344	code-literal	Black Cat
+S0808	js/pictures.js:348	code-literal	Spider
+S0809	js/pictures.js:352	code-literal	Skull
+S0810	js/pictures.js:361	code-literal	Haunted House
+S0811	js/pictures.js:366	code-literal	Cauldron
+S0812	js/pictures.js:371	code-literal	Moon and Bats
+S0813	js/pixi-render.js:27	code-literal	PixiJS init timeout
+S0814	js/pixi-render.js:237	code-literal	2D canvas (fallback)
+S0815	js/report.js:98	code-literal	screenshot failed:
+S0816	js/report.js:103	code-literal	Bug
+S0817	js/report.js:103	code-literal	Visual
+S0818	js/report.js:103	code-literal	Slow / laggy
+S0819	js/report.js:103	code-literal	Gameplay
+S0820	js/report.js:103	code-literal	Idea
+S0821	js/report.js:105	code-literal	Can't play
+S0822	js/report.js:105	code-literal	Blocker
+S0823	js/report.js:105	code-literal	Big problem
+S0824	js/report.js:105	code-literal	Major
+S0825	js/report.js:105	code-literal	Small problem
+S0826	js/report.js:105	code-literal	Minor
+S0827	js/report.js:105	code-literal	Cosmetic
+S0828	js/report.js:105	code-literal	Trivial
+S0829	js/report.js:116	code-literal	{…}. {…}{…}
+S0830	js/report.js:123	code-literal	Taking a screenshot…
+S0831	js/report.js:163	code-literal	(no title)
+S0832	js/report.js:180	code-literal	Add a short title first
+S0833	js/report.js:196	code-literal	attached (PNG)
+S0834	js/report.js:201	code-literal	report {…} sent (simulated): [{…} · {…}] "{…}"
+S0835	js/report.js:203	code-literal	Report sent! Reference {…}
+S0836	js/report.js:205	code-literal	Thanks for the report!
+S0837	js/report.js:214	code-literal	Game: {…}{…}
+S0838	js/report.js:214	code-literal	, level
+S0839	js/report.js:215	code-literal	Build: v{…} ({…}, {…})
+S0840	js/report.js:216	code-literal	Device: {…}×{…} @{…}x, {…}
+S0841	js/report.js:217	code-literal	Last {…} actions, {…} errors, performance numbers
+S0842	js/report.js:218	code-literal	No name, email or other personal data
+S0843	js/report.js:249	code-literal	All
+S0844	js/report.js:249	code-literal	Errors
+S0845	js/report.js:249	code-literal	Warnings
+S0846	js/report.js:249	code-literal	Info
+S0847	js/report.js:249	code-literal	Actions
+S0848	js/report.js:252	code-literal	{…} [{…}]{…} {…}{…}{…}
+S0849	js/report.js:252	code-literal	(previous session)
+S0850	js/report.js:256	code-literal	Pixel Swarm log · v{…} ({…}, {…}) · {…} · filter: {…} · {…} lines
+S0851	js/report.js:266	code-literal	This session: {…} errors, {…} warnings · kept: last {…} lines
+S0852	js/report.js:270	code-markup	Nothing here
+S0853	js/report.js:281	code-literal	Log copied
+S0854	js/report.js:283	code-literal	Pixel Swarm log
+S0855	js/report.js:289	code-literal	Log saved
+S0856	js/report.js:291	code-literal	Log cleared
+S0857	scripts/dev-server.mjs:21	code-literal	Not found
+S0858	tools/check-pictures.mjs:40	code-literal	{…} rows (want {…})
+S0859	tools/check-pictures.mjs:43	code-literal	bad color "{…}"
+S0860	tools/check-pictures.mjs:44	code-literal	{…} colors (max {…})
+S0861	tools/check-pictures.mjs:47	code-literal	"{…}" too close to the board

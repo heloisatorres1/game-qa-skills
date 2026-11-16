@@ -1,0 +1,19 @@
+{
+  "name": "game-qa-skills",
+  "owner": {
+    "name": "Heloisa Oller Torres",
+    "url": "https://github.com/heloisatorres1"
+  },
+  "metadata": {
+    "description": "Game QA skills for Claude Code by a game QA lead."
+  },
+  "plugins": [
+    {
+      "name": "game-qa-skills",
+      "source": "./",
+      "description": "Engine-agnostic game QA: text-review, full-playthrough, test-game-full and its feature modules, with evidence-backed reports.",
+      "version": "0.1.0",
+      "category": "testing"
+    }
+  ]
+}

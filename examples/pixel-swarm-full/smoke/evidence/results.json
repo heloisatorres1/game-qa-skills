@@ -1,0 +1,81 @@
+[
+  {
+    "id": "SM-01",
+    "name": "Clean install boots to the first interactive screen (age gate)",
+    "pass": true,
+    "expected": "< 6 s",
+    "actual": {
+      "boot_ms": 3576
+    },
+    "evidence": [
+      "SM-01-age-gate.jpg"
+    ]
+  },
+  {
+    "id": "SM-02",
+    "name": "First launch: age gate -> story -> welcome -> first level with the tutorial",
+    "pass": true,
+    "expected": "game screen + tutorial",
+    "actual": {
+      "screen": "screen-game",
+      "tutorial": true
+    },
+    "evidence": [
+      "SM-02-1-story.jpg",
+      "SM-02-2-welcome.jpg",
+      "SM-02-3-first-level.jpg",
+      "SM-02-first-launch.webm"
+    ]
+  },
+  {
+    "id": "SM-03",
+    "name": "No script errors during boot and first launch",
+    "pass": true,
+    "expected": "0 page errors",
+    "actual": {
+      "page_errors": 0,
+      "http_errors": []
+    },
+    "evidence": [
+      "SM-03-boot-log.json"
+    ]
+  },
+  {
+    "id": "SM-04",
+    "name": "Play opens a level; Pause > Exit to Menu leaves it",
+    "pass": true,
+    "expected": "screen-game, then screen-theme",
+    "actual": {
+      "in_game": "screen-game",
+      "after_exit": "screen-theme"
+    },
+    "evidence": [
+      "SM-04-1-pause.jpg",
+      "SM-04-2-back.jpg"
+    ]
+  },
+  {
+    "id": "SM-05",
+    "name": "Every main-menu button opens a screen or popup",
+    "pass": true,
+    "expected": "no dead buttons",
+    "actual": {
+      "tested": [
+        "profile",
+        "store",
+        "settings",
+        "collections",
+        "activities",
+        "noads",
+        "events",
+        "levels",
+        "home",
+        "skins"
+      ],
+      "dead": []
+    },
+    "evidence": [
+      "SM-05-buttons.json"
+    ]
+  }
+]

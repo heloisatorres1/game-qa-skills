@@ -1,0 +1,50 @@
+{
+  "run": {
+    "skill": "test-settings",
+    "game": "Pixel Swarm",
+    "build": "v1.0.0 debug build (commit db96df5)",
+    "platform": "Web, Microsoft Edge (Chromium, headless), 390x844 @2x touch",
+    "access_mode": "Playwright (scripts/settings.mjs) + save reads + the audio engine's own counters (PSAudio.debug)",
+    "date": "2026-11-16",
+    "tester": "Claude (AI-assisted QA)",
+    "scope": "Music, Sounds, Haptics, Notifications switches (default, apply, persist, UI matches state), player ID, version, Copy",
+    "summary": "All 7 checks pass. The switches apply at once, survive a reload and the UI always matches the saved value. 'Sounds off' is proven by the audio engine: 0 effects played while tapping blocks, against 4 with sounds on."
+  },
+  "coverage": [
+    {
+      "area": "Switches (music, sounds, haptics, notifications)",
+      "status": "PASS",
+      "checks_total": 3,
+      "checks_passed": 3,
+      "notes": "Defaults on; each switch turns off in UI and save; still off after reload.",
+      "evidence": [
+        { "type": "screenshot", "path": "evidence/SE-02-all-off.jpg", "caption": "All switches off" },
+        { "type": "screenshot", "path": "evidence/SE-03-after-reload.jpg", "caption": "Still off after reload" }
+      ]
+    },
+    {
+      "area": "Audio effect of the switches",
+      "status": "PASS",
+      "checks_total": 2,
+      "checks_passed": 2,
+      "notes": "Measured through the audio engine, not by ear: sounds off = 0 effects, on = 4 effects for the same taps. Mix and loudness need a human ear.",
+      "evidence": [
+        { "type": "state", "path": "evidence/SE-05-audio.json", "caption": "Sounds off" },
+        { "type": "state", "path": "evidence/SE-06-audio.json", "caption": "Sounds on" }
+      ]
+    },
+    {
+      "area": "Player ID, version, Copy",
+      "status": "PASS",
+      "checks_total": 2,
+      "checks_passed": 2,
+      "evidence": [{ "type": "screenshot", "path": "evidence/SE-07-copy-id.jpg", "caption": "'Player ID copied!'" }]
+    },
+    {
+      "area": "Haptics and notifications on a device",
+      "status": "NOT_TESTED",
+      "notes": "The switches were tested; vibration and real notifications need the Android build on a phone."
+    }
+  ],
+  "findings": []
+}

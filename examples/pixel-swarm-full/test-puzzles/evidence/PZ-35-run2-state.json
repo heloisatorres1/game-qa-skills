@@ -1,0 +1,19 @@
+{
+  "slot_counts_after_each_ad": [
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "layout": {
+    "row_left": 0,
+    "row_right": 390,
+    "viewport": 390,
+    "outside": 0,
+    "rows": 1
+  },
+  "booster_limit": "useBooster add_slot refuses at 7 (app.js \"Maximum slots reached\")"
+}

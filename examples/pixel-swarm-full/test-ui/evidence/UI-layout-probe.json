@@ -1,0 +1,605 @@
+{
+  "phone-small": {
+    "menu": {
+      "issues": [
+        {
+          "type": "outside viewport",
+          "el": "IMG.plus",
+          "text": "",
+          "x": 337,
+          "right": 367
+        },
+        {
+          "type": "outside viewport",
+          "el": "BUTTON.wood-round",
+          "text": "",
+          "x": 366,
+          "right": 408
+        },
+        {
+          "type": "outside viewport",
+          "el": "IMG.",
+          "text": "",
+          "x": 370,
+          "right": 404
+        }
+      ],
+      "screenshot": "UI-phone-small-menu.jpg"
+    },
+    "store": {
+      "issues": [
+        {
+          "type": "outside viewport",
+          "el": "BUTTON.close-btn static",
+          "text": "X",
+          "x": 366,
+          "right": 416
+        }
+      ],
+      "screenshot": "UI-phone-small-store.jpg"
+    },
+    "skins": {
+      "issues": [
+        {
+          "type": "outside viewport",
+          "el": "BUTTON.wd-tab ",
+          "text": "Firefly",
+          "x": 310,
+          "right": 364
+        },
+        {
+          "type": "button covered",
+          "el": "look-buy",
+          "by": "nav-btn"
+        },
+        {
+          "type": "button covered",
+          "el": "look-buy",
+          "by": "nav-btn active"
+        },
+        {
+          "type": "button covered",
+          "el": "look-buy",
+          "by": "scene blurred"
+        },
+        {
+          "type": "button covered",
+          "el": "look-buy",
+          "by": "scene blurred"
+        }
+      ],
+      "screenshot": "UI-phone-small-skins.jpg"
+    },
+    "levels": {
+      "issues": [],
+      "screenshot": "UI-phone-small-levels.jpg"
+    },
+    "collections": {
+      "issues": [],
+      "screenshot": "UI-phone-small-collections.jpg"
+    },
+    "events": {
+      "issues": [],
+      "screenshot": "UI-phone-small-events.jpg"
+    },
+    "activities": {
+      "issues": [],
+      "screenshot": "UI-phone-small-activities.jpg"
+    },
+    "settings": {
+      "issues": [],
+      "screenshot": "UI-phone-small-settings.jpg"
+    },
+    "noads": {
+      "issues": [],
+      "screenshot": "UI-phone-small-noads.jpg"
+    },
+    "game": {
+      "issues": [
+        {
+          "type": "button covered",
+          "el": "8",
+          "by": "qcol"
+        },
+        {
+          "type": "button covered",
+          "el": "15",
+          "by": "booster-bar"
+        },
+        {
+          "type": "button covered",
+          "el": "11",
+          "by": "qcol"
+        },
+        {
+          "type": "button covered",
+          "el": "12",
+          "by": "booster-bar"
+        },
+        {
+          "type": "button covered",
+          "el": "9",
+          "by": "qcol"
+        },
+        {
+          "type": "button covered",
+          "el": "11",
+          "by": "booster-bar"
+        }
+      ],
+      "screenshot": "UI-phone-small-game.jpg"
+    }
+  },
+  "phone": {
+    "menu": {
+      "issues": [
+        {
+          "type": "outside viewport",
+          "el": "BUTTON.wood-round",
+          "text": "",
+          "x": 366,
+          "right": 408
+        },
+        {
+          "type": "outside viewport",
+          "el": "IMG.",
+          "text": "",
+          "x": 370,
+          "right": 404
+        }
+      ],
+      "screenshot": "UI-phone-menu.jpg"
+    },
+    "store": {
+      "issues": [
+        {
+          "type": "outside viewport",
+          "el": "BUTTON.close-btn static",
+          "text": "X",
+          "x": 366,
+          "right": 416
+        },
+        {
+          "type": "button covered",
+          "el": "speed-store",
+          "by": "scene blurred"
+        }
+      ],
+      "screenshot": "UI-phone-store.jpg"
+    },
+    "skins": {
+      "issues": [
+        {
+          "type": "button covered",
+          "el": "look-buy",
+          "by": "scene blurred"
+        }
+      ],
+      "screenshot": "UI-phone-skins.jpg"
+    },
+    "levels": {
+      "issues": [],
+      "screenshot": "UI-phone-levels.jpg"
+    },
+    "collections": {
+      "issues": [],
+      "screenshot": "UI-phone-collections.jpg"
+    },
+    "events": {
+      "issues": [],
+      "screenshot": "UI-phone-events.jpg"
+    },
+    "activities": {
+      "issues": [],
+      "screenshot": "UI-phone-activities.jpg"
+    },
+    "settings": {
+      "issues": [],
+      "screenshot": "UI-phone-settings.jpg"
+    },
+    "noads": {
+      "issues": [],
+      "screenshot": "UI-phone-noads.jpg"
+    },
+    "game": {
+      "issues": [
+        {
+          "type": "button covered",
+          "el": "8",
+          "by": "qcol"
+        },
+        {
+          "type": "button covered",
+          "el": "15",
+          "by": "booster-bar"
+        },
+        {
+          "type": "button covered",
+          "el": "11",
+          "by": "qcol"
+        },
+        {
+          "type": "button covered",
+          "el": "12",
+          "by": "booster-bar"
+        },
+        {
+          "type": "button covered",
+          "el": "9",
+          "by": "qcol"
+        },
+        {
+          "type": "button covered",
+          "el": "11",
+          "by": "booster-bar"
+        }
+      ],
+      "screenshot": "UI-phone-game.jpg"
+    }
+  },
+  "phone-landscape": {
+    "menu": {
+      "issues": [
+        {
+          "type": "button covered",
+          "el": "activities",
+          "by": "actions"
+        },
+        {
+          "type": "button covered",
+          "el": "events",
+          "by": "actions"
+        }
+      ],
+      "screenshot": "UI-phone-landscape-menu.jpg"
+    },
+    "store": {
+      "issues": [
+        {
+          "type": "button covered",
+          "el": "buy",
+          "by": "nav-btn"
+        }
+      ],
+      "screenshot": "UI-phone-landscape-store.jpg"
+    },
+    "skins": {
+      "issues": [
+        {
+          "type": "button covered",
+          "el": "In Use",
+          "by": "nav-btn active"
+        }
+      ],
+      "screenshot": "UI-phone-landscape-skins.jpg"
+    },
+    "levels": {
+      "issues": [
+        {
+          "type": "button covered",
+          "el": "play-level",
+          "by": "nav-btn"
+        }
+      ],
+      "screenshot": "UI-phone-landscape-levels.jpg"
+    },
+    "collections": {
+      "issues": [],
+      "screenshot": "UI-phone-landscape-collections.jpg"
+    },
+    "events": {
+      "issues": [
+        {
+          "type": "cannot open screen: its button is covered",
+          "button": "[data-action=\"events\"]"
+        },
+        {
+          "type": "button covered",
+          "el": "activities",
+          "by": "actions"
+        },
+        {
+          "type": "button covered",
+          "el": "events",
+          "by": "actions"
+        }
+      ],
+      "screenshot": "UI-phone-landscape-events.jpg"
+    },
+    "activities": {
+      "issues": [
+        {
+          "type": "cannot open screen: its button is covered",
+          "button": ".side-btn[data-action=\"activities\"]"
+        },
+        {
+          "type": "button covered",
+          "el": "activities",
+          "by": "actions"
+        },
+        {
+          "type": "button covered",
+          "el": "events",
+          "by": "actions"
+        }
+      ],
+      "screenshot": "UI-phone-landscape-activities.jpg"
+    },
+    "settings": {
+      "issues": [
+        {
+          "type": "button covered",
+          "el": "report",
+          "by": "overlay"
+        }
+      ],
+      "screenshot": "UI-phone-landscape-settings.jpg"
+    },
+    "noads": {
+      "issues": [
+        {
+          "type": "button covered",
+          "el": "buy",
+          "by": "overlay"
+        }
+      ],
+      "screenshot": "UI-phone-landscape-noads.jpg"
+    },
+    "game": {
+      "issues": [],
+      "screenshot": "UI-phone-landscape-game.jpg"
+    }
+  },
+  "tablet": {
+    "menu": {
+      "issues": [],
+      "screenshot": "UI-tablet-menu.jpg"
+    },
+    "store": {
+      "issues": [
+        {
+          "type": "button covered",
+          "el": "speed-store",
+          "by": "scene blurred"
+        },
+        {
+          "type": "button covered",
+          "el": "free-coins",
+          "by": "pixi-on"
+        }
+      ],
+      "screenshot": "UI-tablet-store.jpg"
+    },
+    "skins": {
+      "issues": [],
+      "screenshot": "UI-tablet-skins.jpg"
+    },
+    "levels": {
+      "issues": [],
+      "screenshot": "UI-tablet-levels.jpg"
+    },
+    "collections": {
+      "issues": [],
+      "screenshot": "UI-tablet-collections.jpg"
+    },
+    "events": {
+      "issues": [],
+      "screenshot": "UI-tablet-events.jpg"
+    },
+    "activities": {
+      "issues": [],
+      "screenshot": "UI-tablet-activities.jpg"
+    },
+    "settings": {
+      "issues": [],
+      "screenshot": "UI-tablet-settings.jpg"
+    },
+    "noads": {
+      "issues": [],
+      "screenshot": "UI-tablet-noads.jpg"
+    },
+    "game": {
+      "issues": [
+        {
+          "type": "button covered",
+          "el": "8",
+          "by": "qcol"
+        },
+        {
+          "type": "button covered",
+          "el": "15",
+          "by": "booster-bar"
+        },
+        {
+          "type": "button covered",
+          "el": "11",
+          "by": "qcol"
+        },
+        {
+          "type": "button covered",
+          "el": "12",
+          "by": "booster-bar"
+        },
+        {
+          "type": "button covered",
+          "el": "9",
+          "by": "qcol"
+        },
+        {
+          "type": "button covered",
+          "el": "11",
+          "by": "booster-bar"
+        }
+      ],
+      "screenshot": "UI-tablet-game.jpg"
+    }
+  },
+  "laptop": {
+    "menu": {
+      "issues": [],
+      "screenshot": "UI-laptop-menu.jpg"
+    },
+    "store": {
+      "issues": [],
+      "screenshot": "UI-laptop-store.jpg"
+    },
+    "skins": {
+      "issues": [
+        {
+          "type": "button covered",
+          "el": "look-buy",
+          "by": "nav-btn"
+        },
+        {
+          "type": "button covered",
+          "el": "look-buy",
+          "by": "nav-btn active"
+        }
+      ],
+      "screenshot": "UI-laptop-skins.jpg"
+    },
+    "levels": {
+      "issues": [],
+      "screenshot": "UI-laptop-levels.jpg"
+    },
+    "collections": {
+      "issues": [],
+      "screenshot": "UI-laptop-collections.jpg"
+    },
+    "events": {
+      "issues": [],
+      "screenshot": "UI-laptop-events.jpg"
+    },
+    "activities": {
+      "issues": [],
+      "screenshot": "UI-laptop-activities.jpg"
+    },
+    "settings": {
+      "issues": [],
+      "screenshot": "UI-laptop-settings.jpg"
+    },
+    "noads": {
+      "issues": [],
+      "screenshot": "UI-laptop-noads.jpg"
+    },
+    "game": {
+      "issues": [
+        {
+          "type": "button covered",
+          "el": "8",
+          "by": "qcol"
+        },
+        {
+          "type": "button covered",
+          "el": "15",
+          "by": "booster-bar"
+        },
+        {
+          "type": "button covered",
+          "el": "11",
+          "by": "qcol"
+        },
+        {
+          "type": "button covered",
+          "el": "12",
+          "by": "booster-bar"
+        },
+        {
+          "type": "button covered",
+          "el": "9",
+          "by": "qcol"
+        },
+        {
+          "type": "button covered",
+          "el": "11",
+          "by": "booster-bar"
+        }
+      ],
+      "screenshot": "UI-laptop-game.jpg"
+    }
+  },
+  "full-hd": {
+    "menu": {
+      "issues": [],
+      "screenshot": "UI-full-hd-menu.jpg"
+    },
+    "store": {
+      "issues": [
+        {
+          "type": "button covered",
+          "el": "speed-store",
+          "by": "scene blurred"
+        },
+        {
+          "type": "button covered",
+          "el": "free-coins",
+          "by": "pixi-on"
+        }
+      ],
+      "screenshot": "UI-full-hd-store.jpg"
+    },
+    "skins": {
+      "issues": [],
+      "screenshot": "UI-full-hd-skins.jpg"
+    },
+    "levels": {
+      "issues": [],
+      "screenshot": "UI-full-hd-levels.jpg"
+    },
+    "collections": {
+      "issues": [],
+      "screenshot": "UI-full-hd-collections.jpg"
+    },
+    "events": {
+      "issues": [],
+      "screenshot": "UI-full-hd-events.jpg"
+    },
+    "activities": {
+      "issues": [],
+      "screenshot": "UI-full-hd-activities.jpg"
+    },
+    "settings": {
+      "issues": [],
+      "screenshot": "UI-full-hd-settings.jpg"
+    },
+    "noads": {
+      "issues": [],
+      "screenshot": "UI-full-hd-noads.jpg"
+    },
+    "game": {
+      "issues": [
+        {
+          "type": "button covered",
+          "el": "8",
+          "by": "qcol"
+        },
+        {
+          "type": "button covered",
+          "el": "15",
+          "by": "booster-bar"
+        },
+        {
+          "type": "button covered",
+          "el": "11",
+          "by": "qcol"
+        },
+        {
+          "type": "button covered",
+          "el": "12",
+          "by": "booster-bar"
+        },
+        {
+          "type": "button covered",
+          "el": "9",
+          "by": "qcol"
+        },
+        {
+          "type": "button covered",
+          "el": "11",
+          "by": "booster-bar"
+        }
+      ],
+      "screenshot": "UI-full-hd-game.jpg"
+    }
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "date": "2026-11-16T15:03:53.127Z",
+  "label": "Autoplay",
+  "seconds": 60,
+  "plannedSeconds": 60,
+  "frames": 8533,
+  "verdict": [
+    "Smooth (1% low >= 50 fps)",
+    "2 hitches (2/min)",
+    "Memory trend: needs a run of 3+ minutes"
+  ],
+  "fps": {
+    "avg": 142.1,
+    "low1": 58.2
+  },
+  "frameMs": {
+    "avg": 7,
+    "p50": 6.9,
+    "p95": 7,
+    "p99": 7.1,
+    "max": 479.2
+  },
+  "hitches": 2,
+  "worstHitches": [
+    {
+      "at": "0:22",
+      "ms": 479.2,
+      "screen": "game",
+      "level": "flowers-medium-0"
+    },
+    {
+      "at": "0:00",
+      "ms": 118.2,
+      "screen": "game",
+      "level": "flowers-easy-0"
+    }
+  ],
+  "longTasks": 2,
+  "gameTickMs": {
+    "avg": 1.82,
+    "p95": 7.4,
+    "max": 12.3
+  },
+  "renderMs": {
+    "avg": 0.24,
+    "p95": 0.6,
+    "max": 5.6
+  },
+  "memory": {
+    "heapStartMB": 7.4,
+    "heapEndMB": 9.2,
+    "heapGrowthMBPerMin": null,
+    "domGrowthPerMin": null,
+    "objectsGrowthPerMin": null
+  },
+  "run": {
+    "mode": "autoplay",
+    "speed": 8,
+    "extraBugs": 0,
+    "levelsStarted": 2,
+    "wins": 1,
+    "losses": 0,
+    "timeouts": 0
+  },
+  "timeline": [
+    {
+      "t": "0:00-0:10",
+      "fps": 143.1,
+      "low1": 57.9,
+      "p95Ms": 7,
+      "hitches": 1,
+      "heapMB": 6.9,
+      "objects": 149,
+      "dom": 777,
+      "levels": 1,
+      "level": "flowers-easy-0"
+    },
+    {
+      "t": "0:10-0:20",
+      "fps": 143.4,
+      "low1": 116.8,
+      "p95Ms": 7,
+      "hitches": 0,
+      "heapMB": 6.9,
+      "objects": 149,
+      "dom": 769,
+      "levels": 1,
+      "level": "flowers-easy-0"
+    },
+    {
+      "t": "0:20-0:30",
+      "fps": 136.1,
+      "low1": 21.4,
+      "p95Ms": 7,
+      "hitches": 1,
+      "heapMB": 7.7,
+      "objects": 587,
+      "dom": 782,
+      "levels": 2,
+      "level": "flowers-medium-0"
+    },
+    {
+      "t": "0:30-0:40",
+      "fps": 142.9,
+      "low1": 85.8,
+      "p95Ms": 7,
+      "hitches": 0,
+      "heapMB": 7.9,
+      "objects": 623,
+      "dom": 782,
+      "levels": 2,
+      "level": "flowers-medium-0"
+    },
+    {
+      "t": "0:40-0:50",
+      "fps": 143.6,
+      "low1": 124,
+      "p95Ms": 7,
+      "hitches": 0,
+      "heapMB": 8,
+      "objects": 611,
+      "dom": 782,
+      "levels": 2,
+      "level": "flowers-medium-0"
+    },
+    {
+      "t": "0:50-1:00",
+      "fps": 142.9,
+      "low1": 92.9,
+      "p95Ms": 7,
+      "hitches": 0,
+      "heapMB": 8,
+      "objects": 614,
+      "dom": 778,
+      "levels": 2,
+      "level": "flowers-medium-0"
+    }
+  ],
+  "scene": {
+    "renderer": "WebGL 2",
+    "size": "390×844",
+    "resolution": 2,
+    "objects": 614,
+    "stressBugs": 0,
+    "domNodes": 778,
+    "screen": "game",
+    "level": "flowers-medium-0",
+    "bugs": 11,
+    "menuBugs": 6
+  },
+  "device": {
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36 Edg/157.0.0.0",
+    "pixelRatio": 2,
+    "cores": 20,
+    "memoryGB": 32,
+    "viewport": "390×844",
+    "screen": "390×844"
+  }
+}

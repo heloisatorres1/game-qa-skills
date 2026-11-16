@@ -1,0 +1,404 @@
+[
+  {
+    "id": "UI-02",
+    "name": "Popup lock map: which popups can be dismissed by Escape / tapping outside",
+    "pass": true,
+    "expected": "documented",
+    "actual": {
+      "dismissible": [
+        "popup-activities",
+        "popup-profile",
+        "popup-offer",
+        "popup-noads",
+        "popup-pause",
+        "popup-complete",
+        "popup-unlock",
+        "popup-howto",
+        "popup-settings",
+        "popup-speed",
+        "popup-report",
+        "popup-debug"
+      ],
+      "locked": [
+        "popup-age",
+        "popup-fail",
+        "popup-welcome"
+      ]
+    },
+    "evidence": [
+      "UI-02-popups.json"
+    ]
+  },
+  {
+    "id": "UI-10-full-hd",
+    "name": "Layout at full-hd: no sideways scroll, nothing outside the screen, no clipped text",
+    "pass": false,
+    "expected": "0 issues",
+    "actual": {
+      "issues": 8,
+      "sample": [
+        {
+          "screen": "store",
+          "type": "button covered",
+          "el": "speed-store",
+          "by": "scene blurred"
+        },
+        {
+          "screen": "store",
+          "type": "button covered",
+          "el": "free-coins",
+          "by": "pixi-on"
+        },
+        {
+          "screen": "game",
+          "type": "button covered",
+          "el": "8",
+          "by": "qcol"
+        },
+        {
+          "screen": "game",
+          "type": "button covered",
+          "el": "15",
+          "by": "booster-bar"
+        },
+        {
+          "screen": "game",
+          "type": "button covered",
+          "el": "11",
+          "by": "qcol"
+        },
+        {
+          "screen": "game",
+          "type": "button covered",
+          "el": "12",
+          "by": "booster-bar"
+        }
+      ]
+    },
+    "evidence": [
+      "UI-sheet-full-hd.jpg",
+      "UI-layout-probe.json"
+    ]
+  },
+  {
+    "id": "UI-10-laptop",
+    "name": "Layout at laptop: no sideways scroll, nothing outside the screen, no clipped text",
+    "pass": false,
+    "expected": "0 issues",
+    "actual": {
+      "issues": 8,
+      "sample": [
+        {
+          "screen": "skins",
+          "type": "button covered",
+          "el": "look-buy",
+          "by": "nav-btn"
+        },
+        {
+          "screen": "skins",
+          "type": "button covered",
+          "el": "look-buy",
+          "by": "nav-btn active"
+        },
+        {
+          "screen": "game",
+          "type": "button covered",
+          "el": "8",
+          "by": "qcol"
+        },
+        {
+          "screen": "game",
+          "type": "button covered",
+          "el": "15",
+          "by": "booster-bar"
+        },
+        {
+          "screen": "game",
+          "type": "button covered",
+          "el": "11",
+          "by": "qcol"
+        },
+        {
+          "screen": "game",
+          "type": "button covered",
+          "el": "12",
+          "by": "booster-bar"
+        }
+      ]
+    },
+    "evidence": [
+      "UI-sheet-laptop.jpg",
+      "UI-layout-probe.json"
+    ]
+  },
+  {
+    "id": "UI-10-phone",
+    "name": "Layout at phone: no sideways scroll, nothing outside the screen, no clipped text",
+    "pass": false,
+    "expected": "0 issues",
+    "actual": {
+      "issues": 11,
+      "sample": [
+        {
+          "screen": "menu",
+          "type": "outside viewport",
+          "el": "BUTTON.wood-round",
+          "text": "",
+          "x": 366,
+          "right": 408
+        },
+        {
+          "screen": "menu",
+          "type": "outside viewport",
+          "el": "IMG.",
+          "text": "",
+          "x": 370,
+          "right": 404
+        },
+        {
+          "screen": "store",
+          "type": "outside viewport",
+          "el": "BUTTON.close-btn static",
+          "text": "X",
+          "x": 366,
+          "right": 416
+        },
+        {
+          "screen": "store",
+          "type": "button covered",
+          "el": "speed-store",
+          "by": "scene blurred"
+        },
+        {
+          "screen": "skins",
+          "type": "button covered",
+          "el": "look-buy",
+          "by": "scene blurred"
+        },
+        {
+          "screen": "game",
+          "type": "button covered",
+          "el": "8",
+          "by": "qcol"
+        }
+      ]
+    },
+    "evidence": [
+      "UI-sheet-phone.jpg",
+      "UI-layout-probe.json"
+    ]
+  },
+  {
+    "id": "UI-10-phone-landscape",
+    "name": "Layout at phone-landscape: no sideways scroll, nothing outside the screen, no clipped text",
+    "pass": false,
+    "expected": "0 issues",
+    "actual": {
+      "issues": 13,
+      "sample": [
+        {
+          "screen": "menu",
+          "type": "button covered",
+          "el": "activities",
+          "by": "actions"
+        },
+        {
+          "screen": "menu",
+          "type": "button covered",
+          "el": "events",
+          "by": "actions"
+        },
+        {
+          "screen": "store",
+          "type": "button covered",
+          "el": "buy",
+          "by": "nav-btn"
+        },
+        {
+          "screen": "skins",
+          "type": "button covered",
+          "el": "In Use",
+          "by": "nav-btn active"
+        },
+        {
+          "screen": "levels",
+          "type": "button covered",
+          "el": "play-level",
+          "by": "nav-btn"
+        },
+        {
+          "screen": "events",
+          "type": "cannot open screen: its button is covered",
+          "button": "[data-action=\"events\"]"
+        }
+      ]
+    },
+    "evidence": [
+      "UI-sheet-phone-landscape.jpg",
+      "UI-layout-probe.json"
+    ]
+  },
+  {
+    "id": "UI-10-phone-small",
+    "name": "Layout at phone-small: no sideways scroll, nothing outside the screen, no clipped text",
+    "pass": false,
+    "expected": "0 issues",
+    "actual": {
+      "issues": 15,
+      "sample": [
+        {
+          "screen": "menu",
+          "type": "outside viewport",
+          "el": "IMG.plus",
+          "text": "",
+          "x": 337,
+          "right": 367
+        },
+        {
+          "screen": "menu",
+          "type": "outside viewport",
+          "el": "BUTTON.wood-round",
+          "text": "",
+          "x": 366,
+          "right": 408
+        },
+        {
+          "screen": "menu",
+          "type": "outside viewport",
+          "el": "IMG.",
+          "text": "",
+          "x": 370,
+          "right": 404
+        },
+        {
+          "screen": "store",
+          "type": "outside viewport",
+          "el": "BUTTON.close-btn static",
+          "text": "X",
+          "x": 366,
+          "right": 416
+        },
+        {
+          "screen": "skins",
+          "type": "outside viewport",
+          "el": "BUTTON.wd-tab ",
+          "text": "Firefly",
+          "x": 310,
+          "right": 364
+        },
+        {
+          "screen": "skins",
+          "type": "button covered",
+          "el": "look-buy",
+          "by": "nav-btn"
+        }
+      ]
+    },
+    "evidence": [
+      "UI-sheet-phone-small.jpg",
+      "UI-layout-probe.json"
+    ]
+  },
+  {
+    "id": "UI-10-tablet",
+    "name": "Layout at tablet: no sideways scroll, nothing outside the screen, no clipped text",
+    "pass": false,
+    "expected": "0 issues",
+    "actual": {
+      "issues": 8,
+      "sample": [
+        {
+          "screen": "store",
+          "type": "button covered",
+          "el": "speed-store",
+          "by": "scene blurred"
+        },
+        {
+          "screen": "store",
+          "type": "button covered",
+          "el": "free-coins",
+          "by": "pixi-on"
+        },
+        {
+          "screen": "game",
+          "type": "button covered",
+          "el": "8",
+          "by": "qcol"
+        },
+        {
+          "screen": "game",
+          "type": "button covered",
+          "el": "15",
+          "by": "booster-bar"
+        },
+        {
+          "screen": "game",
+          "type": "button covered",
+          "el": "11",
+          "by": "qcol"
+        },
+        {
+          "screen": "game",
+          "type": "button covered",
+          "el": "12",
+          "by": "booster-bar"
+        }
+      ]
+    },
+    "evidence": [
+      "UI-sheet-tablet.jpg",
+      "UI-layout-probe.json"
+    ]
+  },
+  {
+    "id": "UI-20-1",
+    "name": "Top bar keeps Settings (menu) and Close (store) fully on screen at any balance on 360-412 px phones",
+    "pass": false,
+    "expected": "gear and X fully visible in every row",
+    "actual": {
+      "cases": 15,
+      "failing": [
+        "360px default: gear 29/42px visible, X 29/50px",
+        "360px 9,999: gear 0/42px visible, X 0/50px",
+        "360px 12.3K: gear 6/42px visible, X 6/50px",
+        "360px 98.8K / 123.5K: gear 0/42px visible, X 0/50px",
+        "360px 1.2M / 1.5M: gear 14/42px visible, X 14/50px",
+        "390px 9,999: gear 28/42px visible, X 28/50px",
+        "390px 12.3K: gear 36/42px visible, X 36/50px",
+        "390px 98.8K / 123.5K: gear 24/42px visible, X 24/50px",
+        "390px 1.2M / 1.5M: gear 42/42px visible, X 44/50px",
+        "412px 98.8K / 123.5K: gear 42/42px visible, X 46/50px"
+      ]
+    },
+    "evidence": [
+      "UI-20-run1-top-bar.json",
+      "UI-20-run1-360-98_8K_123_5K-hud.png",
+      "UI-20-run1-360-98_8K_123_5K-store-top.png",
+      "UI-20-run1-360-default-hud.png"
+    ]
+  },
+  {
+    "id": "UI-20-2",
+    "name": "Top bar keeps Settings (menu) and Close (store) fully on screen at any balance on 360-412 px phones",
+    "pass": false,
+    "expected": "gear and X fully visible in every row",
+    "actual": {
+      "cases": 15,
+      "failing": [
+        "360px default: gear 29/42px visible, X 29/50px",
+        "360px 9,999: gear 0/42px visible, X 0/50px",
+        "360px 12.3K: gear 6/42px visible, X 6/50px",
+        "360px 98.8K / 123.5K: gear 0/42px visible, X 0/50px",
+        "360px 1.2M / 1.5M: gear 14/42px visible, X 14/50px",
+        "390px 9,999: gear 28/42px visible, X 28/50px",
+        "390px 12.3K: gear 36/42px visible, X 36/50px",
+        "390px 98.8K / 123.5K: gear 24/42px visible, X 24/50px",
+        "390px 1.2M / 1.5M: gear 42/42px visible, X 44/50px",
+        "412px 98.8K / 123.5K: gear 42/42px visible, X 46/50px"
+      ]
+    },
+    "evidence": [
+      "UI-20-run2-top-bar.json"
+    ]
+  }
+]
