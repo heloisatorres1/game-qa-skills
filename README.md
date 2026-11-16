@@ -8,6 +8,20 @@ Unity, Godot, Unreal, web, desktop or mobile: the skills only need a playable bu
 
 *A real report produced by `text-review` on my game [Pixel Swarm](https://github.com/heloisatorres1/pixel-swarm). [Read it](examples/pixel-swarm-text-review/report.md).*
 
+## Bugs these skills found
+
+Run on my own game, [Pixel Swarm](https://github.com/heloisatorres1/pixel-swarm). Each bug has a video, screenshots, save data before and after, and the line of code involved. All details are in **[FOUND-BUGS.md](FOUND-BUGS.md)**.
+
+| | Bug | Severity | Reproduced |
+|---|---|---|---|
+| [BUG-001](FOUND-BUGS.md#bug-001-level-complete-closes-on-a-tap-outside-it-the-reward-is-lost) | Tapping outside Level Complete closes it: the reward is lost and the board is left empty | Major | 12/12 |
+| [BUG-002](FOUND-BUGS.md#bug-002-settings-and-close-pushed-off-screen-on-360-px-phones) | On 360 px phones the top bar pushes Settings and the store's Close button off screen | Major | 3/3 |
+| [BUG-003](FOUND-BUGS.md#bug-003-the-store-sells-no-ads-again-to-players-who-own-it) | The store sells the $4.99 offer with No Ads to players who already own No Ads | Major | 4/4 |
+| [BUG-008](FOUND-BUGS.md#bug-008-player-xp-never-grows-the-player-stays-level-1-forever) | Player XP never grows: after 102 wins the player is still level 1, so level-gated content stays locked (found by the full playthrough) | Major | 2/2 |
+| [BUG-004](FOUND-BUGS.md#bug-004-add-slot-from-out-of-slots-has-no-limit) | Add Slot from Out of Slots has no limit: 10 squeezed slots (the booster stops at 7) | Minor | 5/5 |
+
+![BUG-001 storyboard](docs/bugs/BUG-001.png)
+
 ## Why I built this
 
 I've led game QA teams for 6+ years. AI agents can now play and inspect games, but an agent that says "I tested the store, it works" is no use to a team. These skills hold the agent to the same rules I hold human testers to:
@@ -48,6 +62,18 @@ flowchart LR
 ```
 
 Each skill also works on its own. Start with `text-review`: it's the quickest to try.
+
+## Example: full playthrough of Pixel Swarm (102/102 levels)
+
+`full-playthrough` finished every level of Pixel Swarm from a fresh install: 5 themes × 3 difficulties × 6 levels, plus 12 Halloween event levels. Results are in [`examples/pixel-swarm-playthrough`](examples/pixel-swarm-playthrough), with the [completion report](examples/pixel-swarm-playthrough/completion-report.html) (download it and open it in a browser) and the [inventory](examples/pixel-swarm-playthrough/inventory.md):
+
+- **102/102 levels completed** in **1 h 34 min** (1 h 12 min of actual play), every one on the first attempt with 3 stars, and the Level Complete screen of each level as proof.
+- Played with **real taps** in the solution order, read from the screen. No auto-solve, skip or win cheat. The only aid was 500 debug gems spent on the game's 8× speed, and it is logged.
+- After every win the script checked the reward paid (4,590 coins, exactly the rule), the stars saved and the next level. Progress survived a reload after every section (17/17). The event reward track paid all 5 rewards.
+- **It found BUG-008:** XP never grows, so after 102 wins the player is still level 1, and the Firefly bug and two avatars can't be unlocked by playing.
+- The run survived interruptions: it saves after every level, and on each start it compares the game save with the inventory. Once, stopping the run lost a just-won level from the save. The script noticed, replayed that level, and the report says so.
+
+![BUG-008 storyboard](docs/bugs/BUG-008.png)
 
 ## Example: full QA pass on Pixel Swarm
 

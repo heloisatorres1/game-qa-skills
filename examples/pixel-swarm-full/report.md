@@ -94,9 +94,9 @@ smoke: Gate passed: a clean install reaches the age gate in 3.5 s, the first lau
 
 ### BUG-001: Level Complete popup closes on a tap outside it or Escape: the coin reward is never paid and the player is left on an empty board
 
-**Severity:** major · **Type:** bug · **Area:** Win flow and rewards · **Status:** confirmed · **Repro:** 4/4
+**Severity:** major · **Type:** bug · **Area:** Win flow and rewards · **Status:** confirmed · **Repro:** 12/12
 
-**Environment:** Web, 390x844 touch. Runs 1-2: tap outside; runs 3-4: Escape key
+**Environment:** Web, 390x844 touch; 4 runs (2 tap outside, 2 Escape) in each of 3 sessions
 
 **Preconditions:** Returning player with 100 coins
 
@@ -132,9 +132,9 @@ smoke: Gate passed: a clean install reaches the age gate in 3.5 s, the first lau
 
 ### BUG-002: Top bar overflows on 360-390 px phones: the Settings gear (menu) and the Close X (store) are cut or pushed off screen, completely from 9,999 coins
 
-**Severity:** major · **Type:** bug · **Area:** Phone portrait (360, 390, 412 px) · **Status:** confirmed · **Repro:** 2/2
+**Severity:** major · **Type:** bug · **Area:** Phone portrait (360, 390, 412 px) · **Status:** confirmed · **Repro:** 3/3
 
-**Environment:** Web, touch, widths 360 / 390 / 412 px, 15 balance combinations per run
+**Environment:** Web, touch, widths 360 / 390 / 412 px, 15 balance combinations per run (2 runs) + a recorded store session (run 3). Both balances count: the bar grows with gems and coins
 
 **Steps**
 
@@ -147,6 +147,14 @@ smoke: Gate passed: a clean install reaches the age gate in 3.5 s, the first lau
 
 **Evidence**
 
+- `test-ui/evidence/UI-21-gear-pushed-off.webm`: 360 px: a near-new player buys gems and coins in the store; the Close X and then the Settings gear leave the screen
+- Before: 100 coins, 20 gems, gear already half cut
+
+  ![Before: 100 coins, 20 gems, gear already half cut](test-ui/evidence/UI-21-1-menu-100-coins.png)
+- After: 9,100 coins, 2,180 gems, no gear
+
+  ![After: 9,100 coins, 2,180 gems, no gear](test-ui/evidence/UI-21-3-menu-9100-coins.png)
+- `test-ui/evidence/UI-21-state.json`: Visible px of gear / Close X at each step (29 -> 0)
 - 360 px store, 123.5K coins: no Close X
 
   ![360 px store, 123.5K coins: no Close X](test-ui/evidence/UI-20-run1-360-98_8K_123_5K-store-top.png)
@@ -168,7 +176,9 @@ smoke: Gate passed: a clean install reaches the age gate in 3.5 s, the first lau
 
 ### BUG-003: Store keeps selling the $4.99 Special Offer, which includes No Ads, to players who already own No Ads
 
-**Severity:** major · **Type:** bug · **Area:** Ownership (No Ads, Special Offer) · **Status:** confirmed · **Repro:** 2/2
+**Severity:** major · **Type:** bug · **Area:** Ownership (No Ads, Special Offer) · **Status:** confirmed · **Repro:** 4/4
+
+**Environment:** Web, 390x844 touch; 2 runs in each of 2 sessions
 
 **Preconditions:** No Ads owned (bought alone for $2.99 or in an earlier offer)
 
@@ -202,9 +212,9 @@ smoke: Gate passed: a clean install reaches the age gate in 3.5 s, the first lau
 
 ### BUG-004: Add Slot from the Out of Slots popup has no maximum: repeated fails grow the board to 10 squeezed slots (the booster stops at 7)
 
-**Severity:** minor · **Type:** bug · **Area:** Slot limits · **Status:** confirmed · **Repro:** 3/3
+**Severity:** minor · **Type:** bug · **Area:** Slot limits · **Status:** confirmed · **Repro:** 5/5
 
-**Environment:** Web, 390x844 touch. Fails triggered with the debug 'Lose level' (assisted); Add Slot and the ad are the real flow
+**Environment:** Web, 390x844 touch; 5 runs over 3 sessions. Fails triggered with the debug 'Lose level' (assisted); Add Slot and the ad are the real flow
 
 **Steps**
 

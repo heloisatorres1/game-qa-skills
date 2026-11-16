@@ -400,5 +400,34 @@
     "evidence": [
       "UI-20-run2-top-bar.json"
     ]
+  },
+  {
+    "id": "UI-21",
+    "name": "Video: on a 360 px phone, buying gems and coins (to 2,180 / 9,100) pushes the Settings gear and the store Close X off screen",
+    "pass": true,
+    "expected": "documented (BUG-002)",
+    "actual": {
+      "steps": [
+        {
+          "step": "menu, 100 coins and 20 gems",
+          "gear_visible_px": 29
+        },
+        {
+          "step": "store after buying 2 gem packs and coins (9,100 coins, 2,180 gems)",
+          "close_x_visible_px": 0
+        },
+        {
+          "step": "menu, 9,100 coins and 2,180 gems",
+          "gear_visible_px": 0
+        }
+      ]
+    },
+    "evidence": [
+      "UI-21-gear-pushed-off.webm",
+      "UI-21-1-menu-100-coins.png",
+      "UI-21-3-menu-9100-coins.png",
+      "UI-21-2-store-9100-coins.png",
+      "UI-21-state.json"
+    ]
   }
 ]

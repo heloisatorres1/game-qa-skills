@@ -2,3 +2,4 @@ node_modules/
 qa-reports/
 .DS_Store
 Thumbs.db
+.state/

@@ -121,6 +121,36 @@ for (const run of [1, 2]) {
     [`UI-20-run${run}-top-bar.json`, ...(run === 1 ? ['UI-20-run1-360-98_8K_123_5K-hud.png', 'UI-20-run1-360-98_8K_123_5K-store-top.png', 'UI-20-run1-360-default-hud.png'] : [])]);
 }
 
+// UI-21: video of BUG-002 on a 360 px phone: the gear is cut at 100 coins and disappears after buying coins
+if (L.only('UI-21')) {
+  const ctx = await L.newContext(browser, { size: { width: 360, height: 740 } }); const page = await ctx.newPage(); L.watch(page, log, 'UI-21');
+  await L.seed(page, { ...L.PLAYER(), coins: 100, gems: 20 }); await L.openGame(page);
+  const gear = () => page.evaluate(() => { const r = document.querySelector('#screen-menu [data-action="settings"]').getBoundingClientRect(); return Math.max(0, Math.round(Math.min(r.right, innerWidth) - r.left)); });
+  const steps = [];
+  const rec = await L.record(page, { maxWidth: 360 });
+  await L.sleep(page, 1500);
+  steps.push({ step: 'menu, 100 coins and 20 gems', gear_visible_px: await gear() });
+  await page.screenshot({ path: D.file('UI-21-1-menu-100-coins.png'), clip: { x: 0, y: 0, width: 360, height: 70 } });
+  await page.locator('.nav-btn[data-action="store"]').click(); await L.sleep(page, 1200);
+  for (let k = 0; k < 2; k++) { await page.locator('#store-list [data-item="gems-l"]').click(); await L.sleep(page, 900); } // 2 x 1,200 gems (test purchases)
+  await page.locator('#store-list [data-item="coins-m"]').scrollIntoViewIfNeeded(); await L.sleep(page, 400);
+  await page.locator('#store-list [data-item="coins-m"]').click(); await L.sleep(page, 900); // +5,000
+  for (let k = 0; k < 4; k++) { await page.locator('#store-list [data-item="coins-s"]').click(); await L.sleep(page, 700); } // +4 x 1,000 = 9,100 coins
+  await page.mouse.wheel(0, -2000); await L.sleep(page, 800);
+  const close = await page.evaluate(() => { const r = document.querySelector('#screen-store .close-btn').getBoundingClientRect(); return Math.max(0, Math.round(Math.min(r.right, innerWidth) - r.left)); });
+  steps.push({ step: 'store after buying 2 gem packs and coins (9,100 coins, 2,180 gems)', close_x_visible_px: close });
+  await page.screenshot({ path: D.file('UI-21-2-store-9100-coins.png'), clip: { x: 0, y: 0, width: 360, height: 70 } });
+  await page.locator('.nav-btn[data-action="home"]').click(); await L.sleep(page, 1500);
+  steps.push({ step: 'menu, 9,100 coins and 2,180 gems', gear_visible_px: await gear() });
+  await page.screenshot({ path: D.file('UI-21-3-menu-9100-coins.png'), clip: { x: 0, y: 0, width: 360, height: 70 } });
+  await L.sleep(page, 800);
+  await rec.stop(D.file('UI-21-gear-pushed-off.webm'), { framesDir: D.file('UI-21-frames') });
+  L.writeJson(D.file('UI-21-state.json'), { viewport: '360x740', steps });
+  check('UI-21', 'Video: on a 360 px phone, buying gems and coins (to 2,180 / 9,100) pushes the Settings gear and the store Close X off screen', steps[2].gear_visible_px === 0, 'documented (BUG-002)', { steps },
+    ['UI-21-gear-pushed-off.webm', 'UI-21-1-menu-100-coins.png', 'UI-21-3-menu-9100-coins.png', 'UI-21-2-store-9100-coins.png', 'UI-21-state.json']);
+  await ctx.close();
+}
+
 await browser.close();
 L.writeJson(D.file('console.json'), log);
 console.log(`\n${results.filter((r) => r.pass).length}/${results.length} passed`);

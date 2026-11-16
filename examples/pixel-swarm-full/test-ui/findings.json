@@ -52,8 +52,8 @@
       "severity": "major",
       "area": "Phone portrait (360, 390, 412 px)",
       "status": "confirmed",
-      "repro_rate": "2/2",
-      "environment": "Web, touch, widths 360 / 390 / 412 px, 15 balance combinations per run",
+      "repro_rate": "3/3",
+      "environment": "Web, touch, widths 360 / 390 / 412 px, 15 balance combinations per run (2 runs) + a recorded store session (run 3). Both balances count: the bar grows with gems and coins",
       "steps": [
         "Open the game on a 360 px wide phone (a very common Android width) with 9,999 coins",
         "Look at the top-right corner of the main menu, then open the Store"
@@ -61,6 +61,10 @@
       "expected": "Level, gems, coins and the Settings gear (menu) / Close X (store) all fit on screen at any balance",
       "actual": "360 px: gear 29 of 42 px visible at the starting balance, 0 px (fully off screen) at 9,999 and 98.8K/123.5K coins; the store has no visible Close X. 390 px: gear cut from 9,999 coins. 412 px: only the store X slightly cut at 98.8K/123.5K.",
       "evidence": [
+        { "type": "video", "path": "evidence/UI-21-gear-pushed-off.webm", "caption": "360 px: a near-new player buys gems and coins in the store; the Close X and then the Settings gear leave the screen" },
+        { "type": "screenshot", "path": "evidence/UI-21-1-menu-100-coins.png", "caption": "Before: 100 coins, 20 gems, gear already half cut" },
+        { "type": "screenshot", "path": "evidence/UI-21-3-menu-9100-coins.png", "caption": "After: 9,100 coins, 2,180 gems, no gear" },
+        { "type": "state", "path": "evidence/UI-21-state.json", "caption": "Visible px of gear / Close X at each step (29 -> 0)" },
         { "type": "screenshot", "path": "evidence/UI-20-run1-360-98_8K_123_5K-store-top.png", "caption": "360 px store, 123.5K coins: no Close X" },
         { "type": "screenshot", "path": "evidence/UI-20-run1-360-98_8K_123_5K-hud.png", "caption": "360 px menu: no Settings gear" },
         { "type": "screenshot", "path": "evidence/UI-20-run1-360-default-hud.png", "caption": "360 px, starting balance: gear already cut" },

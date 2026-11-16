@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QA Report: Pixel Swarm</title>
+<style>
+:root{--bg:#f7f7f5;--card:#fff;--fg:#1d1d1f;--muted:#6b6b70;--line:#e3e3e0;--ok:#1f7a3f;--warn:#9a6700;--bad:#b42318;--blk:#7a0d0d;--accent:#3b5bdb}
+@media (prefers-color-scheme:dark){:root{--bg:#141416;--card:#1d1d20;--fg:#ececef;--muted:#9a9aa2;--line:#2e2e33;--ok:#5cc98a;--warn:#e3b341;--bad:#ff7b72;--blk:#ff9b9b;--accent:#8ea2ff}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:1000px;margin:0 auto;padding:24px 16px 64px}h1{margin:0 0 4px;font-size:26px}h2{margin:36px 0 12px;font-size:19px}h3{margin:6px 0 10px;font-size:17px}
+.verdict{display:inline-block;padding:4px 12px;border-radius:6px;font-weight:700;letter-spacing:.03em;margin:8px 0}
+.v-pass{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}.v-pass_with_issues{background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--warn)}
+.v-fail{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}.v-blocked{background:color-mix(in srgb,var(--blk) 22%,transparent);color:var(--blk)}
+.meta{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px;margin:12px 0;color:var(--muted)}.meta b{color:var(--fg);font-weight:600}
+.tiles{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 14px;min-width:92px}.tile .n{font-size:22px;font-weight:700}.tile .l{font-size:12px;color:var(--muted);text-transform:uppercase}
+.table-wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;background:var(--card);border:1px solid var(--line);border-radius:8px}th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:12px;text-transform:uppercase;color:var(--muted)}
+.st{font-weight:700;font-size:12px}.st-PASS{color:var(--ok)}.st-FAIL{color:var(--bad)}.st-PARTIAL,.st-NOT_TESTED{color:var(--warn)}.st-BLOCKED{color:var(--blk)}
+.finding{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:14px 0}.finding header{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.id{font-weight:700;font-family:ui-monospace,Consolas,monospace}.tag,.sev{font-size:12px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.tag.ok{color:var(--ok)}.tag.warn{color:var(--warn)}.sev{color:#fff;border:0;font-weight:600}.sev-blocker{background:var(--blk)}.sev-critical{background:var(--bad)}.sev-major{background:#c2410c}.sev-minor{background:#a16207}.sev-trivial{background:#6b7280}
+.ea{display:grid;grid-template-columns:1fr 1fr;gap:12px}.ea p{margin:4px 0 12px}@media (max-width:640px){.ea{grid-template-columns:1fr}}
+.evidence{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:8px 0 12px}figure{margin:0}figure img,figure video{width:100%;border:1px solid var(--line);border-radius:6px;display:block}
+figcaption{font-size:13px;color:var(--muted);margin-top:4px}figure.log,figure.ref,figure.frames{grid-column:1/-1}
+.strip{display:flex;gap:6px;overflow-x:auto}.strip img{width:140px;flex:none}pre{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:10px;overflow:auto;max-height:280px;font-size:12px;margin:4px 0}
+.logname{font-size:12px}.small{font-size:14px;color:var(--muted)}.small b{color:var(--fg)}a{color:var(--accent)}code{font-family:ui-monospace,Consolas,monospace}
+</style></head><body><main>
+<h1>QA Report: Pixel Swarm</h1>
+<div class="verdict v-fail">FAIL</div>
+<p>Completed 102/102 levels from a fresh install, every one won on its first attempt with 3 stars, in 1 h 34 min (1 h 12 min of actual play). Rewards, stars, unlocks, saves and the event reward track were all correct. One major bug: player XP never grows, so after 102 wins the player is still level 1 and the Firefly bug and two avatars can never be unlocked by playing.</p>
+<div class="meta"><b>Skill</b><span>full-playthrough</span><b>Build</b><span>v1.0.0 debug build (commit db96df5)</span><b>Platform</b><span>Web, Microsoft Edge (Chromium, headless), 390x844 touch, persistent browser profile</span><b>Access</b><span>Playwright (scripts/playthrough.mjs): real clicks in the solution order, read from the screen; save read after every level. Logged economy aid: 500 debug gems spent on the 8x speed tier in the Speed Store</span><b>Date</b><span>2026-11-16</span><b>Tester</b><span>Claude (AI-assisted QA)</span><b>Scope</b><span>All content: 5 themes x 3 difficulties x 6 levels + 12 Halloween event levels (102), rewards and stars after every win, unlock order, persistence after every section, event reward track, end state</span></div>
+<div class="tiles"><div class="tile"><div class="n">0</div><div class="l">blocker</div></div><div class="tile"><div class="n">0</div><div class="l">critical</div></div><div class="tile"><div class="n">1</div><div class="l">major</div></div><div class="tile"><div class="n">0</div><div class="l">minor</div></div><div class="tile"><div class="n">0</div><div class="l">trivial</div></div>
+<div class="tile"><div class="n">0</div><div class="l">queries / unconfirmed</div></div></div>
+<h2>Coverage</h2>
+<div class="table-wrap"><table><thead><tr><th>Area</th><th>Status</th><th>Checks</th><th>Findings</th><th>Notes</th></tr></thead><tbody>
+<tr><td>Flowers (18 levels)</td><td class="st st-PASS">PASS</td><td>18/18</td><td></td><td>849 s of play (includes the tutorial level at 1x)</td></tr>
+<tr><td>Fruits (18 levels)</td><td class="st st-PASS">PASS</td><td>18/18</td><td></td><td>762 s of play</td></tr>
+<tr><td>Animals (18 levels)</td><td class="st st-PASS">PASS</td><td>18/18</td><td></td><td>753 s of play</td></tr>
+<tr><td>Sweets (18 levels)</td><td class="st st-PASS">PASS</td><td>18/18</td><td></td><td>767 s of play. Level 10 was played twice: its first win was lost when the test harness was stopped mid-write (not a game bug); the reconcile step replayed it</td></tr>
+<tr><td>Ocean (18 levels)</td><td class="st st-PASS">PASS</td><td>18/18</td><td></td><td>742 s of play</td></tr>
+<tr><td>Halloween event (12 levels + reward track)</td><td class="st st-PASS">PASS</td><td>13/13</td><td></td><td>491 s of play; +10 pumpkins per win (120); all 5 rewards paid as listed (500 coins, 50 gems, 1,500 coins, 100 gems, 3,000 coins + 200 gems); a second claim is refused</td></tr>
+<tr><td>Rewards, stars and unlock order</td><td class="st st-PASS">PASS</td><td></td><td></td><td>Every win paid exactly 30 / 45 / 60 coins (4,590 in total = coinsEarned in the save), stars saved = stars shown, and the next level / difficulty opened as the rules say. Details per level in inventory.md.</td></tr>
+<tr><td>Persistence</td><td class="st st-PASS">PASS</td><td>17/17</td><td></td><td>Reload after each section: progress kept. One more check (sweets-medium 3/4) was taken while the harness had lost a write and is not counted.</td></tr>
+<tr><td>End state</td><td class="st st-PASS">PASS</td><td></td><td></td><td>Gallery &#39;Completed 102/102&#39;, 6/6 levels in all 15 sections, event 12/12, stats.levels 102, 0 page errors.</td></tr>
+<tr><td>Player level and XP</td><td class="st st-FAIL">FAIL</td><td></td><td><a href="#BUG-008">BUG-008</a></td><td></td></tr>
+</tbody></table></div>
+<h2>Findings (1)</h2>
+<div class="table-wrap"><table><thead><tr><th>ID</th><th>Severity</th><th>Type</th><th>Status</th><th>Title</th></tr></thead><tbody>
+<tr><td><a href="#BUG-008">BUG-008</a></td><td>major</td><td>bug</td><td>confirmed</td><td>Player XP never grows: after 102 wins the player is still level 1, so the Firefly bug and two avatars can never be unlocked</td></tr>
+</tbody></table></div>
+
+<article class="finding" id="BUG-008">
+  <header>
+    <span class="id">BUG-008</span>
+    <span class="sev sev-major">major</span>
+    <span class="tag">bug</span>
+    <span class="tag ok">confirmed · 2/2</span>
+    <span class="tag">Player level and XP</span>
+  </header>
+  <h3>Player XP never grows: after 102 wins the player is still level 1, so the Firefly bug and two avatars can never be unlocked</h3>
+  <p class="small"><b>Environment:</b> Run 1: the save after all 102 levels. Run 2: a fresh player winning 3 levels</p>
+  <p><b>Preconditions:</b> Any player</p>
+  <b>Steps</b><ol><li>Win levels (any number)</li><li>Open the Profile (tap the avatar)</li><li>Open Skins &gt; Firefly</li></ol>
+  <div class="ea">
+    <div><b>Expected</b><p>Wins give XP, the player levels up (the Profile promises &#39;Next reward: 50&#39; coins) and level-gated content opens: Firefly at level 5, avatars at levels 10 and 20</p></div>
+    <div><b>Actual</b><p>XP stays 1/2 and the player stays level 1 after 1, 2, 3 and 102 wins. The Firefly and all 7 of its looks say &#39;Unlocks at player level 5&#39;; two avatars stay locked.</p></div>
+  </div>
+  <b>Evidence</b>
+  <div class="evidence"><figure><video controls src="evidence/BUG-008-after-102-wins.webm"></video><figcaption>After 102 wins: Profile at level 1, Firefly locked</figcaption></figure><figure><a href="evidence/BUG-008-1-profile-after-102-wins.jpg"><img src="evidence/BUG-008-1-profile-after-102-wins.jpg" alt="Profile: Level 1, 1/2, next reward 50" loading="lazy"></a><figcaption>Profile: Level 1, 1/2, next reward 50</figcaption></figure><figure><a href="evidence/BUG-008-2-firefly-locked.jpg"><img src="evidence/BUG-008-2-firefly-locked.jpg" alt="Firefly: &#39;Unlocks at player level 5&#39;" loading="lazy"></a><figcaption>Firefly: &#39;Unlocks at player level 5&#39;</figcaption></figure><figure class="log"><div class="logname"><a href="evidence/BUG-008-state.json">evidence/BUG-008-state.json</a></div><pre>{
+  &quot;run1_after_playthrough&quot;: {
+    &quot;playerLevel&quot;: 1,
+    &quot;xp&quot;: 1,
+    &quot;xpToNext&quot;: 2,
+    &quot;levels_won&quot;: 102,
+    &quot;firefly_owned&quot;: false
+  },
+  &quot;run2&quot;: [
+    {
+      &quot;playerLevel&quot;: 1,
+      &quot;xp&quot;: 1,
+      &quot;xpToNext&quot;: 2,
+      &quot;levels_won&quot;: 1,
+      &quot;firefly_owned&quot;: false
+    },
+    {
+      &quot;playerLevel&quot;: 1,
+      &quot;xp&quot;: 1,
+      &quot;xpToNext&quot;: 2,
+      &quot;levels_won&quot;: 2,
+      &quot;firefly_owned&quot;: false
+    },
+    {
+      &quot;playerLevel&quot;: 1,
+      &quot;xp&quot;: 1,
+      &quot;xpToNext&quot;: 2,
+      &quot;levels_won&quot;: 3,
+      &quot;firefly_owned&quot;: false
+    }
+  ]
+}</pre><figcaption>playerLevel 1 / xp 1 after 102 wins, and after 1-3 wins on a fresh player</figcaption></figure><figure class="ref"><code>js/app.js:2611</code><figcaption>The only code that raises playerLevel is the debug &#39;levelup&#39; / &#39;xp&#39; commands; nothing adds state.xp</figcaption></figure><figure class="ref"><code>js/app.js:570</code><figcaption>const LEVEL_UP_REWARD = 50 (shown in the Profile, never paid)</figcaption></figure><figure class="ref"><code>js/app.js:716</code><figcaption>Firefly: level: 5; avatars level 10 and 20 (app.js:568)</figcaption></figure></div>
+  <p class="small"><b>Suspected cause (hypothesis):</b> The XP / level-up logic was never wired to gameplay: track(&#39;level&#39;) counts wins but does not add XP, and no code outside the debug menu changes playerLevel.</p>
+  <p class="small"><b>Suggested fix:</b> In track(&#39;level&#39;) add XP per win (e.g. 1 per star), level up when xp &gt;= xpToNext (grow xpToNext, pay LEVEL_UP_REWARD, show a toast), then re-render the HUD.</p>
+  
+</article>
+</main></body></html>

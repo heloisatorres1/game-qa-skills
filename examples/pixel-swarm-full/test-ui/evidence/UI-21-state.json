@@ -1,0 +1,17 @@
+{
+  "viewport": "360x740",
+  "steps": [
+    {
+      "step": "menu, 100 coins and 20 gems",
+      "gear_visible_px": 29
+    },
+    {
+      "step": "store after buying 2 gem packs and coins (9,100 coins, 2,180 gems)",
+      "close_x_visible_px": 0
+    },
+    {
+      "step": "menu, 9,100 coins and 2,180 gems",
+      "gear_visible_px": 0
+    }
+  ]
+}

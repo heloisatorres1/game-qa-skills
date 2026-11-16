@@ -17,13 +17,25 @@
       "checks_total": 2,
       "checks_passed": 2,
       "notes": "15 tables of 6 + 12 event levels; every picture exists; no picture used twice.",
-      "evidence": [{ "type": "state", "path": "evidence/PZ-01-level-data.json", "caption": "Counts, missing and duplicate checks" }]
+      "evidence": [
+        {
+          "type": "state",
+          "path": "evidence/PZ-01-level-data.json",
+          "caption": "Counts, missing and duplicate checks"
+        }
+      ]
     },
     {
       "area": "Solvability (all levels)",
       "status": "PASS",
       "notes": "LEVEL CHECK 102/102 from the game's own solution verifier (#verify_all, 334 s), no unsolvable forced-puzzle variants. Assisted: relies on the game's verifier.",
-      "evidence": [{ "type": "log", "path": "evidence/PZ-03-verify-all.txt", "caption": "Verifier output" }]
+      "evidence": [
+        {
+          "type": "log",
+          "path": "evidence/PZ-03-verify-all.txt",
+          "caption": "Verifier output"
+        }
+      ]
     },
     {
       "area": "Puzzle mechanics in the real game",
@@ -32,8 +44,16 @@
       "checks_passed": 10,
       "notes": "mystery, frozen, hidden, linked, big, pipe, key, wood, cookie, mystery links: each level won by the solution bot at 8x (36-58 s), no script errors. Assisted.",
       "evidence": [
-        { "type": "screenshot", "path": "evidence/PZ-20-key-1-start.jpg", "caption": "Key & lock level, start" },
-        { "type": "screenshot", "path": "evidence/PZ-20-key-2-end.jpg", "caption": "Key & lock level, won" }
+        {
+          "type": "screenshot",
+          "path": "evidence/PZ-20-key-1-start.jpg",
+          "caption": "Key & lock level, start"
+        },
+        {
+          "type": "screenshot",
+          "path": "evidence/PZ-20-key-2-end.jpg",
+          "caption": "Key & lock level, won"
+        }
       ]
     },
     {
@@ -42,12 +62,20 @@
       "checks_total": 3,
       "checks_passed": 3,
       "notes": "Out of Slots cannot be dismissed by Escape/tap outside; Try Again restarts; Give Up returns without reward. The fail popup was opened with the debug 'Lose level' (assisted).",
-      "evidence": [{ "type": "screenshot", "path": "evidence/PZ-30-1-out-of-slots.jpg", "caption": "Out of Slots popup" }]
+      "evidence": [
+        {
+          "type": "screenshot",
+          "path": "evidence/PZ-30-1-out-of-slots.jpg",
+          "caption": "Out of Slots popup"
+        }
+      ]
     },
     {
       "area": "Slot limits",
       "status": "FAIL",
-      "findings": ["BUG-004"]
+      "findings": [
+        "BUG-004"
+      ]
     }
   ],
   "findings": [
@@ -58,8 +86,8 @@
       "severity": "minor",
       "area": "Slot limits",
       "status": "confirmed",
-      "repro_rate": "3/3",
-      "environment": "Web, 390x844 touch. Fails triggered with the debug 'Lose level' (assisted); Add Slot and the ad are the real flow",
+      "repro_rate": "5/5",
+      "environment": "Web, 390x844 touch; 5 runs over 3 sessions. Fails triggered with the debug 'Lose level' (assisted); Add Slot and the ad are the real flow",
       "steps": [
         "Start Flowers Easy level 1 (4 slots)",
         "Run out of slots, tap 'Add Slot' on the Out of Slots popup and watch the 3 s ad",
@@ -68,13 +96,41 @@
       "expected": "Same limit as the Add Slot booster: 'Maximum slots reached' at 7 slots",
       "actual": "Slots go 4, 5, 6, 7, 8, 9, 10. At 10 they shrink to thin pills across the full width and the first slot's block is wider than its neighbours.",
       "evidence": [
-        { "type": "screenshot", "path": "evidence/PZ-35-run1-crop.png", "caption": "10 slots after 6 ads" },
-        { "type": "video", "path": "evidence/PZ-35-run1-add-slot.webm", "caption": "Run 1: the last Add Slot rounds" },
-        { "type": "screenshot", "path": "evidence/PZ-35-run1-after-6-ads.jpg", "caption": "Full screen" },
-        { "type": "state", "path": "evidence/PZ-35-run1-state.json", "caption": "Slot count after each ad" },
-        { "type": "state", "path": "evidence/PZ-35-run2-state.json", "caption": "Run 2: same counts" },
-        { "type": "file_ref", "ref": "js/app.js:2681", "caption": "'fail-addslot': () => showAd(() => { ... game.slots.push(null) ... }) (no limit)" },
-        { "type": "file_ref", "ref": "js/app.js:2122", "caption": "Booster: if (g.slots.length >= 7) return toast('Maximum slots reached')" }
+        {
+          "type": "screenshot",
+          "path": "evidence/PZ-35-run1-crop.png",
+          "caption": "10 slots after 6 ads"
+        },
+        {
+          "type": "video",
+          "path": "evidence/PZ-35-run1-add-slot.webm",
+          "caption": "Run 1: the last Add Slot rounds"
+        },
+        {
+          "type": "screenshot",
+          "path": "evidence/PZ-35-run1-after-6-ads.jpg",
+          "caption": "Full screen"
+        },
+        {
+          "type": "state",
+          "path": "evidence/PZ-35-run1-state.json",
+          "caption": "Slot count after each ad"
+        },
+        {
+          "type": "state",
+          "path": "evidence/PZ-35-run2-state.json",
+          "caption": "Run 2: same counts"
+        },
+        {
+          "type": "file_ref",
+          "ref": "js/app.js:2681",
+          "caption": "'fail-addslot': () => showAd(() => { ... game.slots.push(null) ... }) (no limit)"
+        },
+        {
+          "type": "file_ref",
+          "ref": "js/app.js:2122",
+          "caption": "Booster: if (g.slots.length >= 7) return toast('Maximum slots reached')"
+        }
       ],
       "suspected_cause": "The fail-popup handler pushes a slot without the 7-slot check that useBooster('add_slot') has.",
       "suggested_fix": "Apply the same limit in 'fail-addslot' and hide or disable the Add Slot button on the fail popup at 7 slots."

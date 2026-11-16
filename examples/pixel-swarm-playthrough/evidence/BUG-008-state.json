@@ -1,0 +1,32 @@
+{
+  "run1_after_playthrough": {
+    "playerLevel": 1,
+    "xp": 1,
+    "xpToNext": 2,
+    "levels_won": 102,
+    "firefly_owned": false
+  },
+  "run2": [
+    {
+      "playerLevel": 1,
+      "xp": 1,
+      "xpToNext": 2,
+      "levels_won": 1,
+      "firefly_owned": false
+    },
+    {
+      "playerLevel": 1,
+      "xp": 1,
+      "xpToNext": 2,
+      "levels_won": 2,
+      "firefly_owned": false
+    },
+    {
+      "playerLevel": 1,
+      "xp": 1,
+      "xpToNext": 2,
+      "levels_won": 3,
+      "firefly_owned": false
+    }
+  ]
+}

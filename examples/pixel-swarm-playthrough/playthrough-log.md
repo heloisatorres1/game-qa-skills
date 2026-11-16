@@ -1,0 +1,147 @@
+# Playthrough log
+
+One line per event, in the order played.
+
+- 15:42:36 Setup: first launch done (age gate, story, welcome). Starting the tutorial level.
+- 15:44:34 #1 Flowers easy Level 1: WIN in 112s, 3 stars, +30 coins -> Level 2 Flowers • Easy
+- 15:44:41 Economy aid (logged): +500 debug gems, bought the 8x tier in the Speed Store (maxSpeed 8, gems 20 -> 20).
+- 15:45:06 #2 Flowers easy Level 2: WIN in 19s, 3 stars, +30 coins -> Level 3 Flowers • Easy
+- 15:45:31 #3 Flowers easy Level 3: WIN in 21s, 3 stars, +30 coins -> Level 4 Flowers • Easy
+- 15:45:58 #4 Flowers easy Level 4: WIN in 20s, 3 stars, +30 coins -> Level 5 Flowers • Easy
+- 15:46:21 #5 Flowers easy Level 5: WIN in 20s, 3 stars, +30 coins -> Level 6 Flowers • Easy
+- 15:46:47 #6 Flowers easy Level 6: WIN in 20s, 3 stars, +30 coins -> Level 7 Flowers • Medium
+- 15:46:47 Time budget for this batch reached; run the script again to continue.
+- 15:47:03 Persistence after flowers-easy: PASS (6/6).
+- 15:47:54 #7 Flowers medium Level 7: WIN in 42s, 3 stars, +45 coins -> Level 8 Flowers • Medium
+- 15:48:43 #8 Flowers medium Level 8: WIN in 43s, 3 stars, +45 coins -> Level 9 Flowers • Medium
+- 15:49:27 #9 Flowers medium Level 9: WIN in 40s, 3 stars, +45 coins -> Level 10 Flowers • Medium
+- 15:50:20 #10 Flowers medium Level 10: WIN in 47s, 3 stars, +45 coins -> Level 11 Flowers • Medium
+- 15:51:09 #11 Flowers medium Level 11: WIN in 44s, 3 stars, +45 coins -> Level 12 Flowers • Medium
+- 15:51:59 #12 Flowers medium Level 12: WIN in 43s, 3 stars, +45 coins -> Level 13 Flowers • Hard
+- 15:52:03 Persistence after flowers-medium: PASS (6/6).
+- 15:53:16 #13 Flowers hard Level 13: WIN in 63s, 3 stars, +60 coins -> Level 14 Flowers • Hard
+- 15:54:25 #14 Flowers hard Level 14: WIN in 62s, 3 stars, +60 coins -> Level 15 Flowers • Hard
+- 15:55:32 #15 Flowers hard Level 15: WIN in 63s, 3 stars, +60 coins -> Level 16 Flowers • Hard
+- 15:56:41 #16 Flowers hard Level 16: WIN in 61s, 3 stars, +60 coins -> Level 17 Flowers • Hard
+- 15:57:51 #17 Flowers hard Level 17: WIN in 65s, 3 stars, +60 coins -> Level 18 Flowers • Hard
+- 15:59:01 #18 Flowers hard Level 18: WIN in 64s, 3 stars, +60 coins -> screen-theme
+- 15:59:05 Persistence after flowers-hard: PASS (6/6).
+- 15:59:34 #19 Fruits easy Level 1: WIN in 21s, 3 stars, +30 coins -> Level 2 Fruits • Easy
+- 16:00:01 #20 Fruits easy Level 2: WIN in 22s, 3 stars, +30 coins -> Level 3 Fruits • Easy
+- 16:00:25 #21 Fruits easy Level 3: WIN in 20s, 3 stars, +30 coins -> Level 4 Fruits • Easy 1,000 2x
+- 16:00:51 #22 Fruits easy Level 4: WIN in 20s, 3 stars, +30 coins -> Level 5 Fruits • Easy 1,030 2x
+- 16:01:14 #23 Fruits easy Level 5: WIN in 20s, 3 stars, +30 coins -> Level 6 Fruits • Easy 1,060 2x
+- 16:01:41 #24 Fruits easy Level 6: WIN in 21s, 3 stars, +30 coins -> Level 7 Fruits • Medium 1,090 2x
+- 16:01:44 Persistence after fruits-easy: PASS (6/6).
+- 16:02:34 #25 Fruits medium Level 7: WIN in 42s, 3 stars, +45 coins -> Level 8 Fruits • Medium 1,135 2x
+- 16:03:24 #26 Fruits medium Level 8: WIN in 44s, 3 stars, +45 coins -> Level 9 Fruits • Medium 1,180 2x
+- 16:04:07 #27 Fruits medium Level 9: WIN in 40s, 3 stars, +45 coins -> Level 10 Fruits • Medium 1,225 2x
+- 16:04:57 #28 Fruits medium Level 10: WIN in 44s, 3 stars, +45 coins -> Level 11 Fruits • Medium 1,270 2x
+- 16:05:43 #29 Fruits medium Level 11: WIN in 42s, 3 stars, +45 coins -> Level 12 Fruits • Medium 1,315 2x
+- 16:06:36 #30 Fruits medium Level 12: WIN in 46s, 3 stars, +45 coins -> Level 13 Fruits • Hard 1,360 2x
+- 16:06:40 Persistence after fruits-medium: PASS (6/6).
+- 16:07:46 #31 Fruits hard Level 13: WIN in 59s, 3 stars, +60 coins -> Level 14 Fruits • Hard 1,420 2x
+- 16:08:54 #32 Fruits hard Level 14: WIN in 61s, 3 stars, +60 coins -> Level 15 Fruits • Hard 1,480 2x
+- 16:10:08 #33 Fruits hard Level 15: WIN in 70s, 3 stars, +60 coins -> Level 16 Fruits • Hard 1,540 2x
+- 16:11:12 #34 Fruits hard Level 16: WIN in 57s, 3 stars, +60 coins -> Level 17 Fruits • Hard 1,600 2x
+- 16:12:24 #35 Fruits hard Level 17: WIN in 68s, 3 stars, +60 coins -> Level 18 Fruits • Hard 1,660 2x
+- 16:13:36 #36 Fruits hard Level 18: WIN in 65s, 3 stars, +60 coins -> screen-theme
+- 16:13:39 Persistence after fruits-hard: PASS (6/6).
+- 16:14:09 #37 Animals easy Level 1: WIN in 22s, 3 stars, +30 coins -> Level 2 Animals • Easy 1,750 2x
+- 16:14:36 #38 Animals easy Level 2: WIN in 21s, 3 stars, +30 coins -> Level 3 Animals • Easy 1,780 2x
+- 16:15:00 #39 Animals easy Level 3: WIN in 21s, 3 stars, +30 coins -> Level 4 Animals • Easy 1,810 2x
+- 16:15:27 #40 Animals easy Level 4: WIN in 20s, 3 stars, +30 coins -> Level 5 Animals • Easy 1,840 2x
+- 16:15:51 #41 Animals easy Level 5: WIN in 20s, 3 stars, +30 coins -> Level 6 Animals • Easy 1,870 2x
+- 16:16:18 #42 Animals easy Level 6: WIN in 20s, 3 stars, +30 coins -> Level 7 Animals • Medium 1,900 2x
+- 16:16:21 Persistence after animals-easy: PASS (6/6).
+- 16:17:11 #43 Animals medium Level 7: WIN in 42s, 3 stars, +45 coins -> Level 8 Animals • Medium 1,945 2x
+- 16:17:58 #44 Animals medium Level 8: WIN in 41s, 3 stars, +45 coins -> Level 9 Animals • Medium 1,990 2x
+- 16:18:45 #45 Animals medium Level 9: WIN in 43s, 3 stars, +45 coins -> Level 10 Animals • Medium 2,035 2x
+- 16:19:37 #46 Animals medium Level 10: WIN in 46s, 3 stars, +45 coins -> Level 11 Animals • Medium 2,080 2x
+- 16:20:25 #47 Animals medium Level 11: WIN in 44s, 3 stars, +45 coins -> Level 12 Animals • Medium 2,125 2x
+- 16:21:16 #48 Animals medium Level 12: WIN in 44s, 3 stars, +45 coins -> Level 13 Animals • Hard 2,170 2x
+- 16:21:20 Persistence after animals-medium: PASS (6/6).
+- 16:22:38 #49 Animals hard Level 13: WIN in 69s, 3 stars, +60 coins -> Level 14 Animals • Hard 2,230 2x
+- 16:23:42 #50 Animals hard Level 14: WIN in 58s, 3 stars, +60 coins -> Level 15 Animals • Hard 2,290 2x
+- 16:25:47 #51 Animals hard Level 15: WIN in 62s, 3 stars, +60 coins -> Level 16 Animals • Hard
+- 16:26:55 #52 Animals hard Level 16: WIN in 54s, 3 stars, +60 coins -> Level 17 Animals • Hard
+- 16:28:06 #53 Animals hard Level 17: WIN in 60s, 3 stars, +60 coins -> Level 18 Animals • Hard
+- 16:29:25 #54 Animals hard Level 18: WIN in 66s, 3 stars, +60 coins -> screen-theme
+- 16:29:29 Persistence after animals-hard: PASS (6/6).
+- 16:30:15 #55 Sweets easy Level 1: WIN in 22s, 3 stars, +30 coins -> Level 2 Sweets • Easy
+- 16:30:48 #56 Sweets easy Level 2: WIN in 20s, 3 stars, +30 coins -> Level 3 Sweets • Easy
+- 16:31:17 #57 Sweets easy Level 3: WIN in 20s, 3 stars, +30 coins -> Level 4 Sweets • Easy
+- 16:31:51 #58 Sweets easy Level 4: WIN in 22s, 3 stars, +30 coins -> Level 5 Sweets • Easy
+- 16:32:24 #59 Sweets easy Level 5: WIN in 22s, 3 stars, +30 coins -> Level 6 Sweets • Easy
+- 16:32:58 #60 Sweets easy Level 6: WIN in 21s, 3 stars, +30 coins -> Level 7 Sweets • Medium
+- 16:33:01 Persistence after sweets-easy: PASS (6/6).
+- 16:34:07 #61 Sweets medium Level 7: WIN in 44s, 3 stars, +45 coins -> Level 8 Sweets • Medium
+- 16:35:02 #62 Sweets medium Level 8: WIN in 43s, 3 stars, +45 coins -> Level 9 Sweets • Medium
+- 16:35:56 #63 Sweets medium Level 9: WIN in 43s, 3 stars, +45 coins -> Level 10 Sweets • Medium
+- 16:36:56 #64 Sweets medium Level 10: WIN in 47s, 3 stars, +45 coins -> Level 11 Sweets • Medium
+- 16:39:07 #65 sweets-medium 11: BLOCKED (could not open)
+- 16:39:07 #66 sweets-medium 12: BLOCKED (could not open)
+- 16:39:11 Persistence after sweets-medium: FAIL (3/4).
+- 16:39:13 #67 sweets-hard 13: BLOCKED (could not open)
+- 16:39:14 #68 sweets-hard 14: BLOCKED (could not open)
+- 16:39:14 #69 sweets-hard 15: BLOCKED (could not open)
+- 16:39:15 #70 sweets-hard 16: BLOCKED (could not open)
+- 16:39:15 #71 sweets-hard 17: BLOCKED (could not open)
+- 16:39:16 #72 sweets-hard 18: BLOCKED (could not open)
+- 16:39:20 Persistence after sweets-hard: PASS (0/0).
+- 16:39:50 #73 Ocean easy Level 1: WIN in 20s, 3 stars, +30 coins -> Level 2 Ocean • Easy
+- 16:40:14 #74 Ocean easy Level 2: WIN in 19s, 3 stars, +30 coins -> Level 3 Ocean • Easy
+- 16:40:42 #75 Ocean easy Level 3: WIN in 22s, 3 stars, +30 coins -> Level 4 Ocean • Easy
+- 16:41:06 #76 Ocean easy Level 4: WIN in 20s, 3 stars, +30 coins -> Level 5 Ocean • Easy
+- 16:41:33 #77 Ocean easy Level 5: WIN in 21s, 3 stars, +30 coins -> Level 6 Ocean • Easy
+- 16:41:59 #78 Ocean easy Level 6: WIN in 22s, 3 stars, +30 coins -> Level 7 Ocean • Medium
+- 16:42:03 Persistence after ocean-easy: PASS (6/6).
+- 16:42:56 #79 Ocean medium Level 7: WIN in 43s, 3 stars, +45 coins -> Level 8 Ocean • Medium
+- 16:43:45 #80 Ocean medium Level 8: WIN in 44s, 3 stars, +45 coins -> Level 9 Ocean • Medium
+- 16:44:32 #81 Ocean medium Level 9: WIN in 40s, 3 stars, +45 coins -> Level 10 Ocean • Medium
+- 16:45:20 #82 Ocean medium Level 10: WIN in 44s, 3 stars, +45 coins -> Level 11 Ocean • Medium
+- 16:46:12 #83 Ocean medium Level 11: WIN in 45s, 3 stars, +45 coins -> Level 12 Ocean • Medium
+- 16:46:57 #84 Ocean medium Level 12: WIN in 41s, 3 stars, +45 coins -> Level 13 Ocean • Hard
+- 16:47:01 Persistence after ocean-medium: PASS (6/6).
+- 16:48:12 #85 Ocean hard Level 13: WIN in 60s, 3 stars, +60 coins -> Level 14 Ocean • Hard
+- 16:49:20 #86 Ocean hard Level 14: WIN in 63s, 3 stars, +60 coins -> Level 15 Ocean • Hard
+- 16:50:27 #87 Ocean hard Level 15: WIN in 61s, 3 stars, +60 coins -> Level 16 Ocean • Hard
+- 16:51:32 #88 Ocean hard Level 16: WIN in 60s, 3 stars, +60 coins -> Level 17 Ocean • Hard
+- 16:52:37 #89 Ocean hard Level 17: WIN in 58s, 3 stars, +60 coins -> Level 18 Ocean • Hard
+- 16:53:40 #90 Ocean hard Level 18: WIN in 59s, 3 stars, +60 coins -> screen-theme
+- 16:53:44 Persistence after ocean-hard: PASS (6/6).
+- 16:55:03 Reconcile: #64 sweets-medium level 10 is not in the save, it will be played again.
+- 16:55:03 Reconcile: #65 sweets-medium level 11 was blocked by that lost win, it will be retried.
+- 16:55:03 Reconcile: #66 sweets-medium level 12 was blocked by that lost win, it will be retried.
+- 16:55:03 Reconcile: #67 sweets-hard level 13 was blocked by that lost win, it will be retried.
+- 16:55:03 Reconcile: #68 sweets-hard level 14 was blocked by that lost win, it will be retried.
+- 16:55:03 Reconcile: #69 sweets-hard level 15 was blocked by that lost win, it will be retried.
+- 16:55:03 Reconcile: #70 sweets-hard level 16 was blocked by that lost win, it will be retried.
+- 16:55:03 Reconcile: #71 sweets-hard level 17 was blocked by that lost win, it will be retried.
+- 16:55:03 Reconcile: #72 sweets-hard level 18 was blocked by that lost win, it will be retried.
+- 16:55:59 #64 Sweets medium Level 10: WIN in 46s, 3 stars, +45 coins -> Level 11 Sweets • Medium
+- 16:56:48 #65 Sweets medium Level 11: WIN in 44s, 3 stars, +45 coins -> Level 12 Sweets • Medium
+- 16:57:40 #66 Sweets medium Level 12: WIN in 46s, 3 stars, +45 coins -> Level 13 Sweets • Hard
+- 16:57:44 Persistence after sweets-medium: PASS (6/6).
+- 16:58:56 #67 Sweets hard Level 13: WIN in 64s, 3 stars, +60 coins -> Level 14 Sweets • Hard
+- 17:00:02 #68 Sweets hard Level 14: WIN in 59s, 3 stars, +60 coins -> Level 15 Sweets • Hard
+- 17:01:11 #69 Sweets hard Level 15: WIN in 65s, 3 stars, +60 coins -> Level 16 Sweets • Hard
+- 17:02:22 #70 Sweets hard Level 16: WIN in 63s, 3 stars, +60 coins -> Level 17 Sweets • Hard
+- 17:03:28 #71 Sweets hard Level 17: WIN in 62s, 3 stars, +60 coins -> Level 18 Sweets • Hard
+- 17:04:36 #72 Sweets hard Level 18: WIN in 61s, 3 stars, +60 coins -> screen-theme
+- 17:04:40 Persistence after ocean-hard: PASS (6/6).
+- 17:05:08 #91 Halloween (event) easy Event 1: WIN in 21s, 3 stars, +30 coins -> screen-events
+- 17:05:35 #92 Halloween (event) easy Event 2: WIN in 19s, 3 stars, +30 coins -> screen-events
+- 17:06:00 #93 Halloween (event) easy Event 3: WIN in 20s, 3 stars, +30 coins -> screen-events
+- 17:06:28 #94 Halloween (event) easy Event 4: WIN in 19s, 3 stars, +30 coins -> screen-events
+- 17:06:31 Persistence after halloween-easy: PASS (4/4).
+- 17:07:21 #95 Halloween (event) medium Event 5: WIN in 42s, 3 stars, +45 coins -> screen-events
+- 17:08:10 #96 Halloween (event) medium Event 6: WIN in 41s, 3 stars, +45 coins -> screen-events
+- 17:08:58 #97 Halloween (event) medium Event 7: WIN in 42s, 3 stars, +45 coins -> screen-events
+- 17:09:48 #98 Halloween (event) medium Event 8: WIN in 42s, 3 stars, +45 coins -> screen-events
+- 17:09:52 Persistence after halloween-medium: PASS (8/4).
+- 17:11:06 #99 Halloween (event) hard Event 9: WIN in 66s, 3 stars, +60 coins -> screen-events
+- 17:12:11 #100 Halloween (event) hard Event 10: WIN in 57s, 3 stars, +60 coins -> screen-events
+- 17:13:18 #101 Halloween (event) hard Event 11: WIN in 61s, 3 stars, +60 coins -> screen-events
+- 17:14:27 #102 Halloween (event) hard Event 12: WIN in 61s, 3 stars, +60 coins -> screen-events
+- 17:17:06 FINAL: gallery 102, event 12/12, pumpkins 120, player level 1.

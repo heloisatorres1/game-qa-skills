@@ -106,11 +106,11 @@ figcaption{font-size:13px;color:var(--muted);margin-top:4px}figure.log,figure.re
     <span class="id">BUG-001</span>
     <span class="sev sev-major">major</span>
     <span class="tag">bug</span>
-    <span class="tag ok">confirmed · 4/4</span>
+    <span class="tag ok">confirmed · 12/12</span>
     <span class="tag">Win flow and rewards</span>
   </header>
   <h3>Level Complete popup closes on a tap outside it or Escape: the coin reward is never paid and the player is left on an empty board</h3>
-  <p class="small"><b>Environment:</b> Web, 390x844 touch. Runs 1-2: tap outside; runs 3-4: Escape key</p>
+  <p class="small"><b>Environment:</b> Web, 390x844 touch; 4 runs (2 tap outside, 2 Escape) in each of 3 sessions</p>
   <p><b>Preconditions:</b> Returning player with 100 coins</p>
   <b>Steps</b><ol><li>Win Flowers Easy level 1 (Level Complete shows &#39;+30&#39;)</li><li>Tap anywhere outside the popup card (or press Escape on a keyboard)</li></ol>
   <div class="ea">
@@ -260,11 +260,11 @@ figcaption{font-size:13px;color:var(--muted);margin-top:4px}figure.log,figure.re
     <span class="id">BUG-002</span>
     <span class="sev sev-major">major</span>
     <span class="tag">bug</span>
-    <span class="tag ok">confirmed · 2/2</span>
+    <span class="tag ok">confirmed · 3/3</span>
     <span class="tag">Phone portrait (360, 390, 412 px)</span>
   </header>
   <h3>Top bar overflows on 360-390 px phones: the Settings gear (menu) and the Close X (store) are cut or pushed off screen, completely from 9,999 coins</h3>
-  <p class="small"><b>Environment:</b> Web, touch, widths 360 / 390 / 412 px, 15 balance combinations per run</p>
+  <p class="small"><b>Environment:</b> Web, touch, widths 360 / 390 / 412 px, 15 balance combinations per run (2 runs) + a recorded store session (run 3). Both balances count: the bar grows with gems and coins</p>
   
   <b>Steps</b><ol><li>Open the game on a 360 px wide phone (a very common Android width) with 9,999 coins</li><li>Look at the top-right corner of the main menu, then open the Store</li></ol>
   <div class="ea">
@@ -272,7 +272,23 @@ figcaption{font-size:13px;color:var(--muted);margin-top:4px}figure.log,figure.re
     <div><b>Actual</b><p>360 px: gear 29 of 42 px visible at the starting balance, 0 px (fully off screen) at 9,999 and 98.8K/123.5K coins; the store has no visible Close X. 390 px: gear cut from 9,999 coins. 412 px: only the store X slightly cut at 98.8K/123.5K.</p></div>
   </div>
   <b>Evidence</b>
-  <div class="evidence"><figure><a href="test-ui/evidence/UI-20-run1-360-98_8K_123_5K-store-top.png"><img src="test-ui/evidence/UI-20-run1-360-98_8K_123_5K-store-top.png" alt="360 px store, 123.5K coins: no Close X" loading="lazy"></a><figcaption>360 px store, 123.5K coins: no Close X</figcaption></figure><figure><a href="test-ui/evidence/UI-20-run1-360-98_8K_123_5K-hud.png"><img src="test-ui/evidence/UI-20-run1-360-98_8K_123_5K-hud.png" alt="360 px menu: no Settings gear" loading="lazy"></a><figcaption>360 px menu: no Settings gear</figcaption></figure><figure><a href="test-ui/evidence/UI-20-run1-360-default-hud.png"><img src="test-ui/evidence/UI-20-run1-360-default-hud.png" alt="360 px, starting balance: gear already cut" loading="lazy"></a><figcaption>360 px, starting balance: gear already cut</figcaption></figure><figure><a href="test-ui/evidence/UI-20-run1-412-default-hud.png"><img src="test-ui/evidence/UI-20-run1-412-default-hud.png" alt="Control: 412 px fits" loading="lazy"></a><figcaption>Control: 412 px fits</figcaption></figure><figure class="log"><div class="logname"><a href="test-ui/evidence/UI-20-run1-top-bar.json">test-ui/evidence/UI-20-run1-top-bar.json</a></div><pre>[
+  <div class="evidence"><figure><video controls src="test-ui/evidence/UI-21-gear-pushed-off.webm"></video><figcaption>360 px: a near-new player buys gems and coins in the store; the Close X and then the Settings gear leave the screen</figcaption></figure><figure><a href="test-ui/evidence/UI-21-1-menu-100-coins.png"><img src="test-ui/evidence/UI-21-1-menu-100-coins.png" alt="Before: 100 coins, 20 gems, gear already half cut" loading="lazy"></a><figcaption>Before: 100 coins, 20 gems, gear already half cut</figcaption></figure><figure><a href="test-ui/evidence/UI-21-3-menu-9100-coins.png"><img src="test-ui/evidence/UI-21-3-menu-9100-coins.png" alt="After: 9,100 coins, 2,180 gems, no gear" loading="lazy"></a><figcaption>After: 9,100 coins, 2,180 gems, no gear</figcaption></figure><figure class="log"><div class="logname"><a href="test-ui/evidence/UI-21-state.json">test-ui/evidence/UI-21-state.json</a></div><pre>{
+  &quot;viewport&quot;: &quot;360x740&quot;,
+  &quot;steps&quot;: [
+    {
+      &quot;step&quot;: &quot;menu, 100 coins and 20 gems&quot;,
+      &quot;gear_visible_px&quot;: 29
+    },
+    {
+      &quot;step&quot;: &quot;store after buying 2 gem packs and coins (9,100 coins, 2,180 gems)&quot;,
+      &quot;close_x_visible_px&quot;: 0
+    },
+    {
+      &quot;step&quot;: &quot;menu, 9,100 coins and 2,180 gems&quot;,
+      &quot;gear_visible_px&quot;: 0
+    }
+  ]
+}</pre><figcaption>Visible px of gear / Close X at each step (29 -&gt; 0)</figcaption></figure><figure><a href="test-ui/evidence/UI-20-run1-360-98_8K_123_5K-store-top.png"><img src="test-ui/evidence/UI-20-run1-360-98_8K_123_5K-store-top.png" alt="360 px store, 123.5K coins: no Close X" loading="lazy"></a><figcaption>360 px store, 123.5K coins: no Close X</figcaption></figure><figure><a href="test-ui/evidence/UI-20-run1-360-98_8K_123_5K-hud.png"><img src="test-ui/evidence/UI-20-run1-360-98_8K_123_5K-hud.png" alt="360 px menu: no Settings gear" loading="lazy"></a><figcaption>360 px menu: no Settings gear</figcaption></figure><figure><a href="test-ui/evidence/UI-20-run1-360-default-hud.png"><img src="test-ui/evidence/UI-20-run1-360-default-hud.png" alt="360 px, starting balance: gear already cut" loading="lazy"></a><figcaption>360 px, starting balance: gear already cut</figcaption></figure><figure><a href="test-ui/evidence/UI-20-run1-412-default-hud.png"><img src="test-ui/evidence/UI-20-run1-412-default-hud.png" alt="Control: 412 px fits" loading="lazy"></a><figcaption>Control: 412 px fits</figcaption></figure><figure class="log"><div class="logname"><a href="test-ui/evidence/UI-20-run1-top-bar.json">test-ui/evidence/UI-20-run1-top-bar.json</a></div><pre>[
   {
     &quot;width&quot;: 360,
     &quot;balances&quot;: &quot;default&quot;,
@@ -765,11 +781,11 @@ figcaption{font-size:13px;color:var(--muted);margin-top:4px}figure.log,figure.re
     <span class="id">BUG-003</span>
     <span class="sev sev-major">major</span>
     <span class="tag">bug</span>
-    <span class="tag ok">confirmed · 2/2</span>
+    <span class="tag ok">confirmed · 4/4</span>
     <span class="tag">Ownership (No Ads, Special Offer)</span>
   </header>
   <h3>Store keeps selling the $4.99 Special Offer, which includes No Ads, to players who already own No Ads</h3>
-  
+  <p class="small"><b>Environment:</b> Web, 390x844 touch; 2 runs in each of 2 sessions</p>
   <p><b>Preconditions:</b> No Ads owned (bought alone for $2.99 or in an earlier offer)</p>
   <b>Steps</b><ol><li>Open the Store</li><li>Look at the Special Offer card</li><li>Tap $4.99</li></ol>
   <div class="ea">
@@ -814,11 +830,11 @@ figcaption{font-size:13px;color:var(--muted);margin-top:4px}figure.log,figure.re
     <span class="id">BUG-004</span>
     <span class="sev sev-minor">minor</span>
     <span class="tag">bug</span>
-    <span class="tag ok">confirmed · 3/3</span>
+    <span class="tag ok">confirmed · 5/5</span>
     <span class="tag">Slot limits</span>
   </header>
   <h3>Add Slot from the Out of Slots popup has no maximum: repeated fails grow the board to 10 squeezed slots (the booster stops at 7)</h3>
-  <p class="small"><b>Environment:</b> Web, 390x844 touch. Fails triggered with the debug &#39;Lose level&#39; (assisted); Add Slot and the ad are the real flow</p>
+  <p class="small"><b>Environment:</b> Web, 390x844 touch; 5 runs over 3 sessions. Fails triggered with the debug &#39;Lose level&#39; (assisted); Add Slot and the ad are the real flow</p>
   
   <b>Steps</b><ol><li>Start Flowers Easy level 1 (4 slots)</li><li>Run out of slots, tap &#39;Add Slot&#39; on the Out of Slots popup and watch the 3 s ad</li><li>Run out of slots again and repeat 6 times</li></ol>
   <div class="ea">

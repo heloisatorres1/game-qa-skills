@@ -1,0 +1,63 @@
+{
+  "steps": [
+    {
+      "reward": 0,
+      "coins": 500,
+      "gems": 0,
+      "toast": "Event reward: +500 coins",
+      "claimed": [
+        0
+      ]
+    },
+    {
+      "reward": 1,
+      "coins": 0,
+      "gems": 50,
+      "toast": "Event reward: +50 gems",
+      "claimed": [
+        0,
+        1
+      ]
+    },
+    {
+      "reward": 2,
+      "coins": 1500,
+      "gems": 0,
+      "toast": "Event reward: +1,500 coins",
+      "claimed": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "reward": 3,
+      "coins": 0,
+      "gems": 100,
+      "toast": "Event reward: +100 gems",
+      "claimed": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "reward": 4,
+      "coins": 3000,
+      "gems": 200,
+      "toast": "Event reward: +3,000 coins + 200 gems",
+      "claimed": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    }
+  ],
+  "claim_again": {
+    "toast": "Already claimed",
+    "coins_change": 0
+  }
+}

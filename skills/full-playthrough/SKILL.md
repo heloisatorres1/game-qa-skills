@@ -56,11 +56,28 @@ Statuses per item: `completed` (played legitimately), `assisted` (finished with 
 - Performance drifts over a long session (note frame hitches and memory growth; deep checks belong to `test-performance`).
 - Any text issue you see: note it for `text-review` (or file it with a screenshot).
 
+### Playing many levels with a script (web builds)
+
+A scripted player keeps 100+ levels consistent. Rules that keep it honest:
+
+- **Real input only.** Click what a player clicks (blocks, buttons) through the page. Never call the game's own auto-solve, skip or win functions; those make the row `assisted`.
+- **Derive moves from the rules or the published solution**, read from what is on screen (DOM classes, labels), not from hidden game objects.
+- **Time is not a cheat, but say how you saved it.** If the game sells a faster speed, buy it in its own store. If the currency for it came from a debug menu, log that as an economy aid in the inventory.
+- **Use a persistent browser profile** (`launchPersistentContext`) kept outside the repo, so the save survives between batches, and re-run the script until every row is final.
+- **One screenshot per level is enough** (the result screen), plus the start of each section; keep them small (1x scale, JPEG ~60%).
+
+A complete example: [`examples/pixel-swarm-playthrough/scripts/playthrough.mjs`](../../examples/pixel-swarm-playthrough/scripts/playthrough.mjs).
+
 ### Resumable progress (important for long games)
 
 Playthroughs are long and the session may be compacted or interrupted. After **each** item, `inventory.md` must be current. When resuming, read `inventory.md` first and continue from the first row that is not final. Never redo finished rows from memory; trust the file.
 
 Keep a running `playthrough-log.md` with one line per item: time, item, result, attempts, notes. It doubles as evidence of the route taken.
+
+**Reconcile on every start.** Stopping a run abruptly (a killed process, a session limit, a reboot) can lose the game's last save write: the inventory says a level was won, the save does not, and the game correctly keeps the next level locked. So at every start, compare the save with the inventory before playing: rows the save does not have go back to "not started" with a note, and rows marked blocked are retried. Without this, one lost write shows up as a chain of false "blocked" levels. Also:
+- keep the browser profile, a copy of the save after each level and the tools in a durable folder (not a temp folder), git-ignored;
+- prefer a time budget the script respects (`MAX_MINUTES`) to killing it; it stops between levels;
+- persistence checks taken during such an interruption are marked as harness events in the report, not counted as game results.
 
 ## 4. Bug handling during the run
 

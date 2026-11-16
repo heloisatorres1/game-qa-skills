@@ -78,7 +78,7 @@ export async function record(page, { maxWidth = 390, bitrate = 600_000 } = {}) {
         frames.filter((_, i) => i % step === 0).slice(0, keepFrames)
           .forEach((f, i) => fs.writeFileSync(path.join(framesDir, `frame-${i + 1}.jpg`), Buffer.from(f.data, 'base64')));
       }
-      const enc = await page.context().browser().newPage();
+      const bc = page.context(), enc = await (bc.browser() ? bc.browser().newPage() : bc.newPage()); // persistent profiles have no browser()
       const b64 = await enc.evaluate(async ([fr, bps]) => {
         const imgs = await Promise.all(fr.map((f) => new Promise((res) => { const im = new Image(); im.onload = () => res(im); im.src = 'data:image/jpeg;base64,' + f.data; })));
         const c = document.createElement('canvas'); c.width = imgs[0].width; c.height = imgs[0].height; document.body.appendChild(c);
