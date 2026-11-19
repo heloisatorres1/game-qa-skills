@@ -1,0 +1,101 @@
+{
+  "loginText": "Accepted usernames are: | standard_user | locked_out_user | problem_user | performance_glitch_user | error_user | visual_user | Password for all users: | secret_sauce",
+  "empty": {
+    "url": "https://www.saucedemo.com/",
+    "error": "Epic sadface: Username is required"
+  },
+  "noPassword": {
+    "url": "https://www.saucedemo.com/",
+    "error": "Epic sadface: Password is required"
+  },
+  "wrong": {
+    "url": "https://www.saucedemo.com/",
+    "error": "Epic sadface: Username and password do not match any user in this service"
+  },
+  "unknown": {
+    "url": "https://www.saucedemo.com/",
+    "error": "Epic sadface: Username and password do not match any user in this service"
+  },
+  "locked": {
+    "url": "https://www.saucedemo.com/",
+    "error": "Epic sadface: Sorry, this user has been locked out."
+  },
+  "caseUser": {
+    "url": "https://www.saucedemo.com/",
+    "error": "Epic sadface: Username and password do not match any user in this service"
+  },
+  "spaces": {
+    "url": "https://www.saucedemo.com/",
+    "error": "Epic sadface: Username and password do not match any user in this service"
+  },
+  "deepLinkLoggedOut": {
+    "url": "https://www.saucedemo.com/",
+    "error": "Epic sadface: You can only access '/inventory.html' when you are logged in."
+  },
+  "products": [
+    "Sauce Labs Backpack",
+    "Sauce Labs Bike Light",
+    "Sauce Labs Bolt T-Shirt",
+    "Sauce Labs Fleece Jacket",
+    "Sauce Labs Onesie",
+    "Test.allTheThings() T-Shirt (Red)"
+  ],
+  "prices": [
+    "$29.99",
+    "$9.99",
+    "$15.99",
+    "$49.99",
+    "$7.99",
+    "$15.99"
+  ],
+  "menu": [
+    "All Items",
+    "Dynamic Catalog",
+    "About",
+    "Logout",
+    "Reset App State"
+  ],
+  "sort_az": "Sauce Labs Backpack / $29.99",
+  "sort_za": "Test.allTheThings() T-Shirt (Red) / $15.99",
+  "sort_lohi": "Sauce Labs Onesie / $7.99",
+  "sort_hilo": "Sauce Labs Fleece Jacket / $49.99",
+  "emptyCartCheckoutUrl": "https://www.saucedemo.com/checkout-step-one.html",
+  "co_empty": "Error: First Name is required",
+  "co_noLast": "Error: Last Name is required",
+  "co_noZip": "Error: Postal Code is required",
+  "co_emptyCart_step2": {
+    "url": "https://www.saucedemo.com/checkout-step-two.html",
+    "total": "Total: $0.00",
+    "sub": "Item total: $0",
+    "tax": "Tax: $0.00"
+  },
+  "emptyCartFinish": {
+    "url": "https://www.saucedemo.com/checkout-complete.html",
+    "h": "Thank you for your order!"
+  },
+  "badgeAll": "6",
+  "co_spacesOnly": {
+    "url": "https://www.saucedemo.com/checkout-step-two.html",
+    "error": null
+  },
+  "allItemsTotals": {
+    "sub": "Item total: $129.94",
+    "tax": "Tax: $10.40",
+    "total": "Total: $140.34"
+  },
+  "afterReset": {
+    "badge": 0,
+    "removeButtons": 6
+  },
+  "logoutUrl": "https://www.saucedemo.com/",
+  "backAfterLogout": {
+    "url": "https://www.saucedemo.com/",
+    "error": "Epic sadface: You can only access '/inventory.html' when you are logged in."
+  },
+  "twoItems": {
+    "sub": "Item total: $39.98",
+    "tax": "Tax: $3.20",
+    "total": "Total: $43.18"
+  },
+  "longNameLen": 1000
+}

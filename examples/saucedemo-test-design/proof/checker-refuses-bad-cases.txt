@@ -1,0 +1,14 @@
+# The checker refuses a broken test-cases.json (5 cases damaged on purpose, menu happy cases removed)
+
+
+8 problem(s) found. Nothing was written.
+
+  ✗ case TC-LOGIN-001: expected result "works as expected" is too vague: write the exact message, value, page or state
+  ✗ case TC-LOGIN-002: missing "source" (the rule, file:line, URL or document section it checks)
+  ✗ case TC-LOGIN-004: duplicate id "TC-LOGIN-004"
+  ✗ case TC-LOGIN-004: missing "automation.reason"
+  ✗ case TC-LOGIN-004: a manual case cannot run in an automated CI stage (use "release" or "none")
+  ✗ case TC-LOGIN-005: missing "priority_reason"
+  ✗ feature F-MENU: has no happy path case
+  ✗ question Q-03: links case "TC-MENU-001" that does not exist
+exit code: 1

@@ -1,0 +1,102 @@
+{
+  "url": "https://www.saucedemo.com/cart.html",
+  "title": "Swag Labs",
+  "lang": "en",
+  "headings": [],
+  "forms": [],
+  "fieldsOutsideForms": [],
+  "buttonsOutsideForms": [
+    {
+      "text": "Open Menu",
+      "type": "button",
+      "visible": true
+    },
+    {
+      "text": "All Items",
+      "testId": "inventory-sidebar-link",
+      "visible": false
+    },
+    {
+      "text": "Dynamic Catalog",
+      "testId": "dynamic-catalog-sidebar-link",
+      "visible": false
+    },
+    {
+      "text": "Logout",
+      "testId": "logout-sidebar-link",
+      "visible": false
+    },
+    {
+      "text": "Reset App State",
+      "testId": "reset-sidebar-link",
+      "visible": false
+    },
+    {
+      "text": "Close Menu",
+      "type": "button",
+      "visible": false
+    },
+    {
+      "text": "Cart, empty",
+      "testId": "shopping-cart-link",
+      "visible": true
+    },
+    {
+      "text": "Continue Shopping",
+      "type": "submit",
+      "testId": "continue-shopping",
+      "visible": true
+    },
+    {
+      "text": "Checkout",
+      "type": "submit",
+      "testId": "checkout",
+      "visible": true
+    }
+  ],
+  "links": {
+    "total": 8,
+    "sameOrigin": 4,
+    "list": [
+      {
+        "text": "All Items",
+        "href": "https://www.saucedemo.com/cart.html#",
+        "testId": "inventory-sidebar-link"
+      },
+      {
+        "text": "Dynamic Catalog",
+        "href": "https://www.saucedemo.com/cart.html#",
+        "testId": "dynamic-catalog-sidebar-link"
+      },
+      {
+        "text": "Logout",
+        "href": "https://www.saucedemo.com/cart.html#",
+        "testId": "logout-sidebar-link"
+      },
+      {
+        "text": "Reset App State",
+        "href": "https://www.saucedemo.com/cart.html#",
+        "testId": "reset-sidebar-link"
+      }
+    ]
+  },
+  "images": {
+    "total": 3,
+    "withoutAlt": 0
+  },
+  "testIds": 23,
+  "errorsShown": [],
+  "storage": {
+    "localStorageKeys": [
+      "backtrace-guid",
+      "backtrace-last-active"
+    ],
+    "cookies": 1
+  },
+  "consoleErrors": [
+    {
+      "url": "https://www.saucedemo.com/cart.html",
+      "text": "Failed to load resource: the server responded with a status of 404 ()"
+    }
+  ]
+}

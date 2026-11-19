@@ -1,0 +1,38 @@
+# Fail on purpose: TC-CO-001 expected total changed from $43.18 to $43.19, then restored
+
+
+Running 1 test using 1 worker
+
+  x  1 [chromium] › tests\checkout.spec.ts:4:1 › TC-CO-001 buying two products shows the right totals and completes the order @push (6.0s)
+
+
+  1) [chromium] › tests\checkout.spec.ts:4:1 › TC-CO-001 buying two products shows the right totals and completes the order @push 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator:  locator('[data-test="total-label"]')
+    Expected: "Total: $43.19"
+    Received: "Total: $43.18"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveText" locator('[data-test="total-label"]') with timeout 5000ms
+      - waiting for locator('[data-test="total-label"]')
+        14 × locator resolved to <div data-test="total-label" class="summary_total_label">Total: $43.18</div>
+           - unexpected value "Total: $43.18"
+
+
+      16 |   await expect(page.locator('[data-test="subtotal-label"]')).toHaveText('Item total: $39.98');
+      17 |   await expect(page.locator('[data-test="tax-label"]')).toHaveText('Tax: $3.20');
+    > 18 |   await expect(page.locator('[data-test="total-label"]')).toHaveText('Total: $43.19');
+         |                                                           ^
+      19 |
+      20 |   // 4. Finish, then check the order is done and the cart is empty
+      21 |   await page.getByRole('button', { name: 'Finish' }).click();
+        at tests\checkout.spec.ts:18:59
+
+
+
+
+  1 failed
+    [chromium] › tests\checkout.spec.ts:4:1 › TC-CO-001 buying two products shows the right totals and completes the order @push 

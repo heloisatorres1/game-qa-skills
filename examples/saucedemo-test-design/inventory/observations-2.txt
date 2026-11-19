@@ -1,0 +1,16 @@
+about href https://saucelabs.com/
+lohi order Sauce Labs Onesie $7.99 | Sauce Labs Bike Light $9.99 | Sauce Labs Bolt T-Shirt $15.99 | Test.allTheThings() T-Shirt (Red) $15.99 | Sauce Labs Backpack $29.99 | Sauce Labs Fleece Jacket $49.99
+sort after back az Sauce Labs Backpack
+badge after reload 1
+badge after logout+login 1
+badge after removing last 0
+continue shopping url https://www.saucedemo.com/inventory.html
+onesie Tax: $0.64 Total: $8.63
+cancel step2 url https://www.saucedemo.com/inventory.html badge 1
+cancel step1 url https://www.saucedemo.com/cart.html
+badge after finish 0
+back after finish https://www.saucedemo.com/checkout-step-two.html Total: $0.00
+step2 logged out Epic sadface: You can only access '/checkout-step-two.html' when you are logged in.
+enter login https://www.saucedemo.com/inventory.html
+login time standard_user 39 ms
+login time performance_glitch_user 5051 ms

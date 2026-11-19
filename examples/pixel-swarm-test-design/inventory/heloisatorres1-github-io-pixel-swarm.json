@@ -1,0 +1,789 @@
+{
+  "url": "https://heloisatorres1.github.io/pixel-swarm/",
+  "title": "Pixel Swarm",
+  "lang": "en",
+  "headings": [
+    "h2: ",
+    "h1: ",
+    "h2: Store",
+    "h2: Activities",
+    "h2: Profile",
+    "h2: Welcome!",
+    "h2: Special Offer",
+    "h2: No Ads",
+    "h2: Skins",
+    "h3: Bee",
+    "h2: Collections",
+    "h2: Events",
+    "h2: Level Themes",
+    "h2: Levels",
+    "h3: Flowers",
+    "h2: Paused",
+    "h2: Level Complete!",
+    "h2: New Booster!",
+    "h3: Shuffle",
+    "h2: Out of Slots!",
+    "h2: Hello!",
+    "h2: How to Play",
+    "h2: Settings",
+    "h2: Speed Store",
+    "h2: Report",
+    "h2: Debug"
+  ],
+  "forms": [],
+  "fieldsOutsideForms": [
+    {
+      "tag": "input",
+      "type": "text",
+      "id": "name-input",
+      "label": "Player name",
+      "visible": false,
+      "maxlength": "14"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "id": "rp-title",
+      "label": "Title",
+      "placeholder": "e.g. Bees stop flying after a booster",
+      "visible": false,
+      "maxlength": "90",
+      "autocomplete": "off"
+    },
+    {
+      "tag": "textarea",
+      "type": "textarea",
+      "id": "rp-what",
+      "label": "What happened?",
+      "placeholder": "Describe what you saw",
+      "visible": false
+    },
+    {
+      "tag": "textarea",
+      "type": "textarea",
+      "id": "rp-expected",
+      "label": "What did you expect?",
+      "placeholder": "What should have happened instead",
+      "visible": false
+    },
+    {
+      "tag": "textarea",
+      "type": "textarea",
+      "id": "rp-steps",
+      "label": "Steps to reproduce (filled in from your last actions, edit as needed)",
+      "visible": false
+    },
+    {
+      "tag": "input",
+      "type": "checkbox",
+      "id": "rp-shot-on",
+      "label": "Include screenshot",
+      "visible": false
+    },
+    {
+      "tag": "input",
+      "type": "checkbox",
+      "id": "rp-save-on",
+      "label": "Include my progress (helps reproduce it)",
+      "visible": false
+    }
+  ],
+  "buttonsOutsideForms": [
+    {
+      "text": "Skip ›",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Next ›",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "1",
+      "type": "submit",
+      "visible": true
+    },
+    {
+      "text": "20",
+      "type": "submit",
+      "visible": true
+    },
+    {
+      "text": "100",
+      "type": "submit",
+      "visible": true
+    },
+    {
+      "text": "Settings",
+      "type": "submit",
+      "visible": true
+    },
+    {
+      "text": "Collections",
+      "type": "submit",
+      "visible": true
+    },
+    {
+      "text": "1Activities",
+      "type": "submit",
+      "visible": true
+    },
+    {
+      "text": "No Ads",
+      "type": "submit",
+      "visible": true
+    },
+    {
+      "text": "3d 8hEvents",
+      "type": "submit",
+      "visible": true
+    },
+    {
+      "text": "Levels",
+      "type": "submit",
+      "visible": true
+    },
+    {
+      "text": "Level 1",
+      "type": "submit",
+      "visible": true
+    },
+    {
+      "text": "1",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "X",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "X",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Daily Rewards",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Tasks",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Claim",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "X",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "✎",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "0–12",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "13–17",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "18+",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Confirm",
+      "type": "submit",
+      "disabled": true,
+      "visible": false
+    },
+    {
+      "text": "Terms of Service",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Privacy Policy",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "X",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "$4.99",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "X",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "No Ads$2.99",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "No Ads Bundle$5.99(+500 gems)",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Restore Purchases",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "1",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "20",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "X",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "X",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Gallery",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Achievements",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Bugs",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "‹",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "›",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "X",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "X",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "X",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "‹",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "›",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Settings",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Menu",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "1x",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "X",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Resume",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Restart",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "How to Play",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Speed Store",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Exit to Menu",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Claim x2",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Continue",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Claim",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Add Slot",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Try Again",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Give Up",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Let's play!",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "X",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Store",
+      "type": "submit",
+      "visible": true
+    },
+    {
+      "text": "Home",
+      "type": "submit",
+      "visible": true
+    },
+    {
+      "text": "Skins",
+      "type": "submit",
+      "visible": true
+    },
+    {
+      "text": "X",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Music",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Sounds",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Haptics",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Notifications",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Privacy Policy",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Terms of Service",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Report",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Copy",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "X",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "DBG",
+      "type": "submit",
+      "visible": true
+    },
+    {
+      "text": "X",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Clear marks",
+      "type": "button",
+      "visible": false
+    },
+    {
+      "text": "Send",
+      "type": "button",
+      "visible": false
+    },
+    {
+      "text": "X",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Tools",
+      "type": "button",
+      "visible": false
+    },
+    {
+      "text": "Logs 0",
+      "type": "button",
+      "visible": false
+    },
+    {
+      "text": "Win level",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Lose level",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Auto-solve",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Speed 5x",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "+1,000 coins",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "+100 gems",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Coins/gems = 0",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Unlock boosters +5",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Unlock all skins",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Toggle No Ads",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "+30 min speed boost",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Unlock 8x speed",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Unlock all levels",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Finish this theme's Easy",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Player level +1",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Player level 20",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Reset level progress",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Copy save code",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Load a save code",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "New daily reward",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Complete daily tasks",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Win 3 event levels",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "+20 pumpkins",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Age gate",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Special offer",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "New booster",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "New feature",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Tutorial",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Story cutscene",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Video ad",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Test notification (10 s)",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Mystery blocks",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Frozen blocks",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Hidden pixels",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Linked blocks",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Big pixels",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Pipe",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Key & lock",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Wood + hammer",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Cookie blocker",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Mystery links",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Simulate notch",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Performance overlay",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Benchmark: autoplay 10 min",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Stress: +300 bugs",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Report a bug (F8)",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Reset ALL data",
+      "type": "submit",
+      "visible": false
+    },
+    {
+      "text": "Copy",
+      "type": "button",
+      "visible": false
+    },
+    {
+      "text": "Share",
+      "type": "button",
+      "visible": false
+    },
+    {
+      "text": "Download",
+      "type": "button",
+      "visible": false
+    },
+    {
+      "text": "Clear",
+      "type": "button",
+      "visible": false
+    }
+  ],
+  "links": {
+    "total": 0,
+    "sameOrigin": 0,
+    "list": []
+  },
+  "images": {
+    "total": 80,
+    "withoutAlt": 0
+  },
+  "testIds": 0,
+  "errorsShown": [],
+  "storage": {
+    "localStorageKeys": [
+      "pixelswarm.log",
+      "pixelswarm.save.v1",
+      "pixelswarm.save.v1.backup"
+    ],
+    "cookies": 0
+  },
+  "consoleErrors": [
+    {
+      "url": "https://heloisatorres1.github.io/pixel-swarm/",
+      "text": "Failed to load resource: the server responded with a status of 404 ()"
+    }
+  ]
+}

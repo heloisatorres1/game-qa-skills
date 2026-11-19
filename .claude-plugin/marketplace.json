@@ -1,18 +1,18 @@
 {
-  "name": "game-qa-skills",
+  "name": "qa-skills",
   "owner": {
     "name": "Heloisa Oller Torres",
     "url": "https://github.com/heloisatorres1"
   },
   "metadata": {
-    "description": "Game QA skills for Claude Code by a game QA lead."
+    "description": "QA skills for Claude Code by a QA lead: test design for web and software, and game QA."
   },
   "plugins": [
     {
-      "name": "game-qa-skills",
+      "name": "qa-skills",
       "source": "./",
-      "description": "Engine-agnostic game QA: text-review, full-playthrough, test-game-full and its feature modules, with evidence-backed reports.",
-      "version": "0.1.0",
+      "description": "test-design (test cases, automation and CI/CD suggestions, approved by you before anything is built) plus engine-agnostic game QA: text-review, full-playthrough, test-game-full and its feature modules, with evidence-backed reports.",
+      "version": "0.2.0",
       "category": "testing"
     }
   ]

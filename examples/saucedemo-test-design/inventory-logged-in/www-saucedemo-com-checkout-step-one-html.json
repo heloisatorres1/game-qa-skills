@@ -1,0 +1,141 @@
+{
+  "url": "https://www.saucedemo.com/checkout-step-one.html",
+  "title": "Swag Labs",
+  "lang": "en",
+  "headings": [],
+  "forms": [
+    {
+      "index": 0,
+      "method": "get",
+      "fields": [
+        {
+          "tag": "input",
+          "type": "text",
+          "name": "firstName",
+          "id": "first-name",
+          "label": "First Name",
+          "placeholder": "First Name",
+          "testId": "firstName",
+          "visible": true
+        },
+        {
+          "tag": "input",
+          "type": "text",
+          "name": "lastName",
+          "id": "last-name",
+          "label": "Last Name",
+          "placeholder": "Last Name",
+          "testId": "lastName",
+          "visible": true
+        },
+        {
+          "tag": "input",
+          "type": "text",
+          "name": "postalCode",
+          "id": "postal-code",
+          "label": "Zip/Postal Code",
+          "placeholder": "Zip/Postal Code",
+          "testId": "postalCode",
+          "visible": true
+        }
+      ],
+      "buttons": [
+        {
+          "text": "Cancel",
+          "type": "submit",
+          "testId": "cancel",
+          "visible": true
+        },
+        {
+          "text": "Continue",
+          "type": "submit",
+          "testId": "continue",
+          "visible": true
+        }
+      ]
+    }
+  ],
+  "fieldsOutsideForms": [],
+  "buttonsOutsideForms": [
+    {
+      "text": "Open Menu",
+      "type": "button",
+      "visible": true
+    },
+    {
+      "text": "All Items",
+      "testId": "inventory-sidebar-link",
+      "visible": false
+    },
+    {
+      "text": "Dynamic Catalog",
+      "testId": "dynamic-catalog-sidebar-link",
+      "visible": false
+    },
+    {
+      "text": "Logout",
+      "testId": "logout-sidebar-link",
+      "visible": false
+    },
+    {
+      "text": "Reset App State",
+      "testId": "reset-sidebar-link",
+      "visible": false
+    },
+    {
+      "text": "Close Menu",
+      "type": "button",
+      "visible": false
+    },
+    {
+      "text": "Cart, empty",
+      "testId": "shopping-cart-link",
+      "visible": true
+    }
+  ],
+  "links": {
+    "total": 8,
+    "sameOrigin": 4,
+    "list": [
+      {
+        "text": "All Items",
+        "href": "https://www.saucedemo.com/checkout-step-one.html#",
+        "testId": "inventory-sidebar-link"
+      },
+      {
+        "text": "Dynamic Catalog",
+        "href": "https://www.saucedemo.com/checkout-step-one.html#",
+        "testId": "dynamic-catalog-sidebar-link"
+      },
+      {
+        "text": "Logout",
+        "href": "https://www.saucedemo.com/checkout-step-one.html#",
+        "testId": "logout-sidebar-link"
+      },
+      {
+        "text": "Reset App State",
+        "href": "https://www.saucedemo.com/checkout-step-one.html#",
+        "testId": "reset-sidebar-link"
+      }
+    ]
+  },
+  "images": {
+    "total": 3,
+    "withoutAlt": 0
+  },
+  "testIds": 23,
+  "errorsShown": [],
+  "storage": {
+    "localStorageKeys": [
+      "backtrace-guid",
+      "backtrace-last-active"
+    ],
+    "cookies": 1
+  },
+  "consoleErrors": [
+    {
+      "url": "https://www.saucedemo.com/checkout-step-one.html",
+      "text": "Failed to load resource: the server responded with a status of 404 ()"
+    }
+  ]
+}

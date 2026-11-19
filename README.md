@@ -1,8 +1,9 @@
-# Game QA Skills for Claude Code
+# QA Skills for Claude Code
 
-Engine-agnostic game testing skills for [Claude Code](https://claude.com/claude-code). Each one turns the agent into a careful game tester. It finds the problems **and proves them** with screenshots, state reads, logs and `file:line` references, then writes a report a developer or producer can act on.
+QA skills for [Claude Code](https://claude.com/claude-code), written by a QA lead. They hold the agent to the rules a QA lead holds human testers to.
 
-Unity, Godot, Unreal, web, desktop or mobile: the skills only need a playable build, the source, or both.
+- **[`test-design`](skills/test-design/SKILL.md)** reads a website, app, game, source code or a spec. It suggests test cases (happy path, negative path, edge cases), what to automate, a CI/CD plan and the tools. You approve before anything is built. It works for any software and is strongest on the web. [Examples](#example-test-design-on-saucedemo-and-pixel-swarm).
+- **The game skills** find problems in any engine **and prove them** with screenshots, state reads, logs and `file:line` references. They then write a report a developer or producer can act on. Unity, Godot, Unreal, web, desktop or mobile: they only need a playable build, the source, or both.
 
 ![Generated QA report for Pixel Swarm](docs/report-preview.png)
 
@@ -37,8 +38,9 @@ The report builder enforces these rules: it refuses a `findings.json` with a "co
 
 ## The skills
 
-| Skill | What it does | Proven on Pixel Swarm |
+| Skill | What it does | Proven on |
 |---|---|---|
+| [`test-design`](skills/test-design/SKILL.md) | Reads a site, app, game, code or document and suggests test cases with named techniques (equivalence partitioning, boundary values, decision tables, state transitions), each with a source, a risk priority and an automation level. Adds an automation plan: CI/CD stages and tool options such as Allure. **Suggests only.** It builds starter tests and a CI file after you approve the cases and pick the tools, and proves them (3 runs in a row, plus one deliberate failure). A checker refuses vague or unsourced cases. | **SauceDemo** (site only): 54 cases, 12 questions. 13 approved tests: 11 passed 3/3, 2 failed 4/4 on real product faults. [Example](examples/saucedemo-test-design/README.md) · **Pixel Swarm** (code + build): 31 cases that cover 4 of the 5 main known bugs. [Example](examples/pixel-swarm-test-design/README.md) |
 | [`text-review`](skills/text-review/SKILL.md) | Pulls every player-facing string from any engine (HTML, JSON, CSV/PO/XLIFF tables, Android/iOS strings, Godot scenes, Unity YAML, string literals in code), checks spelling, grammar, terms, placeholders and plurals, then screenshots the text in the running game to catch overlap and truncation. | 861 strings checked, 0 spelling errors, 6 text issues (2 only visible in the game) and 3 queries. [Report](examples/pixel-swarm-text-review/report.md) |
 | [`full-playthrough`](skills/full-playthrough/SKILL.md) | Finishes the whole game: every level, theme, mode and ending. It builds a content inventory from the game data first, so locked or hidden content is not missed. It checks rewards and unlocks along the way, keeps a progress log it can resume from, and labels anything finished with cheats as `assisted`. | **102/102 levels** completed with real taps in 1 h 34 min (1 h 12 min of play), every reward and save checked. Found [BUG-008](FOUND-BUGS.md#bug-008-player-xp-never-grows-the-player-stays-level-1-forever). [Results](examples/pixel-swarm-playthrough/README.md) |
 | [`test-game-full`](skills/test-game-full/SKILL.md) | The test lead. Detects which features the game has, writes a test plan, runs a smoke gate, then runs the matching feature skills and merges their results into one report with a release verdict. | 80 checks in 8 modules, 7 bugs (3 major), verdict "not ready for a store release". [Summary](examples/pixel-swarm-full/summary.md) |
@@ -50,7 +52,7 @@ The report builder enforces these rules: it refuses a `findings.json` with a "co
 | [`test-performance`](skills/test-performance/SKILL.md) | Boot and load times, frame time and 1% lows, memory over long sessions, throttled runs. Every number is measured against a budget, with 3 runs and the raw data. | 4/4 budgets met: boot 3.1 s, 1% low 58 fps at 4× CPU throttle, memory stable. |
 | [`qa-evidence`](skills/qa-evidence/SKILL.md) | The shared standard all skills follow: how to reach the game, how to capture proof, statuses, severities and the `findings.json` format. Tools: the report builder (it enforces the rules), a Playwright harness that records **video without ffmpeg** and saves results crash-safe, and an evidence pruner. | Used by every run here: videos for every major bug, storyboards, and reports that refuse a bug without proof. |
 
-"Proven" means a real run on my game [Pixel Swarm](https://github.com/heloisatorres1/pixel-swarm) v1.0.0, with every result in [examples](examples/README.md) and every bug in [FOUND-BUGS.md](FOUND-BUGS.md).
+"Proven" means a real run: on my game [Pixel Swarm](https://github.com/heloisatorres1/pixel-swarm) v1.0.0, or on the public practice shop [SauceDemo](https://www.saucedemo.com/) for `test-design`. Every result is in [examples](examples/README.md) and every bug in [FOUND-BUGS.md](FOUND-BUGS.md).
 
 The full list of features `test-game-full` can cover, and how far an AI agent can go with each, is in the [feature catalog](skills/test-game-full/references/feature-catalog.md).
 
@@ -66,6 +68,22 @@ flowchart LR
 ```
 
 Each skill also works on its own. Start with `text-review`: it's the quickest to try.
+
+## Example: test-design on SauceDemo and Pixel Swarm
+
+`test-design` works in two phases. **Phase A** suggests: it writes test cases, questions and an automation plan, then stops and asks. **Phase B** builds only what you approved, with the tools you picked.
+
+**On [SauceDemo](https://www.saucedemo.com/)**, read from the live site only ([results](examples/saucedemo-test-design/README.md)):
+
+- **54 cases** in 8 features: 20 happy, 13 negative and 21 edge. Every expected result is an exact message or value seen on the site.
+- **12 questions for the team.** Among them: an empty cart can be bought for $0.00, and a product URL with an unknown ID can be added to the cart. That leaves the badge at 1 with an empty cart list.
+- **An automation plan.** It covers Playwright, the built-in report vs Allure, GitHub Actions stages, and the honest note that all tests sit at UI level because there is no code or API.
+- **After approval, 13 Playwright tests.** The 11 P1 tests passed 3 runs in a row. One deliberate failure proved a test can fail. The 2 user-type tests failed every run on real product faults, and were reported instead of being "fixed".
+
+**On Pixel Swarm**, read from the source code ([results](examples/pixel-swarm-test-design/README.md)):
+
+- **31 cases with code references.** Cases come from gaps between two places in the code, such as the slot limit that the Out of Slots path skips.
+- **4 of the 5 main known bugs covered.** This was not a blind test, as the example explains.
 
 ## Example: full playthrough of Pixel Swarm (102/102 levels)
 
@@ -108,8 +126,8 @@ I ran `text-review` on my own web game, [Pixel Swarm](https://github.com/heloisa
 In Claude Code:
 
 ```
-/plugin marketplace add heloisatorres1/game-qa-skills
-/plugin install game-qa-skills@game-qa-skills
+/plugin marketplace add heloisatorres1/qa-skills
+/plugin install qa-skills@qa-skills
 ```
 
 Or copy any folder from `skills/` into your project's `.claude/skills/` (or `~/.claude/skills/` for all projects). Keep `qa-evidence` next to the others, because they all use it.
@@ -118,9 +136,11 @@ Or copy any folder from `skills/` into your project's `.claude/skills/` (or `~/.
 
 ## Use
 
-Ask in plain language, or call a skill by name (installed as a plugin, the names get a prefix: `/game-qa-skills:text-review`):
+Ask in plain language, or call a skill by name (installed as a plugin, the names get a prefix: `/qa-skills:test-design`):
 
 ```
+/test-design https://my-shop.example.com  scope: login and checkout
+Suggest test cases and what to automate for ./my-app, reading the code and docs/spec.pdf
 /text-review ./my-game
 Proofread all the player-facing text in this project and show me proof in the running build at http://localhost:8080
 /test-store
@@ -136,6 +156,8 @@ evidence/       # screenshots, crops, state dumps, logs, save diffs
 report.md       # paste into Jira, GitHub or Slack
 report.html     # self-contained page (use --embed to inline the images)
 ```
+
+`test-design` writes `test-cases.json` (its source of truth), `test-cases.md`, `test-cases.csv`, `coverage.md`, `questions.md` and `automation-plan.md` instead. Its checker is `node skills/test-design/scripts/build-cases.mjs <run>/test-cases.json`.
 
 You can also build a report from any `findings.json` yourself:
 
@@ -153,6 +175,8 @@ These skills make an agent a disciplined tester. They do not replace one. An age
 .claude-plugin/        plugin + marketplace manifests
 skills/<name>/         SKILL.md, references/, scripts/
 examples/              real runs with evidence and reports (index: examples/README.md)
+  saucedemo-test-design/     test-design: 54 cases, automation plan, 13 approved and proven Playwright tests
+  pixel-swarm-test-design/   test-design from code: 31 cases, 6 questions, plan waiting for approval
   pixel-swarm-playthrough/   full-playthrough: 102/102 levels, completion report
   pixel-swarm-full/          test-game-full: 80 checks, merged report, summary
   pixel-swarm-text-review/   text-review: 861 strings, term sheet

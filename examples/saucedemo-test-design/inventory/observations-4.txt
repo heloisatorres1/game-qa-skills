@@ -1,0 +1,8 @@
+run 1 localStorage cart: [99]
+run 1 cart page url https://www.saucedemo.com/cart.html body text length 167
+run 1 product list after: items 6, badge 1
+run 1 page errors: []
+run 2 localStorage cart: [99]
+run 2 cart page url https://www.saucedemo.com/cart.html body text length 167
+run 2 product list after: items 6, badge 1
+run 2 page errors: []

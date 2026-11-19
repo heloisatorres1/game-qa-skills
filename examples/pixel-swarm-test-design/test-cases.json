@@ -1,0 +1,465 @@
+{
+  "run": {
+    "product": "Pixel Swarm",
+    "version": "1.0.0 (debug build on GitHub Pages)",
+    "date": "2026-11-19",
+    "scope": "Store and currencies, boosters and slots, Level Complete rewards, player XP and level locks, player name. Read from the source code and the live build.",
+    "summary": "A casual web puzzle game: bees eat a pixel picture color by color from limited slots. Players earn coins by winning levels and spend coins and gems on boosters and speed; real-money items are test purchases in this build.",
+    "inputs": [
+      { "kind": "code", "ref": "Pixel Swarm repository: js/app.js, js/data.js, index.html (inventory/rules.md)" },
+      { "kind": "url", "ref": "https://heloisatorres1.github.io/pixel-swarm/ (inventory/inventory.md)" }
+    ],
+    "risks": [
+      "Currencies and purchases: a wrong charge or a lost reward breaks trust",
+      "No Ads is a paid entitlement and must never be sold twice",
+      "Slot limits decide whether a level is fair",
+      "Level-gated content must unlock through play"
+    ],
+    "existing_tests": "A debug self-test in the game (js/app.js around line 2700 and 2890: save slots, report form). No automated test suite in the repository.",
+    "approval": { "status": "pending" }
+  },
+  "features": [
+    {
+      "id": "F-STORE",
+      "name": "Store and currencies",
+      "risk": "high",
+      "risk_reason": "Money and paid entitlements",
+      "sources": ["js/app.js:61-76 (PRODUCTS)", "js/app.js:310-394 (renderStore, grant, buy)"],
+      "rules": [
+        { "id": "R-STORE-1", "text": "Gem packs: 100 for $0.99, 550 for $4.99, 1,200 for $9.99", "source": "js/app.js:65-69" },
+        { "id": "R-STORE-2", "text": "Coin packs bought with gems: 1,000 for 30 gems, 5,000 for 120, 12,000 for 250", "source": "js/app.js:70-74" },
+        { "id": "R-STORE-3", "text": "Not enough gems for a coin pack: toast 'Not enough gems (need <price>)' and nothing changes", "source": "js/app.js:391" },
+        { "id": "R-STORE-4", "text": "Special Offer $4.99: +1,200 gems, +10,000 coins and No Ads", "source": "js/app.js:62, js/app.js:376-378" },
+        { "id": "R-STORE-5", "text": "No Ads $2.99; once owned the card shows a disabled 'Owned' button", "source": "js/app.js:324-326" },
+        { "id": "R-STORE-6", "text": "Free Coins: +100 per video, 5 per local day; the button is disabled at 0 left", "source": "js/app.js:75, js/app.js:302-308, js/app.js:357-359" },
+        { "id": "R-STORE-7", "text": "Restore: 'No Ads is already active' when owned, else 'No purchases to restore (test mode)'", "source": "js/app.js:3003" }
+      ]
+    },
+    {
+      "id": "F-BOOST",
+      "name": "Boosters and slots",
+      "risk": "high",
+      "risk_reason": "Boosters decide whether a level can be won; they are bought with currency",
+      "sources": ["js/app.js:1125-1130 (BOOSTERS)", "js/app.js:2112-2132 (useBooster)", "js/app.js:2681 (fail-addslot)"],
+      "rules": [
+        { "id": "R-BOOST-1", "text": "Unlock levels: Add Slot at 0, Shuffle at 11, Wind at 14, Free Pick at 16 completed levels", "source": "js/app.js:1126-1129" },
+        { "id": "R-BOOST-2", "text": "Using a booster with none left: toast 'No <name> left'", "source": "js/app.js:2120" },
+        { "id": "R-BOOST-3", "text": "Add Slot stops at 7 slots: toast 'Maximum slots reached'", "source": "js/app.js:2122" },
+        { "id": "R-BOOST-4", "text": "Out of Slots offers +1 slot after a video ad (fail-addslot); this path has no slot check", "source": "js/app.js:2681" }
+      ]
+    },
+    {
+      "id": "F-WIN",
+      "name": "Level Complete and rewards",
+      "risk": "high",
+      "risk_reason": "The reward for every win; ads shown between wins",
+      "sources": ["js/app.js:1123 (WIN_COINS)", "js/app.js:2175-2210 (showWin, finishWin)", "index.html:423-440 (popup-complete)"],
+      "rules": [
+        { "id": "R-WIN-1", "text": "Win reward: 30 coins easy, 45 medium, 60 hard", "source": "js/app.js:1123" },
+        { "id": "R-WIN-2", "text": "Claim x2 doubles the reward after a video ad; Continue pays it once", "source": "js/app.js:2195-2197, js/app.js:2679-2680, index.html:436-437" },
+        { "id": "R-WIN-3", "text": "A video ad every 2 wins in a row, unless No Ads is owned or Claim x2 was used", "source": "js/app.js:2207-2209" },
+        { "id": "R-WIN-4", "text": "Pop-ups marked data-locked close only by code; Out of Slots has it, Level Complete does not. A tap on the dark overlay closes an unlocked pop-up", "source": "js/app.js:229-232, js/app.js:3028, index.html:423 vs index.html:458" }
+      ]
+    },
+    {
+      "id": "F-XP",
+      "name": "Player XP and level locks",
+      "risk": "medium",
+      "risk_reason": "Avatars, skins and wardrobe items unlock at player levels",
+      "sources": ["js/app.js:10-12 (state)", "js/app.js:150-151, 575 (XP bar)", "js/app.js:578, 761, 816, 829 (level locks)"],
+      "rules": [
+        { "id": "R-XP-1", "text": "New player: level 1, XP bar out of 2", "source": "js/app.js:10-12" },
+        { "id": "R-XP-2", "text": "Items locked below a player level show 'Unlocks at player level <n>'", "source": "js/app.js:816, js/app.js:829" },
+        { "id": "R-XP-3", "text": "Only the debug menu changes playerLevel or xp; no gameplay code adds XP", "source": "js/app.js:2611-2612; search for 'state.xp' finds no increment" }
+      ]
+    },
+    {
+      "id": "F-NAME",
+      "name": "Player name",
+      "risk": "low",
+      "risk_reason": "Shown in the profile only",
+      "sources": ["https://heloisatorres1.github.io/pixel-swarm/ profile pop-up (inventory/inventory.md: name-input maxlength=14)"],
+      "rules": [
+        { "id": "R-NAME-1", "text": "The name field accepts up to 14 characters", "source": "inventory/inventory.md: name-input maxlength=14" }
+      ]
+    },
+    {
+      "id": "F-BUILD",
+      "name": "Release build",
+      "risk": "high",
+      "risk_reason": "The debug menu gives free currency; it must not ship",
+      "sources": ["js/app.js:80 (const DEBUG = true)", "scripts/build.mjs:23, 33"],
+      "rules": [
+        { "id": "R-BUILD-1", "text": "The build script sets DEBUG to false for a release build; the DBG button is hidden when DEBUG is false", "source": "scripts/build.mjs:23, js/app.js:3132" }
+      ],
+      "gaps": "One build switch: a happy case and a negative case cover it; no edge input."
+    }
+  ],
+  "cases": [
+    {
+      "id": "TC-STORE-001", "feature": "F-STORE",
+      "title": "Buying 1,000 coins for 30 gems moves the exact amounts",
+      "type": "happy", "technique": "equivalence-partitioning",
+      "priority": "P1", "priority_reason": "Currency exchange: every number must be exact",
+      "preconditions": ["Fresh save, then 100 gems and 0 coins (debug: zero, then gems)"],
+      "steps": ["Open the Store", "Tap the 1,000 coins pack (30 gems)"],
+      "expected": ["Gems 100 -> 70, coins 0 -> 1,000, in the HUD and in the save (localStorage pixelswarm.save.v1)", "Toast '+1,000 coins'"],
+      "automation": { "level": "ui", "reason": "Exact numbers readable from the save; runs on every change", "ci_stage": "push" },
+      "source": "R-STORE-2", "status": "suggested"
+    },
+    {
+      "id": "TC-STORE-002", "feature": "F-STORE",
+      "title": "Coin pack with too few gems is refused and nothing changes",
+      "type": "negative", "technique": "boundary-value",
+      "priority": "P1", "priority_reason": "A refused purchase must never charge",
+      "preconditions": ["29 gems, 0 coins (debug: zero, then gems; spend to 29, or edit the save)"],
+      "data": "29 gems vs a 30-gem pack (one below the price)",
+      "steps": ["Open the Store", "Tap the 1,000 coins pack"],
+      "expected": ["Toast 'Not enough gems (need 30)'", "Gems stay 29, coins stay 0"],
+      "automation": { "level": "ui", "reason": "Money rule at the boundary", "ci_stage": "pr" },
+      "source": "R-STORE-3", "status": "suggested"
+    },
+    {
+      "id": "TC-STORE-003", "feature": "F-STORE",
+      "title": "Coin pack with exactly the price in gems leaves 0 gems",
+      "type": "edge", "technique": "boundary-value",
+      "priority": "P2", "priority_reason": "On-the-boundary purchase",
+      "preconditions": ["Exactly 30 gems, 0 coins"],
+      "steps": ["Open the Store", "Tap the 1,000 coins pack"],
+      "expected": ["Gems 30 -> 0, coins 0 -> 1,000"],
+      "automation": { "level": "ui", "reason": "Cheap boundary check", "ci_stage": "pr" },
+      "source": "R-STORE-2; R-STORE-3 (state.gems < c.gems)", "status": "suggested"
+    },
+    {
+      "id": "TC-STORE-004", "feature": "F-STORE",
+      "title": "Each gem pack adds its exact amount",
+      "type": "happy", "technique": "equivalence-partitioning",
+      "priority": "P2", "priority_reason": "Paid items in the real app",
+      "preconditions": ["0 gems"],
+      "data": "100, 550 and 1,200 gem packs",
+      "steps": ["Buy the 100 pack", "Buy the 550 pack", "Buy the 1,200 pack"],
+      "expected": ["Gems after each: 100, 650, 1,850", "Toasts 'Test purchase: +100 gems', '+550 gems', '+1,200 gems'"],
+      "automation": { "level": "ui", "reason": "Data-driven, three rows", "ci_stage": "pr" },
+      "source": "R-STORE-1", "status": "suggested"
+    },
+    {
+      "id": "TC-STORE-005", "feature": "F-STORE",
+      "title": "No Ads purchase removes the banner and shows Owned",
+      "type": "happy", "technique": "state-transition",
+      "priority": "P1", "priority_reason": "Paid entitlement",
+      "preconditions": ["Fresh save, No Ads not owned"],
+      "steps": ["Open the Store", "Tap No Ads ($2.99)", "Reload the game"],
+      "expected": ["Toast 'Test purchase: No Ads activated'", "The No Ads card shows a disabled 'Owned' button", "After reload: still Owned, no banner in a level"],
+      "automation": { "level": "ui", "reason": "Entitlement must survive reloads", "ci_stage": "push" },
+      "source": "R-STORE-5", "status": "suggested"
+    },
+    {
+      "id": "TC-STORE-006", "feature": "F-STORE",
+      "title": "A player who owns No Ads is not sold No Ads again in the Special Offer",
+      "type": "negative", "technique": "decision-table",
+      "priority": "P1", "priority_reason": "Charging twice for an entitlement is a refund and trust problem",
+      "preconditions": ["No Ads owned"],
+      "steps": ["Open the Store", "Look at the Special Offer card"],
+      "expected": ["The offer either hides No Ads, shows it as owned, or is replaced; its price is not charged for No Ads again"],
+      "automation": { "level": "ui", "reason": "Cheap check once the rule is decided", "ci_stage": "pr" },
+      "source": "R-STORE-4 and R-STORE-5: the No Ads card checks state.noAds (js/app.js:324) but the offer card (js/app.js:314-318) does not; the offer pop-up does (js/app.js:698)",
+      "assumption": "An owned entitlement should not be sold again (Q-01)", "status": "suggested"
+    },
+    {
+      "id": "TC-STORE-007", "feature": "F-STORE",
+      "title": "Special Offer grants 1,200 gems, 10,000 coins and No Ads",
+      "type": "happy", "technique": "use-case",
+      "priority": "P1", "priority_reason": "Biggest bundle",
+      "preconditions": ["Fresh save: 0 gems, 0 coins, No Ads not owned"],
+      "steps": ["Open the Store", "Tap the Special Offer ($4.99)"],
+      "expected": ["Gems 1,200, coins 10,000, No Ads owned", "Toast 'Test purchase: +1,200 gems, +10,000 coins, No Ads'"],
+      "automation": { "level": "ui", "reason": "Exact numbers from the save", "ci_stage": "pr" },
+      "source": "R-STORE-4", "status": "suggested"
+    },
+    {
+      "id": "TC-STORE-008", "feature": "F-STORE",
+      "title": "Free Coins stop after the 5th video of the day",
+      "type": "edge", "technique": "boundary-value",
+      "priority": "P2", "priority_reason": "Daily cap on a free currency source",
+      "preconditions": ["Fresh day: 5 free videos left"],
+      "steps": ["Watch Free Coins 5 times", "Look at the button"],
+      "expected": ["Coins +100 each time (+500 total)", "The card says '0 left today' and the Watch button is disabled"],
+      "automation": { "level": "ui", "reason": "Boundary at 5; the test ad must be skippable in tests", "ci_stage": "nightly" },
+      "source": "R-STORE-6", "status": "suggested"
+    },
+    {
+      "id": "TC-STORE-009", "feature": "F-STORE",
+      "title": "Free Coins reset at the player's local midnight",
+      "type": "edge", "technique": "state-transition",
+      "priority": "P3", "priority_reason": "Time-based reset, low money impact",
+      "preconditions": ["0 free videos left today"],
+      "steps": ["Move the device clock to the next local day (or the browser clock in the test)", "Open the Store"],
+      "expected": ["The card says '5 left today' and Watch is enabled"],
+      "automation": { "level": "ui", "reason": "Playwright can fake the clock", "ci_stage": "nightly" },
+      "source": "R-STORE-6 (dayKey uses local time, js/app.js:302)", "status": "suggested"
+    },
+    {
+      "id": "TC-STORE-010", "feature": "F-STORE",
+      "title": "Restore purchases says No Ads is active when owned",
+      "type": "happy", "technique": "equivalence-partitioning",
+      "priority": "P3", "priority_reason": "Test-mode message only in this build",
+      "preconditions": ["No Ads owned"],
+      "steps": ["Open Settings or the Store", "Tap Restore"],
+      "expected": ["Toast 'No Ads is already active'"],
+      "automation": { "level": "ui", "reason": "Cheap", "ci_stage": "nightly" },
+      "source": "R-STORE-7", "status": "suggested"
+    },
+    {
+      "id": "TC-STORE-011", "feature": "F-STORE",
+      "title": "Double tap on a coin pack charges once",
+      "type": "edge", "technique": "error-guessing",
+      "priority": "P2", "priority_reason": "Double charges are a classic store bug",
+      "preconditions": ["100 gems, 0 coins"],
+      "steps": ["Double tap the 1,000 coins pack quickly"],
+      "expected": ["Either one purchase (gems 70, coins 1,000) or two clearly confirmed purchases (gems 40, coins 2,000); never a charge without the coins"],
+      "automation": { "level": "manual", "reason": "Decide first whether two quick taps should mean two purchases (Q-02)", "ci_stage": "release" },
+      "source": "error-guessing: buy() has no pending guard (js/app.js:374-394)",
+      "assumption": "Each tap is a separate purchase today; a confirm step may be wanted (Q-02)", "status": "suggested"
+    },
+    {
+      "id": "TC-BOOST-001", "feature": "F-BOOST",
+      "title": "Add Slot adds one slot and uses one booster",
+      "type": "happy", "technique": "use-case",
+      "priority": "P1", "priority_reason": "Main booster",
+      "preconditions": ["In a level with the default slots, 1 Add Slot booster"],
+      "steps": ["Tap Add Slot"],
+      "expected": ["One more slot appears", "Toast '+1 slot'", "Add Slot count drops by 1"],
+      "automation": { "level": "ui", "reason": "Core booster", "ci_stage": "pr" },
+      "source": "R-BOOST-3 (js/app.js:2123)", "status": "suggested"
+    },
+    {
+      "id": "TC-BOOST-002", "feature": "F-BOOST",
+      "title": "Add Slot at 7 slots is refused and does not use a booster",
+      "type": "edge", "technique": "boundary-value",
+      "priority": "P1", "priority_reason": "Limit that keeps levels fair",
+      "preconditions": ["In a level, 7 slots already (add slots until 7), at least 1 Add Slot left"],
+      "steps": ["Tap Add Slot"],
+      "expected": ["Toast 'Maximum slots reached'", "Still 7 slots", "Add Slot count unchanged"],
+      "automation": { "level": "ui", "reason": "Boundary from the code", "ci_stage": "pr" },
+      "source": "R-BOOST-3", "status": "suggested"
+    },
+    {
+      "id": "TC-BOOST-003", "feature": "F-BOOST",
+      "title": "+1 slot from Out of Slots respects the same 7-slot limit",
+      "type": "edge", "technique": "boundary-value",
+      "priority": "P2", "priority_reason": "Two paths to one limit should agree",
+      "preconditions": ["In a level with 7 slots, run out of slots (debug: lose)"],
+      "steps": ["On Out of Slots, tap the +1 slot option", "Watch the test ad"],
+      "expected": ["No eighth slot is added, or the option is not offered at 7"],
+      "automation": { "level": "ui", "reason": "Same boundary as TC-BOOST-002 on the other path", "ci_stage": "pr" },
+      "source": "R-BOOST-4: js/app.js:2681 pushes a slot without the check at js/app.js:2122",
+      "assumption": "7 is the limit for every path (Q-03)", "status": "suggested"
+    },
+    {
+      "id": "TC-BOOST-004", "feature": "F-BOOST",
+      "title": "Using a booster with none left shows 'No <name> left'",
+      "type": "negative", "technique": "equivalence-partitioning",
+      "priority": "P2", "priority_reason": "Must not work for free",
+      "preconditions": ["In a level, 0 Shuffle boosters, Shuffle unlocked"],
+      "steps": ["Tap Shuffle"],
+      "expected": ["Toast 'No Shuffle left'", "The line of blocks does not change"],
+      "automation": { "level": "ui", "reason": "Cheap", "ci_stage": "pr" },
+      "source": "R-BOOST-2", "status": "suggested"
+    },
+    {
+      "id": "TC-BOOST-005", "feature": "F-BOOST",
+      "title": "Shuffle unlocks at exactly 11 completed levels",
+      "type": "edge", "technique": "boundary-value",
+      "priority": "P2", "priority_reason": "Unlock boundary",
+      "preconditions": ["10 levels completed, then 11"],
+      "steps": ["With 10 levels completed, start a level and look at Shuffle", "Complete one more level", "Start a level and look at Shuffle"],
+      "expected": ["At 10: Shuffle is shown locked", "On the 11th win: 'New Booster!' pop-up for Shuffle", "At 11: Shuffle is usable"],
+      "automation": { "level": "ui", "reason": "Boundary; reachable with the debug win cheat (assisted)", "ci_stage": "nightly" },
+      "source": "R-BOOST-1 (js/app.js:1127, js/app.js:2199)", "status": "suggested"
+    },
+    {
+      "id": "TC-BOOST-006", "feature": "F-BOOST",
+      "title": "Tapping a locked booster says when it unlocks",
+      "type": "negative", "technique": "equivalence-partitioning",
+      "priority": "P3", "priority_reason": "Information only",
+      "preconditions": ["Fewer than 14 levels completed"],
+      "steps": ["In a level, tap the locked Wind booster"],
+      "expected": ["Toast 'Wind unlocks at level 15'", "No booster is used"],
+      "automation": { "level": "ui", "reason": "Cheap", "ci_stage": "nightly" },
+      "source": "js/app.js:2664 (booster-locked: unlockAt + 1)", "status": "suggested"
+    },
+    {
+      "id": "TC-WIN-001", "feature": "F-WIN",
+      "title": "Continue on Level Complete pays the difficulty reward once",
+      "type": "happy", "technique": "equivalence-partitioning",
+      "priority": "P1", "priority_reason": "The reward for every level",
+      "preconditions": ["0 coins, in an easy level"],
+      "data": "easy 30, medium 45, hard 60",
+      "steps": ["Win the level", "Tap Continue"],
+      "expected": ["Level Complete shows '+30'", "Coins 0 -> 30 in the HUD and the save", "Same for medium (+45) and hard (+60)"],
+      "automation": { "level": "ui", "reason": "Data-driven over three difficulties; win with the debug cheat (assisted)", "ci_stage": "push" },
+      "source": "R-WIN-1", "status": "suggested"
+    },
+    {
+      "id": "TC-WIN-002", "feature": "F-WIN",
+      "title": "Claim x2 pays double after the video",
+      "type": "happy", "technique": "equivalence-partitioning",
+      "priority": "P1", "priority_reason": "Reward tied to an ad view",
+      "preconditions": ["0 coins, in an easy level"],
+      "steps": ["Win the level", "Tap Claim x2", "Finish the test ad"],
+      "expected": ["Coins 0 -> 60"],
+      "automation": { "level": "ui", "reason": "Exact amount", "ci_stage": "pr" },
+      "source": "R-WIN-2", "status": "suggested"
+    },
+    {
+      "id": "TC-WIN-003", "feature": "F-WIN",
+      "title": "Tapping outside Level Complete does not lose the reward",
+      "type": "negative", "technique": "state-transition",
+      "priority": "P1", "priority_reason": "A lost reward on every stray tap is a serious player-facing failure",
+      "preconditions": ["0 coins, Level Complete open after a win"],
+      "steps": ["Tap the dark area outside the Level Complete window"],
+      "expected": ["The pop-up stays open, or the reward is paid and the game moves on", "Coins are never left at 0 with the board empty"],
+      "automation": { "level": "ui", "reason": "One tap, exact check", "ci_stage": "pr" },
+      "source": "R-WIN-4: popup-complete (index.html:423) has no data-locked, and an overlay tap closes it (js/app.js:3028) without calling finishWin",
+      "assumption": "Level Complete must not close without paying (Q-04)", "status": "suggested"
+    },
+    {
+      "id": "TC-WIN-004", "feature": "F-WIN",
+      "title": "A video ad plays after every second win in a row",
+      "type": "happy", "technique": "state-transition",
+      "priority": "P2", "priority_reason": "Ad frequency affects experience and revenue",
+      "preconditions": ["No Ads not owned, 0 wins since the last ad"],
+      "steps": ["Win a level and tap Continue", "Win the next level and tap Continue"],
+      "expected": ["No ad after the first win", "A test ad after the second win, then the next level starts"],
+      "automation": { "level": "ui", "reason": "Counter rule, stable", "ci_stage": "nightly" },
+      "source": "R-WIN-3", "status": "suggested"
+    },
+    {
+      "id": "TC-WIN-005", "feature": "F-WIN",
+      "title": "No ad between wins when No Ads is owned",
+      "type": "negative", "technique": "decision-table",
+      "priority": "P1", "priority_reason": "Paid entitlement",
+      "preconditions": ["No Ads owned"],
+      "steps": ["Win two levels in a row with Continue"],
+      "expected": ["No video ad at any point", "No banner in the level"],
+      "automation": { "level": "ui", "reason": "Protects a paid entitlement", "ci_stage": "pr" },
+      "source": "R-WIN-3; R-STORE-5", "status": "suggested"
+    },
+    {
+      "id": "TC-WIN-006", "feature": "F-WIN",
+      "title": "Claim x2 does not count toward the next forced ad",
+      "type": "edge", "technique": "decision-table",
+      "priority": "P3", "priority_reason": "Edge of the ad rule",
+      "preconditions": ["No Ads not owned, 1 win since the last ad"],
+      "steps": ["Win a level", "Tap Claim x2 and finish the ad"],
+      "expected": ["No second ad after the reward ad"],
+      "automation": { "level": "ui", "reason": "Third column of the ad decision table", "ci_stage": "nightly" },
+      "source": "R-WIN-3 (mult === 1 condition, js/app.js:2209)", "status": "suggested"
+    },
+    {
+      "id": "TC-XP-001", "feature": "F-XP",
+      "title": "Winning levels raises player XP and level",
+      "type": "happy", "technique": "state-transition",
+      "priority": "P1", "priority_reason": "Level-gated content can only unlock through XP",
+      "preconditions": ["Fresh save: level 1, XP 0/2"],
+      "steps": ["Win 3 levels with Continue", "Open the profile"],
+      "expected": ["The XP bar moves after each win", "The player reaches level 2 or higher, as the XP rule defines"],
+      "automation": { "level": "ui", "reason": "Reads playerLevel and xp from the save", "ci_stage": "pr" },
+      "source": "R-XP-1, R-XP-2, R-XP-3: the bar and the locks exist, but no gameplay code adds XP",
+      "assumption": "Wins should give XP; the amount is not written anywhere (Q-05)", "status": "suggested"
+    },
+    {
+      "id": "TC-XP-002", "feature": "F-XP",
+      "title": "A level-locked skin cannot be bought below its level",
+      "type": "negative", "technique": "boundary-value",
+      "priority": "P2", "priority_reason": "Locks must hold",
+      "preconditions": ["Player level 1, enough gems"],
+      "steps": ["Open Skins", "Tap a skin locked at a higher player level"],
+      "expected": ["Toast 'Unlocks at player level <n>'", "Gems unchanged, skin not owned"],
+      "automation": { "level": "ui", "reason": "Cheap", "ci_stage": "nightly" },
+      "source": "R-XP-2 (js/app.js:829)", "status": "suggested"
+    },
+    {
+      "id": "TC-XP-003", "feature": "F-XP",
+      "title": "A skin unlocks exactly at its player level",
+      "type": "edge", "technique": "boundary-value",
+      "priority": "P3", "priority_reason": "Boundary of a lock",
+      "preconditions": ["Player level n-1, then n (debug: levelup, assisted)"],
+      "steps": ["At level n-1, tap the skin", "Level up to n", "Tap the skin"],
+      "expected": ["At n-1: locked message", "At n: the skin can be bought or equipped"],
+      "automation": { "level": "ui", "reason": "Boundary; uses the debug levelup (assisted)", "ci_stage": "nightly" },
+      "source": "R-XP-2 (state.playerLevel < s.level)", "status": "suggested"
+    },
+    {
+      "id": "TC-NAME-001", "feature": "F-NAME",
+      "title": "A 14-character name is saved in full",
+      "type": "happy", "technique": "boundary-value",
+      "priority": "P3", "priority_reason": "Profile cosmetics",
+      "preconditions": ["Profile open"],
+      "data": "Abcdefghijklmn (14)",
+      "steps": ["Type the name", "Close the profile", "Reload"],
+      "expected": ["The name 'Abcdefghijklmn' shows in the profile after reload"],
+      "automation": { "level": "ui", "reason": "Cheap", "ci_stage": "nightly" },
+      "source": "R-NAME-1", "status": "suggested"
+    },
+    {
+      "id": "TC-NAME-002", "feature": "F-NAME",
+      "title": "A 15th character cannot be typed",
+      "type": "edge", "technique": "boundary-value",
+      "priority": "P3", "priority_reason": "Profile cosmetics",
+      "preconditions": ["Profile open"],
+      "data": "Abcdefghijklmno (15)",
+      "steps": ["Type 15 characters"],
+      "expected": ["The field holds 'Abcdefghijklmn' (14)"],
+      "automation": { "level": "ui", "reason": "Cheap", "ci_stage": "nightly" },
+      "source": "R-NAME-1", "status": "suggested"
+    },
+    {
+      "id": "TC-NAME-003", "feature": "F-NAME",
+      "title": "An empty or spaces-only name falls back to a default",
+      "type": "negative", "technique": "equivalence-partitioning",
+      "priority": "P3", "priority_reason": "Profile cosmetics",
+      "preconditions": ["Profile open with a name set"],
+      "steps": ["Delete the whole name, or type only spaces", "Close the profile and reopen it"],
+      "expected": ["A default name is shown, never an empty label"],
+      "automation": { "level": "manual", "reason": "Rule not written; check by hand first (Q-06)", "ci_stage": "release" },
+      "source": "web-checklist.md forms: empty and spaces only",
+      "assumption": "A default name is expected (Q-06)", "status": "suggested"
+    },
+    {
+      "id": "TC-BUILD-001", "feature": "F-BUILD",
+      "title": "The release build has no DBG button",
+      "type": "happy", "technique": "checklist",
+      "priority": "P1", "priority_reason": "The debug menu gives free coins, gems and wins",
+      "preconditions": ["A release build (npm run build) served locally"],
+      "steps": ["Open the release build", "Look for the pink DBG button"],
+      "expected": ["No DBG button", "Console says 'release build'"],
+      "automation": { "level": "ui", "reason": "Must block every release", "ci_stage": "release" },
+      "source": "R-BUILD-1", "status": "suggested"
+    },
+    {
+      "id": "TC-BUILD-002", "feature": "F-BUILD",
+      "title": "Debug cheats do nothing in the release build",
+      "type": "negative", "technique": "checklist",
+      "priority": "P1", "priority_reason": "Free currency in a store release",
+      "preconditions": ["A release build served locally"],
+      "steps": ["Try to open the debug pop-up (keyboard shortcut or URL flag, if any)", "Try the debug localStorage flags"],
+      "expected": ["No debug pop-up opens", "Coins and gems unchanged"],
+      "automation": { "level": "ui", "reason": "Release gate", "ci_stage": "release" },
+      "source": "R-BUILD-1; js/app.js:3197 (DEBUG-only localStorage flag)", "status": "suggested"
+    }
+  ],
+  "questions": [
+    { "id": "Q-01", "question": "Should the Special Offer still include No Ads, at full price, for players who already own No Ads?", "source": "js/app.js:314-318 vs js/app.js:324 and js/app.js:698", "why": "Players would pay again for an entitlement they have", "cases": ["TC-STORE-006"] },
+    { "id": "Q-02", "question": "Should two quick taps on a store item make two purchases, or should there be a confirm step?", "source": "js/app.js:374-394 (no pending guard)", "why": "Accidental double spends", "cases": ["TC-STORE-011"] },
+    { "id": "Q-03", "question": "Is 7 the slot limit for every way of adding a slot, including the Out of Slots offer?", "source": "js/app.js:2122 vs js/app.js:2681", "why": "The two paths disagree in code", "cases": ["TC-BOOST-003"] },
+    { "id": "Q-04", "question": "Should Level Complete be closable by tapping outside it? If yes, should the reward still be paid?", "source": "index.html:423, js/app.js:3028", "why": "The reward and the next level depend on Continue or Claim x2", "cases": ["TC-WIN-003"] },
+    { "id": "Q-05", "question": "How is XP earned, and how much per win? No gameplay code adds XP.", "source": "js/app.js:10-12, 151, 575, 2611-2612", "why": "Level-gated skins, avatars and wardrobe items cannot unlock through play", "cases": ["TC-XP-001"] },
+    { "id": "Q-06", "question": "What should the profile show when the name is empty or only spaces?", "source": "inventory/inventory.md: name-input", "why": "Empty labels look broken", "cases": ["TC-NAME-003"] }
+  ],
+  "not_covered": [
+    { "area": "Puzzle rules, level solvability, save system, daily rewards, events, settings, UI layout", "reason": "Outside this run's scope. The test-puzzles, test-progression, test-settings and test-ui skills cover them" },
+    { "area": "Real-money purchases", "reason": "This build uses test purchases; the store integration of the phone app is not built yet" },
+    { "area": "Unit tests", "reason": "The rules live inside one closure in js/app.js and cannot be imported; see the automation plan" }
+  ]
+}

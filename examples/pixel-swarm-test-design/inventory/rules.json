@@ -1,0 +1,490 @@
+{
+  "root": "PixelSwarm",
+  "filesScanned": 15,
+  "total": 69,
+  "hits": [
+    {
+      "category": "input-limit",
+      "rule": "maxlength=14",
+      "file": "index.html",
+      "line": 185,
+      "code": "<input id=\"name-input\" maxlength=\"14\" aria-label=\"Player name\" hidden>"
+    },
+    {
+      "category": "input-limit",
+      "rule": "maxlength=90",
+      "file": "index.html",
+      "line": 619,
+      "code": "<input id=\"rp-title\" class=\"rp-input\" maxlength=\"90\" placeholder=\"e.g. Bees stop flying after a booster\" autocomplete=\"off\">"
+    },
+    {
+      "category": "flag",
+      "rule": "DEBUG",
+      "file": "js/app.js",
+      "line": 80,
+      "code": "const DEBUG = true;"
+    },
+    {
+      "category": "message",
+      "rule": "Not enough gems (need ${c.gems})",
+      "file": "js/app.js",
+      "line": 391,
+      "code": "if (state.gems < c.gems) { toast(`Not enough gems (need ${c.gems})`); return; }"
+    },
+    {
+      "category": "message",
+      "rule": "Not enough gems (need ${LOOK_PRICE})",
+      "file": "js/app.js",
+      "line": 808,
+      "code": "if (state.gems < LOOK_PRICE) return toast(`Not enough gems (need ${LOOK_PRICE})`);"
+    },
+    {
+      "category": "message",
+      "rule": "Not enough gems (need ${s.price})",
+      "file": "js/app.js",
+      "line": 830,
+      "code": "if (state.gems < s.price) { toast(`Not enough gems (need ${s.price})`); return; }"
+    },
+    {
+      "category": "boundary",
+      "rule": "blocks.length >= 3",
+      "file": "js/app.js",
+      "line": 1449,
+      "code": "blocks.push({ color, amount: n, mystery, frozen: blocks.length >= 3 && rand() < cfg.frozen ? 2 + Math.floor(prand() * 2) : 0 });"
+    },
+    {
+      "category": "boundary",
+      "rule": "seg.length < 2",
+      "file": "js/app.js",
+      "line": 1494,
+      "code": "if (seg.length < 2 || seg.some((b) => !isBlock(b) || b.link || b.frozen)) continue;"
+    },
+    {
+      "category": "state",
+      "rule": "mode = pick",
+      "file": "js/app.js",
+      "line": 1658,
+      "code": "const pick = game.mode === 'pick';"
+    },
+    {
+      "category": "boundary",
+      "rule": "els.length < 2",
+      "file": "js/app.js",
+      "line": 1674,
+      "code": "if (els.length < 2) return;"
+    },
+    {
+      "category": "boundary",
+      "rule": "b.amount > 0",
+      "file": "js/app.js",
+      "line": 1719,
+      "code": "el.classList.toggle('stuck', !!(b && b.amount > 0 && !(b.inFlight > 0) && !canEat(b)));"
+    },
+    {
+      "category": "boundary",
+      "rule": "b.amount <= 0",
+      "file": "js/app.js",
+      "line": 1725,
+      "code": "if (b.amount <= 0 || canEat(b)) return toast(`The bees are eating ${colorName(b.color)} pixels`);"
+    },
+    {
+      "category": "message",
+      "rule": "${b.name} (locked)",
+      "file": "js/app.js",
+      "line": 1736,
+      "code": ": `<button class=\"bst locked\" data-action=\"booster-locked\" data-b=\"${b.id}\" aria-label=\"${b.name} (locked)\">${img('icon_lock')}<span class=\"lv\">Lv ${b.unlockAt "
+    },
+    {
+      "category": "message",
+      "rule": "Not enough coins (need ${b.coins.toLocaleString('en-US')})",
+      "file": "js/app.js",
+      "line": 1814,
+      "code": "if (state.coins < b.coins) return toast(`Not enough coins (need ${b.coins.toLocaleString('en-US')})`);"
+    },
+    {
+      "category": "message",
+      "rule": "Not enough gems (need ${t.gems})",
+      "file": "js/app.js",
+      "line": 1820,
+      "code": "if (state.gems < t.gems) return toast(`Not enough gems (need ${t.gems})`);"
+    },
+    {
+      "category": "state",
+      "rule": "mode = wing",
+      "file": "js/app.js",
+      "line": 1827,
+      "code": "const wind = !!(game && game.mode === 'wing');"
+    },
+    {
+      "category": "state",
+      "rule": "mode = pick",
+      "file": "js/app.js",
+      "line": 1850,
+      "code": "if (idx > 0 && g.mode !== 'pick') return;"
+    },
+    {
+      "category": "state",
+      "rule": "mode = pick",
+      "file": "js/app.js",
+      "line": 1851,
+      "code": "const pick = g.mode === 'pick';"
+    },
+    {
+      "category": "message",
+      "rule": "Locked! The bugs must collect its key 🔑 in the picture",
+      "file": "js/app.js",
+      "line": 1900,
+      "code": "if (b.kind === 'lock') return 'Locked! The bugs must collect its key 🔑 in the picture';"
+    },
+    {
+      "category": "state",
+      "rule": "phase = out",
+      "file": "js/app.js",
+      "line": 1953,
+      "code": "g.bees.push({ el, block: slotBlock, t, sx, sy, ex, ey, hx: sx, hy: sy, phase: 'out',"
+    },
+    {
+      "category": "boundary",
+      "rule": "b.amount <= 0",
+      "file": "js/app.js",
+      "line": 1981,
+      "code": "if (!b || b.amount <= 0) return;"
+    },
+    {
+      "category": "state",
+      "rule": "phase = back",
+      "file": "js/app.js",
+      "line": 1996,
+      "code": "const back = bee.phase === 'back';"
+    },
+    {
+      "category": "boundary",
+      "rule": "b.amount <= 0",
+      "file": "js/app.js",
+      "line": 2022,
+      "code": "const done = (b) => b.amount <= 0 && b.inFlight <= 0;"
+    },
+    {
+      "category": "boundary",
+      "rule": "b.amount > 0",
+      "file": "js/app.js",
+      "line": 2029,
+      "code": "const stuck = !g.bees.length && g.slots.every((b) => b && (b.amount > 0 ? !findTarget(g, b.color) : !!b.link));"
+    },
+    {
+      "category": "boundary",
+      "rule": "g.slots.length >= 7",
+      "file": "js/app.js",
+      "line": 2122,
+      "code": "if (g.slots.length >= 7) return toast('Maximum slots reached');"
+    },
+    {
+      "category": "state",
+      "rule": "mode = wing",
+      "file": "js/app.js",
+      "line": 2136,
+      "code": "if (!g || g.mode !== 'wing' || g.over) return;"
+    },
+    {
+      "category": "message",
+      "rule": "You can't see the color and amount until it reaches the front.",
+      "file": "js/app.js",
+      "line": 2214,
+      "code": "mystery: { icon: 'puzzles/block_mystery', name: 'Mystery Blocks', desc: \"You can't see the color and amount until it reaches the front.\" },"
+    },
+    {
+      "category": "message",
+      "rule": "stuck: a \"${group[0].color}\" block can't reach its pixels",
+      "file": "js/app.js",
+      "line": 2337,
+      "code": "if (!moved) return `stuck: a \"${group[0].color}\" block can't reach its pixels`;"
+    },
+    {
+      "category": "boundary",
+      "rule": "group.length > 1",
+      "file": "js/app.js",
+      "line": 2360,
+      "code": "const link = group.length > 1 ? {} : null;"
+    },
+    {
+      "category": "boundary",
+      "rule": "s.amount > 0",
+      "file": "js/app.js",
+      "line": 2389,
+      "code": "for (let k = 0; k < g.cfg.beesPerLaunch && s.amount > 0; k++) {"
+    },
+    {
+      "category": "boundary",
+      "rule": "s.amount <= 0",
+      "file": "js/app.js",
+      "line": 2396,
+      "code": "slots.forEach((s, i) => { if (s && s.amount <= 0 && (!s.link || slots.every((o) => !o || o.link !== s.link || o.amount <= 0))) slots[i] = null; });"
+    },
+    {
+      "category": "boundary",
+      "rule": "o.amount <= 0",
+      "file": "js/app.js",
+      "line": 2396,
+      "code": "slots.forEach((s, i) => { if (s && s.amount <= 0 && (!s.link || slots.every((o) => !o || o.link !== s.link || o.amount <= 0))) slots[i] = null; });"
+    },
+    {
+      "category": "boundary",
+      "rule": "b.amount < 4",
+      "file": "js/app.js",
+      "line": 2417,
+      "code": "buildLevel(t.id, d, i).cols.flat().forEach((b) => { blocks += 1; if (b.amount < 4) tiny += 1; }); } }));"
+    },
+    {
+      "category": "boundary",
+      "rule": "lv.hidden.size > 0",
+      "file": "js/app.js",
+      "line": 2425,
+      "code": "key: lv.cols.flat().some((b) => b.kind === 'lock'), pipe: lv.cols.flat().some((b) => b.kind === 'pipe'), hidden: lv.hidden.size > 0, big: lv.big.size > 0,"
+    },
+    {
+      "category": "boundary",
+      "rule": "lv.big.size > 0",
+      "file": "js/app.js",
+      "line": 2425,
+      "code": "key: lv.cols.flat().some((b) => b.kind === 'lock'), pipe: lv.cols.flat().some((b) => b.kind === 'pipe'), hidden: lv.hidden.size > 0, big: lv.big.size > 0,"
+    },
+    {
+      "category": "state",
+      "rule": "mode = autoplay",
+      "file": "js/app.js",
+      "line": 2547,
+      "code": "info: () => ({ mode: 'autoplay', speed: AUTOPLAY_SPEED, extraBugs, levelsStarted: run.levels, wins: run.wins,"
+    },
+    {
+      "category": "message",
+      "rule": "Notifications are not allowed: enable them in the phone/browser settings",
+      "file": "js/app.js",
+      "line": 2635,
+      "code": "'no-permission': 'Notifications are not allowed: enable them in the phone/browser settings', unsupported: 'This browser has no notifications', error: 'Could not"
+    },
+    {
+      "category": "boundary",
+      "rule": "sp.length === 1",
+      "file": "js/app.js",
+      "line": 2668,
+      "code": "if (sp.length === 1) return openSpeedStore();"
+    },
+    {
+      "category": "boundary",
+      "rule": "colors.size > 3",
+      "file": "js/app.js",
+      "line": 2708,
+      "code": "check('screenshot shows the board', colors.size > 3, colors.size + ' colors');"
+    },
+    {
+      "category": "boundary",
+      "rule": "main.data.coins === 1235",
+      "file": "js/app.js",
+      "line": 2890,
+      "code": "ok('save.slots', main.v === 2 && main.data.coins === 1235 && backup.data.coins === 1234, JSON.stringify([main.v, main.data.coins, backup.data && backup.data.coi"
+    },
+    {
+      "category": "boundary",
+      "rule": "backup.data.coins === 1234",
+      "file": "js/app.js",
+      "line": 2890,
+      "code": "ok('save.slots', main.v === 2 && main.data.coins === 1235 && backup.data.coins === 1234, JSON.stringify([main.v, main.data.coins, backup.data && backup.data.coi"
+    },
+    {
+      "category": "boundary",
+      "rule": "data.coins === 1234",
+      "file": "js/app.js",
+      "line": 2892,
+      "code": "ok('save.recover', readSave(SAVE_KEY) === null && readSave(SAVE_KEY + '.backup').data.coins === 1234);"
+    },
+    {
+      "category": "boundary",
+      "rule": "data.coins === 1235",
+      "file": "js/app.js",
+      "line": 2895,
+      "code": "ok('save.code', restoreFromCode(code) && JSON.parse(localStorage.getItem(SAVE_KEY)).data.coins === 1235 && !restoreFromCode('nonsense'));"
+    },
+    {
+      "category": "boundary",
+      "rule": "o.coins === 7",
+      "file": "js/app.js",
+      "line": 2896,
+      "code": "ok('save.legacy', (() => { localStorage.setItem('ps.test', JSON.stringify({ coins: 7 })); const o = readSave('ps.test'); localStorage.removeItem('ps.test'); ret"
+    },
+    {
+      "category": "flag",
+      "rule": "DEBUG",
+      "file": "js/app.js",
+      "line": 3132,
+      "code": "$('dbg-btn').hidden = !DEBUG;"
+    },
+    {
+      "category": "message",
+      "rule": "PixiJS unavailable, using 2D canvas",
+      "file": "js/app.js",
+      "line": 3174,
+      "code": ".catch((e) => console.warn('PixiJS unavailable, using 2D canvas', e));"
+    },
+    {
+      "category": "flag",
+      "rule": "DEBUG",
+      "file": "js/app.js",
+      "line": 3197,
+      "code": "else if (DEBUG) { try { if (localStorage.getItem('pixelswarm.simsafe')) setSafeSim(true); } catch (e) { /* ignore */ } }"
+    },
+    {
+      "category": "flag",
+      "rule": "DEBUG",
+      "file": "js/app.js",
+      "line": 3210,
+      "code": "platform: () => (PSNative.native ? 'Android app' : 'web'), version: APP_VERSION, build: DEBUG ? 'debug' : 'release' });"
+    },
+    {
+      "category": "flag",
+      "rule": "DEBUG",
+      "file": "js/app.js",
+      "line": 3216,
+      "code": "PSReport.info(`game ready · v${APP_VERSION} (${DEBUG ? 'debug' : 'release'}, ${PSNative.native ? 'Android app' : 'web'})`);"
+    },
+    {
+      "category": "flag",
+      "rule": "DEBUG",
+      "file": "js/app.js",
+      "line": 3220,
+      "code": "if (DEBUG && PSPerf.wasOn) PSPerf.show(true);"
+    },
+    {
+      "category": "state",
+      "rule": "state = suspended",
+      "file": "js/audio.js",
+      "line": 33,
+      "code": "if (ctx.state === 'suspended') ctx.resume();"
+    },
+    {
+      "category": "state",
+      "rule": "state = running",
+      "file": "js/audio.js",
+      "line": 102,
+      "code": "if (!sfxOn || !SFX[name] || !ensure() || ctx.state !== 'running') return;"
+    },
+    {
+      "category": "state",
+      "rule": "state = running",
+      "file": "js/audio.js",
+      "line": 168,
+      "code": "if (!ctx || ctx.state !== 'running') return; // starts on the first tap"
+    },
+    {
+      "category": "state",
+      "rule": "state = none",
+      "file": "js/audio.js",
+      "line": 200,
+      "code": "const debug = () => ({ state: ctx ? ctx.state : 'none', music: current, played: { ...played } });"
+    },
+    {
+      "category": "boundary",
+      "rule": "MIN_DE = 25",
+      "file": "js/data.js",
+      "line": 41,
+      "code": "const MIN_DE = 25; // clearly different at a glance (raised after playtest: 18–20 still looked alike)"
+    },
+    {
+      "category": "boundary",
+      "rule": "MIN_CELLS_PER_COLOR = 4",
+      "file": "js/data.js",
+      "line": 74,
+      "code": "const MIN_CELLS_PER_COLOR = 4;"
+    },
+    {
+      "category": "state",
+      "rule": "mode = none",
+      "file": "js/data.js",
+      "line": 211,
+      "code": "if (mode === 'none') return g;"
+    },
+    {
+      "category": "state",
+      "rule": "mode = both",
+      "file": "js/data.js",
+      "line": 219,
+      "code": "else if (mode === 'both' && botEdge && DARK[ch]) out[y][x] = DARK[ch];"
+    },
+    {
+      "category": "boundary",
+      "rule": "a.length > 120",
+      "file": "js/perf.js",
+      "line": 49,
+      "code": "a.push(ms); if (a.length > 120) a.shift();"
+    },
+    {
+      "category": "boundary",
+      "rule": "p.length < 3",
+      "file": "js/perf.js",
+      "line": 207,
+      "code": "if (p.length < 3) return null;"
+    },
+    {
+      "category": "boundary",
+      "rule": "memory.heapGrowthMBPerMin > 1",
+      "file": "js/perf.js",
+      "line": 226,
+      "code": ": memory.heapGrowthMBPerMin > 1 ? `Possible leak: heap +${memory.heapGrowthMBPerMin} MB/min` : `Memory stable (${memory.heapGrowthMBPerMin} MB/min)`,"
+    },
+    {
+      "category": "boundary",
+      "rule": "memory.domGrowthPerMin > 20",
+      "file": "js/perf.js",
+      "line": 228,
+      "code": "if (memory.domGrowthPerMin !== null && memory.domGrowthPerMin > 20) verdict.push(`DOM keeps growing: +${memory.domGrowthPerMin} nodes/min`);"
+    },
+    {
+      "category": "boundary",
+      "rule": "memory.objectsGrowthPerMin > 50",
+      "file": "js/perf.js",
+      "line": 229,
+      "code": "if (memory.objectsGrowthPerMin !== null && memory.objectsGrowthPerMin > 50) verdict.push(`Scene keeps growing: +${memory.objectsGrowthPerMin} objects/min`);"
+    },
+    {
+      "category": "boundary",
+      "rule": "MAX_CRUMBS = 40",
+      "file": "js/report.js",
+      "line": 12,
+      "code": "const MAX_CRUMBS = 40, MAX_ERRORS = 20, MAX_LOG = 300, LOG_KEY = 'pixelswarm.log';"
+    },
+    {
+      "category": "boundary",
+      "rule": "MAX_ERRORS = 20",
+      "file": "js/report.js",
+      "line": 12,
+      "code": "const MAX_CRUMBS = 40, MAX_ERRORS = 20, MAX_LOG = 300, LOG_KEY = 'pixelswarm.log';"
+    },
+    {
+      "category": "boundary",
+      "rule": "MAX_LOG = 300",
+      "file": "js/report.js",
+      "line": 12,
+      "code": "const MAX_CRUMBS = 40, MAX_ERRORS = 20, MAX_LOG = 300, LOG_KEY = 'pixelswarm.log';"
+    },
+    {
+      "category": "message",
+      "rule": "screenshot failed: ",
+      "file": "js/report.js",
+      "line": 98,
+      "code": "} catch (e) { logError('report', 'screenshot failed: ' + (e && e.message ? e.message : e)); return null; }"
+    },
+    {
+      "category": "flag",
+      "rule": "DEBUG",
+      "file": "scripts/build.mjs",
+      "line": 23,
+      "code": "app = app.replace(/const DEBUG = (true|false);/, `const DEBUG = ${debug};`);"
+    },
+    {
+      "category": "flag",
+      "rule": "DEBUG",
+      "file": "scripts/build.mjs",
+      "line": 33,
+      "code": "console.log(`Built Pixel Swarm v${pkg.version} into dist/ (${debug ? 'DEBUG build' : 'release build, debug menu off'})`);"
+    }
+  ]
+}

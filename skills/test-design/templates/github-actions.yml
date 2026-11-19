@@ -1,0 +1,47 @@
+# Starter CI workflow for Playwright tests. Copy to .github/workflows/tests.yml
+# only after the user approves it. Stages follow automation-plan.md:
+#   push         -> @push tests, one browser
+#   pull request -> @push and @pr tests, one browser
+#   nightly      -> every test, every browser
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '0 3 * * *'   # nightly, 03:00 UTC
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - run: npm ci
+      - run: npx playwright install --with-deps
+
+      - name: Smoke (push)
+        if: github.event_name == 'push'
+        run: npx playwright test --grep @push --project=chromium
+
+      - name: P1 regression (pull request)
+        if: github.event_name == 'pull_request'
+        run: npx playwright test --grep "@push|@pr" --project=chromium
+
+      - name: Full regression (nightly or manual)
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: npx playwright test
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            results/
+          retention-days: 14

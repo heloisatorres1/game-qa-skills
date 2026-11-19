@@ -1,0 +1,14 @@
+{
+  "name": "saucedemo-starter-tests",
+  "private": true,
+  "description": "Starter tests for the approved SauceDemo cases (see ../test-cases.md)",
+  "scripts": {
+    "test": "playwright test",
+    "test:push": "playwright test --grep @push --project=chromium",
+    "test:pr": "playwright test --grep \"@push|@pr\" --project=chromium",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.65.1"
+  }
+}

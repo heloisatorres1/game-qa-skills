@@ -1,0 +1,272 @@
+{
+  "url": "https://www.saucedemo.com/inventory.html",
+  "title": "Swag Labs",
+  "lang": "en",
+  "headings": [],
+  "forms": [],
+  "fieldsOutsideForms": [
+    {
+      "tag": "select",
+      "type": "select-one",
+      "label": "Sort products",
+      "testId": "product-sort-container",
+      "visible": true,
+      "options": [
+        {
+          "value": "az",
+          "text": "Name (A to Z)"
+        },
+        {
+          "value": "za",
+          "text": "Name (Z to A)"
+        },
+        {
+          "value": "lohi",
+          "text": "Price (low to high)"
+        },
+        {
+          "value": "hilo",
+          "text": "Price (high to low)"
+        }
+      ]
+    }
+  ],
+  "buttonsOutsideForms": [
+    {
+      "text": "Open Menu",
+      "type": "button",
+      "visible": true
+    },
+    {
+      "text": "All Items",
+      "testId": "inventory-sidebar-link",
+      "visible": false
+    },
+    {
+      "text": "Dynamic Catalog",
+      "testId": "dynamic-catalog-sidebar-link",
+      "visible": false
+    },
+    {
+      "text": "Logout",
+      "testId": "logout-sidebar-link",
+      "visible": false
+    },
+    {
+      "text": "Reset App State",
+      "testId": "reset-sidebar-link",
+      "visible": false
+    },
+    {
+      "text": "Close Menu",
+      "type": "button",
+      "visible": false
+    },
+    {
+      "text": "Cart, empty",
+      "testId": "shopping-cart-link",
+      "visible": true
+    },
+    {
+      "text": "View details for Sauce Labs Backpack",
+      "testId": "item-4-img-link",
+      "visible": true
+    },
+    {
+      "text": "Sauce Labs Backpack",
+      "testId": "item-4-title-link",
+      "visible": true
+    },
+    {
+      "text": "Add to cart",
+      "type": "submit",
+      "testId": "add-to-cart-sauce-labs-backpack",
+      "visible": true
+    },
+    {
+      "text": "View details for Sauce Labs Bike Light",
+      "testId": "item-0-img-link",
+      "visible": true
+    },
+    {
+      "text": "Sauce Labs Bike Light",
+      "testId": "item-0-title-link",
+      "visible": true
+    },
+    {
+      "text": "Add to cart",
+      "type": "submit",
+      "testId": "add-to-cart-sauce-labs-bike-light",
+      "visible": true
+    },
+    {
+      "text": "View details for Sauce Labs Bolt T-Shirt",
+      "testId": "item-1-img-link",
+      "visible": true
+    },
+    {
+      "text": "Sauce Labs Bolt T-Shirt",
+      "testId": "item-1-title-link",
+      "visible": true
+    },
+    {
+      "text": "Add to cart",
+      "type": "submit",
+      "testId": "add-to-cart-sauce-labs-bolt-t-shirt",
+      "visible": true
+    },
+    {
+      "text": "View details for Sauce Labs Fleece Jacket",
+      "testId": "item-5-img-link",
+      "visible": true
+    },
+    {
+      "text": "Sauce Labs Fleece Jacket",
+      "testId": "item-5-title-link",
+      "visible": true
+    },
+    {
+      "text": "Add to cart",
+      "type": "submit",
+      "testId": "add-to-cart-sauce-labs-fleece-jacket",
+      "visible": true
+    },
+    {
+      "text": "View details for Sauce Labs Onesie",
+      "testId": "item-2-img-link",
+      "visible": true
+    },
+    {
+      "text": "Sauce Labs Onesie",
+      "testId": "item-2-title-link",
+      "visible": true
+    },
+    {
+      "text": "Add to cart",
+      "type": "submit",
+      "testId": "add-to-cart-sauce-labs-onesie",
+      "visible": true
+    },
+    {
+      "text": "View details for Test.allTheThings() T-Shirt (Red)",
+      "testId": "item-3-img-link",
+      "visible": true
+    },
+    {
+      "text": "Test.allTheThings() T-Shirt (Red)",
+      "testId": "item-3-title-link",
+      "visible": true
+    },
+    {
+      "text": "Add to cart",
+      "type": "submit",
+      "testId": "add-to-cart-test.allthethings()-t-shirt-(red)",
+      "visible": true
+    }
+  ],
+  "links": {
+    "total": 20,
+    "sameOrigin": 16,
+    "list": [
+      {
+        "text": "All Items",
+        "href": "https://www.saucedemo.com/inventory.html#",
+        "testId": "inventory-sidebar-link"
+      },
+      {
+        "text": "Dynamic Catalog",
+        "href": "https://www.saucedemo.com/inventory.html#",
+        "testId": "dynamic-catalog-sidebar-link"
+      },
+      {
+        "text": "Logout",
+        "href": "https://www.saucedemo.com/inventory.html#",
+        "testId": "logout-sidebar-link"
+      },
+      {
+        "text": "Reset App State",
+        "href": "https://www.saucedemo.com/inventory.html#",
+        "testId": "reset-sidebar-link"
+      },
+      {
+        "text": "View details for Sauce Labs Backpack",
+        "href": "https://www.saucedemo.com/inventory.html#",
+        "testId": "item-4-img-link"
+      },
+      {
+        "text": "Sauce Labs Backpack",
+        "href": "https://www.saucedemo.com/inventory.html#",
+        "testId": "item-4-title-link"
+      },
+      {
+        "text": "View details for Sauce Labs Bike Light",
+        "href": "https://www.saucedemo.com/inventory.html#",
+        "testId": "item-0-img-link"
+      },
+      {
+        "text": "Sauce Labs Bike Light",
+        "href": "https://www.saucedemo.com/inventory.html#",
+        "testId": "item-0-title-link"
+      },
+      {
+        "text": "View details for Sauce Labs Bolt T-Shirt",
+        "href": "https://www.saucedemo.com/inventory.html#",
+        "testId": "item-1-img-link"
+      },
+      {
+        "text": "Sauce Labs Bolt T-Shirt",
+        "href": "https://www.saucedemo.com/inventory.html#",
+        "testId": "item-1-title-link"
+      },
+      {
+        "text": "View details for Sauce Labs Fleece Jacket",
+        "href": "https://www.saucedemo.com/inventory.html#",
+        "testId": "item-5-img-link"
+      },
+      {
+        "text": "Sauce Labs Fleece Jacket",
+        "href": "https://www.saucedemo.com/inventory.html#",
+        "testId": "item-5-title-link"
+      },
+      {
+        "text": "View details for Sauce Labs Onesie",
+        "href": "https://www.saucedemo.com/inventory.html#",
+        "testId": "item-2-img-link"
+      },
+      {
+        "text": "Sauce Labs Onesie",
+        "href": "https://www.saucedemo.com/inventory.html#",
+        "testId": "item-2-title-link"
+      },
+      {
+        "text": "View details for Test.allTheThings() T-Shirt (Red)",
+        "href": "https://www.saucedemo.com/inventory.html#",
+        "testId": "item-3-img-link"
+      },
+      {
+        "text": "Test.allTheThings() T-Shirt (Red)",
+        "href": "https://www.saucedemo.com/inventory.html#",
+        "testId": "item-3-title-link"
+      }
+    ]
+  },
+  "images": {
+    "total": 8,
+    "withoutAlt": 0
+  },
+  "testIds": 75,
+  "errorsShown": [],
+  "storage": {
+    "localStorageKeys": [
+      "backtrace-guid",
+      "backtrace-last-active"
+    ],
+    "cookies": 1
+  },
+  "consoleErrors": [
+    {
+      "url": "https://www.saucedemo.com/inventory.html",
+      "text": "Failed to load resource: the server responded with a status of 404 ()"
+    }
+  ]
+}

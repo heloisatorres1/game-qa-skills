@@ -1,0 +1,1854 @@
+{
+  "run": {
+    "product": "SauceDemo (Swag Labs)",
+    "version": "public demo site as of 2026-11-19",
+    "date": "2026-11-19",
+    "scope": "The whole site: login, session, catalog, cart, checkout, menu and the six test users. Read from the live site only, no source code.",
+    "summary": "A practice online shop by Sauce Labs. Users log in with one of six test accounts, browse 6 products, add them to a cart and check out. There is no real payment.",
+    "inputs": [
+      {
+        "kind": "url",
+        "ref": "https://www.saucedemo.com/"
+      },
+      {
+        "kind": "doc",
+        "ref": "Credentials listed on the login page (accepted usernames and password)"
+      }
+    ],
+    "risks": [
+      "Checkout totals and tax are money",
+      "Login and session gate every page",
+      "The cart decides what is bought",
+      "Some test users are built to misbehave, so every user type needs the main journey"
+    ],
+    "existing_tests": "None visible: site only, no repository. Scans in inventory/ and inventory-logged-in/; observed behaviour in inventory/observations.json and inventory/observations-2.txt.",
+    "approval": {
+      "status": "partial",
+      "by": "Repository owner",
+      "date": "2026-11-19",
+      "tools": {
+        "runner": "Playwright + TypeScript",
+        "reporting": "Built-in HTML + JUnit XML (+ GitHub annotations in CI); Allure not chosen",
+        "ci": "GitHub Actions (file written, not enabled)",
+        "code_location": "starter/ in this example"
+      },
+      "notes": "The owner asked to prove the skill with the recommended options. Approved for the starter: the 11 P1 cases plus TC-USERS-001 and TC-USERS-002, to show how a failing test is reported. The other 41 cases stay suggested."
+    }
+  },
+  "features": [
+    {
+      "id": "F-LOGIN",
+      "name": "Login",
+      "risk": "high",
+      "risk_reason": "Every other page needs it",
+      "sources": [
+        "https://www.saucedemo.com/ (inventory/inventory.md)"
+      ],
+      "rules": [
+        {
+          "id": "R-LOGIN-1",
+          "text": "Username is required: 'Epic sadface: Username is required'",
+          "source": "observations.json: empty"
+        },
+        {
+          "id": "R-LOGIN-2",
+          "text": "Password is required: 'Epic sadface: Password is required'",
+          "source": "observations.json: noPassword"
+        },
+        {
+          "id": "R-LOGIN-3",
+          "text": "Accepted usernames: standard_user, locked_out_user, problem_user, performance_glitch_user, error_user, visual_user; password secret_sauce for all",
+          "source": "login page credentials box (observations.json: loginText)"
+        },
+        {
+          "id": "R-LOGIN-4",
+          "text": "Wrong or unknown credentials: 'Epic sadface: Username and password do not match any user in this service'",
+          "source": "observations.json: wrong, unknown"
+        },
+        {
+          "id": "R-LOGIN-5",
+          "text": "locked_out_user is refused: 'Epic sadface: Sorry, this user has been locked out.'",
+          "source": "observations.json: locked"
+        }
+      ]
+    },
+    {
+      "id": "F-SESSION",
+      "name": "Session and access control",
+      "risk": "high",
+      "risk_reason": "Private pages must not open without a login",
+      "sources": [
+        "observations.json: deepLinkLoggedOut, backAfterLogout",
+        "observations-2.txt: step2 logged out"
+      ],
+      "rules": [
+        {
+          "id": "R-SESSION-1",
+          "text": "A logged-out visit to a private page returns to / with 'Epic sadface: You can only access '<path>' when you are logged in.'",
+          "source": "observations.json: deepLinkLoggedOut; observations-2.txt: step2 logged out"
+        },
+        {
+          "id": "R-SESSION-2",
+          "text": "Logout from the menu returns to the login page",
+          "source": "observations.json: logoutUrl"
+        }
+      ]
+    },
+    {
+      "id": "F-CATALOG",
+      "name": "Product catalog and sorting",
+      "risk": "medium",
+      "risk_reason": "Wrong prices or order mislead the buyer, but checkout shows the totals again",
+      "sources": [
+        "https://www.saucedemo.com/inventory.html (inventory-logged-in/inventory.md)"
+      ],
+      "rules": [
+        {
+          "id": "R-CAT-1",
+          "text": "6 products with prices: Backpack $29.99, Bike Light $9.99, Bolt T-Shirt $15.99, Fleece Jacket $49.99, Onesie $7.99, Test.allTheThings() T-Shirt (Red) $15.99",
+          "source": "observations.json: products, prices"
+        },
+        {
+          "id": "R-CAT-2",
+          "text": "Sort options: Name (A to Z), Name (Z to A), Price (low to high), Price (high to low). Default A to Z",
+          "source": "inventory-logged-in/inventory.md sort select"
+        }
+      ]
+    },
+    {
+      "id": "F-CART",
+      "name": "Cart",
+      "risk": "high",
+      "risk_reason": "The cart decides what is bought and charged",
+      "sources": [
+        "https://www.saucedemo.com/cart.html",
+        "observations-2.txt"
+      ],
+      "rules": [
+        {
+          "id": "R-CART-1",
+          "text": "Add to cart turns the button into Remove and updates the badge count",
+          "source": "observations.json: badgeAll"
+        },
+        {
+          "id": "R-CART-2",
+          "text": "The badge disappears when the cart is empty",
+          "source": "observations-2.txt: badge after removing last 0"
+        },
+        {
+          "id": "R-CART-3",
+          "text": "The cart survives a reload and a logout/login",
+          "source": "observations-2.txt: badge after reload 1, badge after logout+login 1"
+        }
+      ]
+    },
+    {
+      "id": "F-CHECKOUT",
+      "name": "Checkout",
+      "risk": "high",
+      "risk_reason": "Money: totals, tax and the order itself",
+      "sources": [
+        "https://www.saucedemo.com/checkout-step-one.html",
+        "https://www.saucedemo.com/checkout-step-two.html",
+        "https://www.saucedemo.com/checkout-complete.html"
+      ],
+      "rules": [
+        {
+          "id": "R-CO-1",
+          "text": "First Name, Last Name and Postal Code are required, checked in that order: 'Error: First Name is required', 'Error: Last Name is required', 'Error: Postal Code is required'",
+          "source": "observations.json: co_empty, co_noLast, co_noZip"
+        },
+        {
+          "id": "R-CO-2",
+          "text": "Tax looks like 8% of the item total, rounded to the cent: $39.98 -> $3.20; $129.94 -> $10.40; $7.99 -> $0.64",
+          "source": "observations.json: twoItems, allItemsTotals; observations-2.txt: onesie (inferred, not documented)"
+        },
+        {
+          "id": "R-CO-3",
+          "text": "Finish shows 'Thank you for your order!' and empties the cart",
+          "source": "observations-2.txt: badge after finish 0"
+        },
+        {
+          "id": "R-CO-4",
+          "text": "Cancel on step one returns to the cart; Cancel on step two returns to the product list with the cart kept",
+          "source": "observations-2.txt: cancel step1 url, cancel step2 url"
+        },
+        {
+          "id": "R-CO-5",
+          "text": "No length or format limits on the three fields in HTML",
+          "source": "inventory-logged-in/inventory.md: 'none in HTML'; observations.json: longNameLen 1000"
+        }
+      ]
+    },
+    {
+      "id": "F-MENU",
+      "name": "Side menu",
+      "risk": "low",
+      "risk_reason": "Navigation helpers; Reset App State touches the cart",
+      "sources": [
+        "observations.json: menu, afterReset",
+        "observations-2.txt: about href"
+      ],
+      "rules": [
+        {
+          "id": "R-MENU-1",
+          "text": "Menu items: All Items, Dynamic Catalog, About, Logout, Reset App State",
+          "source": "observations.json: menu"
+        },
+        {
+          "id": "R-MENU-2",
+          "text": "About links to https://saucelabs.com/",
+          "source": "observations-2.txt: about href"
+        }
+      ],
+      "gaps": "No negative input on the menu. Dynamic Catalog (Lazy Load, Spinner, Slider) was found but not explored: see Not covered."
+    },
+    {
+      "id": "F-USERS",
+      "name": "User types",
+      "risk": "medium",
+      "risk_reason": "Four accepted users are built to show bugs, slowness or visual changes; each is a separate equivalence class",
+      "sources": [
+        "login page credentials box"
+      ],
+      "rules": [
+        {
+          "id": "R-USERS-1",
+          "text": "Every accepted user except locked_out_user can log in and should be able to buy",
+          "source": "R-LOGIN-3"
+        }
+      ],
+      "gaps": "Each user type is one partition of valid input, so all cases here are happy-path checks run with a different user. Negative cases per user are covered by F-LOGIN."
+    },
+    {
+      "id": "F-CROSS",
+      "name": "Browsers, devices and accessibility",
+      "risk": "medium",
+      "risk_reason": "The same journey must work for every buyer",
+      "sources": [
+        "references/web-checklist.md",
+        "inventory/www-saucedemo-com.json: consoleErrors"
+      ],
+      "gaps": "Checklist items, no input of their own."
+    }
+  ],
+  "cases": [
+    {
+      "id": "TC-LOGIN-001",
+      "feature": "F-LOGIN",
+      "title": "Standard user logs in and sees the product list",
+      "type": "happy",
+      "technique": "equivalence-partitioning",
+      "priority": "P1",
+      "priority_reason": "Login gates the whole shop",
+      "preconditions": [
+        "Logged out, on https://www.saucedemo.com/"
+      ],
+      "data": "standard_user / secret_sauce",
+      "steps": [
+        "Type the username",
+        "Type the password",
+        "Click Login"
+      ],
+      "expected": [
+        "URL is https://www.saucedemo.com/inventory.html",
+        "The title 'Products' is shown",
+        "6 products are listed"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Main journey, runs on every change",
+        "ci_stage": "push"
+      },
+      "source": "R-LOGIN-3",
+      "status": "approved"
+    },
+    {
+      "id": "TC-LOGIN-002",
+      "feature": "F-LOGIN",
+      "title": "Login with both fields empty asks for the username",
+      "type": "negative",
+      "technique": "equivalence-partitioning",
+      "priority": "P2",
+      "priority_reason": "Common mistake; message must guide the user",
+      "preconditions": [
+        "Logged out, on https://www.saucedemo.com/"
+      ],
+      "steps": [
+        "Leave both fields empty",
+        "Click Login"
+      ],
+      "expected": [
+        "Message 'Epic sadface: Username is required' is shown",
+        "URL stays https://www.saucedemo.com/"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Exact message, stable, cheap to run",
+        "ci_stage": "pr"
+      },
+      "source": "R-LOGIN-1",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-LOGIN-003",
+      "feature": "F-LOGIN",
+      "title": "Login without a password asks for the password",
+      "type": "negative",
+      "technique": "equivalence-partitioning",
+      "priority": "P2",
+      "priority_reason": "Common mistake; message must guide the user",
+      "preconditions": [
+        "Logged out, on https://www.saucedemo.com/"
+      ],
+      "data": "standard_user / (empty)",
+      "steps": [
+        "Type the username",
+        "Leave the password empty",
+        "Click Login"
+      ],
+      "expected": [
+        "Message 'Epic sadface: Password is required' is shown",
+        "URL stays https://www.saucedemo.com/"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Exact message, stable",
+        "ci_stage": "pr"
+      },
+      "source": "R-LOGIN-2",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-LOGIN-004",
+      "feature": "F-LOGIN",
+      "title": "Login with a wrong password is refused with a clear message",
+      "type": "negative",
+      "technique": "equivalence-partitioning",
+      "priority": "P1",
+      "priority_reason": "Security: a wrong password must never get in",
+      "preconditions": [
+        "Logged out, on https://www.saucedemo.com/"
+      ],
+      "data": "standard_user / wrong_pass",
+      "steps": [
+        "Type the username",
+        "Type the wrong password",
+        "Click Login"
+      ],
+      "expected": [
+        "Message 'Epic sadface: Username and password do not match any user in this service' is shown",
+        "URL stays https://www.saucedemo.com/"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Security rule, must never regress",
+        "ci_stage": "pr"
+      },
+      "source": "R-LOGIN-4",
+      "status": "approved"
+    },
+    {
+      "id": "TC-LOGIN-005",
+      "feature": "F-LOGIN",
+      "title": "Unknown username gets the same message as a wrong password",
+      "type": "negative",
+      "technique": "checklist",
+      "priority": "P2",
+      "priority_reason": "Security: the message must not reveal which accounts exist",
+      "preconditions": [
+        "Logged out, on https://www.saucedemo.com/"
+      ],
+      "data": "nobody / secret_sauce",
+      "steps": [
+        "Type an unknown username",
+        "Type the password",
+        "Click Login"
+      ],
+      "expected": [
+        "Message 'Epic sadface: Username and password do not match any user in this service' is shown, identical to TC-LOGIN-004"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Cheap, protects a security rule",
+        "ci_stage": "pr"
+      },
+      "source": "R-LOGIN-4; web-checklist.md security basics",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-LOGIN-006",
+      "feature": "F-LOGIN",
+      "title": "Locked-out user cannot log in and is told why",
+      "type": "negative",
+      "technique": "equivalence-partitioning",
+      "priority": "P1",
+      "priority_reason": "A locked account getting in is a security failure",
+      "preconditions": [
+        "Logged out, on https://www.saucedemo.com/"
+      ],
+      "data": "locked_out_user / secret_sauce",
+      "steps": [
+        "Type the username",
+        "Type the password",
+        "Click Login"
+      ],
+      "expected": [
+        "Message 'Epic sadface: Sorry, this user has been locked out.' is shown",
+        "URL stays https://www.saucedemo.com/"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Security rule, must never regress",
+        "ci_stage": "pr"
+      },
+      "source": "R-LOGIN-5",
+      "status": "approved"
+    },
+    {
+      "id": "TC-LOGIN-007",
+      "feature": "F-LOGIN",
+      "title": "Username with different capital letters is refused",
+      "type": "edge",
+      "technique": "equivalence-partitioning",
+      "priority": "P3",
+      "priority_reason": "Rare input; current behaviour is safe",
+      "preconditions": [
+        "Logged out, on https://www.saucedemo.com/"
+      ],
+      "data": "Standard_User / secret_sauce",
+      "steps": [
+        "Type the username with capitals",
+        "Type the password",
+        "Click Login"
+      ],
+      "expected": [
+        "Message 'Epic sadface: Username and password do not match any user in this service' is shown"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Cheap; documents that usernames are case-sensitive",
+        "ci_stage": "nightly"
+      },
+      "source": "observations.json: caseUser",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-LOGIN-008",
+      "feature": "F-LOGIN",
+      "title": "Username with spaces before and after: trimmed or refused",
+      "type": "edge",
+      "technique": "error-guessing",
+      "priority": "P3",
+      "priority_reason": "Pasted usernames often carry spaces; low impact",
+      "preconditions": [
+        "Logged out, on https://www.saucedemo.com/"
+      ],
+      "data": "' standard_user ' / secret_sauce",
+      "steps": [
+        "Type the username with a space before and after",
+        "Type the password",
+        "Click Login"
+      ],
+      "expected": [
+        "Today: message 'Epic sadface: Username and password do not match any user in this service'",
+        "Update the expected result once Q-06 is answered"
+      ],
+      "automation": {
+        "level": "manual",
+        "reason": "Wait for the team's answer before automating a rule nobody wrote",
+        "ci_stage": "none"
+      },
+      "source": "observations.json: spaces; error-guessing: pasted credentials",
+      "assumption": "Refusing is acceptable until the team says otherwise (Q-06)",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-LOGIN-009",
+      "feature": "F-LOGIN",
+      "title": "Pressing Enter in the password field logs in",
+      "type": "edge",
+      "technique": "checklist",
+      "priority": "P3",
+      "priority_reason": "Convenience path, low risk",
+      "preconditions": [
+        "Logged out, on https://www.saucedemo.com/"
+      ],
+      "data": "standard_user / secret_sauce",
+      "steps": [
+        "Type the username",
+        "Type the password",
+        "Press Enter"
+      ],
+      "expected": [
+        "URL is https://www.saucedemo.com/inventory.html"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Cheap keyboard check",
+        "ci_stage": "nightly"
+      },
+      "source": "web-checklist.md forms: submit with Enter; observations-2.txt: enter login",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-SESSION-001",
+      "feature": "F-SESSION",
+      "title": "Opening the product page while logged out returns to login with a message",
+      "type": "negative",
+      "technique": "state-transition",
+      "priority": "P1",
+      "priority_reason": "Access control on private pages",
+      "preconditions": [
+        "Logged out (no session cookie)"
+      ],
+      "steps": [
+        "Open https://www.saucedemo.com/inventory.html directly"
+      ],
+      "expected": [
+        "URL is https://www.saucedemo.com/",
+        "Message 'Epic sadface: You can only access '/inventory.html' when you are logged in.' is shown"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Security rule, one fast step",
+        "ci_stage": "pr"
+      },
+      "source": "R-SESSION-1",
+      "status": "approved"
+    },
+    {
+      "id": "TC-SESSION-002",
+      "feature": "F-SESSION",
+      "title": "Opening checkout step two while logged out returns to login",
+      "type": "negative",
+      "technique": "state-transition",
+      "priority": "P2",
+      "priority_reason": "Deep link into the money flow",
+      "preconditions": [
+        "Logged out (no session cookie)"
+      ],
+      "steps": [
+        "Open https://www.saucedemo.com/checkout-step-two.html directly"
+      ],
+      "expected": [
+        "Message 'Epic sadface: You can only access '/checkout-step-two.html' when you are logged in.' is shown"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Same check as TC-SESSION-001 on another page; cheap",
+        "ci_stage": "nightly"
+      },
+      "source": "R-SESSION-1",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-SESSION-003",
+      "feature": "F-SESSION",
+      "title": "Logout from the menu returns to the login page",
+      "type": "happy",
+      "technique": "state-transition",
+      "priority": "P1",
+      "priority_reason": "Shared computers: users must be able to leave",
+      "preconditions": [
+        "Logged in as standard_user, on the product list"
+      ],
+      "steps": [
+        "Open the menu",
+        "Click Logout"
+      ],
+      "expected": [
+        "URL is https://www.saucedemo.com/",
+        "The Login button is shown"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Core session rule",
+        "ci_stage": "pr"
+      },
+      "source": "R-SESSION-2",
+      "status": "approved"
+    },
+    {
+      "id": "TC-SESSION-004",
+      "feature": "F-SESSION",
+      "title": "Browser Back after logout does not show private pages",
+      "type": "edge",
+      "technique": "checklist",
+      "priority": "P1",
+      "priority_reason": "Privacy on shared computers",
+      "preconditions": [
+        "Logged in as standard_user, on the product list"
+      ],
+      "steps": [
+        "Open the menu",
+        "Click Logout",
+        "Press the browser Back button"
+      ],
+      "expected": [
+        "URL is https://www.saucedemo.com/",
+        "Message 'Epic sadface: You can only access '/inventory.html' when you are logged in.' is shown",
+        "No product is visible"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Easy to break when caching changes",
+        "ci_stage": "pr"
+      },
+      "source": "web-checklist.md accounts; observations.json: backAfterLogout",
+      "status": "approved"
+    },
+    {
+      "id": "TC-SESSION-005",
+      "feature": "F-SESSION",
+      "title": "A reload keeps the user logged in",
+      "type": "edge",
+      "technique": "state-transition",
+      "priority": "P2",
+      "priority_reason": "Losing the session on reload would lose the cart flow",
+      "preconditions": [
+        "Logged in as standard_user, on the product list"
+      ],
+      "steps": [
+        "Reload the page"
+      ],
+      "expected": [
+        "URL stays https://www.saucedemo.com/inventory.html",
+        "6 products are listed"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Cheap",
+        "ci_stage": "nightly"
+      },
+      "source": "web-checklist.md navigation: refresh",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-CAT-001",
+      "feature": "F-CATALOG",
+      "title": "Product list shows all 6 products with the right prices",
+      "type": "happy",
+      "technique": "use-case",
+      "priority": "P1",
+      "priority_reason": "Prices shown are what the buyer agrees to",
+      "preconditions": [
+        "Logged in as standard_user"
+      ],
+      "steps": [
+        "Look at the product list"
+      ],
+      "expected": [
+        "Names and prices, in order: Sauce Labs Backpack $29.99; Sauce Labs Bike Light $9.99; Sauce Labs Bolt T-Shirt $15.99; Sauce Labs Fleece Jacket $49.99; Sauce Labs Onesie $7.99; Test.allTheThings() T-Shirt (Red) $15.99"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Catches price and catalog changes on every push",
+        "ci_stage": "push"
+      },
+      "source": "R-CAT-1",
+      "status": "approved"
+    },
+    {
+      "id": "TC-CAT-002",
+      "feature": "F-CATALOG",
+      "title": "Sort by price low to high puts the Onesie first",
+      "type": "happy",
+      "technique": "equivalence-partitioning",
+      "priority": "P2",
+      "priority_reason": "Main sort option",
+      "preconditions": [
+        "Logged in as standard_user, on the product list"
+      ],
+      "steps": [
+        "Choose 'Price (low to high)' in the sort list"
+      ],
+      "expected": [
+        "First product is 'Sauce Labs Onesie' at $7.99",
+        "Prices never go down from one product to the next"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Stable, exact",
+        "ci_stage": "pr"
+      },
+      "source": "R-CAT-2",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-CAT-003",
+      "feature": "F-CATALOG",
+      "title": "Sort by price high to low puts the Fleece Jacket first",
+      "type": "happy",
+      "technique": "equivalence-partitioning",
+      "priority": "P2",
+      "priority_reason": "Sort option",
+      "preconditions": [
+        "Logged in as standard_user, on the product list"
+      ],
+      "steps": [
+        "Choose 'Price (high to low)' in the sort list"
+      ],
+      "expected": [
+        "First product is 'Sauce Labs Fleece Jacket' at $49.99",
+        "Prices never go up from one product to the next"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Stable, exact",
+        "ci_stage": "nightly"
+      },
+      "source": "R-CAT-2",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-CAT-004",
+      "feature": "F-CATALOG",
+      "title": "Sort by name Z to A puts the Test.allTheThings() T-Shirt first",
+      "type": "happy",
+      "technique": "equivalence-partitioning",
+      "priority": "P3",
+      "priority_reason": "Least used sort option",
+      "preconditions": [
+        "Logged in as standard_user, on the product list"
+      ],
+      "steps": [
+        "Choose 'Name (Z to A)' in the sort list"
+      ],
+      "expected": [
+        "First product is 'Test.allTheThings() T-Shirt (Red)'",
+        "Last product is 'Sauce Labs Backpack'"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Stable, exact",
+        "ci_stage": "nightly"
+      },
+      "source": "R-CAT-2",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-CAT-005",
+      "feature": "F-CATALOG",
+      "title": "Products with the same price keep a fixed order when sorted by price",
+      "type": "edge",
+      "technique": "boundary-value",
+      "priority": "P3",
+      "priority_reason": "Cosmetic, but a classic sorting edge",
+      "preconditions": [
+        "Logged in as standard_user, on the product list"
+      ],
+      "data": "Bolt T-Shirt and Test.allTheThings() T-Shirt (Red), both $15.99",
+      "steps": [
+        "Choose 'Price (low to high)'",
+        "Note the order of the two $15.99 products",
+        "Reload and sort again"
+      ],
+      "expected": [
+        "Both times: 'Sauce Labs Bolt T-Shirt' then 'Test.allTheThings() T-Shirt (Red)'"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Cheap once the rule is confirmed",
+        "ci_stage": "nightly"
+      },
+      "source": "observations-2.txt: lohi order",
+      "assumption": "Ties are broken by name A to Z, as seen today (Q-10)",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-CAT-006",
+      "feature": "F-CATALOG",
+      "title": "Product detail page shows the same name and price as the list",
+      "type": "happy",
+      "technique": "use-case",
+      "priority": "P2",
+      "priority_reason": "Price mismatch between pages misleads buyers",
+      "preconditions": [
+        "Logged in as standard_user, on the product list"
+      ],
+      "steps": [
+        "Click 'Sauce Labs Backpack'",
+        "Read the name and price",
+        "Click 'Back to products'"
+      ],
+      "expected": [
+        "Detail page shows 'Sauce Labs Backpack' and $29.99",
+        "Back to products returns to https://www.saucedemo.com/inventory.html"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Stable",
+        "ci_stage": "nightly"
+      },
+      "source": "R-CAT-1; inventory-logged-in/www-saucedemo-com-inventory-item-html.json",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-CAT-007",
+      "feature": "F-CATALOG",
+      "title": "Chosen sort order is kept after viewing a product",
+      "type": "edge",
+      "technique": "state-transition",
+      "priority": "P3",
+      "priority_reason": "Usability, no data risk",
+      "preconditions": [
+        "Logged in as standard_user, on the product list"
+      ],
+      "steps": [
+        "Choose 'Price (low to high)'",
+        "Open any product",
+        "Click 'Back to products'"
+      ],
+      "expected": [
+        "The sort list still shows 'Price (low to high)' and the Onesie is first"
+      ],
+      "automation": {
+        "level": "manual",
+        "reason": "Today the sort resets to A to Z; wait for the team's answer (Q-10)",
+        "ci_stage": "none"
+      },
+      "source": "observations-2.txt: sort after back az",
+      "assumption": "Keeping the user's choice is the expected behaviour; today it resets (Q-10)",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-CAT-008",
+      "feature": "F-CATALOG",
+      "title": "A product ID that does not exist shows a clear not-found page with nothing to buy",
+      "type": "negative",
+      "technique": "equivalence-partitioning",
+      "priority": "P2",
+      "priority_reason": "Shared or old links reach this page; it must not sell a non-existent item",
+      "preconditions": [
+        "Logged in as standard_user"
+      ],
+      "data": "id=99, id=-1, id=abc",
+      "steps": [
+        "Open https://www.saucedemo.com/inventory-item.html?id=99",
+        "Repeat with id=-1 and id=abc"
+      ],
+      "expected": [
+        "A not-found message is shown",
+        "No price and no Add to cart button are shown"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Three URLs, one data-driven test",
+        "ci_stage": "nightly"
+      },
+      "source": "observations-3.txt: all three IDs show 'ITEM NOT FOUND', price '$√-1' and an Add to cart button; inventory/unknown-item-1-product-page.jpg",
+      "assumption": "A missing product should not be buyable (Q-12)",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-CART-001",
+      "feature": "F-CART",
+      "title": "Adding one product shows 1 on the cart badge and a Remove button",
+      "type": "happy",
+      "technique": "boundary-value",
+      "priority": "P1",
+      "priority_reason": "The cart decides what is bought",
+      "preconditions": [
+        "Logged in as standard_user, cart empty"
+      ],
+      "steps": [
+        "Click 'Add to cart' on Sauce Labs Backpack"
+      ],
+      "expected": [
+        "Cart badge shows 1",
+        "The Backpack button now says 'Remove'"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Main journey step",
+        "ci_stage": "push"
+      },
+      "source": "R-CART-1",
+      "status": "approved"
+    },
+    {
+      "id": "TC-CART-002",
+      "feature": "F-CART",
+      "title": "Removing a product from the cart page updates the list and the badge",
+      "type": "happy",
+      "technique": "state-transition",
+      "priority": "P1",
+      "priority_reason": "Buyers must be able to change their mind",
+      "preconditions": [
+        "Logged in as standard_user, Backpack and Bike Light in the cart"
+      ],
+      "steps": [
+        "Open the cart",
+        "Click 'Remove' on Sauce Labs Bike Light"
+      ],
+      "expected": [
+        "Only 'Sauce Labs Backpack' is listed",
+        "Cart badge shows 1"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Core cart rule",
+        "ci_stage": "pr"
+      },
+      "source": "R-CART-1",
+      "status": "approved"
+    },
+    {
+      "id": "TC-CART-003",
+      "feature": "F-CART",
+      "title": "Removing the last product hides the badge",
+      "type": "edge",
+      "technique": "boundary-value",
+      "priority": "P2",
+      "priority_reason": "Boundary from 1 to 0 items",
+      "preconditions": [
+        "Logged in as standard_user, only the Backpack in the cart"
+      ],
+      "steps": [
+        "Open the cart",
+        "Click 'Remove' on Sauce Labs Backpack"
+      ],
+      "expected": [
+        "The cart list is empty",
+        "No badge is shown on the cart icon (not '0')"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Cheap boundary check",
+        "ci_stage": "pr"
+      },
+      "source": "R-CART-2",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-CART-004",
+      "feature": "F-CART",
+      "title": "Adding all 6 products shows 6 on the badge",
+      "type": "edge",
+      "technique": "boundary-value",
+      "priority": "P2",
+      "priority_reason": "Maximum cart size",
+      "preconditions": [
+        "Logged in as standard_user, cart empty"
+      ],
+      "steps": [
+        "Click 'Add to cart' on all 6 products"
+      ],
+      "expected": [
+        "Cart badge shows 6",
+        "No 'Add to cart' button is left on the page",
+        "The cart page lists 6 products"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Upper boundary of the cart",
+        "ci_stage": "nightly"
+      },
+      "source": "R-CART-1; observations.json: badgeAll",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-CART-005",
+      "feature": "F-CART",
+      "title": "Cart contents survive a page reload",
+      "type": "edge",
+      "technique": "state-transition",
+      "priority": "P2",
+      "priority_reason": "Losing the cart on reload loses sales",
+      "preconditions": [
+        "Logged in as standard_user, Backpack in the cart"
+      ],
+      "steps": [
+        "Reload the page"
+      ],
+      "expected": [
+        "Cart badge still shows 1",
+        "The Backpack button still says 'Remove'"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Cheap",
+        "ci_stage": "nightly"
+      },
+      "source": "R-CART-3",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-CART-006",
+      "feature": "F-CART",
+      "title": "Cart after logout and login again",
+      "type": "edge",
+      "technique": "state-transition",
+      "priority": "P3",
+      "priority_reason": "Product decision, then a cheap check",
+      "preconditions": [
+        "Logged in as standard_user, Backpack in the cart"
+      ],
+      "steps": [
+        "Log out",
+        "Log in again as standard_user"
+      ],
+      "expected": [
+        "Today: cart badge shows 1 (cart kept). Confirm this is wanted (Q-11)"
+      ],
+      "automation": {
+        "level": "manual",
+        "reason": "Wait for the team's answer before locking the rule in a test",
+        "ci_stage": "none"
+      },
+      "source": "R-CART-3",
+      "assumption": "Keeping the cart is intended (Q-11)",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-CART-007",
+      "feature": "F-CART",
+      "title": "Continue Shopping returns to the product list with the cart kept",
+      "type": "happy",
+      "technique": "use-case",
+      "priority": "P3",
+      "priority_reason": "Navigation helper",
+      "preconditions": [
+        "Logged in as standard_user, Backpack in the cart, on the cart page"
+      ],
+      "steps": [
+        "Click 'Continue Shopping'"
+      ],
+      "expected": [
+        "URL is https://www.saucedemo.com/inventory.html",
+        "Cart badge shows 1"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Cheap",
+        "ci_stage": "nightly"
+      },
+      "source": "observations-2.txt: continue shopping url",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-CART-008",
+      "feature": "F-CART",
+      "title": "Cart badge and cart list always agree",
+      "type": "negative",
+      "technique": "error-guessing",
+      "priority": "P2",
+      "priority_reason": "A badge that disagrees with the cart confuses what is being bought",
+      "preconditions": [
+        "Logged in as standard_user, cart empty"
+      ],
+      "steps": [
+        "Open https://www.saucedemo.com/inventory-item.html?id=99",
+        "Click Add to cart",
+        "Open the cart"
+      ],
+      "expected": [
+        "The number on the badge equals the number of items listed in the cart (here: no badge and an empty list, or the item refused)"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Cheap invariant check; can be reused after every cart action",
+        "ci_stage": "nightly"
+      },
+      "source": "observations-4.txt: localStorage cart [99], badge 1, cart list empty (2/2 runs); inventory/unknown-item-2-cart-empty-list.jpg",
+      "assumption": "The unknown item should not enter the cart at all (Q-12)",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-CO-001",
+      "feature": "F-CHECKOUT",
+      "title": "Buying two products shows the right totals and completes the order",
+      "type": "happy",
+      "technique": "use-case",
+      "priority": "P1",
+      "priority_reason": "The money journey",
+      "preconditions": [
+        "Logged in as standard_user, cart empty"
+      ],
+      "data": "Backpack ($29.99) + Bike Light ($9.99); Ana / Silva / 86000",
+      "steps": [
+        "Add Backpack and Bike Light to the cart",
+        "Open the cart and click Checkout",
+        "Fill First Name, Last Name and Postal Code",
+        "Click Continue",
+        "Read the totals",
+        "Click Finish"
+      ],
+      "expected": [
+        "Step two shows 'Item total: $39.98', 'Tax: $3.20' and 'Total: $43.18'",
+        "After Finish: 'Thank you for your order!' is shown",
+        "The cart badge is gone"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Highest-value journey, smoke on every push",
+        "ci_stage": "push"
+      },
+      "source": "R-CO-2; R-CO-3",
+      "status": "approved"
+    },
+    {
+      "id": "TC-CO-002",
+      "feature": "F-CHECKOUT",
+      "title": "Buying all 6 products shows the right totals",
+      "type": "edge",
+      "technique": "boundary-value",
+      "priority": "P1",
+      "priority_reason": "Money at the maximum cart size",
+      "preconditions": [
+        "Logged in as standard_user, cart empty"
+      ],
+      "data": "All 6 products; Ana / Silva / 86000",
+      "steps": [
+        "Add all 6 products",
+        "Go through checkout step one",
+        "Read the totals on step two"
+      ],
+      "expected": [
+        "'Item total: $129.94', 'Tax: $10.40', 'Total: $140.34'"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Money rule at the boundary",
+        "ci_stage": "pr"
+      },
+      "source": "R-CO-2; observations.json: allItemsTotals",
+      "status": "approved"
+    },
+    {
+      "id": "TC-CO-003",
+      "feature": "F-CHECKOUT",
+      "title": "Tax on the cheapest product rounds to the cent",
+      "type": "edge",
+      "technique": "boundary-value",
+      "priority": "P2",
+      "priority_reason": "Rounding errors are a classic money bug",
+      "preconditions": [
+        "Logged in as standard_user, cart empty"
+      ],
+      "data": "Sauce Labs Onesie ($7.99): 8% = $0.6392",
+      "steps": [
+        "Add only the Onesie",
+        "Go through checkout step one",
+        "Read the totals on step two"
+      ],
+      "expected": [
+        "'Tax: $0.64' and 'Total: $8.63'"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Rounding rule; would be a unit test with access to the code",
+        "ci_stage": "pr"
+      },
+      "source": "R-CO-2; observations-2.txt: onesie",
+      "assumption": "Tax is 8% rounded half up to the cent (Q-04)",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-CO-004",
+      "feature": "F-CHECKOUT",
+      "title": "Continue with all fields empty asks for the first name",
+      "type": "negative",
+      "technique": "equivalence-partitioning",
+      "priority": "P2",
+      "priority_reason": "Required data for the order",
+      "preconditions": [
+        "Logged in, Backpack in the cart, on checkout step one"
+      ],
+      "steps": [
+        "Leave all fields empty",
+        "Click Continue"
+      ],
+      "expected": [
+        "Message 'Error: First Name is required' is shown",
+        "URL stays https://www.saucedemo.com/checkout-step-one.html"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Exact message, stable",
+        "ci_stage": "pr"
+      },
+      "source": "R-CO-1",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-CO-005",
+      "feature": "F-CHECKOUT",
+      "title": "Continue without a last name asks for the last name",
+      "type": "negative",
+      "technique": "equivalence-partitioning",
+      "priority": "P2",
+      "priority_reason": "Required data for the order",
+      "preconditions": [
+        "Logged in, Backpack in the cart, on checkout step one"
+      ],
+      "data": "First Name: Ana",
+      "steps": [
+        "Fill only First Name",
+        "Click Continue"
+      ],
+      "expected": [
+        "Message 'Error: Last Name is required' is shown"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Exact message, stable",
+        "ci_stage": "pr"
+      },
+      "source": "R-CO-1",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-CO-006",
+      "feature": "F-CHECKOUT",
+      "title": "Continue without a postal code asks for the postal code",
+      "type": "negative",
+      "technique": "equivalence-partitioning",
+      "priority": "P2",
+      "priority_reason": "Required data for the order",
+      "preconditions": [
+        "Logged in, Backpack in the cart, on checkout step one"
+      ],
+      "data": "Ana / Silva / (empty)",
+      "steps": [
+        "Fill First Name and Last Name",
+        "Click Continue"
+      ],
+      "expected": [
+        "Message 'Error: Postal Code is required' is shown"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Exact message, stable",
+        "ci_stage": "pr"
+      },
+      "source": "R-CO-1",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-CO-007",
+      "feature": "F-CHECKOUT",
+      "title": "Fields with only spaces are refused as empty",
+      "type": "edge",
+      "technique": "error-guessing",
+      "priority": "P2",
+      "priority_reason": "Orders with blank names cannot be delivered",
+      "preconditions": [
+        "Logged in, Backpack in the cart, on checkout step one"
+      ],
+      "data": "Three spaces in each field",
+      "steps": [
+        "Type three spaces in First Name, Last Name and Postal Code",
+        "Click Continue"
+      ],
+      "expected": [
+        "Message 'Error: First Name is required' is shown",
+        "URL stays https://www.saucedemo.com/checkout-step-one.html"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Cheap, once the team confirms the rule",
+        "ci_stage": "nightly"
+      },
+      "source": "web-checklist.md forms: spaces only; observations.json: co_spacesOnly (today it is accepted)",
+      "assumption": "Spaces-only should count as empty. Today the site accepts them and goes to step two (Q-02)",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-CO-008",
+      "feature": "F-CHECKOUT",
+      "title": "Checkout with an empty cart is blocked",
+      "type": "edge",
+      "technique": "boundary-value",
+      "priority": "P2",
+      "priority_reason": "Empty orders pollute order data",
+      "preconditions": [
+        "Logged in as standard_user, cart empty"
+      ],
+      "steps": [
+        "Open the cart",
+        "Click Checkout"
+      ],
+      "expected": [
+        "Checkout does not start, or a message says the cart is empty"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Cheap, once the team confirms the rule",
+        "ci_stage": "nightly"
+      },
+      "source": "observations.json: emptyCartCheckoutUrl, co_emptyCart_step2, emptyCartFinish (today a $0.00 order completes)",
+      "assumption": "An empty cart should not reach the order (Q-01)",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-CO-009",
+      "feature": "F-CHECKOUT",
+      "title": "Cancel on step one returns to the cart; Cancel on step two returns to the products, cart kept",
+      "type": "happy",
+      "technique": "state-transition",
+      "priority": "P3",
+      "priority_reason": "Way out of the flow, no data risk",
+      "preconditions": [
+        "Logged in, Onesie in the cart"
+      ],
+      "steps": [
+        "On step one click Cancel",
+        "Go to step two (fill the form, Continue)",
+        "On step two click Cancel"
+      ],
+      "expected": [
+        "First Cancel: URL is https://www.saucedemo.com/cart.html",
+        "Second Cancel: URL is https://www.saucedemo.com/inventory.html and the badge still shows 1"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Stable",
+        "ci_stage": "nightly"
+      },
+      "source": "R-CO-4",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-CO-010",
+      "feature": "F-CHECKOUT",
+      "title": "Very long names: limit or safe layout",
+      "type": "edge",
+      "technique": "boundary-value",
+      "priority": "P3",
+      "priority_reason": "No documented limit; layout risk only",
+      "preconditions": [
+        "Logged in, Backpack in the cart, on checkout step one"
+      ],
+      "data": "First Name of 1,000 'A' characters",
+      "steps": [
+        "Paste the long first name",
+        "Fill the other fields",
+        "Continue and Finish"
+      ],
+      "expected": [
+        "Either the field stops at a documented maximum, or the order completes with the layout intact (no text over buttons)"
+      ],
+      "automation": {
+        "level": "manual",
+        "reason": "Needs a person to judge the layout, and the limit is unknown (Q-05)",
+        "ci_stage": "release"
+      },
+      "source": "R-CO-5",
+      "assumption": "No limit exists today; the field accepted 1,000 characters (Q-05)",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-CO-011",
+      "feature": "F-CHECKOUT",
+      "title": "Back after an order does not allow a second, empty order",
+      "type": "edge",
+      "technique": "error-guessing",
+      "priority": "P3",
+      "priority_reason": "Duplicate or empty orders",
+      "preconditions": [
+        "An order was just completed (on the 'Thank you' page)"
+      ],
+      "steps": [
+        "Press the browser Back button",
+        "Look at the totals",
+        "Click Finish again"
+      ],
+      "expected": [
+        "The user is not offered a second order, or the empty order is refused"
+      ],
+      "automation": {
+        "level": "manual",
+        "reason": "Depends on Q-01; explore by hand first",
+        "ci_stage": "release"
+      },
+      "source": "observations-2.txt: back after finish shows step two with Total: $0.00",
+      "assumption": "Same rule as TC-CO-008 (Q-01)",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-CO-012",
+      "feature": "F-CHECKOUT",
+      "title": "Order confirmation page cannot be opened without an order",
+      "type": "negative",
+      "technique": "state-transition",
+      "priority": "P3",
+      "priority_reason": "Confusing, but no money moves",
+      "preconditions": [
+        "Logged in as standard_user, no order placed"
+      ],
+      "steps": [
+        "Open https://www.saucedemo.com/checkout-complete.html directly"
+      ],
+      "expected": [
+        "The user is sent to the cart or product list, not shown 'Thank you for your order!'"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "One step, once the rule is confirmed",
+        "ci_stage": "nightly"
+      },
+      "source": "inventory-logged-in/inventory.md: checkout-complete shows 'Thank you for your order!' on a direct visit",
+      "assumption": "Direct access should not show a confirmation (Q-07)",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-MENU-001",
+      "feature": "F-MENU",
+      "title": "Reset App State empties the cart and resets every button",
+      "type": "happy",
+      "technique": "state-transition",
+      "priority": "P2",
+      "priority_reason": "Leaves the screen out of step with the cart",
+      "preconditions": [
+        "Logged in as standard_user, Backpack in the cart, on the product list"
+      ],
+      "steps": [
+        "Open the menu",
+        "Click 'Reset App State'"
+      ],
+      "expected": [
+        "The cart badge is gone",
+        "The Backpack button says 'Add to cart' again, without a reload"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Stable once the expected behaviour is confirmed",
+        "ci_stage": "nightly"
+      },
+      "source": "observations.json: afterReset; observations-2.txt: before reload remove buttons 1, after reload 0",
+      "assumption": "Buttons should reset at once. Today they keep saying 'Remove' until a reload (Q-03)",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-MENU-002",
+      "feature": "F-MENU",
+      "title": "All Items returns to the product list from the cart",
+      "type": "happy",
+      "technique": "use-case",
+      "priority": "P3",
+      "priority_reason": "Navigation helper",
+      "preconditions": [
+        "Logged in, on the cart page"
+      ],
+      "steps": [
+        "Open the menu",
+        "Click 'All Items'"
+      ],
+      "expected": [
+        "URL is https://www.saucedemo.com/inventory.html"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Cheap",
+        "ci_stage": "nightly"
+      },
+      "source": "R-MENU-1",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-MENU-003",
+      "feature": "F-MENU",
+      "title": "About opens the Sauce Labs site",
+      "type": "happy",
+      "technique": "use-case",
+      "priority": "P3",
+      "priority_reason": "External link",
+      "preconditions": [
+        "Logged in, on the product list"
+      ],
+      "steps": [
+        "Open the menu",
+        "Click 'About'"
+      ],
+      "expected": [
+        "The browser goes to https://saucelabs.com/"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Check the link target only, do not load the external site in CI",
+        "ci_stage": "nightly"
+      },
+      "source": "R-MENU-2",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-USERS-001",
+      "feature": "F-USERS",
+      "title": "problem_user can buy two products with correct items and totals",
+      "type": "happy",
+      "technique": "equivalence-partitioning",
+      "priority": "P2",
+      "priority_reason": "A user type the site offers; failures are product bugs to report",
+      "preconditions": [
+        "Logged out, on https://www.saucedemo.com/"
+      ],
+      "data": "problem_user / secret_sauce; Backpack + Bike Light; Ana / Silva / 86000",
+      "steps": [
+        "Log in as problem_user",
+        "Add Backpack and Bike Light",
+        "Check out with the data",
+        "Finish"
+      ],
+      "expected": [
+        "Same results as TC-CO-001: badge 2, 'Total: $43.18', 'Thank you for your order!'"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Same test as TC-CO-001 with another user: one data-driven test",
+        "ci_stage": "nightly"
+      },
+      "source": "R-USERS-1",
+      "status": "approved"
+    },
+    {
+      "id": "TC-USERS-002",
+      "feature": "F-USERS",
+      "title": "error_user can buy two products with correct items and totals",
+      "type": "happy",
+      "technique": "equivalence-partitioning",
+      "priority": "P2",
+      "priority_reason": "A user type the site offers; failures are product bugs to report",
+      "preconditions": [
+        "Logged out, on https://www.saucedemo.com/"
+      ],
+      "data": "error_user / secret_sauce; Backpack + Bike Light; Ana / Silva / 86000",
+      "steps": [
+        "Log in as error_user",
+        "Add Backpack and Bike Light",
+        "Check out with the data",
+        "Finish"
+      ],
+      "expected": [
+        "Same results as TC-CO-001: badge 2, 'Total: $43.18', 'Thank you for your order!'"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Same data-driven test as TC-USERS-001",
+        "ci_stage": "nightly"
+      },
+      "source": "R-USERS-1",
+      "status": "approved"
+    },
+    {
+      "id": "TC-USERS-003",
+      "feature": "F-USERS",
+      "title": "performance_glitch_user reaches the product list within the time budget",
+      "type": "happy",
+      "technique": "equivalence-partitioning",
+      "priority": "P3",
+      "priority_reason": "Speed, not correctness",
+      "preconditions": [
+        "Logged out, on https://www.saucedemo.com/"
+      ],
+      "data": "performance_glitch_user / secret_sauce. Measured today: about 5,050 ms vs 52 ms for standard_user",
+      "steps": [
+        "Log in as performance_glitch_user",
+        "Measure the time from clicking Login to the product list"
+      ],
+      "expected": [
+        "Product list shown in under 3,000 ms"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "A timing check is cheap in a test; the budget needs agreeing first",
+        "ci_stage": "nightly"
+      },
+      "source": "observations-2.txt: login time",
+      "assumption": "A 3-second budget (Q-09)",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-USERS-004",
+      "feature": "F-USERS",
+      "title": "visual_user sees the same page as standard_user",
+      "type": "happy",
+      "technique": "equivalence-partitioning",
+      "priority": "P3",
+      "priority_reason": "Visual only",
+      "preconditions": [
+        "A reference screenshot of the product list as standard_user"
+      ],
+      "steps": [
+        "Log in as visual_user",
+        "Compare the product list with the reference screenshot"
+      ],
+      "expected": [
+        "No visual difference from the standard_user product list, apart from dynamic content"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Visual comparison (toHaveScreenshot) if a visual tool is chosen",
+        "ci_stage": "nightly"
+      },
+      "source": "R-USERS-1; automation-guide.md visual changes",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-CROSS-001",
+      "feature": "F-CROSS",
+      "title": "Two-product purchase works in Firefox and WebKit (Safari)",
+      "type": "happy",
+      "technique": "checklist",
+      "priority": "P2",
+      "priority_reason": "Buyers use every browser",
+      "preconditions": [
+        "Same as TC-CO-001"
+      ],
+      "steps": [
+        "Run TC-CO-001 in Firefox",
+        "Run TC-CO-001 in WebKit"
+      ],
+      "expected": [
+        "Same results as TC-CO-001 in both browsers: 'Total: $43.18', 'Thank you for your order!'"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Same test, more browser projects",
+        "ci_stage": "nightly"
+      },
+      "source": "web-checklist.md browsers",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-CROSS-002",
+      "feature": "F-CROSS",
+      "title": "Two-product purchase works at phone size",
+      "type": "edge",
+      "technique": "checklist",
+      "priority": "P2",
+      "priority_reason": "Mobile buyers",
+      "preconditions": [
+        "Same as TC-CO-001, viewport 390 x 844 (phone)"
+      ],
+      "steps": [
+        "Run TC-CO-001 on a phone-sized screen"
+      ],
+      "expected": [
+        "Same results as TC-CO-001; every button is visible and can be tapped"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Same test, mobile project",
+        "ci_stage": "nightly"
+      },
+      "source": "web-checklist.md browsers and devices",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-CROSS-003",
+      "feature": "F-CROSS",
+      "title": "Login and purchase can be done with the keyboard only",
+      "type": "edge",
+      "technique": "checklist",
+      "priority": "P2",
+      "priority_reason": "Accessibility of the money journey",
+      "preconditions": [
+        "Logged out, on https://www.saucedemo.com/"
+      ],
+      "steps": [
+        "Using only Tab, Shift+Tab, Enter and Space: log in, add a product, check out, finish"
+      ],
+      "expected": [
+        "Every step is reachable",
+        "The focus is always visible",
+        "The order is completed: 'Thank you for your order!'"
+      ],
+      "automation": {
+        "level": "manual",
+        "reason": "Focus visibility needs a person; repeat before each release",
+        "ci_stage": "release"
+      },
+      "source": "web-checklist.md accessibility",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-CROSS-004",
+      "feature": "F-CROSS",
+      "title": "Automated accessibility scan finds no serious issues on the main pages",
+      "type": "edge",
+      "technique": "checklist",
+      "priority": "P3",
+      "priority_reason": "Catches regressions; finds about a third of issues",
+      "preconditions": [
+        "Logged in as standard_user"
+      ],
+      "steps": [
+        "Scan login, product list, cart, checkout step one and step two with axe-core"
+      ],
+      "expected": [
+        "No violations with impact 'serious' or 'critical'"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Runs inside the UI tests if @axe-core/playwright is chosen",
+        "ci_stage": "nightly"
+      },
+      "source": "web-checklist.md accessibility; automation-guide.md extras",
+      "status": "suggested"
+    },
+    {
+      "id": "TC-CROSS-005",
+      "feature": "F-CROSS",
+      "title": "Main pages load without console errors",
+      "type": "edge",
+      "technique": "checklist",
+      "priority": "P3",
+      "priority_reason": "Errors may hide broken features",
+      "preconditions": [
+        "Logged out, browser console open or recorded"
+      ],
+      "steps": [
+        "Open the login page",
+        "Log in and open the product list"
+      ],
+      "expected": [
+        "No console errors on either page"
+      ],
+      "automation": {
+        "level": "ui",
+        "reason": "Cheap listener in the UI tests",
+        "ci_stage": "nightly"
+      },
+      "source": "inventory/www-saucedemo-com.json and inventory-logged-in/www-saucedemo-com-inventory-html.json: consoleErrors",
+      "assumption": "Today there are two 401 errors on the login page and one 404 on the product list (Q-08)",
+      "status": "suggested"
+    }
+  ],
+  "questions": [
+    {
+      "id": "Q-01",
+      "question": "Should checkout be possible with an empty cart? Today a $0.00 order completes, and the item total shows '$0' instead of '$0.00'.",
+      "source": "observations.json: emptyCartCheckoutUrl, co_emptyCart_step2, emptyCartFinish",
+      "why": "Creates empty orders; the price format is inconsistent",
+      "cases": [
+        "TC-CO-008",
+        "TC-CO-011"
+      ]
+    },
+    {
+      "id": "Q-02",
+      "question": "Should names and postal codes made only of spaces be refused?",
+      "source": "observations.json: co_spacesOnly",
+      "why": "Orders with blank names cannot be delivered",
+      "cases": [
+        "TC-CO-007"
+      ]
+    },
+    {
+      "id": "Q-03",
+      "question": "After Reset App State, the cart is emptied but the product buttons keep saying 'Remove' until a reload. Is that intended?",
+      "source": "observations.json: afterReset; observations-2.txt: before/after reload",
+      "why": "The screen disagrees with the cart; a click on 'Remove' then does nothing useful",
+      "cases": [
+        "TC-MENU-001"
+      ]
+    },
+    {
+      "id": "Q-04",
+      "question": "Is tax 8% of the item total, rounded half up to the cent? Where is the rule written?",
+      "source": "R-CO-2 (inferred from three totals)",
+      "why": "Money expectations need a written rule, not an inference",
+      "cases": [
+        "TC-CO-003"
+      ]
+    },
+    {
+      "id": "Q-05",
+      "question": "What are the maximum lengths and allowed characters for First Name, Last Name and Postal Code?",
+      "source": "R-CO-5",
+      "why": "Boundary cases need the limits",
+      "cases": [
+        "TC-CO-010"
+      ]
+    },
+    {
+      "id": "Q-06",
+      "question": "Should spaces around the username be trimmed?",
+      "source": "observations.json: spaces",
+      "why": "Pasted usernames fail today",
+      "cases": [
+        "TC-LOGIN-008"
+      ]
+    },
+    {
+      "id": "Q-07",
+      "question": "Should the order confirmation page open when no order was placed?",
+      "source": "inventory-logged-in/inventory.md: checkout-complete",
+      "why": "Shows 'Thank you for your order!' without an order",
+      "cases": [
+        "TC-CO-012"
+      ]
+    },
+    {
+      "id": "Q-08",
+      "question": "The login page logs two 401 errors and the product list one 404. Are these expected?",
+      "source": "inventory/www-saucedemo-com.json and inventory-logged-in/www-saucedemo-com-inventory-html.json: consoleErrors",
+      "why": "Console noise hides real errors in automated checks",
+      "cases": [
+        "TC-CROSS-005"
+      ]
+    },
+    {
+      "id": "Q-09",
+      "question": "What is the time budget for reaching the product list after login?",
+      "source": "observations-2.txt: login time",
+      "why": "performance_glitch_user takes about 5 seconds; a test needs a number",
+      "cases": [
+        "TC-USERS-003"
+      ]
+    },
+    {
+      "id": "Q-10",
+      "question": "Should the sort choice be kept after viewing a product? How are ties on price ordered?",
+      "source": "observations-2.txt: sort after back, lohi order",
+      "why": "Today the sort resets to A to Z; tie order is undocumented",
+      "cases": [
+        "TC-CAT-005",
+        "TC-CAT-007"
+      ]
+    },
+    {
+      "id": "Q-11",
+      "question": "Should the cart be kept after logout?",
+      "source": "R-CART-3",
+      "why": "On a shared computer the next user sees the cart",
+      "cases": [
+        "TC-CART-006"
+      ]
+    },
+    {
+      "id": "Q-12",
+      "question": "A product URL with an unknown ID (id=99) shows 'ITEM NOT FOUND' with price '$√-1' and a working Add to cart. The cart badge then shows 1 while the cart list is empty. Intended?",
+      "source": "observations-3.txt, observations-4.txt; inventory/unknown-item-1-product-page.jpg, inventory/unknown-item-2-cart-empty-list.jpg",
+      "why": "A non-existent item can be put in the cart; badge and cart disagree. Checkout with it was not checked",
+      "cases": [
+        "TC-CAT-008",
+        "TC-CART-008"
+      ]
+    }
+  ],
+  "not_covered": [
+    {
+      "area": "Dynamic Catalog menu (Lazy Load, Spinner, Slider)",
+      "reason": "Found in the menu during this run; not explored. Next step: map it and add cases for loading states."
+    },
+    {
+      "area": "Unit tests",
+      "reason": "No access to the source code"
+    },
+    {
+      "area": "API tests",
+      "reason": "The site has no public API; everything runs in the browser"
+    },
+    {
+      "area": "Real payment and order storage",
+      "reason": "The demo has no payment step and no visible order history"
+    },
+    {
+      "area": "Security beyond smoke checks",
+      "reason": "Not authorised for a security test of a third-party site"
+    }
+  ]
+}

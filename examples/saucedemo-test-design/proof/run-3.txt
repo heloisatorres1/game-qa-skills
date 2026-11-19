@@ -1,0 +1,88 @@
+
+Running 13 tests using 10 workers
+
+  ok  8 [chromium] › tests\login.spec.ts:6:1 › TC-LOGIN-001 standard user logs in and sees the product list @push (1.6s)
+  ok  3 [chromium] › tests\catalog-cart.spec.ts:13:1 › TC-CART-001 adding one product shows 1 on the badge and a Remove button @push (2.2s)
+  ok  5 [chromium] › tests\login.spec.ts:21:1 › TC-LOGIN-006 locked-out user cannot log in and is told why @pr (2.1s)
+  ok  7 [chromium] › tests\login.spec.ts:12:1 › TC-LOGIN-004 wrong password is refused with a clear message @pr (2.3s)
+  ok  2 [chromium] › tests\catalog-cart.spec.ts:4:1 › TC-CAT-001 product list shows all 6 products with the right prices @push (2.4s)
+  ok  6 [chromium] › tests\checkout.spec.ts:26:1 › TC-CO-002 buying all 6 products shows the right totals @pr (2.1s)
+  ok  4 [chromium] › tests\catalog-cart.spec.ts:20:1 › TC-CART-002 removing a product from the cart page updates the list and the badge @pr (2.6s)
+  ok  9 [chromium] › tests\session.spec.ts:12:1 › TC-SESSION-003 logout from the menu returns to the login page @pr (2.6s)
+  ok 10 [chromium] › tests\session.spec.ts:6:1 › TC-SESSION-001 product page while logged out returns to login with a message @pr (2.8s)
+  ok  1 [chromium] › tests\checkout.spec.ts:4:1 › TC-CO-001 buying two products shows the right totals and completes the order @push (3.2s)
+  ok 11 [chromium] › tests\session.spec.ts:20:1 › TC-SESSION-004 browser Back after logout does not show private pages @pr (2.0s)
+  x  13 [chromium] › tests\users.spec.ts:12:3 › TC-USERS-001 problem_user can buy two products with correct items and totals @nightly (6.3s)
+  x  12 [chromium] › tests\users.spec.ts:12:3 › TC-USERS-002 error_user can buy two products with correct items and totals @nightly (6.3s)
+
+
+  1) [chromium] › tests\users.spec.ts:12:3 › TC-USERS-001 problem_user can buy two products with correct items and totals @nightly 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: locator('[data-test="total-label"]')
+    Expected: "Total: $43.18"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveText" locator('[data-test="total-label"]') with timeout 5000ms
+      - waiting for locator('[data-test="total-label"]')
+
+
+      19 |     await page.getByRole('button', { name: 'Checkout' }).click();
+      20 |     await fillCheckout(page);
+    > 21 |     await expect(page.locator('[data-test="total-label"]')).toHaveText('Total: $43.18');
+         |                                                             ^
+      22 |
+      23 |     await page.getByRole('button', { name: 'Finish' }).click();
+      24 |     await expect(page.getByText('Thank you for your order!')).toBeVisible();
+        at tests\users.spec.ts:21:61
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\users-TC-USERS-001-problem-bab20-th-correct-items-and-totals-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\users-TC-USERS-001-problem-bab20-th-correct-items-and-totals-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\users-TC-USERS-001-problem-bab20-th-correct-items-and-totals-chromium\error-context.md
+
+  2) [chromium] › tests\users.spec.ts:12:3 › TC-USERS-002 error_user can buy two products with correct items and totals @nightly 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('Thank you for your order!')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByText('Thank you for your order!') with timeout 5000ms
+      - waiting for getByText('Thank you for your order!')
+
+
+      22 |
+      23 |     await page.getByRole('button', { name: 'Finish' }).click();
+    > 24 |     await expect(page.getByText('Thank you for your order!')).toBeVisible();
+         |                                                               ^
+      25 |   });
+      26 | }
+      27 |
+        at tests\users.spec.ts:24:63
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\users-TC-USERS-002-error-u-7a85a-th-correct-items-and-totals-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\users-TC-USERS-002-error-u-7a85a-th-correct-items-and-totals-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\users-TC-USERS-002-error-u-7a85a-th-correct-items-and-totals-chromium\error-context.md
+
+  2 failed
+    [chromium] › tests\users.spec.ts:12:3 › TC-USERS-001 problem_user can buy two products with correct items and totals @nightly 
+    [chromium] › tests\users.spec.ts:12:3 › TC-USERS-002 error_user can buy two products with correct items and totals @nightly 
+  11 passed (18.5s)

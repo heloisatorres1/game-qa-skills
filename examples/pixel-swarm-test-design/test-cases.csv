@@ -1,0 +1,86 @@
+﻿"ID","Feature","Title","Type","Technique","Priority","Priority reason","Preconditions","Steps","Test data","Expected result","Automation level","Automation reason","CI stage","Source","Assumption","Status"
+"TC-STORE-001","Store and currencies","Buying 1,000 coins for 30 gems moves the exact amounts","happy","equivalence-partitioning","P1","Currency exchange: every number must be exact","Fresh save, then 100 gems and 0 coins (debug: zero, then gems)","1. Open the Store
+2. Tap the 1,000 coins pack (30 gems)","","1. Gems 100 -> 70, coins 0 -> 1,000, in the HUD and in the save (localStorage pixelswarm.save.v1)
+2. Toast '+1,000 coins'","ui","Exact numbers readable from the save; runs on every change","push","R-STORE-2","","suggested"
+"TC-STORE-002","Store and currencies","Coin pack with too few gems is refused and nothing changes","negative","boundary-value","P1","A refused purchase must never charge","29 gems, 0 coins (debug: zero, then gems; spend to 29, or edit the save)","1. Open the Store
+2. Tap the 1,000 coins pack","29 gems vs a 30-gem pack (one below the price)","1. Toast 'Not enough gems (need 30)'
+2. Gems stay 29, coins stay 0","ui","Money rule at the boundary","pr","R-STORE-3","","suggested"
+"TC-STORE-003","Store and currencies","Coin pack with exactly the price in gems leaves 0 gems","edge","boundary-value","P2","On-the-boundary purchase","Exactly 30 gems, 0 coins","1. Open the Store
+2. Tap the 1,000 coins pack","","1. Gems 30 -> 0, coins 0 -> 1,000","ui","Cheap boundary check","pr","R-STORE-2; R-STORE-3 (state.gems < c.gems)","","suggested"
+"TC-STORE-004","Store and currencies","Each gem pack adds its exact amount","happy","equivalence-partitioning","P2","Paid items in the real app","0 gems","1. Buy the 100 pack
+2. Buy the 550 pack
+3. Buy the 1,200 pack","100, 550 and 1,200 gem packs","1. Gems after each: 100, 650, 1,850
+2. Toasts 'Test purchase: +100 gems', '+550 gems', '+1,200 gems'","ui","Data-driven, three rows","pr","R-STORE-1","","suggested"
+"TC-STORE-005","Store and currencies","No Ads purchase removes the banner and shows Owned","happy","state-transition","P1","Paid entitlement","Fresh save, No Ads not owned","1. Open the Store
+2. Tap No Ads ($2.99)
+3. Reload the game","","1. Toast 'Test purchase: No Ads activated'
+2. The No Ads card shows a disabled 'Owned' button
+3. After reload: still Owned, no banner in a level","ui","Entitlement must survive reloads","push","R-STORE-5","","suggested"
+"TC-STORE-006","Store and currencies","A player who owns No Ads is not sold No Ads again in the Special Offer","negative","decision-table","P1","Charging twice for an entitlement is a refund and trust problem","No Ads owned","1. Open the Store
+2. Look at the Special Offer card","","1. The offer either hides No Ads, shows it as owned, or is replaced; its price is not charged for No Ads again","ui","Cheap check once the rule is decided","pr","R-STORE-4 and R-STORE-5: the No Ads card checks state.noAds (js/app.js:324) but the offer card (js/app.js:314-318) does not; the offer pop-up does (js/app.js:698)","An owned entitlement should not be sold again (Q-01)","suggested"
+"TC-STORE-007","Store and currencies","Special Offer grants 1,200 gems, 10,000 coins and No Ads","happy","use-case","P1","Biggest bundle","Fresh save: 0 gems, 0 coins, No Ads not owned","1. Open the Store
+2. Tap the Special Offer ($4.99)","","1. Gems 1,200, coins 10,000, No Ads owned
+2. Toast 'Test purchase: +1,200 gems, +10,000 coins, No Ads'","ui","Exact numbers from the save","pr","R-STORE-4","","suggested"
+"TC-STORE-008","Store and currencies","Free Coins stop after the 5th video of the day","edge","boundary-value","P2","Daily cap on a free currency source","Fresh day: 5 free videos left","1. Watch Free Coins 5 times
+2. Look at the button","","1. Coins +100 each time (+500 total)
+2. The card says '0 left today' and the Watch button is disabled","ui","Boundary at 5; the test ad must be skippable in tests","nightly","R-STORE-6","","suggested"
+"TC-STORE-009","Store and currencies","Free Coins reset at the player's local midnight","edge","state-transition","P3","Time-based reset, low money impact","0 free videos left today","1. Move the device clock to the next local day (or the browser clock in the test)
+2. Open the Store","","1. The card says '5 left today' and Watch is enabled","ui","Playwright can fake the clock","nightly","R-STORE-6 (dayKey uses local time, js/app.js:302)","","suggested"
+"TC-STORE-010","Store and currencies","Restore purchases says No Ads is active when owned","happy","equivalence-partitioning","P3","Test-mode message only in this build","No Ads owned","1. Open Settings or the Store
+2. Tap Restore","","1. Toast 'No Ads is already active'","ui","Cheap","nightly","R-STORE-7","","suggested"
+"TC-STORE-011","Store and currencies","Double tap on a coin pack charges once","edge","error-guessing","P2","Double charges are a classic store bug","100 gems, 0 coins","1. Double tap the 1,000 coins pack quickly","","1. Either one purchase (gems 70, coins 1,000) or two clearly confirmed purchases (gems 40, coins 2,000); never a charge without the coins","manual","Decide first whether two quick taps should mean two purchases (Q-02)","release","error-guessing: buy() has no pending guard (js/app.js:374-394)","Each tap is a separate purchase today; a confirm step may be wanted (Q-02)","suggested"
+"TC-BOOST-001","Boosters and slots","Add Slot adds one slot and uses one booster","happy","use-case","P1","Main booster","In a level with the default slots, 1 Add Slot booster","1. Tap Add Slot","","1. One more slot appears
+2. Toast '+1 slot'
+3. Add Slot count drops by 1","ui","Core booster","pr","R-BOOST-3 (js/app.js:2123)","","suggested"
+"TC-BOOST-002","Boosters and slots","Add Slot at 7 slots is refused and does not use a booster","edge","boundary-value","P1","Limit that keeps levels fair","In a level, 7 slots already (add slots until 7), at least 1 Add Slot left","1. Tap Add Slot","","1. Toast 'Maximum slots reached'
+2. Still 7 slots
+3. Add Slot count unchanged","ui","Boundary from the code","pr","R-BOOST-3","","suggested"
+"TC-BOOST-003","Boosters and slots","+1 slot from Out of Slots respects the same 7-slot limit","edge","boundary-value","P2","Two paths to one limit should agree","In a level with 7 slots, run out of slots (debug: lose)","1. On Out of Slots, tap the +1 slot option
+2. Watch the test ad","","1. No eighth slot is added, or the option is not offered at 7","ui","Same boundary as TC-BOOST-002 on the other path","pr","R-BOOST-4: js/app.js:2681 pushes a slot without the check at js/app.js:2122","7 is the limit for every path (Q-03)","suggested"
+"TC-BOOST-004","Boosters and slots","Using a booster with none left shows 'No <name> left'","negative","equivalence-partitioning","P2","Must not work for free","In a level, 0 Shuffle boosters, Shuffle unlocked","1. Tap Shuffle","","1. Toast 'No Shuffle left'
+2. The line of blocks does not change","ui","Cheap","pr","R-BOOST-2","","suggested"
+"TC-BOOST-005","Boosters and slots","Shuffle unlocks at exactly 11 completed levels","edge","boundary-value","P2","Unlock boundary","10 levels completed, then 11","1. With 10 levels completed, start a level and look at Shuffle
+2. Complete one more level
+3. Start a level and look at Shuffle","","1. At 10: Shuffle is shown locked
+2. On the 11th win: 'New Booster!' pop-up for Shuffle
+3. At 11: Shuffle is usable","ui","Boundary; reachable with the debug win cheat (assisted)","nightly","R-BOOST-1 (js/app.js:1127, js/app.js:2199)","","suggested"
+"TC-BOOST-006","Boosters and slots","Tapping a locked booster says when it unlocks","negative","equivalence-partitioning","P3","Information only","Fewer than 14 levels completed","1. In a level, tap the locked Wind booster","","1. Toast 'Wind unlocks at level 15'
+2. No booster is used","ui","Cheap","nightly","js/app.js:2664 (booster-locked: unlockAt + 1)","","suggested"
+"TC-WIN-001","Level Complete and rewards","Continue on Level Complete pays the difficulty reward once","happy","equivalence-partitioning","P1","The reward for every level","0 coins, in an easy level","1. Win the level
+2. Tap Continue","easy 30, medium 45, hard 60","1. Level Complete shows '+30'
+2. Coins 0 -> 30 in the HUD and the save
+3. Same for medium (+45) and hard (+60)","ui","Data-driven over three difficulties; win with the debug cheat (assisted)","push","R-WIN-1","","suggested"
+"TC-WIN-002","Level Complete and rewards","Claim x2 pays double after the video","happy","equivalence-partitioning","P1","Reward tied to an ad view","0 coins, in an easy level","1. Win the level
+2. Tap Claim x2
+3. Finish the test ad","","1. Coins 0 -> 60","ui","Exact amount","pr","R-WIN-2","","suggested"
+"TC-WIN-003","Level Complete and rewards","Tapping outside Level Complete does not lose the reward","negative","state-transition","P1","A lost reward on every stray tap is a serious player-facing failure","0 coins, Level Complete open after a win","1. Tap the dark area outside the Level Complete window","","1. The pop-up stays open, or the reward is paid and the game moves on
+2. Coins are never left at 0 with the board empty","ui","One tap, exact check","pr","R-WIN-4: popup-complete (index.html:423) has no data-locked, and an overlay tap closes it (js/app.js:3028) without calling finishWin","Level Complete must not close without paying (Q-04)","suggested"
+"TC-WIN-004","Level Complete and rewards","A video ad plays after every second win in a row","happy","state-transition","P2","Ad frequency affects experience and revenue","No Ads not owned, 0 wins since the last ad","1. Win a level and tap Continue
+2. Win the next level and tap Continue","","1. No ad after the first win
+2. A test ad after the second win, then the next level starts","ui","Counter rule, stable","nightly","R-WIN-3","","suggested"
+"TC-WIN-005","Level Complete and rewards","No ad between wins when No Ads is owned","negative","decision-table","P1","Paid entitlement","No Ads owned","1. Win two levels in a row with Continue","","1. No video ad at any point
+2. No banner in the level","ui","Protects a paid entitlement","pr","R-WIN-3; R-STORE-5","","suggested"
+"TC-WIN-006","Level Complete and rewards","Claim x2 does not count toward the next forced ad","edge","decision-table","P3","Edge of the ad rule","No Ads not owned, 1 win since the last ad","1. Win a level
+2. Tap Claim x2 and finish the ad","","1. No second ad after the reward ad","ui","Third column of the ad decision table","nightly","R-WIN-3 (mult === 1 condition, js/app.js:2209)","","suggested"
+"TC-XP-001","Player XP and level locks","Winning levels raises player XP and level","happy","state-transition","P1","Level-gated content can only unlock through XP","Fresh save: level 1, XP 0/2","1. Win 3 levels with Continue
+2. Open the profile","","1. The XP bar moves after each win
+2. The player reaches level 2 or higher, as the XP rule defines","ui","Reads playerLevel and xp from the save","pr","R-XP-1, R-XP-2, R-XP-3: the bar and the locks exist, but no gameplay code adds XP","Wins should give XP; the amount is not written anywhere (Q-05)","suggested"
+"TC-XP-002","Player XP and level locks","A level-locked skin cannot be bought below its level","negative","boundary-value","P2","Locks must hold","Player level 1, enough gems","1. Open Skins
+2. Tap a skin locked at a higher player level","","1. Toast 'Unlocks at player level <n>'
+2. Gems unchanged, skin not owned","ui","Cheap","nightly","R-XP-2 (js/app.js:829)","","suggested"
+"TC-XP-003","Player XP and level locks","A skin unlocks exactly at its player level","edge","boundary-value","P3","Boundary of a lock","Player level n-1, then n (debug: levelup, assisted)","1. At level n-1, tap the skin
+2. Level up to n
+3. Tap the skin","","1. At n-1: locked message
+2. At n: the skin can be bought or equipped","ui","Boundary; uses the debug levelup (assisted)","nightly","R-XP-2 (state.playerLevel < s.level)","","suggested"
+"TC-NAME-001","Player name","A 14-character name is saved in full","happy","boundary-value","P3","Profile cosmetics","Profile open","1. Type the name
+2. Close the profile
+3. Reload","Abcdefghijklmn (14)","1. The name 'Abcdefghijklmn' shows in the profile after reload","ui","Cheap","nightly","R-NAME-1","","suggested"
+"TC-NAME-002","Player name","A 15th character cannot be typed","edge","boundary-value","P3","Profile cosmetics","Profile open","1. Type 15 characters","Abcdefghijklmno (15)","1. The field holds 'Abcdefghijklmn' (14)","ui","Cheap","nightly","R-NAME-1","","suggested"
+"TC-NAME-003","Player name","An empty or spaces-only name falls back to a default","negative","equivalence-partitioning","P3","Profile cosmetics","Profile open with a name set","1. Delete the whole name, or type only spaces
+2. Close the profile and reopen it","","1. A default name is shown, never an empty label","manual","Rule not written; check by hand first (Q-06)","release","web-checklist.md forms: empty and spaces only","A default name is expected (Q-06)","suggested"
+"TC-BUILD-001","Release build","The release build has no DBG button","happy","checklist","P1","The debug menu gives free coins, gems and wins","A release build (npm run build) served locally","1. Open the release build
+2. Look for the pink DBG button","","1. No DBG button
+2. Console says 'release build'","ui","Must block every release","release","R-BUILD-1","","suggested"
+"TC-BUILD-002","Release build","Debug cheats do nothing in the release build","negative","checklist","P1","Free currency in a store release","A release build served locally","1. Try to open the debug pop-up (keyboard shortcut or URL flag, if any)
+2. Try the debug localStorage flags","","1. No debug pop-up opens
+2. Coins and gems unchanged","ui","Release gate","release","R-BUILD-1; js/app.js:3197 (DEBUG-only localStorage flag)","","suggested"

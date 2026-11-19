@@ -1,0 +1,72 @@
+{
+  "url": "https://www.saucedemo.com/",
+  "title": "Swag Labs",
+  "lang": "en",
+  "headings": [],
+  "forms": [
+    {
+      "index": 0,
+      "method": "get",
+      "fields": [
+        {
+          "tag": "input",
+          "type": "text",
+          "name": "user-name",
+          "id": "user-name",
+          "label": "Username",
+          "placeholder": "Username",
+          "testId": "username",
+          "visible": true
+        },
+        {
+          "tag": "input",
+          "type": "password",
+          "name": "password",
+          "id": "password",
+          "label": "Password",
+          "placeholder": "Password",
+          "testId": "password",
+          "visible": true
+        }
+      ],
+      "buttons": [
+        {
+          "text": "Login",
+          "type": "submit",
+          "testId": "login-button",
+          "visible": true
+        }
+      ]
+    }
+  ],
+  "fieldsOutsideForms": [],
+  "buttonsOutsideForms": [],
+  "links": {
+    "total": 0,
+    "sameOrigin": 0,
+    "list": []
+  },
+  "images": {
+    "total": 0,
+    "withoutAlt": 0
+  },
+  "testIds": 7,
+  "errorsShown": [],
+  "storage": {
+    "localStorageKeys": [
+      "backtrace-guid",
+      "backtrace-last-active"
+    ],
+    "cookies": 0
+  },
+  "consoleErrors": [
+    {
+      "url": "https://www.saucedemo.com/",
+      "text": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+    },
+    {
+      "url": "https://www.saucedemo.com/",
+      "text": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+    }
+  ]
+}
